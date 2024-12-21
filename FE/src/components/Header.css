@@ -16,7 +16,7 @@
 .Header-Top-Buttons {
     width: 60px;
     font-size: 12px;
-    text-align: center;
+    text-align: right;
 }
 
 .Header-First {
@@ -42,7 +42,8 @@
 }
 
 .Header-First-Menu-Buttons {
-    width: 60px
+    width: 80px;
+    text-align:right;
 }
 
 .Header-Second-Menu {
@@ -55,4 +56,5 @@
 }
 .Header-Second-Menu-Buttons {
     width : 60px;
+    text-align: left;
 }

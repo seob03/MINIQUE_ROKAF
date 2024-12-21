@@ -1,10 +1,15 @@
-import Header from './components/Header';
 import { useState } from 'react';
 import { Routes, Route, Link } from 'react-router-dom';
+import './App.css';
+
+import Header from './components/Header';
 import NewsList from './pages/NewsList';
 import NewsWrite from './pages/NewsWrite';
 import Detail from './pages/Detail';
-import './App.css';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+
+
 
 
 function App() {
@@ -31,6 +36,8 @@ function App() {
             <Route path="/" element={<NewsList/>}/>
             <Route path="/write" element={<NewsWrite/>}/>
             <Route path="/detail" element={<Detail/>}/>
+            <Route path="/login" element={<Login/>}/>
+            <Route path="/signup" element={<SignUp/>}/>
             <Route path="/detail/:id" element={<Detail/>}/>
           </Routes>
         </div>

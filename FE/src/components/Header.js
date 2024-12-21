@@ -9,13 +9,17 @@ function Header() {
       <div className='Header-Top'>
         <div style={{ flexGrow: 1 }}></div>
         <div className='Header-Top-Right'>
-          <div className='Header-Top-Buttons'>로그아웃</div>
+          <div className='Header-Top-Buttons'>
+            <Link to="/login" style={{textDecoration: 'none', color: '#212120'}}>
+              로그인
+            </Link>
+          </div>
           <div className='Header-Top-Buttons'>내정보 </div>
         </div>
       </div>
       <div className='Header-First'>
         <div className='Header-First-Logo'>
-          <a href="#">
+          <a href="/">
             <Image src="./img/Logo_horizontal.svg" />
           </a>
         </div>
