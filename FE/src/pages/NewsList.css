@@ -1,0 +1,29 @@
+.Recommend-Container{
+    display: flex;
+}
+
+.Recommend-Title{
+    display : block;
+    font-size: 20px;
+}
+
+.Recommend-Carousel{
+    display : block;
+    height : 260px;
+}
+
+.Recommend-Button{
+    display : float;
+    align-items: center;
+}
+
+.Card{
+    height: 240px;
+    width: 240px;
+    background-color: blue;
+    border : 1px solid black;
+}
+
+.Recommend-Gallery{
+    display : flex;
+}
