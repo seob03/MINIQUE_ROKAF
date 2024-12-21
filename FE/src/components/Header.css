@@ -35,7 +35,7 @@
 
 .Header-First-Menu {
     display: flex;
-    font-size: 12px;
+    font-size: 14px;
     align-items: center;
     flex-grow: 1;
     justify-content: flex-end;
@@ -43,4 +43,16 @@
 
 .Header-First-Menu-Buttons {
     width: 60px
+}
+
+.Header-Second-Menu {
+    display: flex;
+    font-size: 16px;
+    font-weight: 500;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: flex-start;
+}
+.Header-Second-Menu-Buttons {
+    width : 60px;
 }

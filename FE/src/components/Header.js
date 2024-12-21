@@ -34,10 +34,10 @@ function Header() {
           </div>
         </div>
       </div>
-      <div style={{ display: 'flex', margintop: '20px' }}>
-        <div>BEST</div>
-        <div>GIRLS</div>
-        <div>BOYS</div>
+      <div className='Header-Second-Menu'>
+        <div className='Header-Second-Menu-Buttons'>BEST</div>
+        <div className='Header-Second-Menu-Buttons'>GIRLS</div>
+        <div className='Header-Second-Menu-Buttons'>BOYS</div>
       </div>
     </header>
   );
