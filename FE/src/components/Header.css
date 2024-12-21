@@ -1,0 +1,46 @@
+.Header {
+    width: 1024px;
+}
+
+.Header-Top {
+    display: flex;
+}
+
+.Header-Top-Right {
+    display: flex;
+    padding: 10px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.Header-Top-Buttons {
+    width: 60px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.Header-First {
+    background-color: #FFFEFC;
+    display: flex;
+}
+
+.Header-First-Logo {
+    flex-grow: 1;
+}
+
+.Header-First-SearchBar {
+    flex-grow: 2;
+    justify-content: center;
+}
+
+.Header-First-Menu {
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: flex-end;
+}
+
+.Header-First-Menu-Buttons {
+    width: 60px
+}

@@ -1,0 +1,35 @@
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link href="/write.css" rel="stylesheet">
+
+    </head>
+        
+    <form id="postForm" class="form-box">
+        <h4>글쓰기</h4>
+         <input id="title">
+         <input id="content">
+         <button type="submit">전송</button>
+     </form>
+    <script>
+        document.getElementById('postForm').addEventListener('submit', function(){
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+
+          fetch('/add', {
+            method : 'POST',
+            headers : { 'Content-Type' : 'application/json' },
+            body: JSON.stringify({
+                    title: title,
+                    content: content
+                })
+          })
+        })
+      </script>
+
+
+</html>
+

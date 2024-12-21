@@ -1,0 +1,32 @@
+.Search-Box{
+    display : flex;
+    border: 1px solid #B6B2AD;
+    border-radius : 0px;
+    width: 400px;
+    height: 40px;
+    align-items: center;
+}
+
+.Search-Input {
+    border-radius: 0px;
+    border: 1px solid #FFFEFC;
+    width : 360px;
+    height: 38px;
+}
+.Search-Input:focus {
+    border-radius: 0px;
+    outline: none;
+    width : 360px;
+    height: 38px;
+}
+
+.Search-Button {
+    border-radius: 0px;
+    background: none; 
+    border: 1px solid #FFFEFC;
+}
+
+.Search-Button:hover {
+    background: none;
+    border: 1px solid #FFFEFC;
+}
