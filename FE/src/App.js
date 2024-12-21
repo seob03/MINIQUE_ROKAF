@@ -10,8 +10,6 @@ import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 
 
-
-
 function App() {
   let currentDate = new Date();
   let [title, setTitle] = useState([]); // 최종 입력값
@@ -37,7 +35,7 @@ function App() {
             <Route path="/write" element={<NewsWrite/>}/>
             <Route path="/detail" element={<Detail/>}/>
             <Route path="/login" element={<Login/>}/>
-            <Route path="/signup" element={<SignUp/>}/>
+            <Route path="/signUp" element={<SignUp/>}/>
             <Route path="/detail/:id" element={<Detail/>}/>
           </Routes>
         </div>

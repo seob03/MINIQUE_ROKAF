@@ -16,7 +16,6 @@ function Detail(props) {
       .then((result) => {
         // 상태 업데이트
         setPageResult(result);
-        console.log(result); // 데이터를 콘솔에 출력
       })
       .catch((error) => {
         console.error('Error fetching data:', error);
@@ -28,14 +27,13 @@ function Detail(props) {
     <div>
       <div class="flex-container">
         <h4>
-          디테일 페이지
+          디테일 페이지@@@
         </h4>
       </div>
 
       <div class="flex-container">
         <div class="col image">
-          <Image src="./img/cloth_sample.png"/>
-          {/* <img src={pageResult.photo} /> */}
+          {<img src={pageResult.photo} />}
         </div>
         <div class="col contents">
           <div class="row h28">
