@@ -44,10 +44,6 @@ function Slider(props){
           {
               props.data.map(
                 function(a, i){
-                  console.log(JSON.stringify(a).photo);
-                  console.log(JSON.stringify(a.photo));
-                  console.log(a.photo);
-                  console.log(a);
                 return (
                     <Link to={'/detail/'+ a._id} key={a._id} style={{textDecoration: 'none', color: 'black'}}>
                       <Card img = {a.photo && a.photo} 

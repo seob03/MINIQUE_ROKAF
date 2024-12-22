@@ -9,8 +9,9 @@ function Login(){
         console.log("LoginMINIQUE 실행 성공")
         fetch('/login-POST', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: input_userName, password: input_userPassword})
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ username: input_userName, password: input_userPassword}),
+        withCredentials: true 
         })
         .then(response => response.json())
         .then(data => {

@@ -13,7 +13,10 @@ const path = require('path')
 app.use(express.static(path.join(__dirname,'../FE/build')))
 // 클라이언트-서버 포트 요청 열기
 const cors = require('cors');
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000', // React 프론트엔드 주소
+  credentials: true,  // 쿠키 전달 허용
+}));;
 // URL 파라미터에서 ObjectId 사용
 const {ObjectId} = require('mongodb')
 // BASE64로 사진 DB에 저장
@@ -31,38 +34,23 @@ const bcrypt = require('bcrypt')
 
 
 app.use(session({
-  secret: 'MINIQUE_PROJECT_PASSWORD_WITH_MS_HJ',
+  secret: 'express-session-secret-key',
   resave : false,
+  path: 'http//localhost:8080',
   saveUninitialized : false,
-  cookie : { 
-    maxAge : 60 * 60 * 1000,
+  cookie: { 
     httpOnly: true,
     secure: false,  // 개발 환경에서는 false로 설정
-  }, // ms 단위 (1시간으로 설정)
+    sameSite: 'Lax', // SameSite 설정
+    maxAge: 60 * 60 * 1000, // 세션 만료 시간
+  },
   store: MongoStore.create({
     mongoUrl : 'mongodb://127.0.0.1:27017',
     dbName: 'forum',
   })
 }))
-
 app.use(passport.initialize())
 app.use(passport.session())
-
-// 회원인지 검증하는 라이브러리 코드
-passport.use(new LocalStrategy(async (입력한아이디, 입력한비번, cb) => {
-  console.log("회원인지 검증 시작")
-  let result = await db.collection('user').findOne({ username : 입력한아이디})
-  if (!result) {
-    return cb(null, false, { message: '아이디 DB에 없음' })
-  }
-  // 해싱시킨 값으로 db 찾기
-  if (await bcrypt.compare(입력한비번, result.password)) {
-    return cb(null, result)    // 둘째 파라미터 result가 user 값이 됨
-  } else {
-    return cb(null, false, { message: '비번불일치' });
-  }
-}))
-
 
 
 
@@ -78,6 +66,36 @@ connectDB.then((client)=>{
   console.log(err)
 })
 
+passport.use(new LocalStrategy(async (입력한아이디, 입력한비번, cb) => {
+  console.log("회원 검증 시작: ", 입력한아이디, 입력한비번)
+  let result = await db.collection('user').findOne({ username : 입력한아이디})
+  console.log(result)
+  if (!result) {
+    return cb(null, false, { message: '아이디 DB에 없음' })
+  }
+  if (result.password == 입력한비번) {
+    console.log("비번 일치했습니다.")
+    return cb(null, result)
+  } else {
+    return cb(null, false, { message: '비번불일치' });
+  }
+}))
+
+passport.serializeUser((user, done) => {
+  console.log("serialize 실행")
+  process.nextTick(() => {
+    done(null, { id: user._id, username: user.username })
+  })
+})
+
+passport.deserializeUser((user, done) => {
+  console.log("deserialize 실행")
+  process.nextTick(() => {
+    return done(null, user)
+  })
+})
+
+
 // 데이터베이스에서 데이터를 가져오는 API
 app.get('/getDatabase', async (요청, 응답) => {
   try {
@@ -89,22 +107,23 @@ app.get('/getDatabase', async (요청, 응답) => {
 });
 
 
-
 app.get('/detail/:id', async (요청, 응답) => {
   let detailPage = await db.collection('post').findOne({_id : new ObjectId(요청.params.id)})
   응답.json(detailPage);
 })
 
 app.get('/login', async (요청, 응답) => {
-  console.log("11111:", 요청.user)
+  console.log("로그인 페이지", 요청.user)
   응답.sendFile(path.join(__dirname, '../FE/build/index.html'))
 })
 
 app.get('/',  async (요청, 응답) => {
+  console.log("메인페이지", 요청.user)
   응답.sendFile(path.join(__dirname, '../FE/build/index.html'))
 })
 
 app.get('/write',  async (요청, 응답) => {
+  console.log("글쓰기 페이지", 요청.user)
   응답.sendFile(path.join(__dirname, '../FE/build/index.html'))
 })
 
@@ -124,62 +143,22 @@ app.get('/signUp', async (요청, 응답) => {
 app.post('/signUp-POST', async (요청, 응답) => {
   let result = await db.collection('user').insertOne({ 
     username : 요청.body.username, 
-    password : await bcrypt.hash(요청.body.password, 10),
+    password : 요청.body.password,
   })
   console.log(요청.body);
 })
 
 // 로그인 API
 app.post('/login-POST', async (요청, 응답, next) => {
-    passport.authenticate('local', (error, user, info) => {
-        if (error) {
-          console.log("에러 발생:", error);  // 로그인 에러 로그
-          return 응답.status(500).json(error)
-        }
-        if (!user) {
-          console.log("로그인 실패:", info ? info.message : "알 수 없는 이유");
-          return 응답.status(401).json(info.message)
-        }
+  passport.authenticate('local', (error, user, info) => {
+    if (error) return 응답.status(500).json(error)
+    if (!user) return 응답.status(401).json(info.message)
+    요청.logIn(user, (err) => {
+      if (err) return next(err)
+      console.log('로그인 후 세션:', 요청.session);
 
-        요청.logIn(user, (err) => {
-          // 로그인 실패시 에러 메세지가 화면에 뜬다
-          if (err) {
-            console.log('로그인 실패');
-            return next(err)
-          }
-          // 로그인 후 세션 정보를 확인
-          console.log('로그인 후 세션:', 요청.session);
-          // 세션에 저장된 값 확인
-          console.log('세션에 저장된 user:', 요청.user);  // 요청 객체에서 세션 값을 확인
-          console.log('로그인 성공');
-        })
-    })(요청, 응답, next)
+      // 이거 아래 없으면 진짜 큰일난다 이거 5시간 박았음 이거 없으면 쿠키 안생김 왜지?>?
+      응답.json({ message: '로그인 성공' });  // 로그인 성공 후 응답
+    })
+})(요청, 응답, next)
 })
-
-// 로그인 성공하면 세션 생성 + 제공
-passport.serializeUser((user, done) => { // 여기 있는 user는 DB에서 가져온 유저 정보
-  console.log("serializeUser 호출됨:", user);  // 로그로 확인
-  process.nextTick(() => {
-    // 유저가 회원가입한 정보를 가져와서 세션에 데이터 넣는 과정 (유저의 document _id와 username만 저장)
-    done(null, { id: user._id, username: user.username })
-  })
-})
-
-// 쿠키 뜯어서 확인
-passport.deserializeUser(async (user, done) => { // user에는 세션에 serializeUser()으로 넣은 데이터가 들어있다.
-  console.log('deserializeUser 호출됨:', user);
-  try {
-      let result = await db.collection('user').findOne({ _id: new ObjectId(user.id) });
-      delete result.password
-      console.log('DB 조회 결과:', result);
-      if (!result) {
-          return done(new Error('사용자 정보를 찾을 수 없음'));
-      }
-      // 결과가 있을 경우, done 호출
-      console.log('사용자 정보 찾음:', result);  // 사용자 정보 찾았을 때 로그
-      done(null, result);  // 정상적으로 처리된 경우 done 호출
-  } catch (error) {
-      console.error('deserializeUser 오류:', error);
-      done(error);
-  }
-});
