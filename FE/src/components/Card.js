@@ -1,9 +1,11 @@
-import './Card.css';
+import './style/Card.css';
 
 function Card(props){
     return (
         <div className="CardContainer">
-            <div className="CardImage">
+            <div className="CardImage" 
+                style={{backgroundImage: `url(${props.img})`}}
+            >
                 <img src={props.img}/>
             </div>
             <div className="Card-First">

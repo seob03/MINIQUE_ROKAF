@@ -1,11 +1,9 @@
 import {useState, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
-import Slider from '../components/Slide';
+import Slider from '../components/Slider';
 import Card from '../components/Card';
-import './NewsList.css';
+import './style/NewsList.css';
 
 function NewsList(){
-    let navigate = useNavigate();
     let [postData, setpostData] = useState([]); // 최종 입력값
     // 백엔드에서 데이터 가져오기 (MS)
     useEffect(() => {
@@ -38,21 +36,7 @@ function NewsList(){
           <div className="Recommend-Container">
             <Slider data={postData}/>
           </div>
-          {/* {
-              postData.map(function(a, i){
-                return (
-                  <div className="list">
-                    <h4 onClick={()=>{
-                      navigate('/detail/'+ a._id)
-                    }}>
-                      제목 : {a.title}
-                      {a.photo && <img src={a.photo} alt="Preview" style={{maxWidth: '200px', margin: '10px 0' }} />}
-                    </h4 >
-                  </div>
-                )
-              })
-          } */}
-          </div>
+        </div>
       </div>
       <div>
         {/* <div className="Recommend-Title">

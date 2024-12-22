@@ -1,4 +1,4 @@
-import './Header.css';
+import './style/Header.css';
 import SearchBar from './SearchBar';
 import Image from 'react-bootstrap/Image';
 import {Link} from 'react-router-dom';
