@@ -31,6 +31,8 @@ function Slider(props){
     slideRef.current.style.transition = "all 0.5s ease-in-out";
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`; // 백틱을 사용하여 슬라이드로 이동하는 애니메이션을 만듭니다.
   }, [currentSlide]);
+
+  
   return (
       <div className="Container">
         <img 
@@ -42,15 +44,19 @@ function Slider(props){
           {
               props.data.map(
                 function(a, i){
+                  console.log(JSON.stringify(a).photo);
+                  console.log(JSON.stringify(a.photo));
+                  console.log(a.photo);
+                  console.log(a);
                 return (
-                  <Link to={'/detail/'+ a._id} key={a._id}>
-                    <Card img={a.photo && <img src={a.photo} alt="Preview" style={{ maxWidth: '240px'}}/>} 
-                      brand={'MONCLER'}
-                      title={a.title}
-                      size={'52'} 
-                      price={'39000'}
-                    />
-                  </Link>
+                    <Link to={'/detail/'+ a._id} key={a._id} style={{textDecoration: 'none', color: 'black'}}>
+                      <Card img = {a.photo && a.photo} 
+                        brand={'MONCLER'}
+                        title={a.title}
+                        size={'52'} 
+                        price={'39000'}
+                      />
+                    </Link>
                 )
               })
           }

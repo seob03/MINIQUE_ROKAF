@@ -46,8 +46,8 @@ function NewsList(){
                       navigate('/detail/'+ a._id)
                     }}>
                       제목 : {a.title}
-                      {a.photo && <img src={a.photo} alt="Preview" style={{ maxWidth: '200px', margin: '10px 0' }} />}
-                    </h4>
+                      {a.photo && <img src={a.photo} alt="Preview" style={{maxWidth: '200px', margin: '10px 0' }} />}
+                    </h4 >
                   </div>
                 )
               })
