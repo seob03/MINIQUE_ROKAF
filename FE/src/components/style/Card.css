@@ -20,20 +20,20 @@
 .Card-First{
     display : flex;
     font-size: 12px;
-    font-weight: 350;
     margin-bottom: 2px;
+    font-family: NotoSansKR-Medium;
 }
 
 .Card-Title{
     display : block;
     font-Size : 16px;
-    font-weight:700;
     margin-top: 2px;
     margin-bottom: 2px;
+    font-family: NotoSansKR-Regular;
 }
 
 .Card-Price{
     display : block;
     font-Size : 16px;
-    font-weight: 700;
+    font-family: NotoSansKR-Bold;
 }

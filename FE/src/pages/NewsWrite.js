@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import './style/NewsWrite.css';
 
 function NewsWrite() {
     let [제목, 제목변경]=useState(''); // 실시간 입력값 받아오기
@@ -33,19 +34,81 @@ function NewsWrite() {
 
     return (
         <>
-            <div>글쓰기페이지</div>
-            <input onChange={(e) => {
-                제목변경(e.target.value);
-            }} type="text"/>
-            
-            <input onChange={(e) => {
-                내용변경(e.target.value);
-            }} type="text"/>
-            
-
+            <div className='Write-Title-1'>
+                상품 등록하기
+            </div>
             <div>
+                <div className="Write-Title-2">
+                    이미지 업로드
+                </div>
+                <div>
                 <input type="file" accept="image/*" onChange={handleFileChange} />
                 {이미지 && <img src={이미지} alt="Preview" style={{ maxWidth: '200px', margin: '10px 0' }} />}
+            </div>
+            </div>
+            <div className="Write-Input-Row">
+                <div className="Write-Title-2">
+                    상품명
+                </div>
+                <input 
+                className="Write-Input-Title"
+                onChange={(e) => {
+                    제목변경(e.target.value);
+                }} 
+                type="text"/>
+                <div style={{justifycontent: 'flex-end', marginLeft: '20px'}}>
+                    {제목.length}/40
+                </div>
+            </div>
+            <div className="Write-Input-Row">
+                <div className="Write-Title-2">
+                    상품 상세 설명
+                </div>
+                <input 
+                    className="Write-Input-Content"
+                    onChange={(e) => {
+                        내용변경(e.target.value);
+                    }} 
+                    type="text"
+                />
+                <div style={{display: 'block', marginLeft: '20px'}}>
+                    {내용.length}/200
+                </div>
+            </div>
+            <div className="Write-Input-Row">
+                <div className="Write-Title-2">
+                    아이 정보 입력
+                </div>
+                <input 
+                    className="Write-Input"
+                    type="text"
+                />
+            </div>
+            <div className="Write-Input-Row">
+                <div className="Write-Title-2">
+                    상품 상태
+                </div>
+                <input 
+                    className="Write-Input"
+                    type="text"
+                />
+            </div>
+            <div className="Write-Input-Row">
+                <div className="Write-Title-2">
+                    카테고리
+                </div>
+            </div>
+            <div className="Write-Input-Row">
+                <div className="Write-Title-2">
+                    가격
+                </div>
+                <input 
+                    className="Write-Input-Price"
+                    type="text"
+                />
+                <div>
+                    원
+                </div>
             </div>
             <button onClick={PostNews}>글쓰기</button>
         </>

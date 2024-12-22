@@ -4,6 +4,7 @@
 
 .Header-Top {
     display: flex;
+    font-family: NotoSansKR-Regular;
 }
 
 .Header-Top-Right {
@@ -22,6 +23,7 @@
 .Header-First {
     background-color: #FFFEFC;
     display: flex;
+    font-family: NotoSansKR-Regular;
 }
 
 .Header-First-Logo {
@@ -53,8 +55,11 @@
     align-items: center;
     flex-grow: 1;
     justify-content: flex-start;
+    font-family: NotoSansKR-Medium;
+    margin-top:4px;
 }
 .Header-Second-Menu-Buttons {
     width : 60px;
     text-align: left;
+    margin-right: 6px;
 }

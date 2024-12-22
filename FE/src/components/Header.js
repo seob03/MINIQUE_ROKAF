@@ -28,13 +28,13 @@ function Header() {
         </div>
         <div className='Header-First-Menu'>
           <div className='Header-First-Menu-Buttons'>
-            <Link href="/" style={{textDecoration: 'none', color: 'black'}}>채팅내역</Link>
+            <Link to="/" style={{textDecoration: 'none', color: 'black'}}>채팅내역</Link>
           </div>
           <div className='Header-First-Menu-Buttons'>
-            <Link href="/" style={{textDecoration: 'none', color: 'black'}}>판매내역</Link>
+            <Link to="/write" style={{textDecoration: 'none', color: 'black'}}>판매하기</Link>
           </div>
           <div className='Header-First-Menu-Buttons'>
-            <Link href="/" style={{textDecoration: 'none', color: 'black'}}>내 상점</Link>
+            <Link to="/" style={{textDecoration: 'none', color: 'black'}}>내 상점</Link>
           </div>
         </div>
       </div>

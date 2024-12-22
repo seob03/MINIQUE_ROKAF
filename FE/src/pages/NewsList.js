@@ -39,9 +39,9 @@ function NewsList(){
         </div>
       </div>
       <div>
-        {/* <div className="Recommend-Title">
+        <div className="Recommend-Title">
           지금, 회원님의 지역 상품
-        </div> */}
+        </div>
         <div className="Recommend-Container"></div>
       </div>
     </div>

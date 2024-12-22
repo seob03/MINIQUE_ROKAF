@@ -1,6 +1,33 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family:   NotoSans-Regular,
+  NotoSansKR-Regular,
+  NotoSans-Medium,
+  NotoSansKR-Medium,
+  NotoSans-Black,
+  NotoSans-BlackItalic,
+  NotoSans-Bold,
+  NotoSans-BoldItalic,
+  NotoSans-ExtraBold,
+  NotoSans-ExtraBoldItalic,
+  NotoSans-ExtraLight,
+  NotoSans-ExtraLightItalic,
+  NotoSans-Italic,
+  NotoSans-Light,
+  NotoSans-LightItalic,
+  NotoSans-MediumItalic,
+  NotoSans-SemiBold,
+  NotoSans-SemiBoldItalic,
+  NotoSans-Thin,
+  NotoSans-ThinItalic,
+  NotoSansKR-Black,
+  NotoSansKR-Bold,
+  NotoSansKR-ExtraBold,
+  NotoSansKR-ExtraLight,
+  NotoSansKR-Light,
+  NotoSansKR-SemiBold,
+  NotoSansKR-Thin,
+  -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -10,4 +37,139 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+@font-face {
+  font-family: NotoSans-Black;
+  src: url('./fonts/NotoSans-Black.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-BlackItalic;
+  src: url('./fonts/NotoSans-BlackItalic.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-Bold;
+  src: url('./fonts/NotoSans-Bold.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-BoldItalic;
+  src: url('./fonts/NotoSans-BoldItalic.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-ExtraBold;
+  src: url('./fonts/NotoSans-ExtraBold.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-ExtraBoldItalic;
+  src: url('./fonts/NotoSans-ExtraBoldItalic.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-ExtraLight;
+  src: url('./fonts/NotoSans-ExtraLight.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-ExtraLightItalic;
+  src: url('./fonts/NotoSans-ExtraLightItalic.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-Italic;
+  src: url('./fonts/NotoSans-Italic.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-Light;
+  src: url('./fonts/NotoSans-Light.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-LightItalic;
+  src: url('./fonts/NotoSans-LightItalic.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-Medium;
+  src: url('./fonts/NotoSans-Medium.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-MediumItalic;
+  src: url('./fonts/NotoSans-MediumItalic.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-Regular;
+  src: url('./fonts/NotoSans-Regular.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-SemiBold;
+  src: url('./fonts/NotoSans-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-SemiBoldItalic;
+  src: url('./fonts/NotoSans-SemiBoldItalic.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-Thin;
+  src: url('./fonts/NotoSans-Thin.ttf');
+}
+
+@font-face {
+  font-family: NotoSans-ThinItalic;
+  src: url('./fonts/NotoSans-ThinItalic.ttf');
+}
+
+@font-face {
+  font-family: NotoSansKR-Black;
+  src: url('./fonts/NotoSansKR-Black.ttf');
+}
+
+@font-face {
+  font-family: NotoSansKR-Bold;
+  src: url('./fonts/NotoSansKR-Bold.ttf');
+}
+
+@font-face {
+  font-family: NotoSansKR-ExtraBold;
+  src: url('./fonts/NotoSansKR-ExtraBold.ttf');
+}
+
+@font-face {
+  font-family: NotoSansKR-ExtraLight;
+  src: url('./fonts/NotoSansKR-ExtraLight.ttf');
+}
+
+@font-face {
+  font-family: NotoSansKR-Light;
+  src: url('./fonts/NotoSansKR-Light.ttf');
+}
+
+@font-face {
+  font-family: NotoSansKR-Medium;
+  src: url('./fonts/NotoSansKR-Medium.ttf');
+}
+
+@font-face {
+  font-family: NotoSansKR-Regular;
+  src: url('./fonts/NotoSansKR-Regular.ttf');
+}
+
+@font-face {
+  font-family: NotoSansKR-SemiBold;
+  src: url('./fonts/NotoSansKR-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: NotoSansKR-Thin;
+  src: url('./fonts/NotoSansKR-Thin.ttf');
 }
