@@ -10,6 +10,9 @@
 .CardImage{
     width: 240px;
     height: 240px;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
     margin-top: 10px;
     margin-bottom: 4px;
 }

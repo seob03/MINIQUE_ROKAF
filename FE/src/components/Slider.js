@@ -1,14 +1,12 @@
 import React from "react";
-import styled from "styled-components";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Card from '../components/Card';
-import './Slide.css';
-
-const TOTAL_SLIDES = 1;
+import Card from './Card';
+import './style/Slider.css';
 
 function Slider(props){
   const [currentSlide, setCurrentSlide] = useState(0);
+  const TOTAL_SLIDES = Math.ceil(props.data.length / 3);
   const slideRef = useRef(null);
 
   const nextSlide = () => {
@@ -56,21 +54,6 @@ function Slider(props){
                 )
               })
           }
-            {/* <Card img={'https://picsum.photos/240/240'} 
-              brand={'MONCLER'}
-              title={'a.title'}
-              size={'52'} 
-              price={'39000'}/>
-            <Card img={'https://picsum.photos/240/240'} 
-              brand={'Polo Ralph Lauren'}
-              title={'폴로 여아 셔츠 팔아요'}
-              size={'64'} 
-              price={'32000'}/>
-            <Card img={'https://picsum.photos/240/240'} 
-              brand={'Polo Ralph Lauren'}
-              title={'폴로 남아 셔츠 팔아요'}
-              size={'58'} 
-              price={'32000'}/> */}
         </div>
         <img 
         src='./img/Carousel_right.svg' 
