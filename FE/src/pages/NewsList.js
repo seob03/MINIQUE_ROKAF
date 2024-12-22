@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Slider from '../components/Slide';
+import Card from '../components/Card';
 import './NewsList.css';
 
 function NewsList(){
@@ -35,18 +36,9 @@ function NewsList(){
         </div>
         <div className="Recommend-Carousel">
           <div className="Recommend-Container">
-            <img src='./img/Carousel_left.svg' className='Recomment-Button'/>
-            <div className="Card">1</div>
-            <div className="Card">2</div>
-            <div className="Card">3</div>
-            <div className="Card">4</div>
-            <div className="Card">5</div>
-            <div className="Card">6</div>
-            <div className="Card">7</div>
-            <div className="Card">8</div>
-            <img src='./img/Carousel_right.svg' className='Recomment-Button'/>
+            <Slider data={postData}/>
           </div>
-          {
+          {/* {
               postData.map(function(a, i){
                 return (
                   <div className="list">
@@ -59,13 +51,13 @@ function NewsList(){
                   </div>
                 )
               })
-          }
+          } */}
           </div>
       </div>
       <div>
-        <div className="Recommend-Title">
+        {/* <div className="Recommend-Title">
           지금, 회원님의 지역 상품
-        </div>
+        </div> */}
         <div className="Recommend-Container"></div>
       </div>
     </div>

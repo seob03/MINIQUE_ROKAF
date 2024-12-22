@@ -1,0 +1,16 @@
+.Container {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+}
+
+.SliderContainer {
+    width: 100%;
+    display: flex; 
+}
+
+.SliderButton {
+    display: float;
+    align-items: center;
+    cursor: pointer;
+}
