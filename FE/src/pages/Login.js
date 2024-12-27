@@ -1,10 +1,11 @@
-import {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom';
+import {useState} from 'react';
+import { Link , useNavigate} from 'react-router-dom';
 
 function Login(){
     let [input_userName, setUserName]=useState(''); // 실시간 입력값 받아오기
     let [input_userPassword, setUserPassword]=useState('');
 
+    let navigate = useNavigate();
     function LoginMINIQUE(){
         console.log("LoginMINIQUE 실행 성공")
         fetch('/login-POST', {
@@ -16,6 +17,7 @@ function Login(){
         .then(response => response.json())
         .then(data => {
         console.log('서버 응답:', data);
+        navigate(-1);
         })
         .catch(error => {
         console.error('fetch 오류:', error);

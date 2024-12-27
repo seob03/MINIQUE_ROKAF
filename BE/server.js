@@ -108,8 +108,8 @@ app.get('/getDatabase', async (요청, 응답) => {
 
 
 app.get('/detail/:id', async (요청, 응답) => {
-  let detailPage = await db.collection('post').findOne({_id : new ObjectId(요청.params.id)})
-  응답.json(detailPage);
+    let detailPage = await db.collection('post').findOne({_id : new ObjectId(요청.params.id)})
+    응답.json(detailPage);
 })
 
 app.get('/login', async (요청, 응답) => {
@@ -118,13 +118,19 @@ app.get('/login', async (요청, 응답) => {
 })
 
 app.get('/',  async (요청, 응답) => {
-  console.log("메인페이지", 요청.user)
   응답.sendFile(path.join(__dirname, '../FE/build/index.html'))
 })
 
 app.get('/write',  async (요청, 응답) => {
-  console.log("글쓰기 페이지", 요청.user)
-  응답.sendFile(path.join(__dirname, '../FE/build/index.html'))
+  if (요청.user)
+    응답.sendFile(path.join(__dirname, '../FE/build/index.html'))
+})
+
+app.get('/checkLogin',  async (요청, 응답) => {
+  if (요청.user) // 로그인 상태
+    응답.send(true);
+  else
+    응답.send(false)
 })
 
 app.post('/add', async (요청, 응답) => {

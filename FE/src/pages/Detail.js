@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import Image from 'react-bootstrap/Image';
 import './style/Detail.css';
 
 function Detail(props) {

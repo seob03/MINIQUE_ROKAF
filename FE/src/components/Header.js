@@ -3,7 +3,7 @@ import SearchBar from './SearchBar';
 import Image from 'react-bootstrap/Image';
 import {Link} from 'react-router-dom';
 
-function Header() {
+function Header(props) {
   return (
     <header className='Header'>
       <div className='Header-Top'>
@@ -31,7 +31,9 @@ function Header() {
             <Link to="/" style={{textDecoration: 'none', color: 'black'}}>채팅내역</Link>
           </div>
           <div className='Header-First-Menu-Buttons'>
-            <Link to="/write" style={{textDecoration: 'none', color: 'black'}}>판매하기</Link>
+          {(props.isLoggedIn) ?
+            <Link to="/write" style={{textDecoration: 'none', color: 'black'}}>판매하기</Link> : 
+            <Link to="/login" style={{textDecoration: 'none', color: 'black'}}>판매하기</Link>}
           </div>
           <div className='Header-First-Menu-Buttons'>
             <Link to="/" style={{textDecoration: 'none', color: 'black'}}>내 상점</Link>
