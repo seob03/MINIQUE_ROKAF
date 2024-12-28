@@ -1,12 +1,12 @@
 import './style/Card.css';
+import ImageResizer from './ImageResizer';
 
 function Card(props){
     return (
         <div className="CardContainer">
             <div className="CardImage" 
-                style={{backgroundImage: `url(${props.img})`}}
             >
-                <img src={props.img}/>
+                <img />
             </div>
             <div className="Card-First">
                 <div>

@@ -1,12 +1,16 @@
 import {useState} from 'react';
 import { Link , useNavigate} from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeLogIn } from "../store/store.js";
 
 function Login(){
     let [input_userName, setUserName]=useState(''); // 실시간 입력값 받아오기
     let [input_userPassword, setUserPassword]=useState('');
 
     let navigate = useNavigate();
-    function LoginMINIQUE(){
+    let dispatch = useDispatch();
+
+    function handleLogin(){
         console.log("LoginMINIQUE 실행 성공")
         fetch('/login-POST', {
         method: 'POST',
@@ -17,6 +21,7 @@ function Login(){
         .then(response => response.json())
         .then(data => {
         console.log('서버 응답:', data);
+        dispatch(changeLogIn(true));
         navigate(-1);
         })
         .catch(error => {
@@ -35,7 +40,7 @@ function Login(){
                 setUserPassword(e.target.value);
             }} type="text"/>
             
-            <button onClick={LoginMINIQUE}>로그인</button>
+            <button onClick={handleLogin}>로그인</button>
             <button onClick={console.log('회원가입 페이지 입장합니다.')}>
                 <Link to= "/signUp" style={{textDecoration: 'none', color: '#212120'}}>
                     회원가입

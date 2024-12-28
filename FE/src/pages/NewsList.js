@@ -34,7 +34,13 @@ function NewsList(){
         </div>
         <div className="Recommend-Carousel">
           <div className="Recommend-Container">
-            <Slider data={postData}/>
+            <Slider data={[{
+              photo: './img/jilsander.png',
+              size: '52',
+              title: '제발돼라',
+              price: '1억'
+            }]
+            }/>
           </div>
         </div>
       </div>
