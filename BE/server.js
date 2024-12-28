@@ -112,6 +112,12 @@ app.get('/detail/:id', async (요청, 응답) => {
     응답.json(detailPage);
 })
 
+// 
+app.delete('/delete/:id', async (요청, 응답) => {
+  let result = await db.collection('post').deleteOne( { _id : new ObjectId(요청.params.id) } )
+  응답.json({message : '삭제완료'})
+})
+
 // 현재 로그인된 유저 정보 보내주는 API (NewsWrite.js 에서 사용)
 app.get('/getUserInfo', async (요청, 응답) => {
     응답.json(요청.user);
@@ -132,12 +138,11 @@ app.get('/write',  async (요청, 응답) => {
 })
 
 app.get('/checkLogin',  async (요청, 응답) => {
-  if (요청.user) // 로그인 상태
-    응답.send(true);
-  else
-    응답.send(false)
+  if (요청.user) 응답.send(true);
+  else 응답.send(false)
 })
 
+// 글쓸 때 받는 API (NewsWrite.js에서 사용)
 app.post('/add', async (요청, 응답) => {
   console.log('요청.body 값: ', 요청.body)
   console.log('요청.user 값: ', 요청.user)

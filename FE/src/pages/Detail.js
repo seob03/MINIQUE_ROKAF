@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import Card from '../components/Card.js';
-import {DeleteButton} from '../components/Buttons.js';
+import {useNavigate} from 'react-router-dom';
 import './style/Detail.css';
 
 function Detail(props) {
@@ -23,6 +23,22 @@ function Detail(props) {
       });
   }, [id]); // id가 바뀔 때마다 요청을 다시 보냄
 
+  let navigate = useNavigate();
+  function handleDelete() {
+    fetch('/delete/' + id, 
+    {
+      method : 'DELETE',
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('서버 응답:', data);
+      alert("글 삭제되었습니다.")
+      navigate('/');
+    })
+    .catch((error) => {
+      console.error('Error fetching data:', error);
+    });
+  }
 
   return (
     <div>
@@ -58,7 +74,7 @@ function Detail(props) {
           <div>
             톡하기 버튼
           </div>
-          <div className='DeleteButton' onClick={()=>console.log('삭제하실?')}>
+          <div className='DeleteButton' onClick={handleDelete}>
             삭제
           </div>
         </div>
