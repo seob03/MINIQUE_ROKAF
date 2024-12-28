@@ -10,7 +10,7 @@ function Slider(props){
   const slideRef = useRef(null);
 
   const nextSlide = () => {
-    if (currentSlide >= TOTAL_SLIDES) { // 더 이상 넘어갈 슬라이드가 없으면 슬라이드를 초기화합니다.
+    if (currentSlide >= TOTAL_SLIDES-1) { // 더 이상 넘어갈 슬라이드가 없으면 슬라이드를 초기화합니다.
       setCurrentSlide(0);
     } else {
       setCurrentSlide(currentSlide + 1);
@@ -47,11 +47,12 @@ function Slider(props){
                 function(a, i){
                 return (
                     <Link to={'/detail/'+ a._id} key={a._id} style={{textDecoration: 'none', color: 'black'}}>
-                      <Card photo = {a.photo && a.photo} 
+                      <Card 
+                        photo={a.productPhoto && a.productPhoto} 
                         brand={'MONCLER'}
-                        title={a.title}
-                        size={'52'} 
-                        price={'39000'}
+                        title={a.productTitle}
+                        size ={a.childAge} 
+                        price={a.productPrice}
                       />
                     </Link>
                 )

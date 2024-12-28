@@ -32,16 +32,16 @@ function Detail(props) {
 
       <div class="flex-container">
         <div class="col image">
-          {<img src={pageResult.photo} />}
+          {<img src={pageResult.productPhoto} />}
         </div>
         <div class="col contents">
           <div class="row h28">
-            {pageResult.title}
+            {pageResult.productTitle}
           </div>
           <div class="row h24">
           </div>
           <div class="row h56">
-            {pageResult.content}
+            {pageResult.productDetailContent}
           </div>
           <div>
             내비게이션

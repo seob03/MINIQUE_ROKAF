@@ -5,12 +5,12 @@ import './style/NewsList.css';
 
 function NewsList(){
     let [postData, setpostData] = useState([]); // 최종 입력값
-    // 백엔드에서 데이터 가져오기 (MS)
+    // 백엔드에서 데이터 가져오기
     useEffect(() => {
       fetch('/getDatabase')
         .then((response) => response.json())
-        .then((result) => {
-          setpostData(result);
+        .then((DB_result) => {
+          setpostData(DB_result);
         })
         .catch((error) => {
           console.error('Error fetching data:', error);

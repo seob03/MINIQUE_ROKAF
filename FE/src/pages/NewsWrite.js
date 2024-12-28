@@ -3,9 +3,16 @@ import {useNavigate} from 'react-router-dom';
 import './style/NewsWrite.css';
 
 function NewsWrite() {
-    let [제목, 제목변경]=useState(''); // 실시간 입력값 받아오기
-    let [내용, 내용변경]=useState(''); // 실시간 입력값 받아오기
-    let [이미지, 이미지변경] = useState(null); // BASE64 데이터
+    
+    // DB 상태 관리
+    let [상품명, 상품명변경]=useState(''); 
+    let [상품상세설명, 상품상세설명변경]=useState(''); 
+    let [이미지, 이미지변경] = useState(null); 
+    let [개월수정보, 개월수변경] = useState('');
+    let [상품상태, 상품상태변경] = useState('');
+    let [가격, 가격변경] = useState(''); 
+
+
     let navigate = useNavigate();
     let [isLoggedIn, setIsLoggedIn] = useState(null); // 로그인 상태를 추적할 상태
     useEffect(() => {
@@ -30,15 +37,24 @@ function NewsWrite() {
       }
    
     function PostNews(){
-        if(isLoggedIn){
+        if (isLoggedIn) {
+            console.log('fetch 실행이요');
             fetch('/add', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title: 제목, content: 내용, photo: 이미지 })
+            body: JSON.stringify({ 
+                productName: 상품명, 
+                productDetailContent: 상품상세설명, 
+                productPhoto: 이미지,
+                childAge: 개월수정보,
+                productQuality: 상품상태,
+                productPrice: 가격
+            })
             })
             .then(response => response.json())
             .then(data => {
             console.log('서버 응답:', data);
+            navigate('/'); // 글 쓰기 완료하면 메인 페이지로 보내기
             })
             .catch(error => {
             console.error('fetch 오류:', error);
@@ -80,11 +96,11 @@ function NewsWrite() {
                 <input 
                 className="Write-Input-Title"
                 onChange={(e) => {
-                    제목변경(e.target.value);
+                    상품명변경(e.target.value);
                 }} 
                 type="text"/>
                 <div style={{justifycontent: 'flex-end', marginLeft: '20px'}}>
-                    {제목.length}/40
+                    {상품명.length}/40
                 </div>
             </div>
             <div className="Write-Input-Row">
@@ -94,12 +110,12 @@ function NewsWrite() {
                 <input 
                     className="Write-Input-Content"
                     onChange={(e) => {
-                        내용변경(e.target.value);
+                        상품상세설명변경(e.target.value);
                     }} 
                     type="text"
                 />
                 <div style={{display: 'block', marginLeft: '20px'}}>
-                    {내용.length}/200
+                    {상품상세설명.length}/200
                 </div>
             </div>
             <div className="Write-Input-Row">
@@ -108,6 +124,9 @@ function NewsWrite() {
                 </div>
                 <input 
                     className="Write-Input"
+                    onChange={(e) => {
+                        개월수변경(e.target.value);
+                    }} 
                     type="text"
                 />
             </div>
@@ -117,6 +136,9 @@ function NewsWrite() {
                 </div>
                 <input 
                     className="Write-Input"
+                    onChange={(e) => {
+                        상품상태변경(e.target.value);
+                    }} 
                     type="text"
                 />
             </div>
@@ -131,6 +153,9 @@ function NewsWrite() {
                 </div>
                 <input 
                     className="Write-Input-Price"
+                    onChange={(e) => {
+                        가격변경(e.target.value);
+                    }} 
                     type="text"
                 />
                 <div>

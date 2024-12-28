@@ -54,7 +54,7 @@ function Header() {
         <div className='Header-Top-Right'>
           <div className='Header-Top-Buttons'>
           {(isLoggedIn) ?
-            <div onClick={handleLogOut}>로그아웃</div> :
+            <div onClick={handleLogOut} style={{cursor: 'pointer'}}>로그아웃</div> :
             <Link to="/login" style={{textDecoration: 'none', color: '#212120'}}>로그인</Link>
           }
           </div>

@@ -6,8 +6,8 @@ app.set('view engine', 'ejs')
 // 웹 서버가 public 서빙 제대로 하도록
 app.use(express.static('public')); 
 // 요청.body 지원
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+app.use(express.json({ limit: '10mb' })); // JSON 요청 크기 제한을 10MB로 설정
+app.use(express.urlencoded({ limit: '10mb', extended: true })); // URL-encoded 요청 크기 제한
 // react 연동
 const path = require('path')
 app.use(express.static(path.join(__dirname,'../FE/build')))
@@ -36,7 +36,7 @@ const bcrypt = require('bcrypt')
 app.use(session({
   secret: 'express-session-secret-key',
   resave : false,
-  path: 'http//localhost:8080',
+  path: 'http://localhost:8080',
   saveUninitialized : false,
   cookie: { 
     httpOnly: true,
@@ -59,8 +59,8 @@ let db
 connectDB.then((client)=>{
   console.log('DB 연결성공')
   db = client.db('forum')
-  app.listen(8081, () => {
-    console.log('http://localhost:8081 에서 서버 실행중')
+  app.listen(8080, () => {
+    console.log('http://localhost:8080 에서 서버 실행중')
   })
 }).catch((err)=>{
   console.log('서버 실행 실패', err)
@@ -136,11 +136,18 @@ app.get('/checkLogin',  async (요청, 응답) => {
 app.post('/add', async (요청, 응답) => {
   console.log(요청.body)
   let result = await db.collection('post').insertOne({ 
-      title : 요청.body.title, 
-      content : 요청.body.content,
-      photo : 요청.body.photo
+      productTitle : 요청.body.productTitle, 
+      productDetailContent : 요청.body.productDetailContent,
+      productPhoto : 요청.body.productPhoto,
+      childAge: 요청.body.childAge,
+      productQuality: 요청.body.productQuality,
+      productPrice: 요청.body.productPrice
     })
+
+  // 응답이 있어야 fetch의 아래로 내려갈 수 있음
+  응답.json({ message: '게시글 작성' });  // 로그인 성공 후 응답
 })
+
 app.get('/signUp', async (요청, 응답) => {
   응답.sendFile(path.join(__dirname, '../FE/build/index.html'))
 })
