@@ -11,7 +11,6 @@ function NewsWrite() {
     let [개월수정보, 개월수변경] = useState('');
     let [상품상태, 상품상태변경] = useState('');
     let [가격, 가격변경] = useState(''); 
-    let [userInfo, setUserInfo] = useState(null); // 로그인 정보를 담을 상태 변수
 
     let navigate = useNavigate();
     let [isLoggedIn, setIsLoggedIn] = useState(null); // 로그인 상태를 추적할 상태
@@ -30,19 +29,7 @@ function NewsWrite() {
             setIsLoggedIn(false); // 오류 발생 시 로그인되지 않은 상태로 처리
           }
         };
-        
-        // 현재 로그인된 유저의 정보 받아오기
-        const getUserInfo = async () => {
-            try {
-                const response = await fetch('/getUserInfo');
-                const result = await response.json();
-                setUserInfo(result); // 서버에서 반환한 값 (현재 유저의 정보, 유저의 _id와 username)
-            } catch (error) {
-                console.error('로그인 상태 확인 중 오류 발생:', error);
-            }
-        }
         checkLoginStatus(); // 컴포넌트가 마운트될 때 로그인 상태 확인
-        getUserInfo(); // 컴포넌트가 마운트될 때 유저의 정보 가져오기
     });
 
       if (isLoggedIn === null) {
@@ -55,8 +42,7 @@ function NewsWrite() {
             fetch('/add', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-                username: userInfo.username,
+            body: JSON.stringify({
                 productName: 상품명, 
                 productDetailContent: 상품상세설명, 
                 productPhoto: 이미지,

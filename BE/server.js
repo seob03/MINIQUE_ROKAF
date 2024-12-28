@@ -139,9 +139,11 @@ app.get('/checkLogin',  async (요청, 응답) => {
 })
 
 app.post('/add', async (요청, 응답) => {
-  console.log(요청.body)
+  console.log('요청.body 값: ', 요청.body)
+  console.log('요청.user 값: ', 요청.user)
   let result = await db.collection('post').insertOne({ 
-      username: 요청.body.username,
+      user_id: 요청.user.id, // DB의 유저 고유 key_id
+      username: 요청.user.username, // 유저가 회원 가입할 때 사용한 아이디
       productName : 요청.body.productName, 
       productDetailContent : 요청.body.productDetailContent,
       productPhoto : 요청.body.productPhoto,
