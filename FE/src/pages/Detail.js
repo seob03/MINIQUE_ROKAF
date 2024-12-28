@@ -1,5 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
+import Card from '../components/Card.js';
+import {DeleteButton} from '../components/Buttons.js';
 import './style/Detail.css';
 
 function Detail(props) {
@@ -56,6 +58,9 @@ function Detail(props) {
           <div>
             톡하기 버튼
           </div>
+          <div className='DeleteButton' onClick={()=>console.log('삭제하실?')}>
+            삭제
+          </div>
         </div>
       </div>
 
@@ -63,18 +68,10 @@ function Detail(props) {
         같은 카테고리의 상품
       </div>
       <div class="flex-container">
-        <div class="row eql">
-          상품 1
-        </div>
-        <div class="row eql">
-          상품 2
-        </div>
-        <div class="row eql">
-          상품 3
-        </div>
-        <div class="row eql">
-          상품 4
-        </div>
+        <Card photo={''}brand={'SainLaurant'} title={'가라1'} size={'62'} price={'1억'}/>
+        <Card photo={''}brand={'Gucci'} title={'가라2'} size={'62'} price={'2억'}/>
+        <Card photo={''}brand={'Tesla'} title={'가라3'} size={'62'} price={'3억'}/>
+        <Card photo={''}brand={'Apple'} title={'가라4'} size={'62'} price={'4억'}/>
       </div>
     </div>
   );
