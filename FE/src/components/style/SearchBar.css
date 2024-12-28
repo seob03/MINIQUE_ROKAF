@@ -6,6 +6,9 @@
     height: 40px;
     align-items: center;
 }
+.Search-Box:focus-within{
+    border: 1px solid #4169E1;
+}
 
 .Search-Input {
     border-radius: 0px;
@@ -16,8 +19,6 @@
 .Search-Input:focus {
     border-radius: 0px;
     outline: none;
-    width : 360px;
-    height: 38px;
 }
 
 .Search-Button {
@@ -26,7 +27,7 @@
     border: 1px solid #FFFEFC;
 }
 
-.Search-Button:hover {
+.Search-Button:focus-within {
     background: none;
     border: 1px solid #FFFEFC;
 }

@@ -18,13 +18,9 @@ function NewsList(){
     }, []);  // 컴포넌트가 마운트될 때 한 번만 실행
 
     let today = new Date();
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 3,
-      slidesToScroll: 3
-    };
+    function eventHandle(){
+      console.log('클릭하심?');
+    }
 
     return (
     <div>
