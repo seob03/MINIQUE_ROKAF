@@ -112,6 +112,11 @@ app.get('/detail/:id', async (요청, 응답) => {
     응답.json(detailPage);
 })
 
+// 현재 로그인된 유저 정보 보내주는 API (NewsWrite.js 에서 사용)
+app.get('/getUserInfo', async (요청, 응답) => {
+    응답.json(요청.user);
+})
+
 app.get('/login', async (요청, 응답) => {
   console.log("로그인 페이지", 요청.user)
   응답.sendFile(path.join(__dirname, '../FE/build/index.html'))
@@ -136,6 +141,7 @@ app.get('/checkLogin',  async (요청, 응답) => {
 app.post('/add', async (요청, 응답) => {
   console.log(요청.body)
   let result = await db.collection('post').insertOne({ 
+      username: 요청.body.username,
       productTitle : 요청.body.productTitle, 
       productDetailContent : 요청.body.productDetailContent,
       productPhoto : 요청.body.productPhoto,
@@ -155,6 +161,7 @@ app.get('/signUp', async (요청, 응답) => {
 // 회원가입 API
 app.post('/signUp-POST', async (요청, 응답) => {
   let result = await db.collection('user').insertOne({ 
+    nickname : 요청.body.nickname,
     username : 요청.body.username, 
     password : 요청.body.password,
   })

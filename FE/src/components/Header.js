@@ -27,7 +27,7 @@ function Header() {
         checkLoginStatus(); // 컴포넌트가 마운트될 때 로그인 상태 확인
         console.log('isLoggedIn 상태가 변경됨:', isLoggedIn);
   }, [isLoggedIn]); 
-
+  
   async function handleLogOut(){
     try {
       // 로그아웃 요청 보내기
