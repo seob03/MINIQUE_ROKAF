@@ -59,11 +59,11 @@ let db
 connectDB.then((client)=>{
   console.log('DB 연결성공')
   db = client.db('forum')
-  app.listen(8080, () => {
-    console.log('http://localhost:8080 에서 서버 실행중')
+  app.listen(8081, () => {
+    console.log('http://localhost:8081 에서 서버 실행중')
   })
 }).catch((err)=>{
-  console.log(err)
+  console.log('서버 실행 실패', err)
 })
 
 passport.use(new LocalStrategy(async (입력한아이디, 입력한비번, cb) => {
@@ -167,4 +167,17 @@ app.post('/login-POST', async (요청, 응답, next) => {
       응답.json({ message: '로그인 성공' });  // 로그인 성공 후 응답
     })
 })(요청, 응답, next)
+})
+
+
+// 로그아웃 API
+app.post('/logOut', async (요청, 응답) => {
+  // 세션을 파괴하여 로그아웃 처리
+  요청.session.destroy((err) => {
+    if (err) {
+      return 응답.status(500).send('세션 종료 실패');
+    }
+    응답.clearCookie('connect.sid'); // 세션 쿠키 삭제
+    응답.send('로그아웃 성공');
+  });
 })
