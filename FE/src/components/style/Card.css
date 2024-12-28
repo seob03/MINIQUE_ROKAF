@@ -1,15 +1,15 @@
 .CardContainer{
-    width: 240px;
+    width: 212px;
     height: 324px;
     margin-bottom: 10px;
-    margin-left: 28px;
-    margin-right: 28px;
+    margin-left: 22px;
+    margin-right: 22px;
     background-color: none;
 }
 
 .CardImage{
-    width: 240px;
-    height: 240px;
+    width: 212px;
+    height: 212px;
     background-size: cover;
     background-position: center;
     position: relative;

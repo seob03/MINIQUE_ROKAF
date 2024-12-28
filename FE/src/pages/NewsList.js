@@ -34,7 +34,45 @@ function NewsList(){
         </div>
         <div className="Recommend-Carousel">
           <div className="Recommend-Container">
-            <Slider data={postData}/>
+            <Slider data={
+              [{
+                productPhoto: './img/jilsander.png',
+                childAge: '52',
+                productTitle: '제발돼라',
+                productPrice: '1억'
+              },
+              {
+                productPhoto: './img/jilsander.png',
+                childAge: '53',
+                productTitle: '제발돼라',
+                productPrice: '77ㅓ억'
+              },
+              {
+                productPhoto: './img/jilsander.png',
+                childAge: '54',
+                productTitle: '제발돼라',
+                productPrice: '꺼억'
+              },
+              {
+                productPhoto: './img/jilsander.png',
+                childAge: '55',
+                productTitle: '제발돼라',
+                productPrice: '1억'
+              },
+              {
+                productPhoto: './img/jilsander.png',
+                childAge: '55',
+                productTitle: '제발돼라',
+                productPrice: '1억'
+              },
+              {
+                productPhoto: './img/jilsander.png',
+                childAge: '55',
+                productTitle: '제발돼라',
+                productPrice: '1억'
+              }
+            ]
+            }/>
           </div>
         </div>
       </div>
@@ -49,29 +87,3 @@ function NewsList(){
 }
 
 export default NewsList;
-
-
-// [{
-//   photo: './img/jilsander.png',
-//   size: '52',
-//   title: '제발돼라',
-//   price: '1억'
-// },
-// {
-//   photo: './img/jilsander.png',
-//   size: '53',
-//   title: '제발돼라',
-//   price: '1억'
-// },
-// {
-//   photo: './img/jilsander.png',
-//   size: '54',
-//   title: '제발돼라',
-//   price: '1억'
-// },
-// {
-//   photo: './img/jilsander.png',
-//   size: '55',
-//   title: '제발돼라',
-//   price: '1억'
-// }]

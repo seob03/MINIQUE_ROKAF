@@ -11,17 +11,24 @@
     display: flex; 
 }
 
-.SliderButton {
+.SliderButton-left {
     position: absolute;
+    z-index: 1;
     top: 50%;
     cursor: pointer;
     transform: translateY(-50%);
-    width:18px;
-    height: 18px;
-}
-.right {
-    right: 10px;
-}
-.left {
+    width:30px;
+    height: 30px;
     left: 10px;
+}
+
+.SliderButton-right {
+    position: absolute;
+    z-index:1;
+    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 30px;
+    right: 10px;
 }

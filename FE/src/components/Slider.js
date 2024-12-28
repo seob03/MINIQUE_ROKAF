@@ -6,7 +6,7 @@ import './style/Slider.css';
 
 function Slider(props){
   const [currentSlide, setCurrentSlide] = useState(0);
-  const TOTAL_SLIDES = Math.ceil(props.data.length / 3);
+  const TOTAL_SLIDES = Math.ceil(props.data.length / 4);
   const slideRef = useRef(null);
 
   const nextSlide = () => {
@@ -20,7 +20,7 @@ function Slider(props){
 
   const prevSlide = () => {
     if (currentSlide === 0) {
-      setCurrentSlide(TOTAL_SLIDES);
+      setCurrentSlide(TOTAL_SLIDES-1);
     } else {
       setCurrentSlide(currentSlide - 1);
       console.log(currentSlide);
@@ -35,12 +35,11 @@ function Slider(props){
   
   return (
       <div className="Container">
-        <div className="SliderButton left">
         <img 
           src='./img/Carousel_left.svg' 
           onClick={()=>prevSlide()}
+          className="SliderButton-left"
         />
-        </div>
         <div className="SliderContainer" ref={slideRef}>
           {
               props.data.map(
@@ -62,7 +61,7 @@ function Slider(props){
         <img 
           src='./img/Carousel_right.svg' 
           onClick={()=>nextSlide()}
-          className="SliderButton right"
+          className="SliderButton-right"
         />
       </div>
     );
