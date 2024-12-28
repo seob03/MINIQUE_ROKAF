@@ -49,7 +49,7 @@ function Slider(props){
                       <Card 
                         photo={a.productPhoto && a.productPhoto} 
                         brand={'MONCLER'}
-                        title={a.productTitle}
+                        title={a.productName}
                         size ={a.childAge} 
                         price={a.productPrice}
                       />

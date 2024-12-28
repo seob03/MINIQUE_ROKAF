@@ -82,14 +82,14 @@ passport.use(new LocalStrategy(async (입력한아이디, 입력한비번, cb) =
 }))
 
 passport.serializeUser((user, done) => {
-  console.log("serialize 실행")
+  // console.log("serialize 실행")
   process.nextTick(() => {
     done(null, { id: user._id, username: user.username })
   })
 })
 
 passport.deserializeUser((user, done) => {
-  console.log("deserialize 실행")
+  // console.log("deserialize 실행")
   process.nextTick(() => {
     return done(null, user)
   })
@@ -142,7 +142,7 @@ app.post('/add', async (요청, 응답) => {
   console.log(요청.body)
   let result = await db.collection('post').insertOne({ 
       username: 요청.body.username,
-      productTitle : 요청.body.productTitle, 
+      productName : 요청.body.productName, 
       productDetailContent : 요청.body.productDetailContent,
       productPhoto : 요청.body.productPhoto,
       childAge: 요청.body.childAge,

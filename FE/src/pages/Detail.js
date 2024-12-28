@@ -36,9 +36,10 @@ function Detail(props) {
         </div>
         <div class="col contents">
           <div class="row h28">
-            {pageResult.productTitle}
+            {pageResult.productName}
           </div>
           <div class="row h24">
+            {pageResult.username}
           </div>
           <div class="row h56">
             {pageResult.productDetailContent}
