@@ -34,13 +34,7 @@ function NewsList(){
         </div>
         <div className="Recommend-Carousel">
           <div className="Recommend-Container">
-            <Slider data={[{
-              photo: './img/jilsander.png',
-              size: '52',
-              title: '제발돼라',
-              price: '1억'
-            }]
-            }/>
+            <Slider data={postData}/>
           </div>
         </div>
       </div>
@@ -55,3 +49,10 @@ function NewsList(){
 }
 
 export default NewsList;
+
+// [{
+//   photo: './img/jilsander.png',
+//   size: '52',
+//   title: '제발돼라',
+//   price: '1억'
+// }]

@@ -26,7 +26,7 @@ function Detail(props) {
     <div>
       <div class="flex-container">
         <h4>
-          디테일 페이지@@@
+          디테일 페이지
         </h4>
       </div>
 

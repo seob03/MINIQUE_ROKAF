@@ -6,7 +6,7 @@ function Card(props){
         <div className="CardContainer">
             <div className="CardImage" 
             >
-                <img />
+                <img src={props.photo} className="CardImage cover"/>
             </div>
             <div className="Card-First">
                 <div>
