@@ -14,6 +14,7 @@ function Slider(props){
       setCurrentSlide(0);
     } else {
       setCurrentSlide(currentSlide + 1);
+      console.log(currentSlide);
     }
   };
 
@@ -22,22 +23,24 @@ function Slider(props){
       setCurrentSlide(TOTAL_SLIDES);
     } else {
       setCurrentSlide(currentSlide - 1);
+      console.log(currentSlide);
     }
   };
 
   useEffect(() => {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
-    slideRef.current.style.transform = `translateX(-${currentSlide}00%)`; // 백틱을 사용하여 슬라이드로 이동하는 애니메이션을 만듭니다.
+    slideRef.current.style.transform = `translateX(-${currentSlide*100}%)`;
   }, [currentSlide]);
 
   
   return (
       <div className="Container">
+        <div className="SliderButton left">
         <img 
-        src='./img/Carousel_left.svg' 
-        onClick={()=>prevSlide()}
-        className="SliderButton"
+          src='./img/Carousel_left.svg' 
+          onClick={()=>prevSlide()}
         />
+        </div>
         <div className="SliderContainer" ref={slideRef}>
           {
               props.data.map(
@@ -56,9 +59,9 @@ function Slider(props){
           }
         </div>
         <img 
-        src='./img/Carousel_right.svg' 
-        onClick={()=>nextSlide()}
-        className="SliderButton"
+          src='./img/Carousel_right.svg' 
+          onClick={()=>nextSlide()}
+          className="SliderButton right"
         />
       </div>
     );

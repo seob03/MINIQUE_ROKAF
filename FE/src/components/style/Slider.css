@@ -2,6 +2,8 @@
     display: flex;
     width: 100%;
     overflow: hidden;
+    align-items: center;
+    position: relative;
 }
 
 .SliderContainer {
@@ -10,7 +12,16 @@
 }
 
 .SliderButton {
-    display: float;
-    align-items: center;
+    position: absolute;
+    top: 50%;
     cursor: pointer;
+    transform: translateY(-50%);
+    width:18px;
+    height: 18px;
+}
+.right {
+    right: 10px;
+}
+.left {
+    left: 10px;
 }

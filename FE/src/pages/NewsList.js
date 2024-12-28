@@ -50,9 +50,28 @@ function NewsList(){
 
 export default NewsList;
 
+
 // [{
 //   photo: './img/jilsander.png',
 //   size: '52',
+//   title: '제발돼라',
+//   price: '1억'
+// },
+// {
+//   photo: './img/jilsander.png',
+//   size: '53',
+//   title: '제발돼라',
+//   price: '1억'
+// },
+// {
+//   photo: './img/jilsander.png',
+//   size: '54',
+//   title: '제발돼라',
+//   price: '1억'
+// },
+// {
+//   photo: './img/jilsander.png',
+//   size: '55',
 //   title: '제발돼라',
 //   price: '1억'
 // }]
