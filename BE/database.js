@@ -7,7 +7,6 @@ let db
 async function connectDB() {
   try {
     const client = await new MongoClient(url).connect();
-    console.log('DB 연결 성공');
     db = client.db('forum');  // DB 객체 저장
     return db;  // DB 객체 반환
   } catch (err) {

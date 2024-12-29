@@ -19,7 +19,7 @@ function LoginModal(props){
     }
 
     function handleLogin(){
-        console.log("LoginMINIQUE 실행 성공")
+        console.log("handleLogin 실행 성공")
         fetch('/login-POST', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
