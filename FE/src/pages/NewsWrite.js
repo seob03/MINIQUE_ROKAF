@@ -35,10 +35,34 @@ function NewsWrite() {
       if (isLoggedIn === null) {
         return <div>로딩 중...</div>; // 서버 응답을 기다리는 동안 로딩 상태 표시
       }
-   
     function PostNews(){
         if (isLoggedIn) {
-            console.log('fetch 실행이요');
+            if (!상품명 || !상품상세설명 || !이미지 || !개월수정보 || !상품상태 || !가격) {
+                alert("모든 필드를 작성해주세요.");
+                return; 
+            }
+
+            // 아이 개월 수 정보 필드 점검
+            if (!Number.isInteger(Number(개월수정보))) {
+                alert("아기의 개월 수 정보는 정수로 입력해주세요.");
+                return; 
+            } 
+            else if(개월수정보 <= 0) {
+                alert("아기의 개월 수 정보는 양수로 입력해주세요.");
+                return; 
+            }
+
+            // 가격 필드 점검
+            if (!Number.isInteger(Number(가격))) {
+                alert("가격은 유효한 정수로 입력해주세요.");
+                return; 
+            } else if (가격 <= 0) {
+                alert("최소 판매 가격은 1원입니다.");
+                return; 
+            }
+            
+
+
             fetch('/add', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
