@@ -23,3 +23,11 @@ export function ButtonMedium(props){
         </div>
     );
 }
+
+export function SignUpButton(props){
+    return(
+        <div className='SignUpButton' onClick={props.eventHandler}>
+            회원가입
+        </div>
+    );
+}

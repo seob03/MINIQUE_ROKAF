@@ -4,10 +4,11 @@ import Image from 'react-bootstrap/Image';
 import {Link} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeLogIn } from "../store/store.js";
+import { changeLogIn, changeIsOpen } from "../store/store.js";
 
 function Header() {
   let isLoggedIn = useSelector((state) => {return state.isLoggedIn}) // 로그인 상태를 추적할 상태
+  let isOpen = useSelector((state) => {return state.isOpen})
   let dispatch = useDispatch();
   
   useEffect(() => {
@@ -28,6 +29,10 @@ function Header() {
         console.log('isLoggedIn 상태가 변경됨:', isLoggedIn);
   }, [isLoggedIn]); 
   
+  function handleLogin(){
+    dispatch(changeIsOpen(true));
+  }
+
   async function handleLogOut(){
     try {
       // 로그아웃 요청 보내기
@@ -55,7 +60,7 @@ function Header() {
           <div className='Header-Top-Buttons'>
           {(isLoggedIn) ?
             <div onClick={handleLogOut} style={{cursor: 'pointer'}}>로그아웃</div> :
-            <Link to="/login" style={{textDecoration: 'none', color: '#212120'}}>로그인</Link>
+            <Link onClick={handleLogin} style={{textDecoration: 'none', color: '#212120'}}>로그인</Link>
           }
           </div>
           <div className='Header-Top-Buttons'>내정보 </div>
@@ -77,7 +82,7 @@ function Header() {
           <div className='Header-First-Menu-Buttons'>
           {(isLoggedIn) ?
             <Link to="/write" style={{textDecoration: 'none', color: 'black'}}>판매하기</Link> : 
-            <Link to="/login" style={{textDecoration: 'none', color: 'black'}}>판매하기</Link>}
+            <Link onClick={handleLogin} style={{textDecoration: 'none', color: 'black'}}>판매하기</Link>}
           </div>
           <div className='Header-First-Menu-Buttons'>
             <Link to="/" style={{textDecoration: 'none', color: 'black'}}>내 상점</Link>
