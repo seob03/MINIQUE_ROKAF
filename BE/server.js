@@ -112,10 +112,17 @@ app.get('/detail/:id', async (요청, 응답) => {
     응답.json(detailPage);
 })
 
-// 
+// Detail.js 에서 사용
 app.delete('/delete/:id', async (요청, 응답) => {
-  let result = await db.collection('post').deleteOne( { _id : new ObjectId(요청.params.id) } )
-  응답.json({message : '삭제완료'})
+  let AuthorPostInfo = await db.collection('post').findOne( { _id : new ObjectId(요청.params.id) } ) // 해당 글의 Obejct 가져오기
+
+  if(요청.user && 요청.user.id == AuthorPostInfo.user_id) { // 글의 작성자가 회원이면서 본인이 맞는 경우에만 삭제하고 true 반환
+    let result = await db.collection('post').deleteOne( { _id : new ObjectId(요청.params.id) } )
+    응답.send(true)
+  }
+  else {
+    응답.send(false)
+  }
 })
 
 // 현재 로그인된 유저 정보 보내주는 API (NewsWrite.js 에서 사용)

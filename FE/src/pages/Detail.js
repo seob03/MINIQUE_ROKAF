@@ -31,8 +31,10 @@ function Detail(props) {
     })
     .then((response) => response.json())
     .then((data) => {
-      console.log('서버 응답:', data);
-      alert("글 삭제되었습니다.")
+      if(data == true)
+        alert("글이 정상적으로 삭제되었습니다.")
+      else 
+        alert("삭제 권한이 존재하지 않습니다.")
       navigate('/');
     })
     .catch((error) => {
