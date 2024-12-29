@@ -1,18 +1,30 @@
-.flex-container{
+.Detail-Container{
     display: flex;
-    flex-direction: row;
     width: 100%;
-    flex: 1;
 }
-.col{
-    display: flex;
-    flex-direction: column;
-}
-.image {
-    flex-grow: 3;
+
+.Detail-Image {
     width: 600px;
     height: 600px;
+    margin-right: 20px;
 }
+
+.Detail-Content{
+    display: flex;
+    flex-direction: column;
+    width: 384px;
+    margin-left: 20px;
+}
+
+.Detail-FirstLine{
+    display: flex;
+}
+
+.Detail-Title{
+    font-family: NotoSansKR-SemiBold;
+    
+}
+
 .contents {
     flex-grow: 3;
 }

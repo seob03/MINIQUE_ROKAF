@@ -47,19 +47,18 @@ function Detail(props) {
 
   return (
     <div>
-      <div class="flex-container">
-        <h4>
-          디테일 페이지
-        </h4>
-      </div>
-
-      <div class="flex-container">
-        <div class="col image">
+      <div className="Detail-Container">
+        <div className="Detail-Image">
           {<img src={pageResult.productPhoto} />}
         </div>
-        <div class="col contents">
-          <div class="row h28">
-            {pageResult.productName}
+        <div className="Detail-Content">
+          <div className="Detail-FirstLine">
+            <div className="Detail-Title">
+            {pageResult.productName}제목임
+            </div>
+            <div>
+              하트 아이콘
+            </div>
           </div>
           <div class="row h24">
             {pageResult.username}

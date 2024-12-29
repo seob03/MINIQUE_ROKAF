@@ -30,7 +30,14 @@ function NewsList(){
         </div>
         <div className="Recommend-Carousel">
           <div className="Recommend-Container">
-            <Slider data={postData}/>
+            <Slider data={[
+              {
+                photo: "./img/CloseButton.svg", 
+                productName: '버그를 잡자 버그를',
+                childAge: '52',
+                productPrice: '5억'
+              }
+            ]}/>
           </div>
         </div>
       </div>
