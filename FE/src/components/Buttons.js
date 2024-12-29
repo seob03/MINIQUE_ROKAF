@@ -16,6 +16,14 @@ export function DeleteButton(props){
     );
 }
 
+export function BuyButton(props){    
+    return(
+    <div className='BuyButton' onClick={props.eventHandler}>
+        구매하기
+    </div>
+    );
+}
+
 export function ButtonMedium(props){
     return(
         <div className='ButtonMedium' onClick={props.eventHandler}>

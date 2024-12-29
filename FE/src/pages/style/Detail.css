@@ -18,31 +18,42 @@
 
 .Detail-FirstLine{
     display: flex;
+    align-items: center;
 }
 
 .Detail-Title{
-    font-family: NotoSansKR-SemiBold;
-    
+    font-family: NotoSansKR-Medium;
+    font-size: 20px;
 }
 
-.contents {
-    flex-grow: 3;
+.Detail-Price{
+    font-family: NotoSansKR-Medium;
+    font-size: 20px;
+    justify-content: flex-start;
 }
-.row{
+
+.Detail-Content {
+    font-family: NotoSansKR-Regular;
+    font-size: 16px;
+    justify-content: flex-start;
+    margin: 0px;
+}
+
+.Detail-Info{
     display: flex;
-    flex-direction: row;
 }
-.h28{
-    height : 28px;
+
+.Detail-Info-Title{
+    width: 120px;
+    font-family: NotoSansKR-Medium;
+    font-size: 16px;
+    color: #6F6C69;
+    justify-content: flex-start;
 }
-.h24 {
-    height : 24px;
-}
-.h56 {
-    height : 56px;
-}
-.eql {
-    width : 192px;
-    height: 240px;
-    border-color: gray;
+
+.Detail-Info-Content{
+    font-family: NotoSansKR-Regular;
+    font-size: 16px;
+    color: #212120;
+    justify-content: flex-start;
 }

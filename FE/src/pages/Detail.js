@@ -1,17 +1,21 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import Card from '../components/Card.js';
-import { ButtonSmall, DeleteButton } from '../components/Buttons';
+import { BuyButton, DeleteButton } from '../components/Buttons';
 
 import './style/Detail.css';
 
 function Detail(props) {
+  const [pageResult, setPageResult] = useState([]);
+  let isLoggedIn = useSelector((state) => {return state.isLoggedIn})
+
+  let navigate = useNavigate();
   let { id } = useParams();
   console.log(id)
   // 페이지 결과를 상태로 관리
-  const [pageResult, setPageResult] = useState([]);
 
   useEffect(() => {
     // fetch 요청
@@ -26,7 +30,6 @@ function Detail(props) {
       });
   }, [id]); // id가 바뀔 때마다 요청을 다시 보냄
 
-  let navigate = useNavigate();
   function handleDelete() {
     fetch('/delete/' + id, 
     {
@@ -54,38 +57,60 @@ function Detail(props) {
         <div className="Detail-Content">
           <div className="Detail-FirstLine">
             <div className="Detail-Title">
-            {pageResult.productName}제목임
+            {pageResult.productName}
             </div>
+            <div style={{flexGrow:1}}/>
             <div>
               하트 아이콘
             </div>
           </div>
-          <div class="row h24">
-            {pageResult.username}
+          <div className="Detail-Price">
+            {pageResult.productPrice}원
           </div>
-          <div class="row h56">
+          <div className="Detail-Content">
             {pageResult.productDetailContent}
           </div>
-          <div>
-            내비게이션
+          <div className="Detail-Info">
+            <div className="Detail-Info-Title">
+              상태
+            </div>
+            <div className="Detail-Info-Content">
+              {pageResult.productQuality}
+            </div>
           </div>
-          <div>
-            상태 설명 블록
+          <div className="Detail-Info">
+            <div className="Detail-Info-Title">
+              아이 나이
+            </div>
+            <div className="Detail-Info-Content">
+              {pageResult.childAge}
+            </div>
           </div>
-          <div>
-            판매자 버튼
+          <div className="Detail-Info">
+            <div className="Detail-Info-Title">
+              지역
+            </div>
+            <div className="Detail-Info-Content">
+              경기도 평택시 송화리
+            </div>
           </div>
-          <div>
-            톡하기 버튼
+          <div className="Detail-Info">
+            <div className="Detail-Info-Title">
+              배송비
+            </div>
+            <div className="Detail-Info-Content">
+              3500원
+            </div>
           </div>
-          <DeleteButton eventHandler={handleDelete}/>
+          {(isLoggedIn) ? <DeleteButton eventHandler={handleDelete}/>
+          : <BuyButton/> }
         </div>
       </div>
 
       <div style={{display: 'block'}}>
         같은 카테고리의 상품
       </div>
-      <div class="flex-container">
+      <div class="Detail-Container">
         <Card photo={''}brand={'SainLaurant'} title={'가라1'} size={'62'} price={'1억'}/>
         <Card photo={''}brand={'Gucci'} title={'가라2'} size={'62'} price={'2억'}/>
         <Card photo={''}brand={'Tesla'} title={'가라3'} size={'62'} price={'3억'}/>
