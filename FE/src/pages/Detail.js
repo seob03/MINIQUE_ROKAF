@@ -1,7 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import Card from '../components/Card.js';
 import {useNavigate} from 'react-router-dom';
+
+import Card from '../components/Card.js';
+import { ButtonSmall, DeleteButton } from '../components/Buttons';
+
 import './style/Detail.css';
 
 function Detail(props) {
@@ -76,9 +79,7 @@ function Detail(props) {
           <div>
             톡하기 버튼
           </div>
-          <div className='DeleteButton' onClick={handleDelete}>
-            삭제
-          </div>
+          <DeleteButton eventHandler={handleDelete}/>
         </div>
       </div>
 

@@ -1,12 +1,20 @@
 .ButtonSmall{
+    border-radius: 2px;
     width: 100px;
     height: 40px;
     background-color: #FFFEFC;
     border: 1px solid #212120;
     text-align: center;
-    padding: 4px;
-    font-size: 20px;
+    padding: 6px;
+    font-size: 16px;
     font-family: NotoSansKR-Medium;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+.ButtonSmall:hover{
+    background-color: #212120;
+    border: 1px solid #212120;
+    color: #FFFEFC;
 }
 
 .DeleteButton{
@@ -18,16 +26,36 @@
     color:#212120;
     text-align: center;
     padding: 4px;
+    font-size: 16px;
+    font-family: NotoSansKR-Medium;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+.DeleteButton:hover{
+    border-radius: 2px;
+    background-color: #DB1619;
+    border: 1px solid #DB1619;
+    color: #FFFEFC;
+    cursor: pointer;
+}
+
+.ButtonMedium{
+    border-radius: 2px;
+    width: 124px;
+    height: 60px;
+    background-color: #FFFEFC;
+    border: 1px solid #212120;
+    color:#212120;
+    text-align: center;
+    padding: 4px;
     font-size: 20px;
     font-family: NotoSansKR-Medium;
     transition-duration: 0.2s;
     cursor: pointer;
 }
-
-.DeleteButton:hover{
-    border-radius: 2px;
-    background-color: #DB1619;
-    border: 1px solid #DB1619;
+.ButtonMedium:hover{
+    background-color: #212120;
+    border: 1px solid #212120;
     color: #FFFEFC;
     cursor: pointer;
 }
