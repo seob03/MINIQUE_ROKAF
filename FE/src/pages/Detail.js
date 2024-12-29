@@ -60,8 +60,11 @@ function Detail(props) {
             {pageResult.productName}
             </div>
             <div style={{flexGrow:1}}/>
-            <div>
-              하트 아이콘
+            <div >
+              <img src='./img/Heart_Unfill.svg' style={{width: '20px', height: '20px'}}/>
+              <div>
+                14
+              </div>
             </div>
           </div>
           <div className="Detail-Price">
