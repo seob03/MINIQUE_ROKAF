@@ -1,8 +1,6 @@
 // express 사용
 const express = require('express')
 const app = express()
-// ejs 사용
-app.set('view engine', 'ejs') 
 // 웹 서버가 public 서빙 제대로 하도록
 app.use(express.static('public')); 
 // 요청.body 지원
@@ -33,6 +31,26 @@ const MongoStore = require('connect-mongo')
 const bcrypt = require('bcrypt')
 
 
+const connectDB = require('./database.js');  // DB 연결 함수 호출
+let db;
+
+connectDB().then((database) => {
+  db = database;  // 연결된 DB 객체 할당
+  app.listen(8082, () => {
+    console.log('http://localhost:8082 에서 서버 실행중');
+  });
+}).catch((err) => {
+  console.log('서버 실행 실패', err);
+});
+
+
+// DB 연결 후에 미들웨어를 설정합니다.
+app.use((요청, 응답, next) => {
+  요청.db = db;  // 요청 객체에 db를 추가
+  console.log('DB 연결 미들웨어 실행됨');
+  next();  // 다음 미들웨어로 이동
+});
+
 app.use(session({
   secret: 'express-session-secret-key',
   resave : false,
@@ -54,17 +72,8 @@ app.use(passport.session())
 
 
 
-let connectDB = require('./database.js') //database.js 파일 경로
-let db
-connectDB.then((client)=>{
-  console.log('DB 연결성공')
-  db = client.db('forum')
-  app.listen(8080, () => {
-    console.log('http://localhost:8080 에서 서버 실행중')
-  })
-}).catch((err)=>{
-  console.log('서버 실행 실패', err)
-})
+
+
 
 passport.use(new LocalStrategy(async (입력한아이디, 입력한비번, cb) => {
   console.log("회원 검증 시작: ", 입력한아이디, 입력한비번)
@@ -107,43 +116,37 @@ app.get('/getDatabase', async (요청, 응답) => {
 });
 
 
+// 디테일 페이지 보여주는 API
 app.get('/detail/:id', async (요청, 응답) => {
     let detailPage = await db.collection('post').findOne({_id : new ObjectId(요청.params.id)})
     응답.json(detailPage);
 })
 
-// Detail.js 에서 사용
-app.delete('/delete/:id', async (요청, 응답) => {
-  let AuthorPostInfo = await db.collection('post').findOne( { _id : new ObjectId(요청.params.id) } ) // 해당 글의 Obejct 가져오기
 
-  if(요청.user && 요청.user.id == AuthorPostInfo.user_id) { // 글의 작성자가 회원이면서 본인이 맞는 경우에만 삭제하고 true 반환
-    let result = await db.collection('post').deleteOne( { _id : new ObjectId(요청.params.id) } )
-    응답.send(true)
-  }
-  else {
-    응답.send(false)
-  }
-})
 
 // 현재 로그인된 유저 정보 보내주는 API (NewsWrite.js 에서 사용)
 app.get('/getUserInfo', async (요청, 응답) => {
     응답.json(요청.user);
 })
 
+// 로그인 페이지 보여주기
 app.get('/login', async (요청, 응답) => {
   console.log("로그인 페이지", 요청.user)
   응답.sendFile(path.join(__dirname, '../FE/build/index.html'))
 })
 
+// 메인 페이지
 app.get('/',  async (요청, 응답) => {
   응답.sendFile(path.join(__dirname, '../FE/build/index.html'))
 })
 
+// 글쓰기 페이지
 app.get('/write',  async (요청, 응답) => {
   if (요청.user)
     응답.sendFile(path.join(__dirname, '../FE/build/index.html'))
 })
 
+// 로그인 여부 확인 페이지
 app.get('/checkLogin',  async (요청, 응답) => {
   if (요청.user) 응답.send(true);
   else 응답.send(false)
@@ -168,6 +171,7 @@ app.post('/add', async (요청, 응답) => {
   응답.json({ message: '게시글 작성' });  // 로그인 성공 후 응답
 })
 
+// 회원가입 페이지 보여주기
 app.get('/signUp', async (요청, 응답) => {
   응답.sendFile(path.join(__dirname, '../FE/build/index.html'))
 })
@@ -209,3 +213,5 @@ app.post('/logOut', async (요청, 응답) => {
     응답.send('로그아웃 성공');
   });
 })
+
+app.use('/', require('./routes/post.js') )
