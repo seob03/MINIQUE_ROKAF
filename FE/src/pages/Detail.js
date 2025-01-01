@@ -64,8 +64,8 @@ function Detail(props) {
             <div className="HeartBox">
               <div onClick={()=>{setIsLiked(!isLiked)}}>
                 {
-                (isLiked) ? <img src="./img/Heart_Unfill.svg"/>
-                : <img src="./img/Heart_Fill.svg"/>
+                (!isLiked) ? <img src= "/img/Heart_Unfill.svg"/>
+                : <img src= "/img/Heart_Fill.svg"/>
                 }
               </div>
               <div>
@@ -117,7 +117,7 @@ function Detail(props) {
                 {pageResult.username}
               </div>
               <div className="Detail-UserBox-Userinfo">
-                <img src="./img/Star.svg" style={{marginRight: '2px'}}/> 
+                <img src="/img/Star.svg" style={{marginRight: '2px'}}/> 
                 <div>  
                   9.5|
                 </div>
