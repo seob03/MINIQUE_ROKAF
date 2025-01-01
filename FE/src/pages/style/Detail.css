@@ -4,9 +4,9 @@
 }
 
 .Detail-Image {
-    width: 600px;
-    height: 600px;
-    margin-right: 20px;
+    width: 522px;
+    height: 522px;
+    margin-right: 72px;
     background-size: cover;
     background-position: center;
     position: relative;
@@ -24,8 +24,7 @@
 .Detail-Content{
     display: flex;
     flex-direction: column;
-    width: 384px;
-    margin-left: 20px;
+    width: 426px;
 }
 
 .Detail-FirstLine{
@@ -42,6 +41,7 @@
     font-family: NotoSansKR-Medium;
     font-size: 20px;
     justify-content: flex-start;
+    margin-bottom: 16px;
 }
 
 .Detail-Content {
@@ -49,6 +49,7 @@
     font-size: 16px;
     justify-content: flex-start;
     margin: 0px;
+    margin-bottom: 24px;
 }
 
 .Detail-Info{
@@ -56,9 +57,10 @@
 }
 
 .Detail-Info-Title{
-    width: 120px;
+    width: 124px;
     font-family: NotoSansKR-Medium;
     font-size: 16px;
+    margin-bottom: 16px;
     color: #6F6C69;
     justify-content: flex-start;
 }
@@ -68,4 +70,59 @@
     font-size: 16px;
     color: #212120;
     justify-content: flex-start;
+}
+
+.Detail-UserBox{
+    width: 426px;
+    height: 88px;
+    margin-top: 24px;
+    margin-bottom: 24px;
+    border-radius: 4px;
+    background-color: #F5F5F5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px; /* 내부 좌측 여백 */
+    box-sizing: border-box; /* padding 포함하여 크기 계산 */
+}
+
+.Detail-UserBox-Username{
+    font-size: 16px;
+    font-family: NotoSansKR-Regular;
+    margin-bottom: 12px;
+    color: #212120;
+}
+
+.Detail-UserBox-Userinfo{
+    font-size: 16px;
+    font-family: NotoSansKR-Regular;
+    color: #6F6C69;
+    display: flex;
+}
+
+.Detail-UserBox-Follow{
+    width: 64px;
+    height: 26px;
+    border-radius: 4px;
+    background-color: #212120;
+    font-size: 12px;
+    font-family: NotoSansKR-Regular;
+    color: #FFFEFC;
+    text-align: center;
+    line-height: 26px; /* 버튼의 세로 텍스트 정렬 */
+    cursor: pointer;
+}
+
+.HeartBox{
+    display: flex;
+    flex-direction: column;
+    width: 20px;
+    font-size: 10px;
+    text-align: center;
+    justify-content: center;
+}
+
+.HeartBox-Image{
+    width: 20px;
+    height: 20px;
 }

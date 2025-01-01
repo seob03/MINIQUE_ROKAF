@@ -11,6 +11,7 @@ import './style/Detail.css';
 function Detail(props) {
   const [pageResult, setPageResult] = useState([]);
   let isLoggedIn = useSelector((state) => {return state.isLoggedIn})
+  const [isLiked, setIsLiked] = useState(false);
 
   let navigate = useNavigate();
   let { id } = useParams();
@@ -60,10 +61,15 @@ function Detail(props) {
             {pageResult.productName}
             </div>
             <div style={{flexGrow:1}}/>
-            <div >
-              <img src='./img/Heart_Unfill.svg' style={{width: '20px', height: '20px'}}/>
+            <div className="HeartBox">
+              <div onClick={()=>{setIsLiked(!isLiked)}}>
+                {
+                (isLiked) ? <img src="./img/Heart_Unfill.svg"/>
+                : <img src="./img/Heart_Fill.svg"/>
+                }
+              </div>
               <div>
-                14
+                12
               </div>
             </div>
           </div>
@@ -103,6 +109,25 @@ function Detail(props) {
             </div>
             <div className="Detail-Info-Content">
               3500원
+            </div>
+          </div>
+          <div className="Detail-UserBox">
+            <div>
+              <div className="Detail-UserBox-Username">
+                {pageResult.username}
+              </div>
+              <div className="Detail-UserBox-Userinfo">
+                <img src="./img/Star.svg" style={{marginRight: '2px'}}/> 
+                <div>  
+                  9.5|
+                </div>
+                <div>
+                  상품 개
+                </div>
+              </div>
+            </div>
+            <div className="Detail-UserBox-Follow">
+              + 팔로우
             </div>
           </div>
           {(isLoggedIn) ? <DeleteButton eventHandler={handleDelete}/>
