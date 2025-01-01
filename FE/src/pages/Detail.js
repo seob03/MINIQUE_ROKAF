@@ -52,7 +52,7 @@ function Detail(props) {
     <div>
       <div className="Detail-Container">
         <div className="Detail-Image">
-          {<img src={pageResult.productPhoto} />}
+          {<img src={pageResult.productPhoto} className="Detail-Image cover"/>}
         </div>
         <div className="Detail-Content">
           <div className="Detail-FirstLine">
