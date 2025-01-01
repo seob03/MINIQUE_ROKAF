@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Card from '../components/Card.js';
+import Heart_Unfill from '../../public/img/Heart_Unfill.svg';
+import Heart_Fill from '../../public/img/Heart_Fill.svg';
 import { BuyButton, DeleteButton } from '../components/Buttons';
 
 import './style/Detail.css';
