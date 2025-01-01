@@ -16,6 +16,12 @@
     width : 360px;
     height: 38px;
 }
+
+.Search-Input::placeholder {
+    color: #B6B2AD;
+    font-size: 16px;
+}
+
 .Search-Input:focus {
     border-radius: 0px;
     outline: none;

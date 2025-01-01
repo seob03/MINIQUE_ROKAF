@@ -50,7 +50,7 @@ router.get('/detail/:id', async (요청, 응답) => {
 // 글쓰기 페이지 API
 router.get('/write',  async (요청, 응답) => {
   if (요청.user)
-    응답.sendFile(path.join(__dirname, '../FE/build/index.html'))
+    응답.sendFile(path.join(__dirname, '../../FE/build/index.html'))
 })
 
 // 현재 유저 정보 보내주는 API (NewsWrite.js 에서 사용)

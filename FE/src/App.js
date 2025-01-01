@@ -8,6 +8,7 @@ import Detail from './pages/Detail';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import LoginModal from './components/LoginModal';
+import SearchResult from './pages/SearchResult';
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
             <Route path="/detail" element={<Detail/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/signUp" element={<SignUp/>}/>
+            <Route path="/search" element={<SearchResult/>}/>
             <Route path="/detail/:id" element={<Detail/>}/>
           </Routes>
         </div>

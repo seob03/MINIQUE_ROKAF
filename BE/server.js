@@ -33,13 +33,16 @@ app.use((요청, 응답, next) => {
   next();  // 다음 미들웨어로 이동
 });
 
+// passport 먼저 불러오기 (요청.user 값 할당부터)
 app.use('/', require('./routes/passport.js') )
+
+// 라우터로 분리한 파일 불러오기 (요청.user 사용 가능해짐)
+app.use('/', require('./routes/post.js') )
+app.use('/', require('./routes/search.js') )
+app.use('/', require('./routes/auth.js') )
+
 
 // 메인 페이지
 app.get('/',  async (요청, 응답) => {
   응답.sendFile(path.join(__dirname, '../FE/build/index.html'))
 })
-
-// 라우터로 분리한 파일 불러오기
-app.use('/', require('./routes/post.js') )
-app.use('/', require('./routes/auth.js') )

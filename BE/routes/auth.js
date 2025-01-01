@@ -1,8 +1,6 @@
 const router = require('express').Router()
 // 로그인 기능
-const session = require('express-session')
 const passport = require('passport')
-const LocalStrategy = require('passport-local')
 
 // 로그인 API
 router.post('/login-POST', async (요청, 응답, next) => {

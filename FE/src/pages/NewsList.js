@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react';
 import Slider from '../components/Slider';
-import Card from '../components/Card';
 import './style/NewsList.css';
 
 function NewsList(){
@@ -18,9 +17,6 @@ function NewsList(){
     }, []);  // 컴포넌트가 마운트될 때 한 번만 실행
 
     let today = new Date();
-    function eventHandle(){
-      console.log('클릭하심?');
-    }
 
     return (
     <div>
