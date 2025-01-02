@@ -75,6 +75,36 @@
     cursor: pointer;
 }
 
+.ButtonMediumBlue{
+    border-radius: 2px;
+    width: 124px;
+    height: 60px;
+    background-color: #4169E1;
+    border: none;
+    color:#FFFEFC;
+    text-align: center;
+    padding: 12px;
+    font-size: 20px;
+    font-family: NotoSansKR-Regular;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
+.ButtonMediumGray{
+    border-radius: 2px;
+    width: 124px;
+    height: 60px;
+    background-color: #6F6C69;
+    border: none;
+    color:#FFFEFC;
+    text-align: center;
+    padding: 12px;
+    font-size: 20px;
+    font-family: NotoSansKR-Regular;
+    transition-duration: 0.2s;
+    cursor: pointer;
+}
+
 .SignUpButton{
     border-radius: 4px;
     width: 300px;

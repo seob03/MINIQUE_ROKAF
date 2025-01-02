@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Card from '../components/Card.js';
-import Heart_Unfill from '../../public/img/Heart_Unfill.svg';
-import Heart_Fill from '../../public/img/Heart_Fill.svg';
 import { BuyButton, DeleteButton } from '../components/Buttons';
 
 import './style/Detail.css';
@@ -66,8 +64,8 @@ function Detail(props) {
             <div className="HeartBox">
               <div onClick={()=>{setIsLiked(!isLiked)}}>
                 {
-                (!isLiked) ? <img src= "/img/Heart_Unfill.svg"/>
-                : <img src= "/img/Heart_Fill.svg"/>
+                (!isLiked) ? <div style={{fontSize: '20px', color: '#212120', cursor: 'pointer'}}>♡</div>
+                : <div style={{fontSize: '20px', color: '#DB4437' , cursor: 'pointer'}}>♥</div>
                 }
               </div>
               <div>
@@ -119,9 +117,14 @@ function Detail(props) {
                 {pageResult.username}
               </div>
               <div className="Detail-UserBox-Userinfo">
-                <img src="/img/Star.svg" style={{marginRight: '2px'}}/> 
+                <div style={{color: '#FFBE64', marginRight: '8px'}}>
+                  ★
+                </div>
                 <div>  
-                  9.5|
+                  9.5
+                </div>
+                <div style={{marginLeft: '14px', marginRight:'14px'}}>
+                  |
                 </div>
                 <div>
                   상품 개
@@ -137,7 +140,7 @@ function Detail(props) {
         </div>
       </div>
 
-      <div style={{display: 'block'}}>
+      <div style={{display: 'block', fontSize: '20px', fontFamily: 'NotoSansKR-Medium', marginTop: '180px'}}>
         같은 카테고리의 상품
       </div>
       <div class="Detail-Container">

@@ -1,9 +1,12 @@
 import {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { changeIsOpen } from "../store/store.js";
+import { ButtonMediumBlue, ButtonMediumGray } from '../components/Buttons';
 import './style/NewsWrite.css';
 
 function NewsWrite() {
-    
+    let dispatch = useDispatch();
     // DB 상태 관리
     let [상품명, 상품명변경]=useState(''); 
     let [상품상세설명, 상품상세설명변경]=useState(''); 
@@ -85,7 +88,7 @@ function NewsWrite() {
             });
         }
         else
-            navigate('/login'); // 로그인 안 되어 있으면 로그인 페이지로 이동시키기
+            dispatch(changeIsOpen(true)); // 로그인 안 되어 있으면 로그인 페이지로 이동시키기
     }
     // 파일 선택 핸들러
     const handleFileChange = (e) => {
@@ -109,8 +112,8 @@ function NewsWrite() {
                     이미지 업로드
                 </div>
                 <div>
-                <input type="file" accept="image/*" onChange={handleFileChange} />
-                {이미지 && <img src={이미지} alt="Preview" style={{ maxWidth: '200px', margin: '10px 0' }} />}
+                <input type="file" accept="image/*" onChange={handleFileChange} style={{marginBottom: '36px'}}/>
+                {이미지 && <img src={이미지} alt="Preview" style={{ maxWidth: '200px', margin: '16px 0' }} />}
             </div>
             </div>
             <div className="Write-Input-Row">
@@ -152,7 +155,9 @@ function NewsWrite() {
                         개월수변경(e.target.value);
                     }} 
                     type="text"
+                    style={{borderRadius: '4px', border: "1px solid #B6B2AD"}}
                 />
+                개월
             </div>
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">
@@ -164,6 +169,7 @@ function NewsWrite() {
                         상품상태변경(e.target.value);
                     }} 
                     type="text"
+                    style={{borderRadius: '4px', border: "1px solid #B6B2AD"}}
                 />
             </div>
             <div className="Write-Input-Row">
@@ -186,7 +192,10 @@ function NewsWrite() {
                     원
                 </div>
             </div>
-            <button onClick={PostNews}>글쓰기</button>
+            <div className="Write-ButtonArea">
+                <ButtonMediumBlue text={'글쓰기'} eventHandler={PostNews}/>
+                <ButtonMediumGray text={'임시저장'} eventHandler={null}/>
+            </div>
         </>
     );
 }

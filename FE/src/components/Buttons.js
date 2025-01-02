@@ -32,6 +32,22 @@ export function ButtonMedium(props){
     );
 }
 
+export function ButtonMediumBlue(props){
+    return(
+        <div className='ButtonMediumBlue' onClick={props.eventHandler}>
+            {props.text}
+        </div>
+    );
+}
+
+export function ButtonMediumGray(props){
+    return(
+        <div className='ButtonMediumGray' onClick={props.eventHandler}>
+            {props.text}
+        </div>
+    );
+}
+
 export function SignUpButton(props){
     return(
         <div className='SignUpButton' onClick={props.eventHandler}>

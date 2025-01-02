@@ -98,6 +98,7 @@
     font-family: NotoSansKR-Regular;
     color: #6F6C69;
     display: flex;
+    align-items: center;
 }
 
 .Detail-UserBox-Follow{

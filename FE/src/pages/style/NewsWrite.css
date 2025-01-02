@@ -1,5 +1,7 @@
 .Write-Title-1{
     display : block;
+    margin-top: 16px;
+    margin-bottom: 24px;
     font-size: 20px;
     font-family: NotoSansKR-Medium;
 }
@@ -13,17 +15,18 @@
 
 .Write-Input-Row{
     display : flex;
+    margin-bottom: 36px;
 }
 
 .Write-Input-Title{
-    border-radius: 0px;
+    border-radius: 4px;
     border: 1px solid #B6B2AD;
     width: 700px;
     flex-grow: 1;
 }
 
 .Write-Input-Content{
-    border-radius: 0px;
+    border-radius: 4px;
     border: 1px solid #B6B2AD;
     width: 700px;
     height: 120px;
@@ -32,7 +35,7 @@
 }
 
 .Write-Input-Price{
-    border-radius: 0px;
+    border-radius: 4px;
     border: 1px solid #B6B2AD;
     width: 160px;
 }
@@ -40,4 +43,11 @@
     border-radius: 0px !important; 
     border: 1px solid #4169E1 !important;
     width: 160px;
+}
+
+.Write-ButtonArea{
+    display: flex;
+    width: 300px;
+    justify-self:center;
+    justify-content: space-between;
 }
