@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { changeLogIn, changeIsOpen } from "../store/store.js";
+import { changeLogIn, changeIsOpen, changeIsSignUpOpen } from "../store/store.js";
 import './style/LoginModal.css';
 import { SignUpButton } from './Buttons.js';
 
@@ -14,8 +14,8 @@ function LoginModal(props){
     let navigate = useNavigate();
 
     function handletoSignUp(){
-        navigate('/signUp');
         dispatch(changeIsOpen(false));
+        dispatch(changeIsSignUpOpen(true));
     }
 
     function handleLogin(){

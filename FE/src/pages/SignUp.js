@@ -1,4 +1,5 @@
 import {useState, useEffect} from 'react';
+import './style/SignUp.css';
 
 function SignUp(){
     let [new_userName, setUserName]=useState(''); // 실시간 입력값 받아오기
@@ -20,8 +21,8 @@ function SignUp(){
         });
     }
     return(
-        <>
-            <div>회원가입 페이지</div>
+        <div>
+            <div className='SignUp-Title'>회원가입 페이지</div>
             <input onChange={(e) => {
                 setUserNickName(e.target.value);
             }} type="text"/>
@@ -35,7 +36,7 @@ function SignUp(){
             }} type="text"/>
             
             <button onClick={SignUp_MINIQUE}>회원가입</button>
-        </>
+        </div>
     );
 }
 

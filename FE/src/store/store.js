@@ -24,9 +24,22 @@ let isOpen = createSlice({
 
 export let {changeIsOpen} = isOpen.actions
 
+let isSignUpOpen = createSlice({
+  name: 'isSignUpOpen',
+  initialState: false,
+  reducers : {
+    changeIsSignUpOpen(state,action){
+      return action.payload;
+    }
+  }
+})
+
+export let {changeIsSignUpOpen} = isSignUpOpen.actions
+
 export default configureStore({
   reducer: { 
     isLoggedIn: isLoggedIn.reducer,
-    isOpen: isOpen.reducer
+    isOpen: isOpen.reducer,
+    isSignUpOpen: isSignUpOpen.reducer
   }
 }) 

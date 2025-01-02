@@ -48,7 +48,7 @@ function SearchResult(){
     <div>
       <div>
         <div className="Recommend-Title">
-          {searchData} 대한 검색 결과입니다.
+          {searchData}에 대한 검색 결과입니다.
         </div>
         <div className="Recommend-Carousel">
           <div className="Recommend-Container">

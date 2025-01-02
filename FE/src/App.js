@@ -8,7 +8,9 @@ import Detail from './pages/Detail';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import LoginModal from './components/LoginModal';
+import SignUpModal from './components/SignUpModal';
 import SearchResult from './pages/SearchResult';
+import SetUserInfo from './pages/SetUserInfo';
 
 
 function App() {
@@ -20,14 +22,16 @@ function App() {
       <div style={{ display: 'flex', justifyContent: 'center', flex: 1,
         width: '1024px', margin: '0 auto'
       }}>
-          <LoginModal/>
-          <div style={{width:'1024px'}}>
+        <LoginModal/>
+        <SignUpModal/>
+        <div style={{width:'1024px'}}>
           <Routes>
             <Route path="/" element={<NewsList/>}/>
             <Route path="/write" element={<NewsWrite/>}/>
             <Route path="/detail" element={<Detail/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/signUp" element={<SignUp/>}/>
+            <Route path="/updateInfo" element={<SetUserInfo/>}/>
             <Route path="/search" element={<SearchResult/>}/>
             <Route path="/detail/:id" element={<Detail/>}/>
           </Routes>
