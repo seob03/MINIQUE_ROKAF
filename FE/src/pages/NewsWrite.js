@@ -14,7 +14,7 @@ function NewsWrite() {
     let [개월수정보, 개월수변경] = useState('');
     let [상품상태, 상품상태변경] = useState('');
     let [가격, 가격변경] = useState(''); 
-
+    
     let navigate = useNavigate();
     let [isLoggedIn, setIsLoggedIn] = useState(null); // 로그인 상태를 추적할 상태
     

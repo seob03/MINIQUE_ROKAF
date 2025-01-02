@@ -20,8 +20,8 @@ function App() {
       <div style={{ display: 'flex', justifyContent: 'center', flex: 1,
         width: '1024px', margin: '0 auto'
       }}>
-        <LoginModal/>
-        <div style={{width:'1024px'}}>
+          <LoginModal/>
+          <div style={{width:'1024px'}}>
           <Routes>
             <Route path="/" element={<NewsList/>}/>
             <Route path="/write" element={<NewsWrite/>}/>

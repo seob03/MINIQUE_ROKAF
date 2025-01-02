@@ -47,7 +47,7 @@ function Slider(props){
                 return (
                     <Link to={'/detail/'+ a._id} key={a._id} style={{textDecoration: 'none', color: 'black'}}>
                       <Card 
-                        photo={a.productPhoto && a.productPhoto} 
+                        photo={a.productPhoto || undefined} 
                         brand={'MONCLER'}
                         title={a.productName}
                         size ={a.childAge} 

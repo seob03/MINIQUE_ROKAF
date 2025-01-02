@@ -4,7 +4,7 @@ import './style/SearchBar.css';
 
 const SearchBar =() => {
     let navigate = useNavigate();
-    let [searchData, setSearchData]=useState(); 
+    let [searchData, setSearchData]=useState(''); 
 
     return(
 

@@ -4,7 +4,7 @@ const {ObjectId} = require('mongodb')
 const bodyParser = require('body-parser');
 // 큰 이미지 데이터를 처리하기 위해 제한 증가
 router.use(bodyParser.json({ limit: '10mb' })); 
-
+const path = require('path');
 
 // 글 작성 API
 router.post('/add', async (요청, 응답) => {
@@ -17,7 +17,8 @@ router.post('/add', async (요청, 응답) => {
       productPhoto : 요청.body.productPhoto,
       childAge: 요청.body.childAge,
       productQuality: 요청.body.productQuality,
-      productPrice: 요청.body.productPrice
+      productPrice: 요청.body.productPrice,
+      like: 0 // 찜 개수는 0개가 기본 값
     })
   // 응답이 있어야 fetch의 아래로 내려갈 수 있음
   응답.json({ message: '게시글 작성' });  // 로그인 성공 후 응답

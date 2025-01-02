@@ -1,6 +1,7 @@
 const router = require('express').Router()
 // 로그인 기능
 const passport = require('passport')
+const path = require('path');
 
 // 로그인 API
 router.post('/login-POST', async (요청, 응답, next) => {
