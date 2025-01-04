@@ -11,6 +11,7 @@ import LoginModal from './components/LoginModal';
 import SignUpModal from './components/SignUpModal';
 import SearchResult from './pages/SearchResult';
 import SetUserInfo from './pages/SetUserInfo';
+import EditNews from './pages/EditNews';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<NewsList/>}/>
             <Route path="/write" element={<NewsWrite/>}/>
+            <Route path="/edit" element={<EditNews/>}/>
             <Route path="/detail" element={<Detail/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/signUp" element={<SignUp/>}/>

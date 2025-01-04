@@ -126,7 +126,7 @@ function NewsWrite() {
                     상품명변경(e.target.value);
                 }} 
                 type="text"/>
-                <div style={{justifycontent: 'flex-end', marginLeft: '20px'}}>
+                <div style={{justifycontent: 'flex-end', marginLeft: '20px', marginTop: '0.6rem'}}>
                     {상품명.length}/40
                 </div>
             </div>
@@ -141,7 +141,7 @@ function NewsWrite() {
                     }} 
                     type="text"
                 />
-                <div style={{display: 'block', marginLeft: '20px'}}>
+                <div style={{display: 'block', marginLeft: '20px', marginTop: '0.6rem'}}>
                     {상품상세설명.length}/200
                 </div>
             </div>
@@ -155,9 +155,10 @@ function NewsWrite() {
                         개월수변경(e.target.value);
                     }} 
                     type="text"
-                    style={{borderRadius: '4px', border: "1px solid #B6B2AD"}}
                 />
-                개월
+                <div style={{marginTop: '0.6rem'}}>
+                    개월
+                </div>
             </div>
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">
@@ -169,7 +170,6 @@ function NewsWrite() {
                         상품상태변경(e.target.value);
                     }} 
                     type="text"
-                    style={{borderRadius: '4px', border: "1px solid #B6B2AD"}}
                 />
             </div>
             <div className="Write-Input-Row">
@@ -188,7 +188,7 @@ function NewsWrite() {
                     }} 
                     type="text"
                 />
-                <div>
+                <div style={{marginTop: '0.6rem'}}>
                     원
                 </div>
             </div>
