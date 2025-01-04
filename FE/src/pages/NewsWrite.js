@@ -35,9 +35,10 @@ function NewsWrite() {
         checkLoginStatus(); // 컴포넌트가 마운트될 때 로그인 상태 확인
     });
 
-      if (isLoggedIn === null) {
+    if (isLoggedIn === null) {
         return <div>로딩 중...</div>; // 서버 응답을 기다리는 동안 로딩 상태 표시
-      }
+    }
+
     function PostNews(){
         if (isLoggedIn) {
             if (!상품명 || !상품상세설명 || !이미지 || !개월수정보 || !상품상태 || !가격) {
@@ -100,7 +101,65 @@ function NewsWrite() {
         };
         reader.readAsDataURL(file); // 파일을 BASE64로 변환
         }
+        console.log(이미지);
     };
+
+    function UploadBox(){
+        const [isActive, setActive] = useState(false);
+        const [uploadedInfo, setUploadedInfo] = useState(null);
+
+        const FileInfo = ({ uploadedInfo }) => (
+            <ul className="preview_info">
+              {Object.entries(uploadedInfo).map(([key, value]) => (
+                <li key={key}>
+                  <span className="info_key">{key}</span>
+                  <span className="info_value">{value}</span>
+                </li>
+              ))}
+            </ul>
+        );
+        
+        const setFileInfo = (file) => {
+            const { name, size: byteSize, type } = file;
+            const size = (byteSize / (1024 * 1024)).toFixed(2) + 'mb';
+            setUploadedInfo({ name, size, type }); // name, size, type 정보를 uploadedInfo에 저장
+        };
+
+        const handleDragStart = () => setActive(true);
+
+        const handleDragEnd = () => setActive(false);
+
+        const handleDragOver = (event) => {
+            event.preventDefault();
+        };
+
+        const handleDrop = (event) => {
+            event.preventDefault();
+            const file = event.dataTransfer.files[0];
+            setActive(false);
+        };
+
+        return(
+            <label 
+                className={`preview${isActive ? ' active' : ''}`}  // isActive 값에 따라 className 제어
+                onDragEnter={handleDragStart}  // dragstart 핸들러 추가
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragEnd}  // dragend 핸들러 추가
+                onDrop={handleDrop}
+            >
+                <input type="file" accept="image/*" className="file" 
+                onChange={handleFileChange}
+                />
+                {uploadedInfo && <FileInfo uploadedInfo={uploadedInfo} />}
+                {!uploadedInfo && (
+                <>
+                <p className="preview_msg">사진을 이곳에 드롭하세요.</p>
+                <p className="preview_desc">파일당 최대 3MB</p>
+                </>
+                )}
+            </label>
+        );
+    }
 
     return (
         <>
@@ -111,6 +170,7 @@ function NewsWrite() {
                 <div className="Write-Title-2">
                     이미지 업로드
                 </div>
+                <UploadBox/>
                 <div>
                 <input type="file" accept="image/*" onChange={handleFileChange} style={{marginBottom: '36px'}}/>
                 {이미지 && <img src={이미지} alt="Preview" style={{ maxWidth: '200px', margin: '16px 0' }} />}
