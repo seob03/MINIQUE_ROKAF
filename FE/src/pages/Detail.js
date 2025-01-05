@@ -18,12 +18,16 @@ function Detail() {
   useEffect(() => {
     // 비동기 함수 바로 호출
     const fetchData = async () => {
-      const response = await fetch('/detail/' + id);
-      const result = await response.json();
-      setPageResult(result);
-      setPageLike(result.like);
-    };
-
+      try {
+        const response = await fetch('/detail/' + id);
+        const result = await response.json();
+        setPageResult(result);
+        setPageLike(result.like);
+      } catch (error) {
+        // 에러 처리
+        console.error('데이터 가져오기 실패:', error)
+      }
+    } 
     fetchData(); // 비동기 함수 호출
   }, [id]); // id가 변경될 때마다 호출
 
@@ -174,7 +178,7 @@ function Detail() {
           {(isLoggedIn) ? 
           <div style={{display: "flex", justifyContent: 'space-between', alignItems: 'center'}}>
             <DeleteButtonHalf eventHandler={handleDelete}/>
-            <ButtonMedium text={'수정하기'} eventHandler={navigate('/edit'+id)}/>
+            <ButtonMedium text={'수정하기'} eventHandler={()=>{navigate('/edit/'+id)}}/>
           </div>
           : <BuyButton/> }
         </div>
