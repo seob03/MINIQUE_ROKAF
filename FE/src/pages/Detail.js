@@ -6,27 +6,27 @@ import { BuyButton, DeleteButton } from '../components/Buttons';
 import './style/Detail.css';
 
 function Detail() {
-  const [pageResult, setPageResult] = useState([]);
+  let [pageResult, setPageResult] = useState([]);
+  let [pageLike, setPageLike] = useState(20);
   let isLoggedIn = useSelector((state) => {return state.isLoggedIn})
-  const [isLiked, setIsLiked] = useState();
-
+  let [isLiked, setIsLiked] = useState(false);
   let navigate = useNavigate();
   let { id } = useParams();
   console.log(id)
   // 페이지 결과를 상태로 관리
 
   useEffect(() => {
-    // fetch 요청
-    fetch('/detail/' + id)
-      .then((response) => response.json())
-      .then((result) => {
-        // 상태 업데이트
-        setPageResult(result);
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
-  }, [id]); // id가 바뀔 때마다 요청을 다시 보냄
+    // 비동기 함수 바로 호출
+    const fetchData = async () => {
+      const response = await fetch('/detail/' + id);
+      const result = await response.json();
+      setPageResult(result);
+      setPageLike(result.like);
+    };
+
+    fetchData(); // 비동기 함수 호출
+  }, [id]); // id가 변경될 때마다 호출
+
 
   function handleDelete() {
     fetch('/delete/' + id, 
@@ -49,7 +49,9 @@ function Detail() {
 
 
   function HeartON() {
-    setIsLiked(true); // 좋아요 상태를 켬
+    setIsLiked(true);
+    console.log('HeartON: ', pageLike)
+    setPageLike(pageLike + 1)
     fetch(('/like/' + id), {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -64,7 +66,9 @@ function Detail() {
     }
 
   function HeartOFF() {
-    setIsLiked(false); // 좋아요 상태를 끔
+    setIsLiked(false);
+    console.log('HeartOFF: ', pageLike)
+    setPageLike(pageLike - 1)
     fetch(('/unlike/' + id), {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -95,13 +99,13 @@ function Detail() {
             <div className="HeartBox">
               <div>
                 { (isLiked) ? 
-                <div onClick={()=>{HeartON()}} style={{fontSize: '20px', color: '#DB4437' , cursor: 'pointer'}}>♥</div> 
+                <div onClick={()=>{HeartOFF()}} style={{fontSize: '20px', color: '#DB4437' , cursor: 'pointer'}}>♥</div> 
                 : 
-                <div onClick={()=>{HeartOFF()}} style={{fontSize: '20px', color: '#212120', cursor: 'pointer'}}>♡</div>
+                <div onClick={()=>{HeartON()}} style={{fontSize: '20px', color: '#212120', cursor: 'pointer'}}>♡</div>
                 }
               </div>
               <div>
-                {pageResult.like}
+                {pageLike}
               </div>
             </div>
           </div>
