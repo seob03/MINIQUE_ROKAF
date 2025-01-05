@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { changeIsOpen } from "../store/store.js";
 import { ButtonMediumBlue, ButtonMediumGray } from '../components/Buttons';
 import { ReactComponent as AddImage } from '../components/AddImage.svg';
-import { ReactComponent as AddImage_Active } from '../components/AddImage_Active.svg';
 import './style/NewsWrite.css';
 
 function NewsWrite() {

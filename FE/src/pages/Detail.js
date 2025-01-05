@@ -2,12 +2,12 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Card from '../components/Card.js';
-import { BuyButton, DeleteButton } from '../components/Buttons';
+import { ButtonMedium, BuyButton, DeleteButtonHalf } from '../components/Buttons';
 import './style/Detail.css';
 
 function Detail() {
   let [pageResult, setPageResult] = useState([]);
-  let [pageLike, setPageLike] = useState(20);
+  let [pageLike, setPageLike] = useState(0);
   let isLoggedIn = useSelector((state) => {return state.isLoggedIn})
   let [isLiked, setIsLiked] = useState(false);
   let navigate = useNavigate();
@@ -172,10 +172,10 @@ function Detail() {
             </div>
           </div>
           {(isLoggedIn) ? 
-          <>
-            <DeleteButton eventHandler={handleDelete}/>
-            <Link to={'/edit/' + id}>수정</Link>
-          </>
+          <div style={{display: "flex", justifyContent: 'space-between', alignItems: 'center'}}>
+            <DeleteButtonHalf eventHandler={handleDelete}/>
+            <ButtonMedium text={'수정하기'} eventHandler={navigate('/edit'+id)}/>
+          </div>
           : <BuyButton/> }
         </div>
       </div>
