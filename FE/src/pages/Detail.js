@@ -1,6 +1,5 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import Card from '../components/Card.js';
@@ -8,7 +7,7 @@ import { BuyButton, DeleteButton } from '../components/Buttons';
 
 import './style/Detail.css';
 
-function Detail(props) {
+function Detail() {
   const [pageResult, setPageResult] = useState([]);
   let isLoggedIn = useSelector((state) => {return state.isLoggedIn})
   const [isLiked, setIsLiked] = useState(false);
@@ -135,7 +134,11 @@ function Detail(props) {
               + 팔로우
             </div>
           </div>
-          {(isLoggedIn) ? <DeleteButton eventHandler={handleDelete}/>
+          {(isLoggedIn) ? 
+          <>
+            <DeleteButton eventHandler={handleDelete}/>
+            <Link to={'/edit/' + id}>수정</Link>
+          </>
           : <BuyButton/> }
         </div>
       </div>
@@ -152,5 +155,4 @@ function Detail(props) {
     </div>
   );
 }
-
 export default Detail;

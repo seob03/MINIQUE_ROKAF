@@ -48,8 +48,45 @@ router.get('/detail/:id', async (요청, 응답) => {
   응답.json(detailPage);
 })
 
+// 수정 버튼 클릭 시에 기존 글 데이터 받아오는 API
+router.get('/edit/:id', async (요청, 응답) => {
+  const db = 요청.db;  // 요청 객체에서 db 가져오기
+  let detailPageInfo = await db.collection('post').findOne({_id : new ObjectId(요청.params.id)})
+  응답.json(detailPageInfo);
+})
+
+// 페이지 DB 수정 API
+router.put('/editPost/:id', async (요청, 응답) => {
+  db = 요청.db;
+  console.log(요청.body)
+  let result = await db.collection('post').updateOne({ _id : new ObjectId(요청.params.id)},
+  { $set : 
+    {
+    user_id: 요청.user.id, // DB의 유저 고유 key_id
+    username: 요청.user.username, // 유저가 회원 가입할 때 사용한 아이디
+    productName : 요청.body.productName, 
+    productDetailContent : 요청.body.productDetailContent,
+    productPhoto : 요청.body.productPhoto,
+    childAge: 요청.body.childAge,
+    productQuality: 요청.body.productQuality,
+    productPrice: 요청.body.productPrice,
+    like: 요청.body.like 
+    }  
+  })
+// 응답이 있어야 fetch의 아래로 내려갈 수 있음
+응답.json({ message: '게시글 수정 성공' });  // 로그인 성공 후 응답
+})
+
+
+
 // 글쓰기 페이지 API
 router.get('/write',  async (요청, 응답) => {
+  if (요청.user)
+    응답.sendFile(path.join(__dirname, '../../FE/build/index.html'))
+})
+
+// 글 수정 페이지 API
+router.get('/edit',  async (요청, 응답) => {
   if (요청.user)
     응답.sendFile(path.join(__dirname, '../../FE/build/index.html'))
 })

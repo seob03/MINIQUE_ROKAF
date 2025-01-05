@@ -29,7 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<NewsList/>}/>
             <Route path="/write" element={<NewsWrite/>}/>
-            <Route path="/edit" element={<EditNews/>}/>
+            <Route path="/edit/:id" element={<EditNews/>}/>
             <Route path="/detail" element={<Detail/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="/signUp" element={<SignUp/>}/>
