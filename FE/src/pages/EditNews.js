@@ -13,7 +13,8 @@ function EditNews(){
     let [이미지, 이미지변경] = useState(''); 
     let [개월수정보, 개월수변경] = useState(''); 
     let [상품상태, 상품상태변경] = useState(''); 
-    let [가격, 가격변경] = useState(''); 
+    let [가격, 가격변경] = useState('');
+    const [isActive, setActive] = useState(false);
 
     // 수정하려는 글 값 받아오기 (default 값 설정)
     async function fetchData(id) {
@@ -47,7 +48,6 @@ function EditNews(){
     });
 
     function handleEdit() {
-
         fetch(('/editPost/' + id), {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -73,8 +73,6 @@ function EditNews(){
     }
 
     function UploadBox(){
-        const [isActive, setActive] = useState(false);
-
         useEffect(() => {
             console.log(이미지); // 이미지 상태가 변경될 때마다 로그 출력
         }, [이미지]); // 이미지 상태가 변경될 때마다 실행
