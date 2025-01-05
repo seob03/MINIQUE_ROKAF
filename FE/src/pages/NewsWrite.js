@@ -3,6 +3,8 @@ import {useNavigate} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeIsOpen } from "../store/store.js";
 import { ButtonMediumBlue, ButtonMediumGray } from '../components/Buttons';
+import { ReactComponent as AddImage } from '../components/AddImage.svg';
+import { ReactComponent as AddImage_Active } from '../components/AddImage_Active.svg';
 import './style/NewsWrite.css';
 
 function NewsWrite() {
@@ -66,7 +68,6 @@ function NewsWrite() {
             }
             
 
-
             fetch('/add', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -92,72 +93,72 @@ function NewsWrite() {
             dispatch(changeIsOpen(true)); // 로그인 안 되어 있으면 로그인 페이지로 이동시키기
     }
     // 파일 선택 핸들러
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            이미지변경(reader.result); // BASE64 데이터 저장
-        };
-        reader.readAsDataURL(file); // 파일을 BASE64로 변환
-        }
-        console.log(이미지);
-    };
 
     function UploadBox(){
         const [isActive, setActive] = useState(false);
-        const [uploadedInfo, setUploadedInfo] = useState(null);
 
-        const FileInfo = ({ uploadedInfo }) => (
-            <ul className="preview_info">
-              {Object.entries(uploadedInfo).map(([key, value]) => (
-                <li key={key}>
-                  <span className="info_key">{key}</span>
-                  <span className="info_value">{value}</span>
-                </li>
-              ))}
-            </ul>
-        );
-        
-        const setFileInfo = (file) => {
-            const { name, size: byteSize, type } = file;
-            const size = (byteSize / (1024 * 1024)).toFixed(2) + 'mb';
-            setUploadedInfo({ name, size, type }); // name, size, type 정보를 uploadedInfo에 저장
+        useEffect(() => {
+            console.log(이미지); // 이미지 상태가 변경될 때마다 로그 출력
+        }, [이미지]); // 이미지 상태가 변경될 때마다 실행
+
+        const handleFileChange = (e) => {
+            const file = e.target.files[0];
+            if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                이미지변경(reader.result); // BASE64 데이터 저장
+            };
+            reader.readAsDataURL(file); // 파일을 BASE64로 변환
+            }
         };
 
         const handleDragStart = () => setActive(true);
-
-        const handleDragEnd = () => setActive(false);
-
+        const handleDragLeave = () => setActive(false);
         const handleDragOver = (event) => {
             event.preventDefault();
         };
-
-        const handleDrop = (event) => {
-            event.preventDefault();
-            const file = event.dataTransfer.files[0];
+        const handleDrop = (e) => {
+            e.preventDefault();
+            const file = e.dataTransfer.files[0]; // 드래그 앤 드롭에서 파일 가져오기
+            if (file) {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    이미지변경(reader.result); // BASE64 데이터 저장
+                };
+                reader.readAsDataURL(file); // 파일을 BASE64로 변환
+            }
             setActive(false);
         };
 
         return(
-            <label 
-                className={`preview${isActive ? ' active' : ''}`}  // isActive 값에 따라 className 제어
-                onDragEnter={handleDragStart}  // dragstart 핸들러 추가
-                onDragOver={handleDragOver}
-                onDragLeave={handleDragEnd}  // dragend 핸들러 추가
-                onDrop={handleDrop}
-            >
-                <input type="file" accept="image/*" className="file" 
-                onChange={handleFileChange}
-                />
-                {uploadedInfo && <FileInfo uploadedInfo={uploadedInfo} />}
-                {!uploadedInfo && (
-                <>
-                <p className="preview_msg">사진을 이곳에 드롭하세요.</p>
-                <p className="preview_desc">파일당 최대 3MB</p>
-                </>
-                )}
-            </label>
+            <div className='Write-Image'>
+                <div className="Write-Title-2">
+                    이미지 업로드
+                </div>
+                <div className='upload-Container'>
+                    <label 
+                        className={`dropbox${isActive ? ' active' : ''}`}  // isActive 값에 따라 className 제어
+                        onDragEnter={handleDragStart}  // dragstart 핸들러 추가
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}  // dragend 핸들러 추가
+                        onDrop={handleDrop}
+                    >
+                        <input type="file" accept="image/*" className="file" 
+                        onChange={handleFileChange}
+                        />
+                            <AddImage className="add-image" fill="#B6B2AD"/>
+                            <div className='dropbox-text'>
+                                이미지를 드래그하거나 클릭하여 선택
+                            </div>
+                    </label>
+                    {
+                        (이미지) ?
+                        <div className="image-preview">
+                            <img src={이미지}/>
+                        </div> : null
+                    }
+                </div>
+            </div>
         );
     }
 
@@ -166,16 +167,7 @@ function NewsWrite() {
             <div className='Write-Title-1'>
                 상품 등록하기
             </div>
-            <div>
-                <div className="Write-Title-2">
-                    이미지 업로드
-                </div>
-                <UploadBox/>
-                <div>
-                <input type="file" accept="image/*" onChange={handleFileChange} style={{marginBottom: '36px'}}/>
-                {이미지 && <img src={이미지} alt="Preview" style={{ maxWidth: '200px', margin: '16px 0' }} />}
-            </div>
-            </div>
+            <UploadBox/>
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">
                     상품명
