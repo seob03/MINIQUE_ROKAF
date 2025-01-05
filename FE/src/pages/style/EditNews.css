@@ -83,6 +83,7 @@
     position: absolute;
     z-index: 1;
     cursor: pointer;
+    align-items: center;
 }
 .file::file-selector-button {
     font-size: 14px;
@@ -124,7 +125,10 @@
 }
 
 .add-image{
+    width: 56px;
+    height: 56px;
     margin-bottom: 8px;
+    align-self: center;
 }
 
 .dropbox-text{
