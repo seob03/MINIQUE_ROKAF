@@ -1,16 +1,14 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-
+import { useSelector } from 'react-redux';
 import Card from '../components/Card.js';
 import { BuyButton, DeleteButton } from '../components/Buttons';
-
 import './style/Detail.css';
 
 function Detail() {
   const [pageResult, setPageResult] = useState([]);
   let isLoggedIn = useSelector((state) => {return state.isLoggedIn})
-  const [isLiked, setIsLiked] = useState(false);
+  const [isLiked, setIsLiked] = useState();
 
   let navigate = useNavigate();
   let { id } = useParams();
@@ -51,6 +49,7 @@ function Detail() {
 
 
   function HeartON() {
+    setIsLiked(true); // 좋아요 상태를 켬
     fetch(('/like/' + id), {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -62,12 +61,10 @@ function Detail() {
       .catch(error => {
       console.error('fetch 오류:', error);
       });
-    return (
-      <div style={{fontSize: '20px', color: '#DB4437' , cursor: 'pointer'}}>♥</div>
-    )
-  }
+    }
 
   function HeartOFF() {
+    setIsLiked(false); // 좋아요 상태를 끔
     fetch(('/unlike/' + id), {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -79,10 +76,6 @@ function Detail() {
       .catch(error => {
       console.error('fetch 오류:', error);
       });
-
-    return (
-      <div style={{fontSize: '20px', color: '#212120', cursor: 'pointer'}}>♡</div>
-    )
   }
 
 
@@ -100,11 +93,15 @@ function Detail() {
             </div>
             <div style={{flexGrow:1}}/>
             <div className="HeartBox">
-              <div onClick={()=>{setIsLiked(!isLiked)}}>
-                { (isLiked) ? HeartON() : HeartOFF() }
+              <div>
+                { (isLiked) ? 
+                <div onClick={()=>{HeartON()}} style={{fontSize: '20px', color: '#DB4437' , cursor: 'pointer'}}>♥</div> 
+                : 
+                <div onClick={()=>{HeartOFF()}} style={{fontSize: '20px', color: '#212120', cursor: 'pointer'}}>♡</div>
+                }
               </div>
               <div>
-                100
+                {pageResult.like}
               </div>
             </div>
           </div>

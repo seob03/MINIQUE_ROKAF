@@ -110,6 +110,7 @@ router.get('/getDatabase', async (요청, 응답) => {
 
 // 좋아요 추가 DB 반영 API
 router.put('/like/:id', async (요청, 응답) => {
+  console.log('좋아요수 +1')
   db = 요청.db;
   let result = await db.collection('post').updateOne({ _id : new ObjectId(요청.params.id)},
   { 
@@ -121,6 +122,7 @@ router.put('/like/:id', async (요청, 응답) => {
 
 // 좋아요 삭제 DB 반영 API
 router.put('/unlike/:id', async (요청, 응답) => {
+  console.log('좋아요수 -1')
   db = 요청.db;
   let result = await db.collection('post').updateOne({ _id : new ObjectId(요청.params.id)},
   { 
