@@ -108,4 +108,27 @@ router.get('/getDatabase', async (요청, 응답) => {
   }
 });
 
+// 좋아요 추가 DB 반영 API
+router.put('/like/:id', async (요청, 응답) => {
+  db = 요청.db;
+  let result = await db.collection('post').updateOne({ _id : new ObjectId(요청.params.id)},
+  { 
+    $inc : { like : 1 } 
+  })
+// 응답이 있어야 fetch의 아래로 내려갈 수 있음
+응답.json({ message: '하트 누르기 성공' });  // 로그인 성공 후 응답
+})
+
+// 좋아요 삭제 DB 반영 API
+router.put('/unlike/:id', async (요청, 응답) => {
+  db = 요청.db;
+  let result = await db.collection('post').updateOne({ _id : new ObjectId(요청.params.id)},
+  { 
+    $inc : { like : -1 } 
+  })
+// 응답이 있어야 fetch의 아래로 내려갈 수 있음
+응답.json({ message: '하트 떼기 성공' });  // 로그인 성공 후 응답
+})
+
+
 module.exports = router

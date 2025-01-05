@@ -48,6 +48,45 @@ function Detail() {
     });
   }
 
+
+
+  function HeartON() {
+    fetch(('/like/' + id), {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      })
+      .then(response => response.json())
+      .then(data => {
+      console.log('서버 응답:', data);
+      })
+      .catch(error => {
+      console.error('fetch 오류:', error);
+      });
+    return (
+      <div style={{fontSize: '20px', color: '#DB4437' , cursor: 'pointer'}}>♥</div>
+    )
+  }
+
+  function HeartOFF() {
+    fetch(('/unlike/' + id), {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      })
+      .then(response => response.json())
+      .then(data => {
+      console.log('서버 응답:', data);
+      })
+      .catch(error => {
+      console.error('fetch 오류:', error);
+      });
+
+    return (
+      <div style={{fontSize: '20px', color: '#212120', cursor: 'pointer'}}>♡</div>
+    )
+  }
+
+
+  
   return (
     <div>
       <div className="Detail-Container">
@@ -62,13 +101,10 @@ function Detail() {
             <div style={{flexGrow:1}}/>
             <div className="HeartBox">
               <div onClick={()=>{setIsLiked(!isLiked)}}>
-                {
-                (!isLiked) ? <div style={{fontSize: '20px', color: '#212120', cursor: 'pointer'}}>♡</div>
-                : <div style={{fontSize: '20px', color: '#DB4437' , cursor: 'pointer'}}>♥</div>
-                }
+                { (isLiked) ? HeartON() : HeartOFF() }
               </div>
               <div>
-                12
+                100
               </div>
             </div>
           </div>
