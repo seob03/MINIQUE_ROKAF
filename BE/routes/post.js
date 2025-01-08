@@ -129,6 +129,7 @@ router.put('/unlike/:id', async (요청, 응답) => {
 // 해당 게시글을 유저가 좋아요를 누른 적이 있는 지 판단하는 API
 router.get('/isLikedPost/:PostId', async (요청, 응답) => {
   db = 요청.db
+  if (!요청.user) 응답.send(false)
   let isLiked = await db.collection('likedPosts').findOne({username : 요청.user.username , likedPostId : 요청.params.PostId })
   if (isLiked) 응답.send(true)
   else 응답.send(false)
