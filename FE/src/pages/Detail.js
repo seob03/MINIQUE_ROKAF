@@ -12,8 +12,25 @@ function Detail() {
   let [isLiked, setIsLiked] = useState(false);
   let navigate = useNavigate();
   let { id } = useParams();
-  console.log(id)
-  // 페이지 결과를 상태로 관리
+  console.log(id) // 글 id
+  
+  // 로그인 된 유저가 현재 게시글을 좋아요 누른 적이 있는지 추적
+  useEffect(()=>{
+    // 로그인이 되어있어야 요청을 보냄, 안되어있으면 보내지 않고 초기값 false로 설정해버림
+    if(isLoggedIn) {
+      fetch('/isLikedPost/' + id)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('좋아요 눌러져 있나요?:', data)
+        setIsLiked(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+    } else {
+      setIsLiked(false)
+    }
+  }, [id])
 
   useEffect(() => {
     // 비동기 함수 바로 호출
@@ -30,31 +47,36 @@ function Detail() {
     } 
     fetchData(); // 비동기 함수 호출
   }, [id]); // id가 변경될 때마다 호출
-
-
+  
   function handleDelete() {
-    fetch('/delete/' + id, 
-    {
-      method : 'DELETE',
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      if(data == true)
-        alert("글이 정상적으로 삭제되었습니다.")
-      else 
-        alert("삭제 권한이 존재하지 않습니다.")
-      navigate('/');
-    })
-    .catch((error) => {
-      console.error('Error fetching data:', error);
-    });
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm('글을 삭제하시겠습니까? 삭제된 글은 복구되지 않습니다.')) {
+      fetch('/delete/' + id, 
+      {
+        method : 'DELETE',
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        if(data == true)
+          alert("글이 정상적으로 삭제되었습니다.")
+        else 
+          alert("삭제 권한이 존재하지 않습니다.")
+        navigate('/');
+      })
+      .catch((error) => {
+        console.error('Error fetching data:', error);
+      });
+    }
   }
 
 
 
   function HeartON() {
+    if(!isLoggedIn) {
+      alert('로그인 안해놓고 찜을 어떻게 하려는거임 대체')
+      return
+    }
     setIsLiked(true);
-    console.log('HeartON: ', pageLike)
     setPageLike(pageLike + 1)
     fetch(('/like/' + id), {
       method: 'PUT',
@@ -70,8 +92,11 @@ function Detail() {
     }
 
   function HeartOFF() {
+    if(!isLoggedIn) {
+      alert('로그인 안해놓고 찜을 어떻게 하려는거임 대체')
+      return
+    }
     setIsLiked(false);
-    console.log('HeartOFF: ', pageLike)
     setPageLike(pageLike - 1)
     fetch(('/unlike/' + id), {
       method: 'PUT',
