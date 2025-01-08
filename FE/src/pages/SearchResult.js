@@ -5,19 +5,21 @@ import { useLocation } from 'react-router-dom';
 
 function SearchResult(){
     const location = useLocation();
-    const searchData = location.state?.data || ''; // 이게 문제여씀 (optional chaining 문법)
-    console.log('searchData:', searchData);
+    const rawSearchData = location.state?.data || ''; // 이게 문제여씀 (optional chaining 문법)
+    console.log('rawSearchData:', rawSearchData);
+    const searchData = rawSearchData.trim(); // 공백 제거
     let [searchPostData, setSearchPostData] = useState([]);
     let [loading, setLoading] = useState(true);
     
     useEffect(() => {
       if (!searchData) {
-        setLoading(false)
-        return
-      };  // searchData가 빈 문자열이면 요청하지 않고, 결과 없음을 출력
-
+        // 검색어가 공백이거나 비어있는 경우
+        console.log('검색어가 유효하지 않습니다.');
+        setSearchPostData([]); // 검색 결과를 빈 배열로 설정
+        setLoading(false); // 로딩 종료
+        return;
+      }
       setLoading(true); // 데이터 로딩 시작
-        console.log("searchResult 페이지가 그냥 열려버려")
         fetch('/searchPost?searchData=' + searchData)
             .then(response => response.json())
             .then(data => {           
@@ -33,10 +35,11 @@ function SearchResult(){
             console.error('fetch 오류:', error);
             setSearchPostData([]);
             })
-            .finally(() => setLoading(false)); // 데이터 로딩 종료
+            .finally(() => setLoading(false)); // 데이터 로딩 종료      
     }, [searchData]);
+    
     if (loading) {
-        return <div>로딩 중...</div>;
+      return <div>로딩 중...</div>;
     }
 
     if (!searchPostData.length) {
