@@ -9,7 +9,7 @@ const SearchBar =() => {
     return(
 
     <div className='Search-Box'>
-        <input placeholder="찾는 상품명을 입력해주세요." onChange={(e) => {
+        <input placeholder=" 찾는 상품명을 입력해주세요." onChange={(e) => {
                     setSearchData(e.target.value);
                 }} type="text" className='Search-Input'/>
         <button onClick={()=>{navigate('/search',  {state: {data: searchData} })}} id='Search-Header' className='Search-Button'>
