@@ -51,13 +51,13 @@ function LoginModal(props){
             <div className='LoginModal-Background'/>
             <div className='LoginModal-Container'>
                 <div className='LoginModal-FirstLine'>
-                    <img src={'./img/CloseButton.svg'} 
+                    <img src={'/img/CloseButton.svg'} 
                     className='LoginModalCloseButton'
                     onClick = {()=>{dispatch(changeIsOpen(false));}}
                     />
                 </div>
                 <div className='LoginModal-Title'>
-                    <img src={'./img/Logo_Square.svg'} style={{width: '40px', height: '40px', marginBottom: '20px'}}/>
+                    <img src={'/img/Logo_Square.svg'} style={{width: '40px', height: '40px', marginBottom: '20px'}}/>
                     합리적인 패션 첫걸음, MINIQUE
                 </div>
                 <div className='LoginModal-SubTitle'>

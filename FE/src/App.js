@@ -4,7 +4,7 @@ import './App.css';
 import Header from './components/Header';
 import NewsList from './pages/NewsList';
 import NewsWrite from './pages/NewsWrite';
-import StorePage from './pages/Store';
+import UserDetail from './pages/UserDetail';
 import Detail from './pages/Detail';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
@@ -33,7 +33,7 @@ function App() {
             <Route path="/write" element={<NewsWrite />} />
             <Route path="/edit/:id" element={<EditNews />} />
             <Route path="/detail" element={<Detail />} />
-            <Route path="/store/:id" element={<StorePage />} />
+            <Route path="/store/:id" element={<UserDetail />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/updateInfo" element={<SetUserInfo />} />

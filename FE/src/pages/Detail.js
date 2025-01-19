@@ -176,30 +176,32 @@ function Detail() {
               3500원
             </div>
           </div>
-          <div className="Detail-UserBox">
-            <div>
-              <div className="Detail-UserBox-Username">
-                {pageResult.username}
+          <Link to={'/store/'+pageResult.user_id} style={{textDecoration: 'none', color: 'black'}}>
+            <div className="Detail-UserBox">
+              <div>
+                <div className="Detail-UserBox-Username">
+                  {pageResult.username}
+                </div>
+                <div className="Detail-UserBox-Userinfo">
+                  <div style={{color: '#FFBE64', marginRight: '8px'}}>
+                    ★
+                  </div>
+                  <div>  
+                    9.5
+                  </div>
+                  <div style={{marginLeft: '14px', marginRight:'14px'}}>
+                    |
+                  </div>
+                  <div>
+                    상품 개
+                  </div>
+                </div>
               </div>
-              <div className="Detail-UserBox-Userinfo">
-                <div style={{color: '#FFBE64', marginRight: '8px'}}>
-                  ★
-                </div>
-                <div>  
-                  9.5
-                </div>
-                <div style={{marginLeft: '14px', marginRight:'14px'}}>
-                  |
-                </div>
-                <div>
-                  상품 개
-                </div>
+              <div className="Detail-UserBox-Follow">
+                + 팔로우
               </div>
             </div>
-            <div className="Detail-UserBox-Follow">
-              + 팔로우
-            </div>
-          </div>
+          </Link>
           {(isLoggedIn) ? 
           <div style={{display: "flex", justifyContent: 'space-between', alignItems: 'center'}}>
             <DeleteButtonHalf eventHandler={handleDelete}/>
