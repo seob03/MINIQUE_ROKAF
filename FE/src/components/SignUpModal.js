@@ -51,13 +51,13 @@ function SignUpModal(props){
             <div className='SignUpModal-Background'/>
             <div className='SignUpModal-Container'>
                 <div className='SignUpModal-FirstLine'>
-                    <img src={'./img/CloseButton.svg'} 
+                    <img src={'/img/CloseButton.svg'} 
                     className='SignUpModalCloseButton'
                     onClick = {()=>{dispatch(changeIsSignUpOpen(false));}}
                     />
                 </div>
                 <div className='SignUpModal-Title'>
-                    <img src={'./img/Logo_Square.svg'} style={{width: '40px', height: '40px', marginBottom: '20px'}}/>
+                    <img src={'/img/Logo_Square.svg'} style={{width: '40px', height: '40px', marginBottom: '20px'}}/>
                     합리적인 패션 첫걸음, MINIQUE
                 </div>
                 <div className='SignUpModal-SubTitle'>
