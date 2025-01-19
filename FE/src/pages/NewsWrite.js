@@ -97,7 +97,7 @@ function NewsWrite() {
         const [isActive, setActive] = useState(false);
 
         useEffect(() => {
-            console.log(이미지); // 이미지 상태가 변경될 때마다 로그 출력
+            // console.log(이미지); // 이미지 상태가 변경될 때마다 로그 출력
         }, [이미지]); // 이미지 상태가 변경될 때마다 실행
 
         const handleFileChange = (e) => {

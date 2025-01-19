@@ -91,7 +91,7 @@ router.get('/edit',  async (요청, 응답) => {
     응답.sendFile(path.join(__dirname, '../../FE/build/index.html'))
 })
 
-// 현재 유저 정보 보내주는 API (NewsWrite.js 에서 사용)
+// 현재 유저 정보 보내주는 API
 router.get('/getUserInfo', async (요청, 응답) => {
   응답.json(요청.user);
 })

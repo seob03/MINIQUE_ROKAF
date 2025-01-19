@@ -12,7 +12,7 @@ function Detail() {
   let [isLiked, setIsLiked] = useState(false);
   let navigate = useNavigate();
   let { id } = useParams();
-  console.log(id) // 글 id
+
   
   // 로그인 된 유저가 현재 게시글을 좋아요 누른 적이 있는지 추적
   useEffect(()=>{
@@ -173,10 +173,10 @@ function Detail() {
               배송비
             </div>
             <div className="Detail-Info-Content">
-              3500원
+              3500원 {pageResult.user_id}
             </div>
           </div>
-          <Link to={'/store/'+pageResult.user_id} style={{textDecoration: 'none', color: 'black'}}>
+          <Link to={'/store/'+ pageResult.user_id } style={{textDecoration: 'none', color: 'black'}}>
             <div className="Detail-UserBox">
               <div>
                 <div className="Detail-UserBox-Username">
