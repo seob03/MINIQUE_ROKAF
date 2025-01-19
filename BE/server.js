@@ -40,6 +40,7 @@ app.use('/', require('./routes/passport.js') )
 app.use('/', require('./routes/post.js') )
 app.use('/', require('./routes/search.js') )
 app.use('/', require('./routes/auth.js') )
+app.use('/', require('./routes/postHeart.js') )
 
 
 app.get('*', (요청, 응답) => {
