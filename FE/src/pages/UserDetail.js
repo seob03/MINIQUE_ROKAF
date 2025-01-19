@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import { useParams, Link, useNavigate } from "react-router-dom";
 
 import './style/Store.css';
 
-function StorePage() {
+function UserDetail() {
     let [tab, setTab] = useState(0);
+    let { user_id } = useParams();
 
     function TabContent(props) {
         let [fade, setFade] = useState('')
@@ -76,4 +78,4 @@ function StorePage() {
     );
 }
 
-export default StorePage;
+export default UserDetail;
