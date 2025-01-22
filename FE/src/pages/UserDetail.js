@@ -6,8 +6,8 @@ import './style/Store.css';
 function UserDetail() {
     let [tab, setTab] = useState(0);
     let { user_id } = useParams();
-    let [posts, setPosts] = useState('');
-    let [userInfo, setUserInfo] = useState('')
+    let [posts, setPosts] = useState([]);
+    let [userInfo, setUserInfo] = useState('') // username, _id 필드 반환
     useEffect(() => {
         // 두 개의 fetch 요청을 병렬로 처리
         Promise.all([
@@ -47,25 +47,24 @@ function UserDetail() {
         }, [tab])
 
         return (
+            
             <div className={`TabContent-Start ${fade}`}>
                 {
                     [
                         <div>
-                            {/* 상품 리스트 출력 @@@@@ 이거 조건으로 useEffect로 값 세팅 후에 
-                            사용하도록 설정해야함 안그러면 useEffect가 나중에 활성화 돼서 랜더링이 먼저 되고 
-                            그러면 posts 출력하는데 오류가 생김 정확한 이유는 아직 모름 + 정리하기*/}
                             {props.posts && props.posts.length > 0 ? (
                                 <div>
-                                    {props.posts.map(post => (
-                                        <div key={post._id}>
-                                            <h3>{post.productName}</h3>
-                                            <p>{post.productDetailContent}</p>
-                                        </div>
-                                    ))}
-                                </div>
+                                {props.posts.map(post => (
+                                    <div key={post._id}>
+                                        <h3>{post.productName}</h3>
+                                        <p>{post.productDetailContent}</p>
+                                    </div>
+                                ))}
+                            </div>
                             ) : (
-                                <p>상품이 없습니다.</p>
+                                <div>아직 로딩중</div>
                             )}
+
                         </div>,
                         <div>후기 내용</div>
                     ][props.tab]
@@ -90,11 +89,12 @@ function UserDetail() {
                         </div>
                         <div>
                             4.2 
+                         {(posts.length > 0) ? <div>{posts[0].productName}</div> : <div>ㅈㅅ</div>}
                         </div>
                     </div>
                     <div className='Store-Content-Detail'>
                         <div style={{ marginRight: '56px' }}>
-                            상품 판매 OO회 
+                            상품 판매 OO회
                         </div>
                         <div style={{ marginRight: '56px' }}>
                             상품 개수 {posts.length}
@@ -104,7 +104,7 @@ function UserDetail() {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
             <div>
                 <div class="Store-Tab">
                     <div className="Store-Tab-Title"
