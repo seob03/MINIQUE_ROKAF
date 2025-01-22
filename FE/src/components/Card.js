@@ -1,9 +1,13 @@
+import { useNavigate } from 'react-router-dom';
+
 import './style/Card.css';
 import ImageResizer from './ImageResizer';
 
 function Card(props){
+    let navigate = useNavigate();
+
     return (
-        <div className="CardContainer">
+        <div className="CardContainer" onClick={()=>{navigate(props.link)}}>
             <div className="CardImage" 
             >
                 <img src={props.photo} className="CardImage cover"/>
