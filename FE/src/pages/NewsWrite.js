@@ -11,7 +11,7 @@ function NewsWrite() {
     // DB 상태 관리
     let [상품명, 상품명변경]=useState(''); 
     let [상품상세설명, 상품상세설명변경]=useState(''); 
-    let [이미지, 이미지변경] = useState(null); 
+    let [이미지들, 이미지들변경] = useState([]);
     let [개월수정보, 개월수변경] = useState('');
     let [상품상태, 상품상태변경] = useState('');
     let [가격, 가격변경] = useState(''); 
@@ -42,7 +42,7 @@ function NewsWrite() {
 
     function PostNews(){
         if (isLoggedIn) {
-            if (!상품명 || !상품상세설명 || !이미지 || !개월수정보 || !상품상태 || !가격) {
+            if (!상품명 || !상품상세설명 || !개월수정보 || !상품상태 || !가격) {
                 alert("모든 필드를 작성해주세요.");
                 return; 
             }
@@ -73,7 +73,7 @@ function NewsWrite() {
             body: JSON.stringify({
                 productName: 상품명, 
                 productDetailContent: 상품상세설명, 
-                productPhoto: 이미지,
+                productPhoto: 이미지들,
                 childAge: 개월수정보,
                 productQuality: 상품상태,
                 productPrice: 가격
@@ -97,18 +97,19 @@ function NewsWrite() {
         const [isActive, setActive] = useState(false);
 
         useEffect(() => {
-            // console.log(이미지); // 이미지 상태가 변경될 때마다 로그 출력
-        }, [이미지]); // 이미지 상태가 변경될 때마다 실행
+        }, [이미지들]); // 이미지들의 상태가 변경될 때마다 실행
 
         const handleFileChange = (e) => {
-            const file = e.target.files[0];
-            if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                이미지변경(reader.result); // BASE64 데이터 저장
-            };
-            reader.readAsDataURL(file); // 파일을 BASE64로 변환
-            }
+            const files = e.target.files; // 여러 파일 선택 가능
+            const fileArray = Array.from(files); // FileList를 배열로 변환
+        
+            fileArray.forEach((file) => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    이미지들변경((prev) => [...prev, reader.result]); // 기존 이미지 배열에 추가
+                };
+                reader.readAsDataURL(file); // 파일을 BASE64로 변환
+            });
         };
 
         const handleDragStart = () => setActive(true);
@@ -118,15 +119,18 @@ function NewsWrite() {
         };
         const handleDrop = (e) => {
             e.preventDefault();
-            const file = e.dataTransfer.files[0]; // 드래그 앤 드롭에서 파일 가져오기
-            if (file) {
+            const files = e.dataTransfer.files; // 드롭한 파일들 가져오기
+            const fileArray = Array.from(files);
+        
+            fileArray.forEach((file) => {
                 const reader = new FileReader();
                 reader.onloadend = () => {
-                    이미지변경(reader.result); // BASE64 데이터 저장
+                    이미지들변경((prev) => [...prev, reader.result]); // 기존 배열에 새 이미지를 추가
                 };
-                reader.readAsDataURL(file); // 파일을 BASE64로 변환
-            }
-            setActive(false);
+                reader.readAsDataURL(file);
+            });
+        
+            setActive(false); // 드래그 상태 비활성화
         };
 
         return(
@@ -142,20 +146,25 @@ function NewsWrite() {
                         onDragLeave={handleDragLeave}  // dragend 핸들러 추가
                         onDrop={handleDrop}
                     >
-                        <input type="file" accept="image/*" className="file" 
-                        onChange={handleFileChange}
+                        <input 
+                            type="file" 
+                            multiple
+                            accept="image/*" 
+                            className="file" 
+                            onChange={handleFileChange}
                         />
                             <AddImage className="add-image" fill="#B6B2AD"/>
                             <div className='dropbox-text'>
                                 이미지를 드래그하거나 클릭하여 선택
                             </div>
-                    </label>
-                    {
-                        (이미지) ?
-                        <div className="image-preview">
-                            <img src={이미지}/>
-                        </div> : null
-                    }
+                            </label>
+                            {이미지들.length > 0 && (
+                                <div className="image-preview">
+                                    {이미지들.map((image, index) => (
+                                        <img key={index} src={image} alt={`Preview ${index}`} />
+                                    ))}
+                            </div>
+                )}
                 </div>
             </div>
         );

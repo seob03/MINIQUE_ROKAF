@@ -116,9 +116,15 @@ function Detail() {
   return (
     <div>
       <div className="Detail-Container">
-        <div className="Detail-Image">
-          {<img src={pageResult.productPhoto} className="Detail-Image cover"/>}
-        </div>
+      <div className="Detail-Image">
+        {pageResult.productPhoto && pageResult.productPhoto.length > 0 ? (
+          <div>
+            <img src={pageResult.productPhoto[0]} className="Detail-Image cover" alt="상품 이미지" />
+          </div>
+        ) : (
+          <div>이미지 로딩 대기 중</div>
+        )}
+      </div>
         <div className="Detail-Content">
           <div className="Detail-FirstLine">
             <div className="Detail-Title">
