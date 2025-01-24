@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from "react-router-dom";
 
+import Card from '../components/Card';
+
 import './style/Store.css';
 
 function UserDetail() {
@@ -53,18 +55,21 @@ function UserDetail() {
                     [
                         <div>
                             {props.posts && props.posts.length > 0 ? (
-                                <div>
+                                <div className='TabContent-Item'>
                                 {props.posts.map(post => (
-                                    <div key={post._id}>
-                                        <h3>{post.productName}</h3>
-                                        <p>{post.productDetailContent}</p>
-                                    </div>
+                                        <Card
+                                            photo={post.productPhoto || undefined}
+                                            brand={'Brand'}
+                                            title={post.productName}
+                                            size={post.childAge}
+                                            price={post.productPrice}
+                                            link={'/detail/'+post._id}
+                                        />
                                 ))}
-                            </div>
+                                </div>
                             ) : (
                                 <div>아직 로딩중</div>
                             )}
-
                         </div>,
                         <div>후기 내용</div>
                     ][props.tab]
