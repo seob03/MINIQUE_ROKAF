@@ -61,13 +61,12 @@
 }
 
 .TabContent-Item{
-    display: flex;
-    flex-direction: row;
-    flex-wrap : wrap;
-    width: 100%;
-    gap: 22px;
-    align-items: flex-start;
+    display: flex !important;
+    flex-wrap: wrap;
+    margin-top: 36px;
+    gap: 84px;
     justify-content: flex-start;
+    align-items: flex-start;
 }
 
 .Tab-Bar {
