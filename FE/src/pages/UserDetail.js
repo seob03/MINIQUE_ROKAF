@@ -93,8 +93,7 @@ function UserDetail() {
                             ★
                         </div>
                         <div>
-                            4.2 
-                         {(posts.length > 0) ? <div>{posts[0].productName}</div> : <div>ㅈㅅ</div>}
+                            4.2
                         </div>
                     </div>
                     <div className='Store-Content-Detail'>
