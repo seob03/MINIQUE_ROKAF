@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from "react-router-dom";
 
 import Card from '../components/Card';
+import CardSmall from '../components/CardSmall';
 
-import './style/Store.css';
+import './style/UserDetail.css';
 
 function UserDetail() {
     let [tab, setTab] = useState(0);
@@ -53,11 +54,11 @@ function UserDetail() {
             <div className={`TabContent-Start ${fade}`}>
                 {
                     [
-                        <div>
+                        <>
                             {props.posts && props.posts.length > 0 ? (
                                 <div className='TabContent-Item'>
                                 {props.posts.map(post => (
-                                        <Card
+                                        <CardSmall
                                             photo={post.productPhoto || undefined}
                                             brand={'Brand'}
                                             title={post.productName}
@@ -70,7 +71,7 @@ function UserDetail() {
                             ) : (
                                 <div>아직 로딩중</div>
                             )}
-                        </div>,
+                        </>,
                         <div>후기 내용</div>
                     ][props.tab]
                 }

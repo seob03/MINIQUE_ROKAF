@@ -1,12 +1,15 @@
+import { useNavigate } from 'react-router-dom';
+
 import './style/CardSmall.css';
 
 function CardSmall(props){
+    let navigate = useNavigate();
     return (
-        <div className="CardContainer">
+        <div className="CardSmallContainer" onClick={()=>{navigate(props.link)}}>
             <div className="CardImage" 
                 style={{backgroundImage: `url(${props.img})`}}
             >
-                <img src={props.img}/>
+                <img src={props.photo} className="CardImage cover"/>
             </div>
             <div className="Card-First">
                 <div>
