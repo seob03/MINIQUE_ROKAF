@@ -13,6 +13,12 @@ app.use(express.urlencoded({ limit: '10mb', extended: true })); // URL-encoded �
 const path = require('path')
 app.use(express.static(path.join(__dirname,'../FE/build')))
 
+// socket.io 
+const { createServer } = require('http')
+const server = createServer(app)
+const chatRoutes = require('./routes/chat'); // 라우터 가져오기
+
+
 // 클라이언트-서버 포트 요청 열기
 const cors = require('cors');
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
@@ -21,7 +27,7 @@ const connectDB = require('./database.js');
 let db;
 connectDB().then((database) => {
   db = database;  // 연결된 DB 객체 할당
-  app.listen(8082, () => {
+  server.listen(8082, () => {
     console.log('http://localhost:8082 에서 서버 실행중');
   });
 }).catch((err) => {
@@ -33,6 +39,9 @@ app.use((요청, 응답, next) => {
   next();  // 다음 미들웨어로 이동
 });
 
+// Socket.IO 설정
+chatRoutes.socketSetup(server);  // Socket.IO 설정을 라우터에서 호출
+
 // passport 먼저 불러오기 (요청.user 값 할당부터)
 app.use('/', require('./routes/passport.js') )
 
@@ -42,6 +51,7 @@ app.use('/', require('./routes/search.js') )
 app.use('/', require('./routes/auth.js') )
 app.use('/', require('./routes/postHeart.js') )
 app.use('/', require('./routes/userDetailPage.js') )
+app.use('/', require('./routes/chat.js') )
 
 app.get('*', (요청, 응답) => {
   응답.sendFile(path.join(__dirname, '../FE/build/index.html'));

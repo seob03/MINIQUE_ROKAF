@@ -11,24 +11,22 @@ function ChatDetail() {
     const socket = io(); // 서버와 연결
     setSocket(socket);
 
-    // 서버 -> 유저 메시지 수신 이벤트 처리
+    // 메시지 수신 이벤트 처리
     socket.on("chatMessage", (data) => {
-      // 서버로부터 받은 메시지를 상태에 추가
       setMessages((prevMessages) => [...prevMessages, data]);
     });
 
-    // 컴포넌트 언마운트 시 소켓 연결 해제
+    // 컴포넌트 언마운트 시 연결 해제
     return () => {
       socket.disconnect();
     };
   }, []);
 
-  // 유저 -> 서버
   const sendMessage = (e) => {
     e.preventDefault();
     if (message.trim()) {
-      // 유저 -> 서버로 메시지 전송
-      socket.emit("chatMessage", { user: "이민섭", text: message });
+      // 서버로 메시지 전송
+      socket.emit("chatMessage", { user: "You", text: message });
       setMessages((prevMessages) => [...prevMessages, { user: "You", text: message }]);
       setMessage("");
     }

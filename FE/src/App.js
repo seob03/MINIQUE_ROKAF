@@ -13,7 +13,7 @@ import SignUpModal from './components/SignUpModal';
 import SearchResult from './pages/SearchResult';
 import SetUserInfo from './pages/SetUserInfo';
 import EditNews from './pages/EditNews';
-
+import ChatDetail from './pages/ChatDetail';
 
 function App() {
   return (
@@ -39,6 +39,7 @@ function App() {
             <Route path="/updateInfo" element={<SetUserInfo />} />
             <Route path="/search" element={<SearchResult />} />
             <Route path="/detail/:id" element={<Detail />} />
+            <Route path="/chat" element={<ChatDetail />} />
           </Routes>
         </div>
       </div>
