@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef  } from "react";
 import { io } from "socket.io-client";
-
-
-
 
 function ChatDetail() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
+  const chatBoxRef = useRef(null); // 채팅창을 참조하기 위한 useRef
   
   // 타임스탬프 형식화 함수
   function formatTimestamp(timestamp) {
@@ -38,6 +36,14 @@ function ChatDetail() {
     };
   }, []);
 
+  useEffect(() => {
+    // 메시지가 업데이트될 때마다 스크롤을 채팅창의 가장 아래로 이동
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+
   const sendMessage = (e) => {
     e.preventDefault();
     if (message.trim()) {
@@ -51,7 +57,7 @@ function ChatDetail() {
   return (
     <div>
       <h1>Chat Room</h1>
-      <div style={{ height: "300px", overflowY: "scroll", border: "1px solid #ccc", padding: "10px" }}>
+      <div ref={chatBoxRef} style={{ height: "300px", overflowY: "scroll", border: "1px solid #ccc", padding: "10px" }}>
         {messages.map((msg, index) => (
           <p key={index}>
             <strong>{msg.user}:</strong> {msg.text} <br />

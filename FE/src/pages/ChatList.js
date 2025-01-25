@@ -5,9 +5,9 @@ import './style/ChatList.css';
 
 function ChatList() {
   const [chats, setChats] = useState([]); // 채팅 목록을 저장할 상태
-  const { userId } = useParams(); // 만약 userId가 URL 파라미터로 있다면
+  const { chatRoomId } = useParams(); // 만약 userId가 URL 파라미터로 있다면
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     // 실제 API에서 채팅 데이터를 가져오는 로직을 넣을 수 있음
     // 여기는 mock 데이터 예시
@@ -30,7 +30,7 @@ function ChatList() {
       <ul>
         {chats.map(chat => (
           <li key={chat.id} className="chat-item" onClick={() => handleChatClick(chat.id)}>
-            <Link to={`/chat/${chat.id}`} className="chat-link">
+            <Link to={'/chat'} className="chat-link">
               <div className="chat-details">
                 <p className="chat-name">{chat.name}</p>
                 <p className="chat-last-message">{chat.lastMessage}</p>

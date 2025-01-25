@@ -8,6 +8,24 @@ router.get("/chat", (요청, 응답) => {
     응답.sendFile(path.join(__dirname, '../../FE/build/index.html'));
 });
 
+// 채팅방 DB 저장하는 API
+router.get('/chat/request/:writerId', async (요청, 응답)=>{
+  await db.collection('chatRoom').insertOne({
+    member : [요청.user._id, new ObjectId(요청.params.writerId)],
+    date : new Date()
+  })
+  응답.json({message : '채팅방 생성 성공'})
+})
+
+// 채팅방 게시글 POST API 미완
+router.get('/chat/request/:writerId', async (요청, 응답)=>{
+  await db.collection('chatRoom').insertOne({
+    member : [요청.user._id, new ObjectId(요청.params.writerId)],
+    date : new Date()
+  })
+  응답.json({message : '채팅방 생성 성공'})
+})
+
 // Socket.IO 설정
 router.socketSetup = (server) => {
   const io = new Server(server);

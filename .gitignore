@@ -1,5 +1,6 @@
+# node_modules는 push/pull 안되도록 
 node_modules
-<<<<<<< HEAD
+
 # build 폴더 내의 모든 파일 무시
 /build/*
 
