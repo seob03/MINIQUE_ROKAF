@@ -9,7 +9,7 @@ function CardSmall(props){
             <div className="CardImage" 
                 style={{backgroundImage: `url(${props.img})`}}
             >
-                <img src={props.photo} className="CardImage cover"/>
+                <img src={Array.isArray(props.photo) ? props.photo[0] : props.photo} className="CardImage cover"/>
             </div>
             <div className="Card-First">
                 <div>

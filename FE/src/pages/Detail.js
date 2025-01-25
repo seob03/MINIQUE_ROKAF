@@ -2,6 +2,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Card from '../components/Card.js';
+import DetailSlider from "../components/DetailSlider.js";
 import { ButtonMedium, BuyButton, DeleteButtonHalf } from '../components/Buttons';
 import './style/Detail.css';
 
@@ -118,9 +119,7 @@ function Detail() {
       <div className="Detail-Container">
       <div className="Detail-Image">
         {pageResult.productPhoto && pageResult.productPhoto.length > 0 ? (
-          <div>
-            <img src={pageResult.productPhoto[0]} className="Detail-Image cover" alt="상품 이미지" />
-          </div>
+            <DetailSlider data={pageResult.productPhoto}/>
         ) : (
           <div>이미지 로딩 대기 중</div>
         )}

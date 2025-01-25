@@ -3,6 +3,7 @@
     height: 288px;
     margin-bottom: 10px;
     background-color: none;
+    cursor: pointer;
 }
 
 .CardImage{
