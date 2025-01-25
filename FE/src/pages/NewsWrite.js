@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import {useNavigate} from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeIsOpen } from "../store/store.js";
@@ -133,6 +133,31 @@ function NewsWrite() {
             setActive(false); // 드래그 상태 비활성화
         };
 
+
+        const dragItem = useRef(); // 드래그할 아이템의 인덱스
+        const dragOverItem = useRef(); // 드랍할 위치의 아이템의 인덱스
+        const dragStart = (e, position) => {
+            dragItem.current = position;
+            console.log(e.target.innerHTML);
+        };
+        
+          // 드래그중인 대상이 위로 포개졌을 때
+        const dragEnter = (e, position) => {
+            dragOverItem.current = position;
+            console.log(e.target.innerHTML);
+        };
+        
+        // 드랍 (커서 뗐을 때)
+        const drop = (e) => {
+            const newList = [...이미지들];
+            const dragItemValue = newList[dragItem.current];
+            newList.splice(dragItem.current, 1);
+            newList.splice(dragOverItem.current, 0, dragItemValue);
+            dragItem.current = null;
+            dragOverItem.current = null;
+            이미지들변경(newList);
+        };        
+
         return(
             <div className='Write-Image'>
                 <div className="Write-Title-2">
@@ -140,7 +165,7 @@ function NewsWrite() {
                 </div>
                 <div className='upload-Container'>
                     <label 
-                        className={`dropbox${isActive ? ' active' : ''}`}  // isActive 값에 따라 className 제어
+                        className={`filedropbox${isActive ? ' active' : ''}`}  // isActive 값에 따라 className 제어
                         onDragEnter={handleDragStart}  // dragstart 핸들러 추가
                         onDragOver={handleDragOver}
                         onDragLeave={handleDragLeave}  // dragend 핸들러 추가
@@ -150,7 +175,7 @@ function NewsWrite() {
                             type="file" 
                             multiple
                             accept="image/*" 
-                            className="file" 
+                            className="fileinput" 
                             onChange={handleFileChange}
                         />
                             <AddImage className="add-image" fill="#B6B2AD"/>
@@ -159,11 +184,21 @@ function NewsWrite() {
                             </div>
                     </label>
                     {이미지들.length > 0 && (
-                        <div className="image-preview">
-                                {이미지들.map((image, index) => (
-                                    <img key={index} src={image} alt={`Preview ${index}`} />
-                                ))}
-                        </div>
+                        <>
+                        {이미지들.map((image, index) => (
+                            <div 
+                                key={index}
+                                draggable
+                                onDragStart={(e) => dragStart(e, index)}
+                                onDragEnter={(e) => dragEnter(e, index)}
+                                onDragEnd={drop}
+                                onDragOver={(e) => e.preventDefault()}
+                            >
+                                <img src={image} alt={`Preview ${index}`} 
+                                className="image-preview-box"/>
+                            </div>
+                        ))}
+                        </>
                     )}
                 </div>
             </div>

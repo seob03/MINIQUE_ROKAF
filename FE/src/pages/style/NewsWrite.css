@@ -18,6 +18,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 36px;
+    width: 100%
 }
 
 .Write-Input-Row{
@@ -71,20 +72,24 @@
     display: flex;
     width: 100%;
     justify-content: flex-start;
+    align-items: flex-start;
     margin-top: 8px;
-    align-items: center;
     gap: 40px;
+    flex-wrap: wrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    box-sizing: border-box;
 }
 
-.file {
+.fileinput {
     opacity: 0;
-    width: 100%;
+    width: 80%;
     height: 100%;
     position: absolute;
     z-index: 1;
     cursor: pointer;
 }
-.file::file-selector-button {
+.fileinput::file-selector-button {
     font-size: 14px;
     background: #fff;
     border: 1px solid #111;
@@ -93,9 +98,10 @@
     cursor: pointer;
 }
 
-.dropbox {
+.filedropbox {
     width: 216px;
     height: 216px;
+    flex-shrink: 0;
     background-color: #fff;
     border-radius: 5px;
     border: 3px solid #eee;
@@ -103,21 +109,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
     position: relative;
     align-self: flex-start;
-    margin-right: 16px; /* input과 이미지 사이에 16px 간격을 추가 */
+    cursor: pointer;
 }
-.dropbox:hover {
+.filedropbox:hover {
     border-color: #4169E1;
     transition: 0.1s;
 }
-.dropbox.active {
+.filedropbox.active {
     background-color: #efeef3;
     border-color: #4169E1;
     transition: 0.1s;
 }
-.dropbox:hover .add-image{
+.filedropbox:hover .add-image{
     fill: #4169E1;
     margin-bottom: 8px;
     transition: fill 0.1s;
@@ -135,19 +140,11 @@
     color:  #B6B2AD;
 }
 
-.image-preview {
+.image-preview-box{
     width: 216px;
     height: 216px;
-    display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    position: relative;
-    background-color: #fff;
-}
-
-.image-preview img {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
 }
