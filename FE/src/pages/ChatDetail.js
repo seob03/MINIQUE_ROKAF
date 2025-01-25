@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 
+
+
+
 function ChatDetail() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -8,13 +11,18 @@ function ChatDetail() {
   
   useEffect(() => {
     // Socket.IO 연결 설정
-    const socket = io(); // 서버와 연결
+    const socket = io()
     setSocket(socket);
-
-    // 메시지 수신 이벤트 처리
-    socket.on("chatMessage", (data) => {
-      setMessages((prevMessages) => [...prevMessages, data]);
+    socket.on("connect", () => {
+      console.log('Client - Connected to Socket Server')
     });
+    // ('작명', '룸 이름')
+    socket.emit('ask-join', '123')
+
+    // 서버가 room에 보낸 것을 Messages에 반영
+    socket.on('message-broadcast', (data) => {
+      setMessages((prevMessages) => [...prevMessages, data])
+    })
 
     // 컴포넌트 언마운트 시 연결 해제
     return () => {
@@ -26,8 +34,8 @@ function ChatDetail() {
     e.preventDefault();
     if (message.trim()) {
       // 서버로 메시지 전송
-      socket.emit("chatMessage", { user: "You", text: message });
-      setMessages((prevMessages) => [...prevMessages, { user: "You", text: message }]);
+      socket.emit("message-send", { user: "이민섭", text: message, room : '123' });
+      // setMessages((prevMessages) => [...prevMessages, { user: "You", text: message, room : '123' }]);
       setMessage("");
     }
   };

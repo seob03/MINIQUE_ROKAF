@@ -1,4 +1,5 @@
 node_modules
+<<<<<<< HEAD
 # build 폴더 내의 모든 파일 무시
 /build/*
 
@@ -7,3 +8,6 @@ node_modules
 
 # build/public 내의 파일은 기본적으로 무시하지 않도록 설정
 /build/public/*
+=======
+/build
+>>>>>>> d4928a4e8b04059f8c6e6117ffb48affcda21a90
