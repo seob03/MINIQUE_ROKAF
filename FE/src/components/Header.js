@@ -77,7 +77,7 @@ function Header() {
         </div>
         <div className='Header-First-Menu'>
           <div className='Header-First-Menu-Buttons'>
-            <Link to="/" style={{textDecoration: 'none', color: 'black'}}>채팅내역</Link>
+            <Link to="/chatList" style={{textDecoration: 'none', color: 'black'}}>채팅내역</Link>
           </div>
           <div className='Header-First-Menu-Buttons'>
           {(isLoggedIn) ?
