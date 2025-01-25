@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ButtonMediumBlue, ButtonMediumGray } from '../components/Buttons';
 import { ReactComponent as AddImage } from '../components/AddImage.svg';
@@ -9,8 +9,8 @@ function EditNews(){
     let navigate = useNavigate();
     let [defaultInfo, setDefaultInfo]=useState(''); 
     let [상품명, 상품명변경]=useState(''); 
-    let [상품상세설명, 상품상세설명변경]=useState(); 
-    let [이미지, 이미지변경] = useState(''); 
+    let [상품상세설명, 상품상세설명변경]=useState(''); 
+    let [이미지들, 이미지들변경] = useState([]); 
     let [개월수정보, 개월수변경] = useState(''); 
     let [상품상태, 상품상태변경] = useState(''); 
     let [가격, 가격변경] = useState('');
@@ -26,7 +26,7 @@ function EditNews(){
           const result = await response.json();
           // 상태 업데이트
           setDefaultInfo(result);
-          이미지변경(result.productPhoto);
+          이미지들변경(result.productPhoto);
         } catch (error) {
           console.error('Error fetching data:', error);
         }
@@ -34,18 +34,18 @@ function EditNews(){
       
     useEffect(()=>{
         fetchData(id);
-    },[])
+    },[id])
 
-    fetch('/edit/' + id)
-    .then((response) => response.json())
-    .then((result) => {
-      // 상태 업데이트
-      setDefaultInfo(result);
-      이미지변경(result.productPhoto);
-    })
-    .catch((error) => {
-      console.error('Error fetching data:', error);
-    });
+    // fetch('/edit/' + id)
+    // .then((response) => response.json())
+    // .then((result) => {
+    //   // 상태 업데이트
+    //   setDefaultInfo(result);
+    //   이미지들변경(result.productPhoto);
+    // })
+    // .catch((error) => {
+    //   console.error('Error fetching data:', error);
+    // });
 
     function handleEdit() {
         fetch(('/editPost/' + id), {
@@ -54,7 +54,7 @@ function EditNews(){
             body: JSON.stringify({
                 productName : (상품명 ? 상품명 : defaultInfo.productName), 
                 productDetailContent : (상품상세설명 ? 상품상세설명 : defaultInfo.productDetailContent),
-                productPhoto : (이미지 ? 이미지 : defaultInfo.productPhoto),
+                productPhoto : (이미지들 ? 이미지들 : defaultInfo.productPhoto),
                 childAge : (개월수정보 ? 개월수정보 : defaultInfo.childAge),
                 productQuality : (상품상태 ? 상품상태 : defaultInfo.productQuality),
                 productPrice : (가격 ? 가격 : defaultInfo.productPrice),
@@ -74,17 +74,22 @@ function EditNews(){
 
     function UploadBox(){
         useEffect(() => {
-            console.log(이미지); // 이미지 상태가 변경될 때마다 로그 출력
-        }, [이미지]); // 이미지 상태가 변경될 때마다 실행
+            if(이미지들.length > 0){
+            console.log(이미지들); // 이미지 상태가 변경될 때마다 로그 출력
+            }
+        }, [이미지들]); // 이미지 상태가 변경될 때마다 실행
 
         const handleFileChange = (e) => {
-            const file = e.target.files[0];
-            if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                이미지변경(reader.result); // BASE64 데이터 저장
-            };
-            reader.readAsDataURL(file); // 파일을 BASE64로 변환
+            const files = e.target.files;
+            const fileArray = Array.from(files);
+            if (files) {
+            fileArray.forEach((file)=> {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    이미지들변경((prev) => [...prev, reader.result]); // BASE64 데이터 저장
+                };
+                reader.readAsDataURL(file); // 파일을 BASE64로 변환
+            });
             }
         };
 
@@ -95,15 +100,41 @@ function EditNews(){
         };
         const handleDrop = (e) => {
             e.preventDefault();
-            const file = e.dataTransfer.files[0]; // 드래그 앤 드롭에서 파일 가져오기
-            if (file) {
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    이미지변경(reader.result); // BASE64 데이터 저장
-                };
-                reader.readAsDataURL(file); // 파일을 BASE64로 변환
+            const files = e.dataTransfer.file; // 드래그 앤 드롭에서 파일 가져오기
+            const fileArray = Array.from(files);
+
+            if (files) {
+                fileArray.forEach((file)=>{
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        이미지들변경((prev) => [...prev, reader.result]); // BASE64 데이터 저장
+                    };
+                    reader.readAsDataURL(file); // 파일을 BASE64로 변환
+                })
             }
             setActive(false);
+        };
+
+        const dragItem = useRef(); // 드래그할 아이템의 인덱스
+        const dragOverItem = useRef(); // 드랍할 위치의 아이템의 인덱스
+        const dragStart = (e, position) => {
+            dragItem.current = position;
+            console.log(e.target.innerHTML);
+        };
+        
+          // 드래그중인 대상이 위로 포개졌을 때
+        const dragEnter = (e, position) => {
+            dragOverItem.current = position;
+            console.log(e.target.innerHTML);
+        };
+        const drop = (e) => {
+            const newList = [...이미지들];
+            const dragItemValue = newList[dragItem.current];
+            newList.splice(dragItem.current, 1);
+            newList.splice(dragOverItem.current, 0, dragItemValue);
+            dragItem.current = null;
+            dragOverItem.current = null;
+            이미지들변경(newList);
         };
 
         return(
@@ -128,10 +159,23 @@ function EditNews(){
                             </div>
                     </label>
                     {
-                        (이미지) ?
-                        <div className="image-preview">
-                            <img src={이미지}/>
-                        </div> : null
+                        (이미지들) ?
+                        <>
+                            {이미지들.map((image, index) => (
+                                <div 
+                                    key={index}
+                                    draggable
+                                    onDragStart={(e) => dragStart(e, index)}
+                                    onDragEnter={(e) => dragEnter(e, index)}
+                                    onDragEnd={drop}
+                                    onDragOver={(e) => e.preventDefault()}
+                                >
+                                    <img src={image} alt={`Preview ${index}`} 
+                                    className="image-preview-box"/>
+                                </div>
+                            ))}
+                        </>
+                        : null
                     }
                 </div>
             </div>

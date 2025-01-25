@@ -71,9 +71,13 @@
     display: flex;
     width: 100%;
     justify-content: flex-start;
+    align-items: flex-start;
     margin-top: 8px;
-    align-items: center;
     gap: 40px;
+    flex-wrap: wrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    box-sizing: border-box;
 }
 
 .file {
@@ -83,7 +87,6 @@
     position: absolute;
     z-index: 1;
     cursor: pointer;
-    align-items: center;
 }
 .file::file-selector-button {
     font-size: 14px;
@@ -104,10 +107,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
     position: relative;
     align-self: flex-start;
-    margin-right: 16px; /* input과 이미지 사이에 16px 간격을 추가 */
+    cursor: pointer;
 }
 .dropbox:hover {
     border-color: #4169E1;
@@ -137,19 +139,11 @@
     color:  #B6B2AD;
 }
 
-.image-preview {
+.image-preview-box {
     width: 216px;
     height: 216px;
-    display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    position: relative;
-    background-color: #fff;
-}
-
-.image-preview img {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
 }
