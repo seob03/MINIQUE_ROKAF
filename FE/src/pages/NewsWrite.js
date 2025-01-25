@@ -157,14 +157,14 @@ function NewsWrite() {
                             <div className='dropbox-text'>
                                 이미지를 드래그하거나 클릭하여 선택
                             </div>
-                            </label>
-                            {이미지들.length > 0 && (
-                                <div className="image-preview">
-                                    {이미지들.map((image, index) => (
-                                        <img key={index} src={image} alt={`Preview ${index}`} />
-                                    ))}
-                            </div>
-                )}
+                    </label>
+                    {이미지들.length > 0 && (
+                        <div className="image-preview">
+                                {이미지들.map((image, index) => (
+                                    <img key={index} src={image} alt={`Preview ${index}`} />
+                                ))}
+                        </div>
+                    )}
                 </div>
             </div>
         );
