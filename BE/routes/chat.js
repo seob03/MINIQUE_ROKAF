@@ -29,7 +29,16 @@ router.socketSetup = (server) => {
     // 유저가 보낸 메세지를 해당 room에 제공하기
     socket.on('message-send', async (data) => {
       console.log(data , "message-send, socket.on 실행")
-      io.to(data.room).emit('message-broadcast', { user : data.user, text: data.text, room : data.room})
+      // 현재 시간을 타임스탬프로 생성
+      const timestamp = new Date().toISOString();
+
+
+      io.to(data.room).emit('message-broadcast', { 
+        user : data.user, 
+        text: data.text, 
+        room : data.room,
+        timestamp 
+      })
     })
   });
 

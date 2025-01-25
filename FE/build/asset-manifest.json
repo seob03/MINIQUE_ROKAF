@@ -1,12 +1,7 @@
 {
   "files": {
-<<<<<<< Updated upstream
     "main.css": "/static/css/main.cef04c1a.css",
-    "main.js": "/static/js/main.33857a92.js",
-=======
-    "main.css": "/static/css/main.7738f772.css",
-    "main.js": "/static/js/main.674c1f0e.js",
->>>>>>> Stashed changes
+    "main.js": "/static/js/main.decb3c60.js",
     "static/js/453.fbc37f3d.chunk.js": "/static/js/453.fbc37f3d.chunk.js",
     "static/media/NotoSansKR-Thin.ttf": "/static/media/NotoSansKR-Thin.3c76aeeeb0d5302e0042.ttf",
     "static/media/NotoSansKR-ExtraLight.ttf": "/static/media/NotoSansKR-ExtraLight.a8d29999646a399fbca4.ttf",
@@ -36,26 +31,14 @@
     "static/media/NotoSans-Regular.ttf": "/static/media/NotoSans-Regular.9ab05beb031b68562995.ttf",
     "static/media/NotoSans-Thin.ttf": "/static/media/NotoSans-Thin.3bf58fb7373919eb0cb1.ttf",
     "index.html": "/index.html",
-<<<<<<< Updated upstream
     "static/media/AddImage.svg": "/static/media/AddImage.10d652fb30ea66b59c274d44f51a185f.svg",
     "static/media/Tab_Bar.svg": "/static/media/Tab_Bar.c605380417fc0234c98e.svg",
     "main.cef04c1a.css.map": "/static/css/main.cef04c1a.css.map",
-    "main.33857a92.js.map": "/static/js/main.33857a92.js.map",
+    "main.decb3c60.js.map": "/static/js/main.decb3c60.js.map",
     "453.fbc37f3d.chunk.js.map": "/static/js/453.fbc37f3d.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.cef04c1a.css",
-    "static/js/main.33857a92.js"
-=======
-    "static/media/AddImage.svg": "/static/media/AddImage.999ca8cacfb669358b32fb701b2cc773.svg",
-    "static/media/Tab_Bar.svg": "/static/media/Tab_Bar.c605380417fc0234c98e.svg",
-    "main.7738f772.css.map": "/static/css/main.7738f772.css.map",
-    "main.674c1f0e.js.map": "/static/js/main.674c1f0e.js.map",
-    "453.fbc37f3d.chunk.js.map": "/static/js/453.fbc37f3d.chunk.js.map"
-  },
-  "entrypoints": [
-    "static/css/main.7738f772.css",
-    "static/js/main.674c1f0e.js"
->>>>>>> Stashed changes
+    "static/js/main.decb3c60.js"
   ]
 }

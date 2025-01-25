@@ -9,6 +9,14 @@ function ChatDetail() {
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
   
+  // 타임스탬프 형식화 함수
+  function formatTimestamp(timestamp) {
+    const date = new Date(timestamp);
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    return `${hours}:${minutes}`; // HH:mm 형식
+  }
+    
   useEffect(() => {
     // Socket.IO 연결 설정
     const socket = io()
@@ -46,7 +54,10 @@ function ChatDetail() {
       <div style={{ height: "300px", overflowY: "scroll", border: "1px solid #ccc", padding: "10px" }}>
         {messages.map((msg, index) => (
           <p key={index}>
-            <strong>{msg.user}:</strong> {msg.text}
+            <strong>{msg.user}:</strong> {msg.text} <br />
+            <span style={{ fontSize: "0.8em", color: "#888" }}>
+              {formatTimestamp(msg.timestamp)}
+            </span>
           </p>
         ))}
       </div>
