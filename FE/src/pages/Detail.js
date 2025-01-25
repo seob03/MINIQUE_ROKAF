@@ -12,7 +12,7 @@ function Detail() {
   let isLoggedIn = useSelector((state) => {return state.isLoggedIn})
   let [isLiked, setIsLiked] = useState(false);
   let navigate = useNavigate();
-  let { id } = useParams();
+  let { id } = useParams(); // 글 id
 
   
   // 로그인 된 유저가 현재 게시글을 좋아요 누른 적이 있는지 추적
@@ -106,6 +106,23 @@ function Detail() {
       .then(response => response.json())
       .then(data => {
       console.log('서버 응답:', data);
+      })
+      .catch(error => {
+      console.error('fetch 오류:', error);
+      });
+  }
+
+  function ChatReq() {
+    console.log('Chat Req 호출 성공 // pageResult.user_id:' , pageResult.user_id)
+    fetch(('/chat/request/' + pageResult.user_id), { // 판매자 id도 같이 요청에 담는다.
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      })
+      .then(response => response.json())
+      .then(data => {
+      console.log('서버 응답:', data);
+      alert('채팅방 DB 저장 성공')
+      navigate('/chatList')
       })
       .catch(error => {
       console.error('fetch 오류:', error);
@@ -210,13 +227,13 @@ function Detail() {
           {(isLoggedIn) ? 
           <div style={{display: "flex", justifyContent: 'space-between', alignItems: 'center'}}>
             <DeleteButtonHalf eventHandler={handleDelete}/>
-            <ButtonMedium text={'수정하기'} eventHandler={()=>{navigate('/edit/'+id)}}/>
-            <ButtonMedium text={'채팅하기'} eventHandler={()=>{navigate('/chat/')}}/>
+            <ButtonMedium text={'수정하기'} eventHandler={()=>{navigate('/edit/' + id)}}/>
+            <ButtonMedium text={'채팅하기'} eventHandler={ChatReq}/>
           </div>
           : 
           <div style={{display: "flex", justifyContent: 'space-between', alignItems: 'center'}}>
             <BuyButton/>
-            <ButtonMedium text={'채팅하기'} eventHandler={()=>{navigate('/chat/')}}/>
+            <ButtonMedium text={'채팅하기'} eventHandler={ChatReq}/>
           </div>
           }
         </div>

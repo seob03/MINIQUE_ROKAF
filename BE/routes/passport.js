@@ -55,7 +55,7 @@ passport.use(new LocalStrategy(async (입력한아이디, 입력한비번, cb) =
 passport.serializeUser((user, done) => {
     // console.log("serialize 실행")
     process.nextTick(() => {
-        done(null, { id: user._id, username: user.username })
+        done(null, { id: user._id, username: user.username }) // 요청.user의 필드 {id , username}
     })
 })
 

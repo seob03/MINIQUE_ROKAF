@@ -2,7 +2,7 @@ const express = require("express");
 const { Server } = require("socket.io");
 const router = express.Router();
 const path = require('path');
-
+const {ObjectId} = require('mongodb')
 // 라우터 정의
 router.get("/chat", (요청, 응답) => {
     응답.sendFile(path.join(__dirname, '../../FE/build/index.html'));
@@ -11,20 +11,26 @@ router.get("/chat", (요청, 응답) => {
 // 채팅방 DB 저장하는 API
 router.get('/chat/request/:writerId', async (요청, 응답)=>{
   await db.collection('chatRoom').insertOne({
-    member : [요청.user._id, new ObjectId(요청.params.writerId)],
+    member : [요청.user.id, 요청.params.writerId],
     date : new Date()
   })
   응답.json({message : '채팅방 생성 성공'})
 })
 
-// 채팅방 게시글 POST API 미완
-router.get('/chat/request/:writerId', async (요청, 응답)=>{
-  await db.collection('chatRoom').insertOne({
-    member : [요청.user._id, new ObjectId(요청.params.writerId)],
-    date : new Date()
-  })
-  응답.json({message : '채팅방 생성 성공'})
+// 채팅방 리스트 보여주는 API
+router.get('/chat/getChatList', async (요청, 응답)=>{
+  let result = await db.collection('chatRoom').find({ member : 요청.user.id }).toArray()
+  응답.json(result)
 })
+
+// // 채팅방 게시글 POST API 미완
+// router.get('/chat/request/:writerId', async (요청, 응답)=>{
+//   await db.collection('chatRoom').insertOne({
+//     member : [요청.user._id, new ObjectId(요청.params.writerId)],
+//     date : new Date()
+//   })
+//   응답.json({message : '채팅방 생성 성공'})
+// })
 
 // Socket.IO 설정
 router.socketSetup = (server) => {

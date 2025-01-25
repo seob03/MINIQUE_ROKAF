@@ -11,8 +11,6 @@ router.post('/login-POST', async (요청, 응답, next) => {
       요청.logIn(user, (err) => {
         if (err) return next(err)
         console.log('로그인 후 세션:', 요청.session);
-  
-        // 이거 아래 없으면 진짜 큰일난다 이거 5시간 박았음 이거 없으면 쿠키 안생김 왜지?>?
         응답.json({ message: '로그인 성공' });  // 로그인 성공 후 응답
       })
   })(요청, 응답, next)
