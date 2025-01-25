@@ -1,12 +1,31 @@
 import React, { useEffect, useState, useRef  } from "react";
 import { io } from "socket.io-client";
+import { useParams } from "react-router-dom"
 
 function ChatDetail() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
   const chatBoxRef = useRef(null); // 채팅창을 참조하기 위한 useRef
-  
+  let { chatRoomId } = useParams(); // 채팅방 고유 id
+  const [sendUsername, setSendUsername] = useState(""); // 상태로 관리
+
+  // 채팅 치는 유저의 정보 받아오기 (전송자 이름 표기 위함)
+  useEffect(() => {
+    fetch(('/chat/getUserInfo'), { 
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      })
+      .then(response => response.json())
+      .then(data => {
+        setSendUsername(data.username)
+        console.log('서버 응답:', data);
+      })
+      .catch(error => {
+        console.error('fetch 오류:', error);
+      });
+  }, []);
+
   // 타임스탬프 형식화 함수
   function formatTimestamp(timestamp) {
     const date = new Date(timestamp);
@@ -23,7 +42,7 @@ function ChatDetail() {
       console.log('Client - Connected to Socket Server')
     });
     // ('작명', '룸 이름')
-    socket.emit('ask-join', '123')
+    socket.emit('ask-join', chatRoomId)
 
     // 서버가 room에 보낸 것을 Messages에 반영
     socket.on('message-broadcast', (data) => {
@@ -48,8 +67,7 @@ function ChatDetail() {
     e.preventDefault();
     if (message.trim()) {
       // 서버로 메시지 전송
-      socket.emit("message-send", { user: "이민섭", text: message, room : '123' });
-      // setMessages((prevMessages) => [...prevMessages, { user: "You", text: message, room : '123' }]);
+      socket.emit("message-send", { username : sendUsername, text: message, room : chatRoomId });
       setMessage("");
     }
   };
@@ -60,7 +78,7 @@ function ChatDetail() {
       <div ref={chatBoxRef} style={{ height: "300px", overflowY: "scroll", border: "1px solid #ccc", padding: "10px" }}>
         {messages.map((msg, index) => (
           <p key={index}>
-            <strong>{msg.user}:</strong> {msg.text} <br />
+            <strong>{sendUsername}:</strong> {msg.text} <br />
             <span style={{ fontSize: "0.8em", color: "#888" }}>
               {formatTimestamp(msg.timestamp)}
             </span>

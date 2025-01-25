@@ -40,7 +40,10 @@ app.use((요청, 응답, next) => {
 });
 
 // Socket.IO 설정
-chatRoutes.socketSetup(server);  // Socket.IO 설정을 라우터에서 호출
+app.use((요청, 응답, next) => {
+  chatRoutes.socketSetup(server, 요청.db);  // 명시적 전달
+  next();
+})
 
 // passport 먼저 불러오기 (요청.user 값 할당부터)
 app.use('/', require('./routes/passport.js') )

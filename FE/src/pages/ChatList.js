@@ -5,8 +5,6 @@ import './style/ChatList.css';
 
 function ChatList() {
   const [chats, setChats] = useState([]); // 채팅 목록을 저장할 상태
-  const { chatRoomId , setChatRoomId } = useState(); // 만약 userId가 URL 파라미터로 있다면
-  const navigate = useNavigate();
   useEffect(() => {
     // 실제 API에서 채팅 데이터를 가져오는 로직을 넣을 수 있음
     fetch(('/chat/getChatList/'), { 
