@@ -211,6 +211,7 @@ function Detail() {
           <div style={{display: "flex", justifyContent: 'space-between', alignItems: 'center'}}>
             <DeleteButtonHalf eventHandler={handleDelete}/>
             <ButtonMedium text={'수정하기'} eventHandler={()=>{navigate('/edit/'+id)}}/>
+            <ButtonMedium text={'채팅하기'} eventHandler={()=>{navigate('/chat/')}}/>
           </div>
           : 
           <div style={{display: "flex", justifyContent: 'space-between', alignItems: 'center'}}>
