@@ -15,6 +15,7 @@ import SetUserInfo from './pages/SetUserInfo';
 import EditNews from './pages/EditNews';
 import ChatDetail from './pages/ChatDetail';
 import ChatList from './pages/ChatList';
+import MyDetail from './pages/MyDetail';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/edit/:id" element={<EditNews />} />
             <Route path="/detail" element={<Detail />} />
             <Route path="/store/:user_id" element={<UserDetail />} />
+            <Route path="/myStore" element={<MyDetail/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/signUp" element={<SignUp />} />
             <Route path="/updateInfo" element={<SetUserInfo />} />
