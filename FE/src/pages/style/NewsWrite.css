@@ -76,8 +76,6 @@
     margin-top: 8px;
     gap: 40px;
     flex-wrap: wrap;
-    overflow-x: auto;
-    overflow-y: hidden;
     box-sizing: border-box;
 }
 
@@ -147,4 +145,13 @@
     align-items: center;
     overflow: hidden;
     object-fit: cover;
+    cursor: pointer;
+}
+
+.image-close-button{
+    position: absolute;
+    right:-14px;
+    top:-14px;
+    z-index: 4;
+    cursor: pointer;
 }
