@@ -85,7 +85,7 @@ function Header() {
             <Link onClick={handleLogin} style={{textDecoration: 'none', color: 'black'}}>판매하기</Link>}
           </div>
           <div className='Header-First-Menu-Buttons'>
-            <Link to="/" style={{textDecoration: 'none', color: 'black'}}>내 상점</Link>
+            <Link to="/myStore" style={{textDecoration: 'none', color: 'black'}}>내 상점</Link>
           </div>
         </div>
       </div>

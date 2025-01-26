@@ -56,6 +56,7 @@ app.use('/', require('./routes/auth.js') )
 app.use('/', require('./routes/postHeart.js') )
 app.use('/', require('./routes/userDetailPage.js') )
 app.use('/', require('./routes/chat.js') )
+app.use('/', require('./routes/myDetail.js') )
 
 app.get('*', (요청, 응답) => {
   응답.sendFile(path.join(__dirname, '../FE/build/index.html'));

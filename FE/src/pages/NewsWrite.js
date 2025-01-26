@@ -193,7 +193,15 @@ function NewsWrite() {
                                 onDragEnter={(e) => dragEnter(e, index)}
                                 onDragEnd={drop}
                                 onDragOver={(e) => e.preventDefault()}
+                                style={{position: 'relative'}}
                             >
+                                <img src={'/img/Close_Button.svg'}
+                                onClick={()=> {
+                                    let copy = [...이미지들]
+                                    copy.splice(index,1)
+                                    이미지들변경(copy);
+                                }}
+                                className="image-close-button"/>
                                 <img src={image} alt={`Preview ${index}`} 
                                 className="image-preview-box"/>
                             </div>
