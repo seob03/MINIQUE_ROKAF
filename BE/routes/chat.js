@@ -5,7 +5,7 @@ const path = require('path');
 const {ObjectId} = require('mongodb');
 
 // 라우터 정의
-router.get("/chat", (요청, 응답) => {
+router.get('/chat', (요청, 응답) => {
     응답.sendFile(path.join(__dirname, '../../FE/build/index.html'));
 });
 
@@ -18,6 +18,20 @@ router.get('/chat/request/:writerId', async (요청, 응답)=>{
   })
   응답.json({message : '채팅방 생성 성공'})
 })
+
+// // 채팅방 리스트 상대방 닉네임 가져오는 API
+// router.post('/chat/getOtherUser', async (요청, 응답)=>{
+//   db = 요청.db
+//   const me = 요청.user.id
+//   // member 배열에서 본인이 아닌 상대 id 값만 배열로 뽑아내기
+//   const otherUsersIdArray = 요청.body.members.flat().filter(member => member !== me); 
+//   // 문자열을 ObjectId로 변환
+//   const otherUsersObjectIdArray = otherUsersIdArray.map(id => new ObjectId(id));
+//   let otherUsersArray = await db.collection('user').find({ _id: { $in: otherUsersObjectIdArray } }).toArray();
+//   // 유저들의 이름을 추출하여 반환
+//   const userNames = otherUsersArray.map(user => user.username); 
+//   응답.json(userNames)
+// })
 
 // 채팅방 리스트 보여주는 API
 router.get('/chat/getChatList', async (요청, 응답)=>{
