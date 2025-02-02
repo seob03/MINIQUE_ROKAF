@@ -1,6 +1,5 @@
 .DetailSlider-Container {
     display: flex;
-    overflow: hidden;
     align-items: center;
     position: relative;
     width: 522px;
@@ -12,7 +11,17 @@
     width: 100%;
     height: 100%;
     display: flex;
+    background-size: cover;
+    background-position: center;
+    position: relative;
     transition: all 0.5s ease-in-out;
+}
+.ImageContainer.cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 이미지를 잘라서 컨테이너에 맞춤 */
+    top: 0;
+    left: 0;
 }
 
 .DetailSlider-Image {
