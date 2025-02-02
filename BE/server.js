@@ -16,9 +16,7 @@ app.use(express.static(path.join(__dirname,'../FE/build')))
 // socket.io 
 const { createServer } = require('http')
 const server = createServer(app)
-const chatRoutes = require('./routes/chat'); // 라우터 가져오기
-
-server.setMaxListeners(150); // 서버에서 리스너 최대 수 설정
+const chatRoutes = require('./routes/chat.js'); // 라우터 가져오기
 
 // 클라이언트-서버 포트 요청 열기
 const cors = require('cors');
