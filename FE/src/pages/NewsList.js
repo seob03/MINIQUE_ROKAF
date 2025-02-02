@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import Slider from '../components/Slider';
 import './style/NewsList.css';
+import CardSmall from '../components/CardSmall';
 
 function NewsList(){
     let [postData, setpostData] = useState([]); // 최종 입력값
@@ -20,21 +21,33 @@ function NewsList(){
 
     return (
     <div>
-      <div>
-        <div className="Recommend-Title">
-          {today.getMonth()+1}월의 추천 상품
-        </div>
+      <div style={{marginTop: '30px'}}>
         <div className="Recommend-Carousel">
-          <div className="Recommend-Container">
-            <Slider data={postData}/>
+          <div className="Banner-Container">
+            <Slider/>
           </div>
         </div>
       </div>
-      <div>
+      <div style={{marginTop: '60px'}}>
         <div className="Recommend-Title">
-          지금, 회원님의 지역 상품
+          {today.getMonth()+1}월의 추천 상품
         </div>
-        <div className="Recommend-Container"></div>
+        <div className="Recommend-Gallery">
+          {
+            (postData.length > 0) ? (
+              postData.map(post => (
+                  <CardSmall
+                    photo={post.productPhoto || undefined} 
+                    brand={'MONCLER'}
+                    title={post.productName}
+                    size ={post.childAge} 
+                    price={post.productPrice}
+                    link={'/detail/'+post._id}
+                  />
+              ))
+            ) : <div>로딩중입니다...</div>
+          }
+        </div>
       </div>
     </div>
     );

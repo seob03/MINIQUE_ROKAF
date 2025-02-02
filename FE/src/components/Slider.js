@@ -6,9 +6,15 @@ import './style/Slider.css';
 
 function Slider(props){
   const [currentSlide, setCurrentSlide] = useState(0);
-  const TOTAL_SLIDES = Math.ceil(props.data.length / 4);
+  const TOTAL_SLIDES = Math.ceil(2);
   const slideRef = useRef(null);
 
+  function generateImagePaths(folderPath, count) {
+    return Array.from({ length: count }, (_, index) => `${folderPath}/Banner_${index + 1}.png`);
+  }
+  
+  const images = generateImagePaths('/img/banner', 2); // 5개의 이미지 경로 생성
+  
   const nextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES-1) { // 더 이상 넘어갈 슬라이드가 없으면 슬라이드를 초기화합니다.
       setCurrentSlide(0);
@@ -42,18 +48,10 @@ function Slider(props){
         />
         <div className="SliderContainer" ref={slideRef}>
           {
-              props.data.map(
+              images.map(
                 function(a, i){
                 return (
-                    <Link to={'/detail/'+ a._id} key={a._id} style={{textDecoration: 'none', color: 'black'}}>
-                      <Card 
-                        photo={a.productPhoto[0] || undefined} 
-                        brand={'MONCLER'}
-                        title={a.productName}
-                        size ={a.childAge} 
-                        price={a.productPrice}
-                      />
-                    </Link>
+                    <img src={a}/>
                 )
               })
           }

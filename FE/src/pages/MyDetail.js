@@ -49,7 +49,7 @@ function MyDetail() {
                                 <div className='TabContent-Item'>
                                 {props.posts.map(post => (
                                         <CardSmall
-                                            photo={post.productPhoto || undefined}
+                                            photo={post.productPhoto[0] || undefined}
                                             brand={'Brand'}
                                             title={post.productName}
                                             size={post.childAge}
