@@ -37,6 +37,7 @@ module.exports = function (io) {
     })
 };
 
+// 2025. 2. 2
 
 // // Socket.IO 설정
 // router.socketSetup = (server) => {
