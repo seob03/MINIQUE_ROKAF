@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 
 // 웹 서버가 public 서빙 제대로 하도록
-app.use(express.static('public')); 
+app.use(express.static('public'));
 
 // 요청.body 지원
 app.use(express.json({ limit: '10mb' })); // JSON 요청 크기 제한을 10MB로 설정
@@ -11,12 +11,21 @@ app.use(express.urlencoded({ limit: '10mb', extended: true })); // URL-encoded �
 
 // react 연동
 const path = require('path')
-app.use(express.static(path.join(__dirname,'../FE/build')))
+app.use(express.static(path.join(__dirname, '../FE/build')))
 
 // socket.io 
 const { createServer } = require('http')
+const { Server } = require("socket.io")
 const server = createServer(app)
-const chatRoutes = require('./routes/chat.js'); // 라우터 가져오기
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000"
+  }
+})
+// io 인자로 전달
+require("./routes/io.js")(io)
+
+// const chatRoutes = require('./routes/chat.js'); // 라우터 가져오기
 
 // 클라이언트-서버 포트 요청 열기
 const cors = require('cors');
@@ -38,23 +47,23 @@ app.use((요청, 응답, next) => {
   next();  // 다음 미들웨어로 이동
 });
 
-// Socket.IO 설정
-app.use((요청, 응답, next) => {
-  chatRoutes.socketSetup(server, 요청.db);  // 명시적 전달
-  next();
-})
+// // Socket.IO 설정
+// app.use((요청, 응답, next) => {
+//   chatRoutes.socketSetup(server, 요청.db);  // 명시적 전달
+//   next();
+// })
 
 // passport 먼저 불러오기 (요청.user 값 할당부터)
-app.use('/', require('./routes/passport.js') )
+app.use('/', require('./routes/passport.js'))
 
 // 라우터로 분리한 파일 불러오기 (요청.user 사용 가능해짐)
-app.use('/', require('./routes/post.js') )
-app.use('/', require('./routes/search.js') )
-app.use('/', require('./routes/auth.js') )
-app.use('/', require('./routes/postHeart.js') )
-app.use('/', require('./routes/userDetailPage.js') )
-app.use('/', require('./routes/chat.js') )
-app.use('/', require('./routes/myDetail.js') )
+app.use('/', require('./routes/post.js'))
+app.use('/', require('./routes/search.js'))
+app.use('/', require('./routes/auth.js'))
+app.use('/', require('./routes/postHeart.js'))
+app.use('/', require('./routes/userDetailPage.js'))
+app.use('/', require('./routes/chat.js'))
+app.use('/', require('./routes/myDetail.js'))
 
 app.get('*', (요청, 응답) => {
   응답.sendFile(path.join(__dirname, '../FE/build/index.html'));

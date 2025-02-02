@@ -1,13 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import { io } from "socket.io-client";
 import './style/ChatList.css';
+const socket = io("http://localhost:8082")
 
 function ChatList() {
   const [chats, setChats] = useState([]);
   const [chatID, setchatID] = useState('');
-  
+
   useEffect(() => {
-    fetch('/chat/getChatList/', { 
+    fetch('/chat/getChatList/', {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -23,17 +24,15 @@ function ChatList() {
       });
   }, []);
 
-  function ChatRoom(props){
+  function ChatRoom(props) {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
-    const [socket, setSocket] = useState(null);
     const chatBoxRef = useRef(null);
     const chatRoomId = props.chat_id?.chatRoomId || "";
     const [sendUsername, setSendUsername] = useState("");
 
-    
     useEffect(() => {
-      fetch('/chat/getUserInfo', { 
+      fetch('/chat/getUserInfo', {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       })
@@ -58,8 +57,8 @@ function ChatList() {
         user: sendUsername,    // 실제 user ID
         text: lastMessage.text   // 보낼 메시지
       };
-      console.log ("messageData:", messageData)
-      fetch('/chat/saveMessage/', { 
+      console.log("messageData:", messageData)
+      fetch('/chat/saveMessage/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(messageData)
@@ -75,24 +74,23 @@ function ChatList() {
 
     // 소켓 연결 훅
     useEffect(() => {
-      if (socket) {
-        socket.off("message-broadcast"); // 기존 리스너 제거
-        socket.disconnect();
-      }
-      const newSocket = io({ withCredentials: true });
-      setSocket(newSocket);
+      // if (socket) {
+      //   socket.off("message-broadcast"); // 기존 리스너 제거
+      //   socket.disconnect();
+      // }
+      // const newSocket = io({ withCredentials: true });
+      // setSocket(newSocket);
 
       // 메시지 브로드캐스트 리스너 추가 (중복 방지)
-      newSocket.on("message-broadcast", (data) => {
+      socket.on("message-broadcast", (data) => {
         setMessages((prevMessages) => [...prevMessages, data]);
       });
+      socket.emit("ask-join", chatRoomId);
 
-      newSocket.emit("ask-join", chatRoomId);
       return () => {
-        console.log(`Socket ${newSocket.id} disconnected`);
-        newSocket.off("message-broadcast"); // 리스너 제거
+        console.log(`Socket ${socket.id} disconnected`);
         alert("웹 소켓 서버와 연결이 끊어졌습니다. 다시 연결하려면 새로고침하세요.");
-        newSocket.disconnect();
+        socket.disconnect();
       };
     }, [chatRoomId]);
 
@@ -124,7 +122,7 @@ function ChatList() {
       }
     };
 
-    return(
+    return (
       <div className="chatting-box">
         <div className="chatting-opponent">
           <div className='chatting-opponent-img'>
@@ -160,9 +158,9 @@ function ChatList() {
             placeholder="Type your message..."
             className='chatting-input'
           />
-          <img src="/img/ImageUpload_Button.svg" className="chatting-img-button" alt="이미지 업로드"/>
+          <img src="/img/ImageUpload_Button.svg" className="chatting-img-button" alt="이미지 업로드" />
           <div className="chatting-send-button" onClick={(event) => sendMessage(event)}>
-            <img src="/img/Chat_Send_Button.svg" alt="전송"/>
+            <img src="/img/Chat_Send_Button.svg" alt="전송" />
           </div>
         </form>
       </div>
@@ -174,7 +172,7 @@ function ChatList() {
       <div className='chatList-title'>채팅</div>
       <div className='chatList'>
         <div className="chat-list">
-          { (chats && chats.length > 0) ? (
+          {(chats && chats.length > 0) ? (
             <>
               {chats.map((chat) => (
                 <div key={chat._id} className='chat-list-box' onClick={() => setchatID(chat._id)}>
@@ -187,7 +185,7 @@ function ChatList() {
                     </div>
                     <div className='chat-list-box-lastchat'>
                       마지막 채팅내역
-                    </div>  
+                    </div>
                   </div>
                 </div>
               ))}
@@ -197,8 +195,8 @@ function ChatList() {
           )}
         </div>
         <div className="chat-room">
-          { (chatID !== '') ?
-            <ChatRoom chat_id={{ chatRoomId: chatID }}/>
+          {(chatID !== '') ?
+            <ChatRoom chat_id={{ chatRoomId: chatID }} />
             : <div>채팅을 선택하던가</div>
           }
         </div>
