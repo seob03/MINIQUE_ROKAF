@@ -128,6 +128,55 @@
 .chatting-area{
   width: 100%;
   height: 400px;
+  overflow-y: scroll;
+}
+
+.chatting-bubble-my{
+  display: flex;
+  justify-content:flex-end;
+  align-items: flex-end;
+  margin-top: 5px;
+}
+
+.chatting-bubble-my-text{
+  display: inline-block;
+  max-width: 250px;
+  padding: 10px 20px 10px 20px; 
+  border-radius: 16px 16px 0px 16px;
+  background-color: #F8F8F8;
+  font-size: 16px;
+  text-align: right;
+  font-family: NotoSansKR-Regular;
+}
+
+.chatting-bubble-my-timestamp{
+  font-size: 12px;
+  font-family: NotoSansKR-Regular;
+  color: #D9D9D9;
+  margin-right: 8px;
+}
+
+.chatting-bubble-your{
+  display: flex;
+  align-items: flex-end;
+  margin-top: 5px;
+}
+
+.chatting-bubble-your-text{
+  display: inline-block;
+  max-width: 250px;
+  padding: 10px 20px 10px 20px; 
+  border-radius: 16px 16px 16px 0px;
+  background-color: #EDECEC;
+  font-size: 16px;
+  font-family: NotoSansKR-Regular;
+}
+
+.chatting-bubble-your-timestamp{
+  font-size: 12px;
+  font-family: NotoSansKR-Regular;
+  color: #D9D9D9;
+  margin-left: 8px;
 }
 
 .chatting-buttons{

@@ -162,12 +162,30 @@ function ChatList() {
         <div ref={chatBoxRef} className="chatting-area">
           {/*msg = {room, text, user, timestamp} -> me 상태변수에 로그인한 유저 이름 적혀져있음 // msg.user 이거랑 비교해서 같으면 본인 다르면 상대 */}
           {messages.map((msg, index) => (
-            <p key={index}>
-              <strong>{msg.user}:</strong> {msg.text} <br />
-              <span style={{ fontSize: "0.8em", color: "#888" }}>
-                {formatTimestamp(msg.timestamp)}
-              </span>
-            </p>
+              (msg.user == me) ? 
+              <div className='chatting-bubble-my'>
+                <span className='chatting-bubble-my-timestamp'>
+                  {formatTimestamp(msg.timestamp)}
+                </span>
+                <span key={index} className='chatting-bubble-my-text'>
+                  {msg.text}
+                </span>
+              </div>
+            : <div className='chatting-bubble-your'>
+                <span key={index} className='chatting-bubble-your-text'>
+                  {msg.text}
+                </span>
+                <span className='chatting-bubble-your-timestamp'>
+                  {formatTimestamp(msg.timestamp)}
+                </span>
+              </div>
+            
+            // <p key={index}>
+            // <strong>{msg.user}:</strong> {msg.text} <br />
+            // <span style={{ fontSize: "0.8em", color: "#888" }}>
+            //   {formatTimestamp(msg.timestamp)}
+            // </span>
+            // </p>
           ))}
         </div>
         <form onSubmit={sendMessage} className="chatting-buttons">

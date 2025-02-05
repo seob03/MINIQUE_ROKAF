@@ -1,0 +1,37 @@
+.Footer{
+    width: 1024px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 400px;
+}
+
+.Footer-List{
+    display: flex;
+    justify-content: space-between;
+    font-family: NotoSansKR-Regular;
+    font-size: 12px;
+    margin-bottom: 24px;
+}
+
+.Footer-Logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 36px;
+}
+
+.Footer-Link{
+    text-decoration: none;
+    color: #6F6C69;
+}
+.Footer-Link:hover{
+    color: #B6B2AD;
+}
+
+.Footer-Message{
+    font-family: NotoSansKR-Regular;
+    font-size: 12px;
+    text-align: center;
+    color: #B6B2AD;
+    margin-bottom: 60px;
+}
