@@ -14,12 +14,17 @@ function ChatList() {
     })
       .then(response => response.json())
       .then(data => {
-        if (data.length > 0) {
+        if (data) {
           setChats(data);
+          console.log('서버 응답:', data);
         }
-        console.log('서버 응답:', data);
+        else {
+          alert('로그인부터 해주세요.')
+          console.log('서버 응답: 로그인 안되어있는데 채팅로그 접속 시도 오류');
+        }
       })
       .catch(error => {
+        alert(error.error || '로그인부터 해주세요.');
         console.error('fetch 오류:', error);
       });
   }, []);
@@ -29,7 +34,7 @@ function ChatList() {
     const [messages, setMessages] = useState([]);
     const chatBoxRef = useRef(null);
     const chatRoomId = props.chat_id?.chatRoomId || "";
-    const [sendUsername, setSendUsername] = useState("");
+    let [sendUsername, setSendUsername] = useState("");
 
     useEffect(() => {
       fetch('/chat/getUserInfo', {
@@ -38,8 +43,8 @@ function ChatList() {
       })
         .then(response => response.json())
         .then(data => {
-          setSendUsername(data.username)
-          console.log('서버 응답:', data);
+          setSendUsername(data.username) // data.username = testN
+          console.log('유저 data :', data);
         })
         .catch(error => {
           console.error('fetch 오류:', error);
@@ -51,14 +56,16 @@ function ChatList() {
       if (messages.length === 0) return; // messages가 비어있으면 요청 안 보냄
       const lastMessage = messages[messages.length - 1]; // 마지막 메시지를 가져옴
       if (!lastMessage.text.trim()) return; // 빈 메시지 저장 방지
+      // 현재 클라이언트가 보낸 메시지일 때만 저장 요청
+      if (lastMessage.user !== sendUsername) return;
 
       const messageData = {
         room: chatRoomId,    // 실제 room ID
-        user: sendUsername,    // 실제 user ID
+        user: sendUsername,
         text: lastMessage.text   // 보낼 메시지
       };
       console.log("messageData:", messageData)
-      fetch('/chat/saveMessage/', {
+      fetch('/chat/saveMessage', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(messageData)
@@ -74,15 +81,10 @@ function ChatList() {
 
     // 소켓 연결 훅
     useEffect(() => {
-      // if (socket) {
-      //   socket.off("message-broadcast"); // 기존 리스너 제거
-      //   socket.disconnect();
-      // }
-      // const newSocket = io({ withCredentials: true });
-      // setSocket(newSocket);
 
       // 메시지 브로드캐스트 리스너 추가 (중복 방지)
       socket.on("message-broadcast", (data) => {
+        console.log('메세지 브로드캐스트 성공, 저장할 메세지 객체:', data)
         setMessages((prevMessages) => [...prevMessages, data]);
       });
       socket.emit("ask-join", chatRoomId);
@@ -142,7 +144,7 @@ function ChatList() {
         <div ref={chatBoxRef} className="chatting-area">
           {messages.map((msg, index) => (
             <p key={index}>
-              <strong>{sendUsername}:</strong> {msg.text} <br />
+              <strong>{msg.user}:</strong> {msg.text} <br />
               <span style={{ fontSize: "0.8em", color: "#888" }}>
                 {formatTimestamp(msg.timestamp)}
               </span>

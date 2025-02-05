@@ -18,8 +18,13 @@ router.get('/chat/request/:writerId', async (요청, 응답) => {
 
 // 채팅방 리스트 보여주는 API
 router.get('/chat/getChatList', async (요청, 응답) => {
-  let result = await db.collection('chatRoom').find({ member: 요청.user.id }).toArray()
-  응답.json(result)
+  db = 요청.db
+  if (요청.user) {
+    let result = await db.collection('chatRoom').find({ member: 요청.user.id }).toArray()
+    응답.json(result)
+  }
+  else
+    return 응답.status(400).json({ error: '로그인부터 해주세요.' });
 })
 
 // 채팅 전송하는 유저의 정보 return API
@@ -32,8 +37,13 @@ router.get('/chat/getUserInfo', async (요청, 응답) => {
 
 // 클라이언트는 POST 요청으로 { room, user, text } 정보를 전송
 router.post('/chat/saveMessage', async (요청, 응답) => {
+  db = 요청.db
   try {
     const { room, user, text } = 요청.body;
+    console.log('요청.body:', 요청.body)
+    console.log('요청.user', 요청.user)
+    if (user != 요청.user.username)
+      return 응답.status(500).json({ message: '입력자와 로그인한 유저의 이름이 다름' })
     if (!room || !user || !text) {
       return 응답.status(400).json({ message: '필수 필드 누락' });
     }

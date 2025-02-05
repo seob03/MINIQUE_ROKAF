@@ -20,7 +20,7 @@ module.exports = function (io) {
                 const timestamp = new Date().toISOString();
                 // data.room에 해당하는 방에 메시지 브로드캐스트
                 io.to(data.room).emit('message-broadcast', {
-                    user: data.user,
+                    user: data.username,
                     text: data.text,
                     room: data.room,
                     timestamp: timestamp
