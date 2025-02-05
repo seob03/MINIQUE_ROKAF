@@ -16,36 +16,45 @@ import EditNews from './pages/EditNews';
 import ChatDetail from './pages/ChatDetail';
 import ChatList from './pages/ChatList';
 import MyDetail from './pages/MyDetail';
+import Footer from './components/Footer';
 
 function App() {
   return (
     <div className='App'>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <Header />
-      </div>
-      <div style={{
-        display: 'flex', justifyContent: 'center', flex: 1,
-        width: '1024px', margin: '0 auto'
-      }}>
-        <LoginModal />
-        <SignUpModal />
-        <div style={{ width: '1024px' }}>
-          <Routes>
-            <Route path="/" element={<NewsList />} />
-            <Route path="/write" element={<NewsWrite />} />
-            <Route path="/edit/:id" element={<EditNews />} />
-            <Route path="/detail" element={<Detail />} />
-            <Route path="/store/:user_id" element={<UserDetail />} />
-            <Route path="/myStore" element={<MyDetail/>} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signUp" element={<SignUp />} />
-            <Route path="/updateInfo" element={<SetUserInfo />} />
-            <Route path="/search" element={<SearchResult />} />
-            <Route path="/detail/:id" element={<Detail />} />
-            <Route path="/chat/:chatRoomId" element={<ChatDetail />} />
-            <Route path="/chatList" element={<ChatList/>} />
-          </Routes>
+      <div className='App-content'>
+        <div style={{ display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center' 
+        }}>
+          <Header />
         </div>
+        <div style={{
+          display: 'flex', justifyContent: 'center', flex: 1,
+          width: '1024px', margin: '0 auto'
+        }}>
+          <LoginModal />
+          <SignUpModal />
+          <div style={{ width: '1024px' }}>
+            <Routes>
+              <Route path="/" element={<NewsList />} />
+              <Route path="/write" element={<NewsWrite />} />
+              <Route path="/edit/:id" element={<EditNews />} />
+              <Route path="/detail" element={<Detail />} />
+              <Route path="/store/:user_id" element={<UserDetail />} />
+              <Route path="/myStore" element={<MyDetail/>} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signUp" element={<SignUp />} />
+              <Route path="/updateInfo" element={<SetUserInfo />} />
+              <Route path="/search" element={<SearchResult />} />
+              <Route path="/detail/:id" element={<Detail />} />
+              <Route path="/chat/:chatRoomId" element={<ChatDetail />} />
+              <Route path="/chatList" element={<ChatList/>} />
+            </Routes>
+          </div>
+        </div>
+      </div>
+      <div className="Footer-Container">
+        <Footer/>
       </div>
     </div>
   );
