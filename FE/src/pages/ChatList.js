@@ -34,7 +34,7 @@ function ChatList() {
     const [messages, setMessages] = useState([]);
     const chatBoxRef = useRef(null);
     const chatRoomId = props.chat_id?.chatRoomId || "";
-    let [sendUsername, setSendUsername] = useState("");
+    let [me, setme] = useState("");
 
     useEffect(() => {
       fetch('/chat/getUserInfo', {
@@ -43,7 +43,7 @@ function ChatList() {
       })
         .then(response => response.json())
         .then(data => {
-          setSendUsername(data.username) // data.username = testN
+          setme(data.username) // data.username = testN
           console.log('유저 data :', data);
         })
         .catch(error => {
@@ -51,17 +51,35 @@ function ChatList() {
         });
     }, []);
 
+    // 채팅방에 입장하면 이전 채팅 기록 가져오기
+    useEffect(() => {
+      if (!chatRoomId) return;
+      fetch(`/chat/getChatMessages?room=${chatRoomId}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log("이전 채팅 내용:", data);
+          // 이전 채팅 기록을 상태에 추가(만약 이전 메시지를 화면에 표시하고 싶다면)
+          setMessages(data);
+        })
+        .catch(error => {
+          console.error("이전 채팅 fetch 오류:", error);
+        });
+    }, [chatRoomId]);
+
     // 채팅 내용 DB에 저장 요청 훅
     useEffect(() => {
       if (messages.length === 0) return; // messages가 비어있으면 요청 안 보냄
       const lastMessage = messages[messages.length - 1]; // 마지막 메시지를 가져옴
       if (!lastMessage.text.trim()) return; // 빈 메시지 저장 방지
       // 현재 클라이언트가 보낸 메시지일 때만 저장 요청
-      if (lastMessage.user !== sendUsername) return;
+      if (lastMessage.user !== me) return;
 
       const messageData = {
         room: chatRoomId,    // 실제 room ID
-        user: sendUsername,
+        user: me,
         text: lastMessage.text   // 보낼 메시지
       };
       console.log("messageData:", messageData)
@@ -113,7 +131,7 @@ function ChatList() {
     const sendMessage = (event) => {
       event.preventDefault();
       if (message.trim()) {
-        socket.emit("message-send", { username: sendUsername, text: message, room: chatRoomId });
+        socket.emit("message-send", { username: me, text: message, room: chatRoomId });
         setMessage("");
       }
     };
@@ -142,6 +160,7 @@ function ChatList() {
           </div>
         </div>
         <div ref={chatBoxRef} className="chatting-area">
+          {/*msg = {room, text, user, timestamp} -> me 상태변수에 로그인한 유저 이름 적혀져있음 // msg.user 이거랑 비교해서 같으면 본인 다르면 상대 */}
           {messages.map((msg, index) => (
             <p key={index}>
               <strong>{msg.user}:</strong> {msg.text} <br />

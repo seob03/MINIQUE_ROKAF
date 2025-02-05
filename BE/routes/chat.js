@@ -7,6 +7,27 @@ router.get("/chat", (요청, 응답) => {
   응답.sendFile(path.join(__dirname, '../../FE/build/index.html'));
 });
 
+// GET /chat/getChatMessages?room=<roomID>
+// 특정 채팅방의 이전 채팅 메시지를 가져오는 API
+router.get('/chat/getChatMessages', async (요청, 응답) => {
+  try {
+    const room = 요청.query.room;
+    if (!room) {
+      return 응답.status(400).json({ error: 'Room ID is required' });
+    }
+    // chatMessages 컬렉션에서 해당 room의 메시지를 가져옵니다.
+    const messages = await 요청.db
+      .collection('chatMessages')
+      .find({ room: room })
+      .sort({ timestamp: 1 }) // 오래된 메시지부터 정렬 (옵션)
+      .toArray();
+    return 응답.json(messages);
+  } catch (error) {
+    console.error('getChatMessages 에러:', error);
+    return 응답.status(500).json({ error: '서버 에러' });
+  }
+});
+
 // 채팅방 DB 저장하는 API
 router.get('/chat/request/:writerId', async (요청, 응답) => {
   await db.collection('chatRoom').insertOne({
