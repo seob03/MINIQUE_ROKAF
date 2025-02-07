@@ -154,9 +154,9 @@ function ChatList() {
                 </span>
                 {msg.image && msg.text ?
                   (
-                    <div>
+                    <div style={{ display: 'flex', flexDirection: 'column' }}>
                       <img src={msg.image} alt="보낸 이미지" className='chat-image' />
-                      <div className='chatting-bubble-my-text'>{msg.text}</div>
+                      <span className='chatting-bubble-my-text'>{msg.text}</span>
                     </div>
                   ) : msg.image ? <img src={msg.image} alt="보낸 이미지" className='chat-image' /> : <span className='chatting-bubble-my-text'>{msg.text}</span>}
               </div>

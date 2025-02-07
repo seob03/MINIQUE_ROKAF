@@ -82,9 +82,6 @@
   color: #6F6C69;
 }
 
-
-
-
 .chat-room {
   width: 50%;
 }
@@ -165,14 +162,21 @@
 .chatting-bubble-my {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-end;
+  align-items: center;
   margin-top: 5px;
+  gap: 10px;
+}
+
+.chatting-bubble-my img {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 8px;
 }
 
 .chatting-bubble-my-text {
   display: inline-block;
   max-width: 250px;
-  padding: 10px 20px 10px 20px;
+  padding: 10px 20px;
   border-radius: 16px 16px 0px 16px;
   background-color: #F8F8F8;
   font-size: 16px;
@@ -189,14 +193,21 @@
 
 .chatting-bubble-your {
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   margin-top: 5px;
+  gap: 10px;
+}
+
+.chatting-bubble-your img {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 8px;
 }
 
 .chatting-bubble-your-text {
   display: inline-block;
   max-width: 250px;
-  padding: 10px 20px 10px 20px;
+  padding: 10px 20px;
   border-radius: 16px 16px 16px 0px;
   background-color: #EDECEC;
   font-size: 16px;
