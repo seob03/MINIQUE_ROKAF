@@ -14,13 +14,9 @@ function ChatList() {
     })
       .then(response => response.json())
       .then(data => {
-        if (data) {
+        if (data.length > 0) {
           setChats(data);
           console.log('서버 응답:', data);
-        }
-        else {
-          alert('로그인부터 해주세요.')
-          console.log('서버 응답: 로그인 안되어있는데 채팅로그 접속 시도 오류');
         }
       })
       .catch(error => {
@@ -32,6 +28,7 @@ function ChatList() {
   function ChatRoom(props) {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
+    const [selectedImage, setSelectedImage] = useState(null);
     const chatBoxRef = useRef(null);
     const chatRoomId = props.chat_id?.chatRoomId || "";
     let [me, setme] = useState("");
@@ -162,7 +159,7 @@ function ChatList() {
         <div ref={chatBoxRef} className="chatting-area">
           {/*msg = {room, text, user, timestamp} -> me 상태변수에 로그인한 유저 이름 적혀져있음 // msg.user 이거랑 비교해서 같으면 본인 다르면 상대 */}
           {messages.map((msg, index) => (
-              (msg.user == me) ? 
+            (msg.user == me) ?
               <div className='chatting-bubble-my'>
                 <span className='chatting-bubble-my-timestamp'>
                   {formatTimestamp(msg.timestamp)}
@@ -171,7 +168,7 @@ function ChatList() {
                   {msg.text}
                 </span>
               </div>
-            : <div className='chatting-bubble-your'>
+              : <div className='chatting-bubble-your'>
                 <span key={index} className='chatting-bubble-your-text'>
                   {msg.text}
                 </span>
@@ -179,7 +176,7 @@ function ChatList() {
                   {formatTimestamp(msg.timestamp)}
                 </span>
               </div>
-            
+
             // <p key={index}>
             // <strong>{msg.user}:</strong> {msg.text} <br />
             // <span style={{ fontSize: "0.8em", color: "#888" }}>

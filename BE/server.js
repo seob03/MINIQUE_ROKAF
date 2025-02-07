@@ -25,8 +25,6 @@ const io = new Server(server, {
 // io 인자로 전달
 require("./routes/io.js")(io)
 
-// const chatRoutes = require('./routes/chat.js'); // 라우터 가져오기
-
 // 클라이언트-서버 포트 요청 열기
 const cors = require('cors');
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
@@ -47,11 +45,7 @@ app.use((요청, 응답, next) => {
   next();  // 다음 미들웨어로 이동
 });
 
-// // Socket.IO 설정
-// app.use((요청, 응답, next) => {
-//   chatRoutes.socketSetup(server, 요청.db);  // 명시적 전달
-//   next();
-// })
+
 
 // passport 먼저 불러오기 (요청.user 값 할당부터)
 app.use('/', require('./routes/passport.js'))
