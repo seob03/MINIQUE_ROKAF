@@ -60,7 +60,7 @@ router.get('/chat/getUserInfo', async (요청, 응답) => {
 router.post('/chat/saveMessage', async (요청, 응답) => {
   db = 요청.db
   try {
-    const { room, user, text } = 요청.body;
+    const { room, user, text, image } = 요청.body;
     console.log('요청.body:', 요청.body)
     console.log('요청.user', 요청.user)
     if (user != 요청.user.username)
@@ -68,7 +68,7 @@ router.post('/chat/saveMessage', async (요청, 응답) => {
     if (!room || !user || !text) {
       return 응답.status(400).json({ message: '필수 필드 누락' });
     }
-    const messageDoc = { room, user, text, timestamp: new Date().toISOString() };
+    const messageDoc = { room, user, text, timestamp: new Date().toISOString(), image };
     await db.collection('chatMessages').insertOne(messageDoc);
     응답.json({ message: '메시지 저장 성공', data: messageDoc });
   } catch (error) {

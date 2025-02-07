@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { io } from "socket.io-client";
 import './style/ChatList.css';
-const socket = io("http://localhost:8082")
+const socket = io("http://localhost:8082");
 
 function ChatList() {
   const [chats, setChats] = useState([]);
@@ -16,19 +16,17 @@ function ChatList() {
       .then(data => {
         if (data.length > 0) {
           setChats(data);
-          console.log('서버 응답:', data);
         }
       })
       .catch(error => {
         alert(error.error || '로그인부터 해주세요.');
-        console.error('fetch 오류:', error);
       });
   }, []);
 
   function ChatRoom(props) {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedImage, setSelectedImage] = useState(null); // 이미지 상태 추가
     const chatBoxRef = useRef(null);
     const chatRoomId = props.chat_id?.chatRoomId || "";
     let [me, setme] = useState("");
@@ -40,15 +38,11 @@ function ChatList() {
       })
         .then(response => response.json())
         .then(data => {
-          setme(data.username) // data.username = testN
-          console.log('유저 data :', data);
+          setme(data.username);
         })
-        .catch(error => {
-          console.error('fetch 오류:', error);
-        });
+        .catch(error => console.error('fetch 오류:', error));
     }, []);
 
-    // 채팅방에 입장하면 이전 채팅 기록 가져오기
     useEffect(() => {
       if (!chatRoomId) return;
       fetch(`/chat/getChatMessages?room=${chatRoomId}`, {
@@ -57,61 +51,45 @@ function ChatList() {
       })
         .then(response => response.json())
         .then(data => {
-          console.log("이전 채팅 내용:", data);
-          // 이전 채팅 기록을 상태에 추가(만약 이전 메시지를 화면에 표시하고 싶다면)
           setMessages(data);
         })
-        .catch(error => {
-          console.error("이전 채팅 fetch 오류:", error);
-        });
+        .catch(error => console.error("이전 채팅 fetch 오류:", error));
     }, [chatRoomId]);
 
-    // 채팅 내용 DB에 저장 요청 훅
     useEffect(() => {
-      if (messages.length === 0) return; // messages가 비어있으면 요청 안 보냄
-      const lastMessage = messages[messages.length - 1]; // 마지막 메시지를 가져옴
-      if (!lastMessage.text.trim()) return; // 빈 메시지 저장 방지
-      // 현재 클라이언트가 보낸 메시지일 때만 저장 요청
+      if (messages.length === 0) return;
+      const lastMessage = messages[messages.length - 1];
+      if (!lastMessage.text.trim() && !lastMessage.image) return;
       if (lastMessage.user !== me) return;
 
       const messageData = {
-        room: chatRoomId,    // 실제 room ID
+        room: chatRoomId,
         user: me,
-        text: lastMessage.text   // 보낼 메시지
+        text: lastMessage.text || "",
+        image: lastMessage.image || "" // 이미지 추가
       };
-      console.log("messageData:", messageData)
+
       fetch('/chat/saveMessage', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(messageData)
       })
         .then(response => response.json())
-        .then(data => {
-          console.log('서버 응답:', data);
-        })
-        .catch(error => {
-          console.error('fetch 오류:', error);
-        });
+        .catch(error => console.error('fetch 오류:', error));
     }, [messages]);
 
-    // 소켓 연결 훅
     useEffect(() => {
-
-      // 메시지 브로드캐스트 리스너 추가 (중복 방지)
       socket.on("message-broadcast", (data) => {
-        console.log('메세지 브로드캐스트 성공, 저장할 메세지 객체:', data)
         setMessages((prevMessages) => [...prevMessages, data]);
       });
+
       socket.emit("ask-join", chatRoomId);
 
       return () => {
-        console.log(`Socket ${socket.id} disconnected`);
-        alert("웹 소켓 서버와 연결이 끊어졌습니다. 다시 연결하려면 새로고침하세요.");
         socket.disconnect();
       };
     }, [chatRoomId]);
 
-    // 채팅 항상 아래로 스크롤 되도록하는 훅
     useEffect(() => {
       if (chatBoxRef.current) {
         chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
@@ -127,15 +105,26 @@ function ChatList() {
 
     const sendMessage = (event) => {
       event.preventDefault();
-      if (message.trim()) {
-        socket.emit("message-send", { username: me, text: message, room: chatRoomId });
+      if (message.trim() || selectedImage) {
+        socket.emit("message-send", {
+          username: me,
+          text: message,
+          image: selectedImage, // 이미지 포함
+          room: chatRoomId
+        });
         setMessage("");
+        setSelectedImage(null); // 전송 후 초기화
       }
     };
 
-    const activeEnter = (event) => {
-      if (event.key === "Enter") {
-        sendMessage(event);
+    const handleImageUpload = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setSelectedImage(reader.result);
+        };
+        reader.readAsDataURL(file);
       }
     };
 
@@ -157,45 +146,58 @@ function ChatList() {
           </div>
         </div>
         <div ref={chatBoxRef} className="chatting-area">
-          {/*msg = {room, text, user, timestamp} -> me 상태변수에 로그인한 유저 이름 적혀져있음 // msg.user 이거랑 비교해서 같으면 본인 다르면 상대 */}
           {messages.map((msg, index) => (
-            (msg.user == me) ?
-              <div className='chatting-bubble-my'>
+            (msg.user === me) ? (
+              <div key={index} className='chatting-bubble-my'>
                 <span className='chatting-bubble-my-timestamp'>
                   {formatTimestamp(msg.timestamp)}
                 </span>
-                <span key={index} className='chatting-bubble-my-text'>
-                  {msg.text}
-                </span>
+                {msg.image && msg.text ?
+                  (
+                    <div>
+                      <img src={msg.image} alt="보낸 이미지" className='chat-image' />
+                      <div className='chatting-bubble-my-text'>{msg.text}</div>
+                    </div>
+                  ) : msg.image ? <img src={msg.image} alt="보낸 이미지" className='chat-image' /> : <span className='chatting-bubble-my-text'>{msg.text}</span>}
               </div>
-              : <div className='chatting-bubble-your'>
-                <span key={index} className='chatting-bubble-your-text'>
-                  {msg.text}
-                </span>
+            ) : (
+              <div key={index} className='chatting-bubble-your'>
+                {msg.image ? (
+                  <img src={msg.image} alt="받은 이미지" className='chat-image' />
+                ) : (
+                  <span className='chatting-bubble-your-text'>{msg.text}</span>
+                )}
                 <span className='chatting-bubble-your-timestamp'>
                   {formatTimestamp(msg.timestamp)}
                 </span>
               </div>
-
-            // <p key={index}>
-            // <strong>{msg.user}:</strong> {msg.text} <br />
-            // <span style={{ fontSize: "0.8em", color: "#888" }}>
-            //   {formatTimestamp(msg.timestamp)}
-            // </span>
-            // </p>
+            )
           ))}
         </div>
+        {selectedImage && (
+          <div className="chat-preview">
+            <img src={selectedImage} alt="미리보기" className="chat-preview-image" />
+            <button onClick={() => setSelectedImage(null)}>❌</button>
+          </div>
+        )}
         <form onSubmit={sendMessage} className="chatting-buttons">
           <input
             type="text"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            onKeyDown={(event) => activeEnter(event)}
             placeholder="Type your message..."
             className='chatting-input'
           />
-          <img src="/img/ImageUpload_Button.svg" className="chatting-img-button" alt="이미지 업로드" />
-          <div className="chatting-send-button" onClick={(event) => sendMessage(event)}>
+          <label className="chatting-img-button">
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              style={{ display: "none" }}
+            />
+            <img src="/img/ImageUpload_Button.svg" alt="이미지 업로드" />
+          </label>
+          <div className="chatting-send-button" onClick={sendMessage}>
             <img src="/img/Chat_Send_Button.svg" alt="전송" />
           </div>
         </form>

@@ -1,12 +1,35 @@
-.chatList-title{
-  display : block;
+.chatList-title {
+  display: block;
   margin-top: 30px;
   margin-bottom: 20px;
   font-size: 20px;
   font-family: NotoSansKR-Medium;
 }
 
-.chatList{
+.chat-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  background: #f0f0f0;
+  padding: 8px;
+  border-radius: 10px;
+}
+
+.chat-preview-image {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 5px;
+}
+
+.chat-preview button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.chatList {
   display: flex;
 }
 
@@ -15,7 +38,7 @@
   margin-right: 64px;
 }
 
-.chat-list-box{
+.chat-list-box {
   width: 480px;
   height: 86px;
   border-radius: 8px;
@@ -23,7 +46,8 @@
   align-items: center;
   cursor: pointer;
 }
-.chat-list-box:hover{
+
+.chat-list-box:hover {
   background-color: #e5e1db;
 }
 
@@ -41,18 +65,18 @@
   object-fit: cover;
 }
 
-.chat-list-box-text{
+.chat-list-box-text {
   margin-left: 28px;
 }
 
-.chat-list-box-name{
+.chat-list-box-name {
   font-family: NotoSansKR-Medium;
   font-size: 16px;
   color: #212120;
   margin-bottom: 4px;
 }
 
-.chat-list-box-lastchat{
+.chat-list-box-lastchat {
   font-family: NotoSansKR-Medium;
   font-size: 12px;
   color: #6F6C69;
@@ -61,36 +85,38 @@
 
 
 
-.chat-room{
+.chat-room {
   width: 50%;
 }
 
-.chatting-box{
+.chatting-box {
   width: 100%;
   height: 600px;
   padding: 24px;
   background-color: #FFFFFF;
   border-radius: 8px;
-  box-shadow:0px 4px 4px 0px #6F6C69;
+  box-shadow: 0px 4px 4px 0px #6F6C69;
   margin-bottom: 120px;
 }
 
-.chatting-opponent{
+.chatting-opponent {
   display: flex;
   align-items: center;
 }
-.chatting-opponent-img{
+
+.chatting-opponent-img {
   width: 40px;
   height: 40px;
   border-radius: 70%;
   margin-right: 20px;
   overflow: hidden;
 }
-.chatting-opponent-text{
+
+.chatting-opponent-text {
   font-family: NotoSansKR-Medium;
 }
 
-.chatting-item{
+.chatting-item {
   width: 100%;
   height: 54px;
   border-radius: 4px;
@@ -101,47 +127,52 @@
   align-items: center;
   cursor: pointer;
 }
-.chatting-item-img{
+
+.chatting-item-img {
   width: 40px;
   height: 40px;
   margin-left: 10px;
   border-radius: 4px;
   overflow: hidden;
 }
-.chatting-item-imgsource{
+
+.chatting-item-imgsource {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.chatting-item-text{
+
+.chatting-item-text {
   margin-left: 12px;
 }
-.chatting-item-name{
+
+.chatting-item-name {
   font-family: NotoSansKR-SemiBold;
   font-size: 12px;
 }
-.chatting-item-price{
+
+.chatting-item-price {
   font-family: NotoSansKR-Regular;
   font-size: 12px;
 }
 
-.chatting-area{
+.chatting-area {
   width: 100%;
   height: 400px;
   overflow-y: scroll;
 }
 
-.chatting-bubble-my{
+.chatting-bubble-my {
   display: flex;
-  justify-content:flex-end;
+  justify-content: flex-end;
   align-items: flex-end;
   margin-top: 5px;
 }
 
-.chatting-bubble-my-text{
+.chatting-bubble-my-text {
   display: inline-block;
   max-width: 250px;
-  padding: 10px 20px 10px 20px; 
+  padding: 10px 20px 10px 20px;
   border-radius: 16px 16px 0px 16px;
   background-color: #F8F8F8;
   font-size: 16px;
@@ -149,41 +180,42 @@
   font-family: NotoSansKR-Regular;
 }
 
-.chatting-bubble-my-timestamp{
+.chatting-bubble-my-timestamp {
   font-size: 12px;
   font-family: NotoSansKR-Regular;
   color: #D9D9D9;
   margin-right: 8px;
 }
 
-.chatting-bubble-your{
+.chatting-bubble-your {
   display: flex;
   align-items: flex-end;
   margin-top: 5px;
 }
 
-.chatting-bubble-your-text{
+.chatting-bubble-your-text {
   display: inline-block;
   max-width: 250px;
-  padding: 10px 20px 10px 20px; 
+  padding: 10px 20px 10px 20px;
   border-radius: 16px 16px 16px 0px;
   background-color: #EDECEC;
   font-size: 16px;
   font-family: NotoSansKR-Regular;
 }
 
-.chatting-bubble-your-timestamp{
+.chatting-bubble-your-timestamp {
   font-size: 12px;
   font-family: NotoSansKR-Regular;
   color: #D9D9D9;
   margin-left: 8px;
 }
 
-.chatting-buttons{
+.chatting-buttons {
   display: flex;
   align-items: center;
 }
-.chatting-input{
+
+.chatting-input {
   width: 70%;
   height: 40px;
   border-radius: 16px;
@@ -191,15 +223,17 @@
   border: 1px solid #B6B2AD;
   padding: 12px;
 }
-.chatting-input:focus{
+
+.chatting-input:focus {
   border: 1px solid #4169E1;
 }
 
-.chatting-img-button{
+.chatting-img-button {
   margin-right: 18px;
   cursor: pointer;
 }
-.chatting-send-button{
+
+.chatting-send-button {
   width: 40px;
   height: 40px;
   border-radius: 70%;

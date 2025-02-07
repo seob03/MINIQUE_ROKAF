@@ -23,6 +23,7 @@ module.exports = function (io) {
                     user: data.username,
                     text: data.text,
                     room: data.room,
+                    image: data.image || "",
                     timestamp: timestamp
                 });
             } catch (error) {
