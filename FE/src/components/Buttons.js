@@ -24,10 +24,10 @@ export function DeleteButtonHalf(props){
     );
 }
 
-export function BuyButton(props){    
+export function WideButton(props){    
     return(
-    <div className='BuyButton' onClick={props.eventHandler}>
-        구매하기
+    <div className='WideButton' onClick={props.eventHandler}>
+        {props.text}
     </div>
     );
 }

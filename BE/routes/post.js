@@ -77,8 +77,6 @@ router.put('/editPost/:id', async (요청, 응답) => {
 응답.json({ message: '게시글 수정 성공' });  // 로그인 성공 후 응답
 })
 
-
-
 // 글쓰기 페이지 API
 router.get('/write',  async (요청, 응답) => {
   if (요청.user)

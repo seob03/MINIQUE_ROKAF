@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import Card from '../components/Card.js';
 import DetailSlider from "../components/DetailSlider.js";
-import { ButtonMedium, BuyButton, DeleteButtonHalf } from '../components/Buttons';
+import { ButtonMedium, WideButton, DeleteButtonHalf } from '../components/Buttons';
 import './style/Detail.css';
 
 function Detail() {
@@ -11,10 +11,26 @@ function Detail() {
   let [pageLike, setPageLike] = useState(0);
   let isLoggedIn = useSelector((state) => {return state.isLoggedIn})
   let [isLiked, setIsLiked] = useState(false);
+  let [whoamI, setWhoAmI] = useState('');
   let navigate = useNavigate();
   let { id } = useParams(); // 글 id
 
-  
+  useEffect(()=>{
+    if(isLoggedIn){
+      fetch('/getUserInfo')
+      .then((response)=>response.json())
+      .then((data)=>{
+        setWhoAmI(data);
+      })
+      .catch((error)=>{
+        console.error('Error fetching data:', error);
+      })
+    } else {
+      setWhoAmI(false)
+    }
+  }, [id])
+
+
   // 로그인 된 유저가 현재 게시글을 좋아요 누른 적이 있는지 추적
   useEffect(()=>{
     // 로그인이 되어있어야 요청을 보냄, 안되어있으면 보내지 않고 초기값 false로 설정해버림
@@ -129,7 +145,24 @@ function Detail() {
       });
   }
 
+  function LoginStateButtonArea(){
+    if (!pageResult || !pageResult.user_id) {
+      return null;
+    }
 
+    if(whoamI.id == pageResult.user_id){
+      return(
+        <div style={{display: "flex", justifyContent: 'space-between', alignItems: 'center'}}>
+          <DeleteButtonHalf eventHandler={handleDelete}/>
+          <ButtonMedium text={'수정하기'} eventHandler={()=>{navigate('/edit/' + id)}}/>
+        </div>
+      )
+    } else {
+      return(
+        <WideButton text={'채팅하기'} eventHandler={ChatReq}/>
+      )
+    }
+  }
   
   return (
     <div>
@@ -195,7 +228,7 @@ function Detail() {
               배송비
             </div>
             <div className="Detail-Info-Content">
-              3500원 {pageResult.user_id}
+              3500원
             </div>
           </div>
           <Link to={'/store/'+ pageResult.user_id } style={{textDecoration: 'none', color: 'black'}}>
@@ -224,16 +257,10 @@ function Detail() {
               </div>
             </div>
           </Link>
-          {(isLoggedIn) ? 
-          <div style={{display: "flex", justifyContent: 'space-between', alignItems: 'center'}}>
-            <DeleteButtonHalf eventHandler={handleDelete}/>
-            <ButtonMedium text={'수정하기'} eventHandler={()=>{navigate('/edit/' + id)}}/>
-            <ButtonMedium text={'채팅하기'} eventHandler={ChatReq}/>
-          </div>
+          {(isLoggedIn) ? <LoginStateButtonArea/>
           : 
           <div style={{display: "flex", justifyContent: 'space-between', alignItems: 'center'}}>
-            <BuyButton/>
-            <ButtonMedium text={'채팅하기'} eventHandler={ChatReq}/>
+            <WideButton text={'로그인하여 구매하기'}/> {/*로그인하여 구매하기 뭐 이런걸로 바꿀 것*/}
           </div>
           }
         </div>
