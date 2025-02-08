@@ -68,7 +68,7 @@ function MyDetail() {
                                             brand={'Brand'}
                                             title={post.productName}
                                             size={post.childAge}
-                                            price={post.productPrice}
+                                            price={Number(post.productPrice).toLocaleString()}
                                             link={'/detail/' + post._id}
                                         />
                                     ))}
@@ -87,7 +87,7 @@ function MyDetail() {
                                                 brand={'Brand'}
                                                 title={post.productName}
                                                 size={post.childAge}
-                                                price={post.productPrice}
+                                                price={Number(post.productPrice).toLocaleString()}
                                                 link={'/detail/' + post._id}
                                             />
                                         ))}
@@ -97,7 +97,7 @@ function MyDetail() {
                                 )}
                             </>
                         </div>,
-                        <div>후기 내용</div>
+                        <div></div>
                     ][props.tab]
                 }
             </div>
@@ -127,7 +127,7 @@ function MyDetail() {
                             상품 판매 OO회
                         </div>
                         <div style={{ marginRight: '56px' }}>
-                            상품 개수 {posts.length}
+                            상품 개수 {posts.length}개
                         </div>
                         <div>
                             받은 후기 O건

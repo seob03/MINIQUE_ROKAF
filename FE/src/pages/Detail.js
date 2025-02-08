@@ -199,7 +199,7 @@ function Detail() {
             </div>
           </div>
           <div className="Detail-Price">
-            {pageResult.productPrice}원
+            {Number(pageResult.productPrice).toLocaleString()}원
           </div>
           <div className="Detail-Content">
             {pageResult.productDetailContent}
