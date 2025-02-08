@@ -22,9 +22,10 @@ function App() {
   return (
     <div className='App'>
       <div className='App-content'>
-        <div style={{ display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center' 
+        <div style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
         }}>
           <Header />
         </div>
@@ -41,20 +42,19 @@ function App() {
               <Route path="/edit/:id" element={<EditNews />} />
               <Route path="/detail" element={<Detail />} />
               <Route path="/store/:user_id" element={<UserDetail />} />
-              <Route path="/myStore" element={<MyDetail/>} />
+              <Route path="/myStore" element={<MyDetail />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signUp" element={<SignUp />} />
               <Route path="/updateInfo" element={<SetUserInfo />} />
               <Route path="/search" element={<SearchResult />} />
               <Route path="/detail/:id" element={<Detail />} />
-              <Route path="/chat/:chatRoomId" element={<ChatDetail />} />
-              <Route path="/chatList" element={<ChatList/>} />
+              <Route path="/chatList" element={<ChatList />} />
             </Routes>
           </div>
         </div>
       </div>
       <div className="Footer-Container">
-        <Footer/>
+        <Footer />
       </div>
     </div>
   );

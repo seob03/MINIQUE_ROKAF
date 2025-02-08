@@ -154,7 +154,7 @@ function ChatList() {
           </div>
           <div className="chatting-item-text">
             <div className="chatting-item-name">{props.productName}</div>
-            <div className="chatting-item-price">{props.productPrice}원</div>
+            <div className="chatting-item-price">{Number(props.productPrice).toLocaleString()}원</div>
           </div>
         </div>
         <div ref={chatBoxRef} className="chatting-area">

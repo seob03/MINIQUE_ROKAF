@@ -53,7 +53,7 @@ function Detail() {
     // 비동기 함수 바로 호출
     const fetchData = async () => {
       try {
-        const response = await fetch('/detail/' + id);
+        const response = await fetch('/detailPage/' + id);
         const result = await response.json();
         setPageResult(result);
         setPageLike(result.like);
