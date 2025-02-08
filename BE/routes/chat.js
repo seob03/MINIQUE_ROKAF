@@ -32,7 +32,7 @@ router.get('/chat/getChatMessages', async (요청, 응답) => {
 // 채팅방 DB 저장하는 API
 router.post('/chat/request/', async (요청, 응답) => {
   db = 요청.db
-  let { sellerId, productName, productPrice } = 요청.body;
+  let { sellerId, productName, productPrice, productFrontPhoto } = 요청.body;
 
   let sellerInfo = await db.collection('user').findOne({ _id: new ObjectId(sellerId) })
   let sellerName = sellerInfo.username
@@ -41,6 +41,7 @@ router.post('/chat/request/', async (요청, 응답) => {
     sellerName: sellerName,
     productName: productName,
     productPrice: productPrice,
+    productFrontPhoto: productFrontPhoto,
     date: new Date()
   })
 

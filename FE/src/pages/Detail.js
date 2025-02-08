@@ -136,7 +136,8 @@ function Detail() {
       body: JSON.stringify({
         sellerId: pageResult.user_id,
         productName: pageResult.productName,
-        productPrice: pageResult.productPrice
+        productPrice: pageResult.productPrice,
+        productFrontPhoto: pageResult.productPhoto[0]
       })
     })
       .then(response => response.json())

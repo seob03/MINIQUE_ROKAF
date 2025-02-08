@@ -11,7 +11,9 @@ function ChatList() {
   const [sellerName, setSellerName] = useState('')
   const [productName, setProductName] = useState('')
   const [productPrice, setProductPrice] = useState('')
+  const [productFrontPhoto, setProductFrontPhoto] = useState('')
 
+  // 채팅 리스트 받아오기
   useEffect(() => {
     fetch('/chat/getChatList/', {
       method: 'GET',
@@ -27,10 +29,6 @@ function ChatList() {
         alert(error.error || '로그인부터 해주세요.');
       });
   }, []);
-  // 채팅이 모두 불러와지면 그때 
-  useEffect(() => {
-
-  }, [chats])
 
   function ChatRoom(props) {
     const [message, setMessage] = useState("");
@@ -151,7 +149,8 @@ function ChatList() {
         </div>
         <div className="chatting-item">
           <div className="chatting-item-img">
-            <img src='/img/jilsander.png' className='chatting-item-imgsource' alt="상품" />
+            {/* 여기바꿔 */}
+            <img src={props.productFrontPhoto} className='chatting-item-imgsource' alt="상품" />
           </div>
           <div className="chatting-item-text">
             <div className="chatting-item-name">{props.productName}</div>
@@ -226,9 +225,15 @@ function ChatList() {
           {(chats && chats.length > 0) ? (
             <>
               {chats.map((chat) => (
+
                 <div key={chat._id} className='chat-list-box'
+                  // 채팅방 모듈로 전송할 이미지
                   onClick={() => {
-                    setchatID(chat._id); setSellerName(chat.sellerName); setProductName(chat.productName); setProductPrice(chat.productPrice)
+                    setchatID(chat._id);
+                    setSellerName(chat.sellerName);
+                    setProductName(chat.productName);
+                    setProductPrice(chat.productPrice);
+                    setProductFrontPhoto(chat.productFrontPhoto)
                   }}>
                   <div className='chat-list-box-img'>
                     <img src='/img/jilsander.png' className='chat-list-box-imgsource' alt="채팅" />
@@ -248,9 +253,10 @@ function ChatList() {
             <div>채팅이 없습니다. 채팅을 시작해보세요!</div>
           )}
         </div>
+        {/* props로 채팅방에 관련 정보 넘기기 */}
         <div className="chat-room">
           {(chatID !== '') ?
-            <ChatRoom chat_id={chatID} sellerName={sellerName} productName={productName} productPrice={productPrice} />
+            <ChatRoom chat_id={chatID} sellerName={sellerName} productName={productName} productPrice={productPrice} productFrontPhoto={productFrontPhoto} />
             : <div>채팅을 선택하던가</div>
           }
         </div>
