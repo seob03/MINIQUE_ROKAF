@@ -37,6 +37,12 @@ function LoginModal(props){
         });
     }
 
+    function handleKeyDown(e){
+        if(e.key === 'Enter'){
+            handleLogin();
+        }
+    }
+
     function LoginButton(props){
         return(
             <div className={`LoginButton ${(input_userName && input_userPassword) ? 'active':''}`} onClick={props.eventHandler}>
@@ -70,6 +76,7 @@ function LoginModal(props){
                     </div>
                     <input 
                     onChange={(e) => {setUserName(e.target.value);}} 
+                    onKeyDown={handleKeyDown}
                     type="text" 
                     className='LoginModal-Input'
                     />
@@ -79,7 +86,9 @@ function LoginModal(props){
                         PW
                         <div style={{flexGrow:1}}></div>
                     </div>
-                    <input onChange={(e) => {setUserPassword(e.target.value);}} 
+                    <input 
+                    onChange={(e) => {setUserPassword(e.target.value);}} 
+                    onKeyDown={handleKeyDown}
                     type="text"
                     className='LoginModal-Input'
                     />

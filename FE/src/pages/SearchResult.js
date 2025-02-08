@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
-import Slider from '../components/Slider';
 import './style/NewsList.css';
 import { useLocation } from 'react-router-dom';
+import CardSmall from '../components/CardSmall';
 
 function SearchResult(){
     const location = useLocation();
@@ -53,17 +53,24 @@ function SearchResult(){
         <div className="Recommend-Title">
           {searchData}에 대한 검색 결과입니다.
         </div>
-        <div className="Recommend-Carousel">
-          <div className="Recommend-Container">
-            <Slider data={searchPostData}/>
-          </div>
+        <div className="Recommend-Gallery">
+          {
+            (searchPostData.length > 0) ? (
+              searchPostData.map(post => (
+                <CardSmall
+                  photo={post.productPhoto || undefined}
+                  brand={'MONCLER'}
+                  title={post.productName}
+                  size={post.childAge}
+                  price={Number(post.productPrice).toLocaleString()}
+                  link={'/detail/' + post._id}
+                />
+              ))
+            ) : <div style={{marginTop: '30px', fontFamily: 'NotoSansKR-Regular'}}>
+                  검색 결과가 없습니다
+                </div>
+          }
         </div>
-      </div>
-      <div>
-        <div className="Recommend-Title">
-          지금, 회원님의 지역 상품
-        </div>
-        <div className="Recommend-Container"></div>
       </div>
     </div>
     );
