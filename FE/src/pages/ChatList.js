@@ -149,36 +149,62 @@ function ChatList() {
           {messages.map((msg, index) => (
             (msg.user === me) ? (
               <div key={index} className='chatting-bubble-my'>
-                <span className='chatting-bubble-my-timestamp'>
-                  {formatTimestamp(msg.timestamp)}
-                </span>
                 {msg.image && msg.text ?
                   (
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
                       <img src={msg.image} alt="보낸 이미지" className='chat-image' />
-                      <span className='chatting-bubble-my-text'>{msg.text}</span>
+                      <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', alignItems:'center', justifyContent: 'center' }}>
+                        <span className='chatting-bubble-my-timestamp'>
+                          {formatTimestamp(msg.timestamp)}
+                        </span>
+                        <span className='chatting-bubble-my-text'>{msg.text}</span>
+                      </div>
                     </div>
-                  ) : msg.image ? <img src={msg.image} alt="보낸 이미지" className='chat-image' /> : <span className='chatting-bubble-my-text'>{msg.text}</span>}
+                  ) : msg.image ? <img src={msg.image} alt="보낸 이미지" className='chat-image' /> 
+                  : 
+                  <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', alignItems:'center', justifyContent: 'center' }}>
+                    <span className='chatting-bubble-my-timestamp'>
+                      {formatTimestamp(msg.timestamp)}
+                    </span>
+                    <span className='chatting-bubble-my-text'>{msg.text}</span>
+                  </div>
+                  }
               </div>
             ) : (
               <div key={index} className='chatting-bubble-your'>
-                {msg.image ? (
-                  <img src={msg.image} alt="받은 이미지" className='chat-image' />
-                ) : (
+                {msg.image && msg.text ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                    <img src={msg.image} alt="받은 이미지" className='chat-image' />
+                    <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', alignItems:'center', justifyContent: 'center' }}>
+                        <span className='chatting-bubble-your-text'>{msg.text}</span>
+                        <span className='chatting-bubble-your-timestamp'>
+                          {formatTimestamp(msg.timestamp)}
+                        </span>
+                    </div>
+                  </div>
+                ) : msg.image ? <img src={msg.image} alt="보낸 이미지" className='chat-image' />
+                :
+                <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', alignItems:'center', justifyContent: 'center' }}>
                   <span className='chatting-bubble-your-text'>{msg.text}</span>
-                )}
-                <span className='chatting-bubble-your-timestamp'>
-                  {formatTimestamp(msg.timestamp)}
-                </span>
+                  <span className='chatting-bubble-your-timestamp'>
+                    {formatTimestamp(msg.timestamp)}
+                  </span>
+                </div>
+                }
               </div>
             )
           ))}
         </div>
         {selectedImage && (
-          <div className="chat-preview">
-            <img src={selectedImage} alt="미리보기" className="chat-preview-image" />
-            <button onClick={() => setSelectedImage(null)}>❌</button>
-          </div>
+            <div className="chat-preview">
+              <div className="chat-preview-background"/>
+              <div className="chat-preview-container">
+                <img src={selectedImage} alt="미리보기" className="chat-preview-image" />
+                <button onClick={() => setSelectedImage(null)} style={{position: 'absolute', right: '2px', top: '2px'}}>
+                  <img src="/img/CloseButton.svg" style={{width: '12px', height: '12px'}}/>
+                </button>
+              </div>
+            </div>
         )}
         <form onSubmit={sendMessage} className="chatting-buttons">
           <input
