@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const path = require('path');
+const { ObjectId } = require('mongodb')
 
 // 라우터 정의
 router.get("/chat", (요청, 응답) => {
@@ -29,11 +30,20 @@ router.get('/chat/getChatMessages', async (요청, 응답) => {
 });
 
 // 채팅방 DB 저장하는 API
-router.get('/chat/request/:writerId', async (요청, 응답) => {
+router.post('/chat/request/', async (요청, 응답) => {
+  db = 요청.db
+  let { sellerId, productName, productPrice } = 요청.body;
+
+  let sellerInfo = await db.collection('user').findOne({ _id: new ObjectId(sellerId) })
+  let sellerName = sellerInfo.username
   await db.collection('chatRoom').insertOne({
-    member: [요청.user.id, 요청.params.writerId],
+    member: [요청.user.id, sellerId],
+    sellerName: sellerName,
+    productName: productName,
+    productPrice: productPrice,
     date: new Date()
   })
+
   응답.json({ message: '채팅방 생성 성공' })
 })
 
