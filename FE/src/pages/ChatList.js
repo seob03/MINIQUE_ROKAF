@@ -4,9 +4,16 @@ import './style/ChatList.css';
 const socket = io("http://localhost:8082");
 
 function ChatList() {
+  // 모든 채팅 로드 시에 사용
   const [chats, setChats] = useState([]);
+  // chatRoom 생성 시에 사용하는 상세 상태 변수
   const [chatID, setchatID] = useState('');
+  const [sellerName, setSellerName] = useState('')
+  const [productName, setProductName] = useState('')
+  const [productPrice, setProductPrice] = useState('')
+  const [productFrontPhoto, setProductFrontPhoto] = useState('')
 
+  // 채팅 리스트 받아오기
   useEffect(() => {
     fetch('/chat/getChatList/', {
       method: 'GET',
@@ -15,7 +22,7 @@ function ChatList() {
       .then(response => response.json())
       .then(data => {
         if (data.length > 0) {
-          setChats(data);
+          setChats(data)
         }
       })
       .catch(error => {
@@ -28,9 +35,10 @@ function ChatList() {
     const [messages, setMessages] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null); // 이미지 상태 추가
     const chatBoxRef = useRef(null);
-    const chatRoomId = props.chat_id?.chatRoomId || "";
-    let [me, setme] = useState("");
+    const chatRoomId = props?.chat_id || "";
+    let [me, setMe] = useState("");
 
+    // 나의 정보 받아오기
     useEffect(() => {
       fetch('/chat/getUserInfo', {
         method: 'GET',
@@ -38,7 +46,7 @@ function ChatList() {
       })
         .then(response => response.json())
         .then(data => {
-          setme(data.username);
+          setMe(data.username);
         })
         .catch(error => console.error('fetch 오류:', error));
     }, []);
@@ -56,6 +64,7 @@ function ChatList() {
         .catch(error => console.error("이전 채팅 fetch 오류:", error));
     }, [chatRoomId]);
 
+    // 메세지 저장 훅
     useEffect(() => {
       if (messages.length === 0) return;
       const lastMessage = messages[messages.length - 1];
@@ -78,6 +87,7 @@ function ChatList() {
         .catch(error => console.error('fetch 오류:', error));
     }, [messages]);
 
+    // 메세지 전파 훅
     useEffect(() => {
       socket.on("message-broadcast", (data) => {
         setMessages((prevMessages) => [...prevMessages, data]);
@@ -90,6 +100,7 @@ function ChatList() {
       };
     }, [chatRoomId]);
 
+    // 스크롤 최하단으로 상시 업데이트
     useEffect(() => {
       if (chatBoxRef.current) {
         chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
@@ -134,15 +145,16 @@ function ChatList() {
           <div className='chatting-opponent-img'>
             <img src='/img/jilsander.png' className='chat-list-box-imgsource' alt="상점" />
           </div>
-          <div className='chatting-opponent-text'>상점이름</div>
+          <div className='chatting-opponent-text'>{props.sellerName}</div>
         </div>
         <div className="chatting-item">
           <div className="chatting-item-img">
-            <img src='/img/jilsander.png' className='chatting-item-imgsource' alt="상품" />
+            {/* 여기바꿔 */}
+            <img src={props.productFrontPhoto} className='chatting-item-imgsource' alt="상품" />
           </div>
           <div className="chatting-item-text">
-            <div className="chatting-item-name">이건제목임</div>
-            <div className="chatting-item-price">230,000원</div>
+            <div className="chatting-item-name">{props.productName}</div>
+            <div className="chatting-item-price">{Number(props.productPrice).toLocaleString()}원</div>
           </div>
         </div>
         <div ref={chatBoxRef} className="chatting-area">
@@ -239,13 +251,22 @@ function ChatList() {
           {(chats && chats.length > 0) ? (
             <>
               {chats.map((chat) => (
-                <div key={chat._id} className='chat-list-box' onClick={() => setchatID(chat._id)}>
+
+                <div key={chat._id} className='chat-list-box'
+                  // 채팅방 모듈로 전송할 이미지
+                  onClick={() => {
+                    setchatID(chat._id);
+                    setSellerName(chat.sellerName);
+                    setProductName(chat.productName);
+                    setProductPrice(chat.productPrice);
+                    setProductFrontPhoto(chat.productFrontPhoto)
+                  }}>
                   <div className='chat-list-box-img'>
                     <img src='/img/jilsander.png' className='chat-list-box-imgsource' alt="채팅" />
                   </div>
                   <div className='chat-list-box-text'>
                     <div className='chat-list-box-name'>
-                      상점이름  ·  구매하려는 상품명
+                      {chat.sellerName}  ·  {chat.productName}
                     </div>
                     <div className='chat-list-box-lastchat'>
                       마지막 채팅내역
@@ -258,9 +279,10 @@ function ChatList() {
             <div>채팅이 없습니다. 채팅을 시작해보세요!</div>
           )}
         </div>
+        {/* props로 채팅방에 관련 정보 넘기기 */}
         <div className="chat-room">
           {(chatID !== '') ?
-            <ChatRoom chat_id={{ chatRoomId: chatID }} />
+            <ChatRoom chat_id={chatID} sellerName={sellerName} productName={productName} productPrice={productPrice} productFrontPhoto={productFrontPhoto} />
             : <div>채팅을 선택하던가</div>
           }
         </div>

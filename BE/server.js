@@ -45,8 +45,6 @@ app.use((요청, 응답, next) => {
   next();  // 다음 미들웨어로 이동
 });
 
-
-
 // passport 먼저 불러오기 (요청.user 값 할당부터)
 app.use('/', require('./routes/passport.js'))
 
