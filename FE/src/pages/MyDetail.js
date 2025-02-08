@@ -9,25 +9,40 @@ import './style/MyDetail.css';
 function MyDetail() {
     let [tab, setTab] = useState(0);
     let [posts, setPosts] = useState([]);
-    let [userInfo, setUserInfo] = useState('') // username, _id 필드 반환
+    let [favoritePosts, setFavoritePosts] = useState([]);
+
+    // 본인의 게시글 가져오기
     useEffect(() => {
-    fetch(('/myDetail/getPosts'), { 
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
+        fetch(('/myDetail/getPosts'), {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
         })
-        .then(response => response.json())
-        .then(data => {
-          setPosts(data);
-          console.log('서버 응답:', data);
-        })
-        .catch(error => {
-          console.error('fetch 오류:', error);
-        })
+            .then(response => response.json())
+            .then(data => {
+                setPosts(data);
+                console.log('서버 응답:', data);
+            })
+            .catch(error => {
+                console.error('fetch 오류:', error);
+            })
     }, []);
-    
-    useEffect(()=>{
-        console.log('posts:', posts)
-    }, [posts])
+
+    // 본인이 찜 누른 항목 가져오기
+    useEffect(() => {
+        fetch(('/myDetail/getFavoritePosts'), {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(response => response.json())
+            .then(data => {
+                setFavoritePosts(data);
+                console.log('서버 응답:', data);
+            })
+            .catch(error => {
+                console.error('fetch 오류:', error);
+            })
+    }, []);
+
 
     function TabContent(props) {
         let [fade, setFade] = useState('')
@@ -40,29 +55,48 @@ function MyDetail() {
         }, [tab])
 
         return (
-            
+
             <div className={`TabContent-Start ${fade}`}>
                 {
                     [
                         <>
-                            {props.posts && props.posts.length > 0 ? (
+                            {props.myPosts && props.myPosts.length > 0 ? (
                                 <div className='TabContent-Item'>
-                                {props.posts.map(post => (
+                                    {props.myPosts.map(post => (
                                         <CardSmall
                                             photo={post.productPhoto[0] || undefined}
                                             brand={'Brand'}
                                             title={post.productName}
                                             size={post.childAge}
                                             price={post.productPrice}
-                                            link={'/detail/'+post._id}
+                                            link={'/detail/' + post._id}
                                         />
-                                ))}
+                                    ))}
                                 </div>
                             ) : (
                                 <div>아직 로딩중</div>
                             )}
                         </>,
-                        <div>찜 내용</div>,
+                        <div>
+                            <>
+                                {props.favoritePosts && props.favoritePosts.length > 0 ? (
+                                    <div className='TabContent-Item'>
+                                        {props.favoritePosts.map(post => (
+                                            <CardSmall
+                                                photo={post.productPhoto[0] || undefined}
+                                                brand={'Brand'}
+                                                title={post.productName}
+                                                size={post.childAge}
+                                                price={post.productPrice}
+                                                link={'/detail/' + post._id}
+                                            />
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div>아직 로딩중</div>
+                                )}
+                            </>
+                        </div>,
                         <div>후기 내용</div>
                     ][props.tab]
                 }
@@ -100,7 +134,7 @@ function MyDetail() {
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div>
                 <div class="Store-Tab">
                     <div className="Store-Tab-Title"
@@ -118,7 +152,7 @@ function MyDetail() {
                     </div>
                 </div>
             </div>
-            <TabContent tab={tab} posts={posts} />
+            <TabContent tab={tab} myPosts={posts} favoritePosts={favoritePosts} />
         </>
     );
 }
