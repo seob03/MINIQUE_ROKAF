@@ -47,15 +47,17 @@ app.use((요청, 응답, next) => {
 
 // passport 먼저 불러오기 (요청.user 값 할당부터)
 app.use('/', require('./routes/passport.js'))
-
 // 라우터로 분리한 파일 불러오기 (요청.user 사용 가능해짐)
 app.use('/', require('./routes/post.js'))
+app.use('/', require('./routes/edit.js'))
+app.use('/', require('./routes/productDetailPage.js'))
 app.use('/', require('./routes/search.js'))
 app.use('/', require('./routes/auth.js'))
 app.use('/', require('./routes/postHeart.js'))
-app.use('/', require('./routes/userDetailPage.js'))
+app.use('/', require('./routes/yourDetailPage.js'))
+app.use('/', require('./routes/myDetailPage.js'))
 app.use('/', require('./routes/chat.js'))
-app.use('/', require('./routes/myDetail.js'))
+
 
 app.get('*', (요청, 응답) => {
   응답.sendFile(path.join(__dirname, '../FE/build/index.html'));

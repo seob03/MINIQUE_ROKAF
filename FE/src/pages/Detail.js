@@ -17,7 +17,7 @@ function Detail() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      fetch('/getUserInfo')
+      fetch('/productDetail/getUserInfo')
         .then((response) => response.json())
         .then((data) => {
           setWhoAmI(data);
@@ -53,7 +53,7 @@ function Detail() {
     // 비동기 함수 바로 호출
     const fetchData = async () => {
       try {
-        const response = await fetch('/detailPage/' + id);
+        const response = await fetch('/productDetail/getPageInfo/' + id);
         const result = await response.json();
         setPageResult(result);
         setPageLike(result.like);
@@ -68,7 +68,7 @@ function Detail() {
   function handleDelete() {
     // eslint-disable-next-line no-restricted-globals
     if (confirm('글을 삭제하시겠습니까? 삭제된 글은 복구되지 않습니다.')) {
-      fetch('/delete/' + id,
+      fetch('/productDetail/delete/' + id,
         {
           method: 'DELETE',
         })

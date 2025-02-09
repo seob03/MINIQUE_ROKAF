@@ -7,7 +7,7 @@ function NewsList() {
   let [postData, setpostData] = useState([]); // 최종 입력값
   // 백엔드에서 데이터 가져오기
   useEffect(() => {
-    fetch('/getDatabase')
+    fetch('/getPostLists')
       .then((response) => response.json())
       .then((DB_result) => {
         setpostData(DB_result);

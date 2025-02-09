@@ -1,6 +1,6 @@
 module.exports = function (io) {
     io.on("connection", async (socket) => {
-        console.log(`Socket ${socket.id} connected`)
+        // console.log(`Socket ${socket.id} connected`)
 
         // 특정 room에 join 요청오면 해당 room에 시켜주기
         socket.on('ask-join', async (data) => {
@@ -16,7 +16,7 @@ module.exports = function (io) {
         // 유저가 보낸 메세지를 해당 room에 제공하기
         socket.on('message-send', async (data) => {
             try {
-                console.log("message-send 이벤트 받음:", data);
+                // console.log("message-send 이벤트 받음:", data);
                 const timestamp = new Date().toISOString();
                 // data.room에 해당하는 방에 메시지 브로드캐스트
                 io.to(data.room).emit('message-broadcast', {

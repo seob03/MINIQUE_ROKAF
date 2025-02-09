@@ -13,7 +13,6 @@ import SignUpModal from './components/SignUpModal';
 import SearchResult from './pages/SearchResult';
 import SetUserInfo from './pages/SetUserInfo';
 import EditNews from './pages/EditNews';
-import ChatDetail from './pages/ChatDetail';
 import ChatList from './pages/ChatList';
 import MyDetail from './pages/MyDetail';
 import Footer from './components/Footer';
@@ -40,7 +39,6 @@ function App() {
               <Route path="/" element={<NewsList />} />
               <Route path="/write" element={<NewsWrite />} />
               <Route path="/edit/:id" element={<EditNews />} />
-              <Route path="/detail" element={<Detail />} />
               <Route path="/store/:user_id" element={<UserDetail />} />
               <Route path="/myStore" element={<MyDetail />} />
               <Route path="/login" element={<Login />} />
