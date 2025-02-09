@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { io } from "socket.io-client";
 import './style/ChatList.css';
-const socket = io("http://localhost:8082");
+const socket = io("http://localhost:8080");
 
 function ChatList() {
   // 모든 채팅 로드 시에 사용

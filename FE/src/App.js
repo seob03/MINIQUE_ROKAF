@@ -6,8 +6,6 @@ import NewsList from './pages/NewsList';
 import NewsWrite from './pages/NewsWrite';
 import UserDetail from './pages/UserDetail';
 import Detail from './pages/Detail';
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
 import LoginModal from './components/LoginModal';
 import SignUpModal from './components/SignUpModal';
 import SearchResult from './pages/SearchResult';
@@ -41,8 +39,6 @@ function App() {
               <Route path="/edit/:id" element={<EditNews />} />
               <Route path="/store/:user_id" element={<UserDetail />} />
               <Route path="/myStore" element={<MyDetail />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signUp" element={<SignUp />} />
               <Route path="/updateInfo" element={<SetUserInfo />} />
               <Route path="/search" element={<SearchResult />} />
               <Route path="/detail/:id" element={<Detail />} />

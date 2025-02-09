@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { changeLogIn, changeIsOpen, changeIsSignUpOpen } from "../store/store.js";
+import { changeIsSignUpOpen } from "../store/store.js";
 import './style/SignUpModal.css';
 
-function SignUpModal(props) {
-    let [new_userNickName, setUserNickName] = useState(''); // 실시간 입력값 받아오기
+function SignUpModal() {
     let [new_userID, setUserID] = useState('');
     let [new_userPassword, setUserPassword] = useState('');
     let [new_userPasswordCheck, setUserPasswordCheck] = useState('');
@@ -16,31 +15,39 @@ function SignUpModal(props) {
 
     function SignUpButton(props) {
         let isEverythingOk =
-            new_userNickName &&
             new_userID &&
             new_userPassword &&
             (new_userPassword == new_userPasswordCheck)
             ;
 
         return (
-            <div className={`SignUpButton ${(isEverythingOk) ? 'active' : ''}`} onClick={props.eventHandler}>
+            <div className={`SignUpButton ${(isEverythingOk) ? 'active' : ''}`} onClick={(isEverythingOk) ? props.eventHandler : null}>
                 회원가입
             </div>
         );
     }
 
-    function SignUp_MINIQUE() {
-        fetch('/signUp-POST', {
+    function SignUp() {
+        fetch('/trySignUp', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nickname: new_userNickName, username: new_userID, password: new_userPassword })
+            body: JSON.stringify({ username: new_userID, password: new_userPassword })
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    // HTTP 상태 코드가 400~599인 경우 에러 처리
+                    return response.json().then(err => { throw new Error(err.message); });
+                }
+                return response.json();
+            })
+
             .then(data => {
+                alert(data.message)
                 console.log('서버 응답:', data);
-                navigate('/updateInfo');
+                // navigate('/updateInfo');
             })
             .catch(error => {
+                alert(error.message)
                 console.error('fetch 오류:', error);
             });
     }
@@ -65,17 +72,6 @@ function SignUpModal(props) {
                     </div>
                     <div className='SignUpModal-Input-Area'>
                         <div className='SignUpModal-Input-Label'>
-                            Nickname
-                            <div style={{ flexGrow: 1 }}></div>
-                        </div>
-                        <input
-                            onChange={(e) => { setUserNickName(e.target.value); }}
-                            type="text"
-                            className='SignUpModal-Input'
-                        />
-                    </div>
-                    <div className='SignUpModal-Input-Area'>
-                        <div className='SignUpModal-Input-Label'>
                             ID
                             <div style={{ flexGrow: 1 }}></div>
                         </div>
@@ -90,7 +86,7 @@ function SignUpModal(props) {
                             <div style={{ flexGrow: 1 }}></div>
                         </div>
                         <input onChange={(e) => { setUserPassword(e.target.value); }}
-                            type="text"
+                            type="password"
                             className='SignUpModal-Input'
                         />
                     </div>
@@ -100,11 +96,11 @@ function SignUpModal(props) {
                             <div style={{ flexGrow: 1 }}></div>
                         </div>
                         <input onChange={(e) => { setUserPasswordCheck(e.target.value); }}
-                            type="text"
+                            type="password"
                             className='SignUpModal-Input'
                         />
                     </div>
-                    <SignUpButton eventHandler={SignUp_MINIQUE} />
+                    <SignUpButton eventHandler={SignUp} />
                 </div>
             </div>
             : null

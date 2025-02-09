@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { changeLogIn, changeIsOpen, changeIsSignUpOpen } from "../store/store.js";
 import './style/LoginModal.css';
 import { SignUpButton } from './Buttons.js';
@@ -11,7 +10,6 @@ function LoginModal(props) {
 
     let isOpen = useSelector((state) => { return state.isOpen })
     let dispatch = useDispatch();
-    let navigate = useNavigate();
 
     function handletoSignUp() {
         dispatch(changeIsOpen(false));
@@ -19,8 +17,7 @@ function LoginModal(props) {
     }
 
     function handleLogin() {
-        console.log("handleLogin 실행 성공")
-        fetch('/login-POST', {
+        fetch('/tryLogin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: input_userName, password: input_userPassword }),
@@ -33,6 +30,7 @@ function LoginModal(props) {
                 dispatch(changeIsOpen(false));
             })
             .catch(error => {
+                alert('로그인에 실패하였습니다.')
                 console.error('fetch 오류:', error);
             });
     }
@@ -89,7 +87,7 @@ function LoginModal(props) {
                         <input
                             onChange={(e) => { setUserPassword(e.target.value); }}
                             onKeyDown={handleKeyDown}
-                            type="text"
+                            type="password"
                             className='LoginModal-Input'
                         />
                     </div>

@@ -36,31 +36,31 @@ router.use(session({
 router.use(passport.initialize())
 router.use(passport.session())
 
-
 passport.use(new LocalStrategy(async (입력한아이디, 입력한비번, cb) => {
-  console.log("회원 검증 시작: ", 입력한아이디, 입력한비번)
-  let result = await db.collection('user').findOne({ username: 입력한아이디 })
-  console.log(result)
-  if (!result) {
+  let userAuthInfo = await db.collection('user').findOne({ username: 입력한아이디 })
+  if (!userAuthInfo) {
+    console.log('아이디가 DB에 존재하지 않습니다.')
     return cb(null, false, { message: '아이디 DB에 없음' })
   }
-  if (result.password == 입력한비번) {
-    console.log("비번 일치했습니다.")
-    return cb(null, result)
+
+  // bcrypt.compare는 비동기 함수이므로 await 사용 필요
+  const isPasswordMatch = await bcrypt.compare(입력한비번, userAuthInfo.password);
+  if (isPasswordMatch) {
+    console.log('비밀번호가 일치합니다. 로그인 성공.')
+    return cb(null, userAuthInfo)
   } else {
+    console.log('비밀번호가 일치하지 않습니다.')
     return cb(null, false, { message: '비번불일치' });
   }
 }))
 
 passport.serializeUser((user, done) => {
-  // console.log("serialize 실행")
   process.nextTick(() => {
     done(null, { id: user._id, username: user.username }) // 요청.user의 필드 {id , username}
   })
 })
 
 passport.deserializeUser((user, done) => {
-  // console.log("deserialize 실행")
   process.nextTick(() => {
     return done(null, user)
   })

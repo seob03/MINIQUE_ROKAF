@@ -33,8 +33,8 @@ const connectDB = require('./database.js');
 let db;
 connectDB().then((database) => {
   db = database;  // 연결된 DB 객체 할당
-  server.listen(8082, () => {
-    console.log('http://localhost:8082 에서 서버 실행중');
+  server.listen(8080, () => {
+    console.log('http://localhost:8080 에서 서버 실행중');
   });
 }).catch((err) => {
   console.log('서버 실행 실패', err);
