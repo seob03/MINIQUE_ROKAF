@@ -34,33 +34,33 @@ const ImageResizer = (props) => {
 
   return (
     <>
-        {resizedImage ? (
-          <img
-            src={resizedImage}
-            alt="Resized"
-            style={{ 
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover', /* 이미지를 잘라서 컨테이너에 맞춤 */
-                position: 'absolute', /* 컨테이너 안에서의 위치 고정 */
-                top: '0',
-                left: '0'
-            }}
-          />
-        ) : (
-          <img
-            src={props.img}
-            alt="Card"
-            style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover', /* 이미지를 잘라서 컨테이너에 맞춤 */
-                position: 'absolute', /* 컨테이너 안에서의 위치 고정 */
-                top: '0',
-                left: '0'
-            }}
-          />
-        )}
+      {resizedImage ? (
+        <img
+          src={resizedImage}
+          alt="Resized"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover', /* 이미지를 잘라서 컨테이너에 맞춤 */
+            position: 'absolute', /* 컨테이너 안에서의 위치 고정 */
+            top: '0',
+            left: '0'
+          }}
+        />
+      ) : (
+        <img
+          src={props.img}
+          alt="Card"
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover', /* 이미지를 잘라서 컨테이너에 맞춤 */
+            position: 'absolute', /* 컨테이너 안에서의 위치 고정 */
+            top: '0',
+            left: '0'
+          }}
+        />
+      )}
     </>
   );
 };

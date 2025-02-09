@@ -1,31 +1,31 @@
-.Edit-Title-1{
-    display : block;
+.Edit-Title-1 {
+    display: block;
     margin-top: 30px;
     margin-bottom: 24px;
     font-size: 20px;
     font-family: NotoSansKR-Medium;
 }
 
-.Edit-Title-2{
-    display : block;
+.Edit-Title-2 {
+    display: block;
     font-size: 16px;
     font-family: NotoSansKR-Medium;
     width: 172px;
     margin-top: 0.6rem;
 }
 
-.Write-Image{
+.Write-Image {
     display: flex;
     flex-direction: column;
     margin-bottom: 36px;
 }
 
-.Edit-Input-Row{
-    display : flex;
+.Edit-Input-Row {
+    display: flex;
     margin-bottom: 36px;
 }
 
-.Edit-Input-Title{
+.Edit-Input-Title {
     border-radius: 2px;
     border: 1px solid #B6B2AD;
     width: 700px;
@@ -33,7 +33,7 @@
     flex-grow: 1;
 }
 
-.Edit-Input-Content{
+.Edit-Input-Content {
     border-radius: 2px;
     border: 1px solid #B6B2AD;
     width: 700px;
@@ -42,32 +42,33 @@
     flex-grow: 1;
 }
 
-.Edit-Input{
+.Edit-Input {
     border-radius: 2px;
     border: 1px solid #B6B2AD;
     width: 200px;
     height: 3rem;
 }
 
-.Edit-Input-Price{
+.Edit-Input-Price {
     border-radius: 2px;
     border: 1px solid #B6B2AD;
     width: 160px;
     height: 3rem;
 }
-.Edit-Input-Price:focus{
-    border-radius: 0px !important; 
+
+.Edit-Input-Price:focus {
+    border-radius: 0px !important;
     border: 1px solid #4169E1 !important;
 }
 
-.Edit-ButtonArea{
+.Edit-ButtonArea {
     display: flex;
     width: 300px;
-    justify-self:center;
+    justify-self: center;
     justify-content: space-between;
 }
 
-.upload-Container{
+.upload-Container {
     display: flex;
     width: 100%;
     justify-content: flex-start;
@@ -86,6 +87,7 @@
     z-index: 1;
     cursor: pointer;
 }
+
 .file::file-selector-button {
     font-size: 14px;
     background: #fff;
@@ -109,32 +111,35 @@
     align-self: flex-start;
     cursor: pointer;
 }
+
 .dropbox:hover {
     border-color: #4169E1;
     transition: 0.1s;
 }
+
 .dropbox.active {
     background-color: #efeef3;
     border-color: #4169E1;
     transition: 0.1s;
 }
-.dropbox:hover .add-image{
+
+.dropbox:hover .add-image {
     fill: #4169E1;
     margin-bottom: 8px;
     transition: fill 0.1s;
 }
 
-.add-image{
+.add-image {
     width: 56px;
     height: 56px;
     margin-bottom: 8px;
     align-self: center;
 }
 
-.dropbox-text{
+.dropbox-text {
     font-size: 10px;
     font-family: NotoSansKR-Regular;
-    color:  #B6B2AD;
+    color: #B6B2AD;
 }
 
 .image-preview-box {
@@ -146,10 +151,10 @@
     object-fit: cover;
 }
 
-.image-close-button{
+.image-close-button {
     position: absolute;
-    right:-14px;
-    top:-14px;
+    right: -14px;
+    top: -14px;
     z-index: 4;
     cursor: pointer;
 }

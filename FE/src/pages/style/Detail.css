@@ -1,4 +1,4 @@
-.Detail-Container{
+.Detail-Container {
     display: flex;
     width: 100%;
     margin-top: 30px;
@@ -13,32 +13,35 @@
     position: relative;
     overflow: hidden;
 }
-.Detail-Image.cover{
+
+.Detail-Image.cover {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 이미지를 잘라서 컨테이너에 맞춤 */
-    position: absolute; /* 컨테이너 안에서의 위치 고정 */
+    object-fit: cover;
+    /* 이미지를 잘라서 컨테이너에 맞춤 */
+    position: absolute;
+    /* 컨테이너 안에서의 위치 고정 */
     top: 0;
     left: 0;
 }
 
-.Detail-Content{
+.Detail-Content {
     display: flex;
     flex-direction: column;
     width: 426px;
 }
 
-.Detail-FirstLine{
+.Detail-FirstLine {
     display: flex;
     align-items: center;
 }
 
-.Detail-Title{
+.Detail-Title {
     font-family: NotoSansKR-Medium;
     font-size: 20px;
 }
 
-.Detail-Price{
+.Detail-Price {
     font-family: NotoSansKR-Medium;
     font-size: 20px;
     justify-content: flex-start;
@@ -53,11 +56,11 @@
     margin-bottom: 24px;
 }
 
-.Detail-Info{
+.Detail-Info {
     display: flex;
 }
 
-.Detail-Info-Title{
+.Detail-Info-Title {
     width: 124px;
     font-family: NotoSansKR-Medium;
     font-size: 16px;
@@ -66,14 +69,14 @@
     justify-content: flex-start;
 }
 
-.Detail-Info-Content{
+.Detail-Info-Content {
     font-family: NotoSansKR-Regular;
     font-size: 16px;
     color: #212120;
     justify-content: flex-start;
 }
 
-.Detail-UserBox{
+.Detail-UserBox {
     width: 426px;
     height: 88px;
     margin-top: 24px;
@@ -83,18 +86,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 24px; /* 내부 좌측 여백 */
-    box-sizing: border-box; /* padding 포함하여 크기 계산 */
+    padding: 0 24px;
+    /* 내부 좌측 여백 */
+    box-sizing: border-box;
+    /* padding 포함하여 크기 계산 */
 }
 
-.Detail-UserBox-Username{
+.Detail-UserBox-Username {
     font-size: 16px;
     font-family: NotoSansKR-Regular;
     margin-bottom: 12px;
     color: #212120;
 }
 
-.Detail-UserBox-Userinfo{
+.Detail-UserBox-Userinfo {
     font-size: 16px;
     font-family: NotoSansKR-Regular;
     color: #6F6C69;
@@ -102,7 +107,7 @@
     align-items: center;
 }
 
-.Detail-UserBox-Follow{
+.Detail-UserBox-Follow {
     width: 64px;
     height: 26px;
     border-radius: 4px;
@@ -111,11 +116,12 @@
     font-family: NotoSansKR-Regular;
     color: #FFFEFC;
     text-align: center;
-    line-height: 26px; /* 버튼의 세로 텍스트 정렬 */
+    line-height: 26px;
+    /* 버튼의 세로 텍스트 정렬 */
     cursor: pointer;
 }
 
-.HeartBox{
+.HeartBox {
     display: flex;
     flex-direction: column;
     width: 20px;
@@ -124,7 +130,7 @@
     justify-content: center;
 }
 
-.HeartBox-Image{
+.HeartBox-Image {
     width: 20px;
     height: 20px;
 }

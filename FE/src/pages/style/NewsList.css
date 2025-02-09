@@ -1,26 +1,26 @@
-.Banner-Container{
+.Banner-Container {
     display: flex;
 }
 
-.Recommend-Title{
-    display : block;
+.Recommend-Title {
+    display: block;
     font-size: 20px;
     font-family: NotoSansKR-Medium;
     margin-top: 30px;
 }
 
-.Recommend-Carousel{
-    display : block;
-    height : 340px;
+.Recommend-Carousel {
+    display: block;
+    height: 340px;
 }
 
-.Recommend-Button{
-    display : float;
+.Recommend-Button {
+    display: float;
     align-items: center;
 }
 
-.Recommend-Gallery{
-    display : flex;
+.Recommend-Gallery {
+    display: flex;
     font-family: NotoSansKR-Medium;
     margin-top: 24px;
     flex-wrap: wrap;

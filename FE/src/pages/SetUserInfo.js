@@ -1,5 +1,5 @@
-function SetUserInfo(){
-    return(
+function SetUserInfo() {
+    return (
         <div>
             유저 정보 변경
         </div>

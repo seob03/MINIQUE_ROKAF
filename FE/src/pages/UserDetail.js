@@ -18,24 +18,24 @@ function UserDetail() {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             }).then(response => response.json()),
-    
+
             fetch('/userInfo/' + user_id, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             }).then(response => response.json())
         ])
-        .then(([postsData, userInfoData]) => {
-            // 두 요청이 성공적으로 완료된 후 결과 처리
-            setPosts(postsData);
-            setUserInfo(userInfoData);
-            console.log('서버 응답 >> postsData:', postsData, 'userInfoData:', userInfoData);
-        })
-        .catch(error => {
-            console.error('fetch 오류:', error);
-        });
+            .then(([postsData, userInfoData]) => {
+                // 두 요청이 성공적으로 완료된 후 결과 처리
+                setPosts(postsData);
+                setUserInfo(userInfoData);
+                console.log('서버 응답 >> postsData:', postsData, 'userInfoData:', userInfoData);
+            })
+            .catch(error => {
+                console.error('fetch 오류:', error);
+            });
     }, [user_id]);
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         console.log('posts:', posts)
     }, [posts])
 
@@ -50,23 +50,23 @@ function UserDetail() {
         }, [tab])
 
         return (
-            
+
             <div className={`TabContent-Start ${fade}`}>
                 {
                     [
                         <>
                             {props.posts && props.posts.length > 0 ? (
                                 <div className='TabContent-Item'>
-                                {props.posts.map(post => (
+                                    {props.posts.map(post => (
                                         <CardSmall
                                             photo={post.productPhoto || undefined}
                                             brand={'Brand'}
                                             title={post.productName}
                                             size={post.childAge}
                                             price={post.productPrice}
-                                            link={'/detail/'+post._id}
+                                            link={'/detail/' + post._id}
                                         />
-                                ))}
+                                    ))}
                                 </div>
                             ) : (
                                 <div>아직 로딩중</div>
@@ -109,7 +109,7 @@ function UserDetail() {
                         </div>
                     </div>
                 </div>
-            </div> 
+            </div>
             <div>
                 <div class="Store-Tab">
                     <div className="Store-Tab-Title"

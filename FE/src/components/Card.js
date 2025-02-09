@@ -3,20 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import './style/Card.css';
 import ImageResizer from './ImageResizer';
 
-function Card(props){
+function Card(props) {
     let navigate = useNavigate();
 
     return (
-        <div className="CardContainer" onClick={()=>{navigate(props.link)}}>
-            <div className="CardImage" 
+        <div className="CardContainer" onClick={() => { navigate(props.link) }}>
+            <div className="CardImage"
             >
-                <img src={props.photo} className="CardImage cover"/>
+                <img src={props.photo} className="CardImage cover" />
             </div>
             <div className="Card-First">
                 <div>
                     {props.brand}
                 </div>
-                <div style={{flexGrow:1}}>
+                <div style={{ flexGrow: 1 }}>
                 </div>
                 <div>
                     {props.size}개월

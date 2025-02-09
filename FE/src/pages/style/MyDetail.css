@@ -60,7 +60,7 @@
     transition: opacity 0.2s;
 }
 
-.TabContent-Item{
+.TabContent-Item {
     display: flex !important;
     flex-wrap: wrap;
     margin-top: 36px;

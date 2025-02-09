@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef  } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { io } from "socket.io-client";
 import { useParams } from "react-router-dom"
 
@@ -12,10 +12,10 @@ function ChatDetail() {
 
   // 채팅 치는 유저의 정보 받아오기 (전송자 이름 표기 위함)
   useEffect(() => {
-    fetch(('/chat/getUserInfo'), { 
+    fetch(('/chat/getUserInfo'), {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
-      })
+    })
       .then(response => response.json())
       .then(data => {
         setSendUsername(data.username)
@@ -33,7 +33,7 @@ function ChatDetail() {
     const minutes = date.getMinutes().toString().padStart(2, "0");
     return `${hours}:${minutes}`; // HH:mm 형식
   }
-    
+
   useEffect(() => {
     // Socket.IO 연결 설정
     const socket = io()
@@ -67,7 +67,7 @@ function ChatDetail() {
     e.preventDefault();
     if (message.trim()) {
       // 서버로 메시지 전송
-      socket.emit("message-send", { username : sendUsername, text: message, room : chatRoomId });
+      socket.emit("message-send", { username: sendUsername, text: message, room: chatRoomId });
       setMessage("");
     }
   };
