@@ -50,7 +50,51 @@ function Header() {
     }
   }
 
-  function DropdownContainer() {
+  function CategoryDropDown() {
+    let [isDropDown, setDropDown] = useState(false)
+
+    function handleClickContainer(){
+      setDropDown(!isDropDown)
+    }
+
+    function handleBlurContainer(){
+      setTimeout(()=>{
+        setDropDown(false)
+      }, 200);
+    }
+
+    const menuItems=['BEST', 'GIRL', 'BOY'];
+
+    return(
+      <div style={{position: 'relative'}} onBlur={handleBlurContainer}>
+        <div className="Header-DropDown-Title" onClick={handleClickContainer}>
+          {isDropDown ? '▲' : '▼'}
+          <div style={{width:'0.6rem'}}/>
+          CATEGORY
+        </div>
+        {isDropDown && 
+          <div className='Header-DropDown-Container'>
+            {
+              menuItems.map((list, i) => (
+                <div 
+                  className='Header-DropDown-Menu' 
+                  style={{ 
+                  borderBottom: i === menuItems.length - 1 ?
+                    'none' : '0.5px solid #D9D9D9' 
+                  }}
+                  onClick={null}
+                >
+                  {list}
+                </div>
+              ))
+            }
+          </div>
+        }
+      </div>
+    )
+  }
+
+  function MyInfoDropDown() {
     let [isDropDown, setDropDown] = useState(false)
 
     function handleClickContainer(){
@@ -64,36 +108,39 @@ function Header() {
     }
 
     return(
-      <div class="container" onBlur={handleBlurContainer}>
-        <label onClick={handleClickContainer}>
-          <button>{isDropDown ? '▲' : '▼'}BEST</button>
-        </label>
+      (isLoggedIn) ? 
+      <div style={{position: 'relative'}} onBlur={handleBlurContainer}>
+        <div className="Header-DropDown-Title" onClick={handleClickContainer}>
+          <img src="/img/My_Info.svg"/>      
+        </div>
         {isDropDown && 
-          <ul>
-            {
-              ['GIRL','BOY'].fill('').map((li, i) => (
-                <li onClick={() => console.log(`Dropdown${i + 1}`)}>Dropdown{i + 1}</li>
-              ))
-            }
-          </ul>
+          <div className='Header-DropDown-Container'>
+            <div 
+              className='Header-DropDown-Menu' 
+              onClick={handleLogOut}
+            >
+              로그아웃
+            </div>
+            <div 
+              className='Header-DropDown-Menu' 
+              onClick={null}
+            >
+              내 정보
+            </div>
+          </div>
         }
       </div>
+      : <div 
+          onClick={handleLogin}
+          style={{fontFamily: 'NotoSansKR-Medium', cursor: 'pointer'}}
+        >
+          로그인
+        </div>
     )
   }
+
   return (
     <header className='Header'>
-      <div className='Header-Top'>
-        <div style={{ flexGrow: 1 }}></div>
-        <div className='Header-Top-Right'>
-          <div className='Header-Top-Buttons'>
-            {(isLoggedIn) ?
-              <div onClick={handleLogOut} style={{ cursor: 'pointer' }}>로그아웃</div> :
-              <Link onClick={handleLogin} style={{ textDecoration: 'none', color: '#212120' }}>로그인</Link>
-            }
-          </div>
-          <div className='Header-Top-Buttons'>내정보 </div>
-        </div>
-      </div>
       <div className='Header-First'>
         <div className='Header-First-Logo'>
           <a href="/">
@@ -105,7 +152,7 @@ function Header() {
         </div>
         <div className='Header-First-Menu'>
           <div className='Header-First-Menu-Buttons'>
-            <DropdownContainer/>
+            <CategoryDropDown/>
           </div>
           <div className='Header-First-Menu-Buttons'>
             <Link to="/chatList" className='Header-Menu-Link'>채팅내역</Link>
@@ -116,7 +163,7 @@ function Header() {
               <Link onClick={handleLogin} className='Header-Menu-Link'>판매하기</Link>}
           </div>
           <div className='Header-First-Menu-Buttons'>
-            <Link to="/myStore" className='Header-Menu-Link'>내 정보</Link>
+            <MyInfoDropDown/>
           </div>
         </div>
       </div>
