@@ -50,6 +50,36 @@ function Header() {
     }
   }
 
+  function DropdownContainer() {
+    let [isDropDown, setDropDown] = useState(false)
+
+    function handleClickContainer(){
+      setDropDown(!isDropDown)
+    }
+
+    function handleBlurContainer(){
+      setTimeout(()=>{
+        setDropDown(false)
+      }, 200);
+    }
+
+    return(
+      <div class="container" onBlur={handleBlurContainer}>
+        <label onClick={handleClickContainer}>
+          <button>{isDropDown ? '▲' : '▼'}BEST</button>
+        </label>
+        {isDropDown && 
+          <ul>
+            {
+              ['GIRL','BOY'].fill('').map((li, i) => (
+                <li onClick={() => console.log(`Dropdown${i + 1}`)}>Dropdown{i + 1}</li>
+              ))
+            }
+          </ul>
+        }
+      </div>
+    )
+  }
   return (
     <header className='Header'>
       <div className='Header-Top'>
@@ -75,22 +105,20 @@ function Header() {
         </div>
         <div className='Header-First-Menu'>
           <div className='Header-First-Menu-Buttons'>
-            <Link to="/chatList" style={{ textDecoration: 'none', color: 'black' }}>채팅내역</Link>
+            <DropdownContainer/>
+          </div>
+          <div className='Header-First-Menu-Buttons'>
+            <Link to="/chatList" className='Header-Menu-Link'>채팅내역</Link>
           </div>
           <div className='Header-First-Menu-Buttons'>
             {(isLoggedIn) ?
-              <Link to="/write" style={{ textDecoration: 'none', color: 'black' }}>판매하기</Link> :
-              <Link onClick={handleLogin} style={{ textDecoration: 'none', color: 'black' }}>판매하기</Link>}
+              <Link to="/write" className='Header-Menu-Link'>판매하기</Link> :
+              <Link onClick={handleLogin} className='Header-Menu-Link'>판매하기</Link>}
           </div>
           <div className='Header-First-Menu-Buttons'>
-            <Link to="/myStore" style={{ textDecoration: 'none', color: 'black' }}>내 상점</Link>
+            <Link to="/myStore" className='Header-Menu-Link'>내 정보</Link>
           </div>
         </div>
-      </div>
-      <div className='Header-Second-Menu'>
-        <div className='Header-Second-Menu-Buttons'>BEST</div>
-        <div className='Header-Second-Menu-Buttons'>GIRLS</div>
-        <div className='Header-Second-Menu-Buttons'>BOYS</div>
       </div>
     </header>
   );

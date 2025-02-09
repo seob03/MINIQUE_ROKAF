@@ -1,10 +1,11 @@
 .Search-Box{
     display : flex;
     border: 1px solid #B6B2AD;
-    border-radius : 0px;
-    width: 400px;
-    height: 40px;
+    max-width: 540px;
+    height: 44px;
     align-items: center;
+    position: relative;
+    border-radius: 20px;
 }
 .Search-Box:focus-within{
     border: 1px solid #4169E1;
@@ -12,9 +13,11 @@
 
 .Search-Input {
     border-radius: 0px;
-    border: 1px solid #FFFEFC;
-    width : 360px;
+    border: none;
+    width : 80%;
     height: 38px;
+    margin-left: 12px;
+    background-color: unset;
 }
 
 .Search-Input::placeholder {
@@ -30,10 +33,21 @@
 .Search-Button {
     border-radius: 0px;
     background: none; 
-    border: 1px solid #FFFEFC;
+    border: none;
+    position: absolute;
+    top: 6px;
+    right: 6px;
 }
 
 .Search-Button:focus-within {
     background: none;
-    border: 1px solid #FFFEFC;
+    border: none;
+}
+
+.Search-Box:focus-within .SearchButton path {
+    fill: #4169E1; /* 포커스 시 색상 변경 */
+}
+
+.SearchButton path {
+    fill: #B6B2AD; /* 기본 색상 */
 }
