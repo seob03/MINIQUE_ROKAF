@@ -1,7 +1,7 @@
 import './style/Header.css';
 import SearchBar from './SearchBar';
 import Image from 'react-bootstrap/Image';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeLogIn, changeIsOpen } from "../store/store.js";
@@ -10,6 +10,7 @@ function Header() {
   let isLoggedIn = useSelector((state) => { return state.isLoggedIn }) // 로그인 상태를 추적할 상태
   let isOpen = useSelector((state) => { return state.isOpen })
   let dispatch = useDispatch();
+  let navigate = useNavigate();
 
   useEffect(() => {
     // 로그인 상태를 확인하기 위해 서버로 요청
@@ -54,7 +55,10 @@ function Header() {
     let [isDropDown, setDropDown] = useState(false)
 
     function handleClickContainer(){
-      setDropDown(!isDropDown)
+      setDropDown(!isDropDown);
+      setTimeout(() => {
+        setDropDown(false);
+      }, 1000);
     }
 
     function handleBlurContainer(){
@@ -63,11 +67,19 @@ function Header() {
       }, 200);
     }
 
+    function handleMouseLeave(){
+      setTimeout(() => {
+          setDropDown(false);
+      }, 200);
+    }
+
     const menuItems=['BEST', 'GIRL', 'BOY'];
 
     return(
-      <div style={{position: 'relative'}} onBlur={handleBlurContainer}>
-        <div className="Header-DropDown-Title" onClick={handleClickContainer}>
+      <div style={{position: 'relative'}} onBlur={handleBlurContainer} 
+        onMouseEnter={()=>{setDropDown(true);}} 
+        onMouseLeave={handleMouseLeave}>
+        <div className="Header-DropDown-Title">
           {isDropDown ? '▲' : '▼'}
           <div style={{width:'0.6rem'}}/>
           CATEGORY
@@ -98,7 +110,10 @@ function Header() {
     let [isDropDown, setDropDown] = useState(false)
 
     function handleClickContainer(){
-      setDropDown(!isDropDown)
+      setDropDown(!isDropDown);
+      setTimeout(() => {
+        setDropDown(false);
+      }, 1000);
     }
 
     function handleBlurContainer(){
@@ -107,23 +122,31 @@ function Header() {
       }, 200);
     }
 
+    function handleMouseLeave(){
+      setTimeout(() => {
+          setDropDown(false);
+      }, 200);
+    }
+
     return(
       (isLoggedIn) ? 
-      <div style={{position: 'relative'}} onBlur={handleBlurContainer}>
-        <div className="Header-DropDown-Title" onClick={handleClickContainer}>
+      <div style={{position: 'relative'}} onBlur={handleBlurContainer}
+        onMouseEnter={()=>{setDropDown(true);}} 
+        onMouseLeave={handleMouseLeave}>
+        <div className="Header-DropDown-Title">
           <img src="/img/My_Info.svg"/>      
         </div>
         {isDropDown && 
-          <div className='Header-DropDown-Container'>
+          <div className='Header-InfoDropDown-Container'>
             <div 
-              className='Header-DropDown-Menu' 
+              className='Header-InfoDropDown-Menu' 
               onClick={handleLogOut}
             >
               로그아웃
             </div>
             <div 
-              className='Header-DropDown-Menu' 
-              onClick={null}
+              className='Header-InfoDropDown-Menu' 
+              onClick={()=>{navigate('/myStore')}}
             >
               내 정보
             </div>
