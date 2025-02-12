@@ -22,13 +22,19 @@ function App() {
         <div style={{
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'center'
+          alignItems: 'center',
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          width: '100%',
+          zIndex: '9999',
+          background: '#FFFEFC'
         }}>
           <Header />
         </div>
         <div style={{
           display: 'flex', justifyContent: 'center', flex: 1,
-          width: '1024px', margin: '0 auto'
+          width: '1024px', margin: '0 auto', marginTop: '70px'
         }}>
           <LoginModal />
           <SignUpModal />

@@ -167,7 +167,7 @@ function Header() {
       <div className='Header-First'>
         <div className='Header-First-Logo'>
           <a href="/">
-            <Image src="/img/Logo_horizontal.svg" />
+            <Image src="/img/Logo_horizontal.svg"/>
           </a>
         </div>
         <div className='Header-First-SearchBar'>

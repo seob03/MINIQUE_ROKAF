@@ -8,7 +8,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 19;
+    z-index: 10000;
 }
 
 .SignUpModal-Background{
@@ -19,21 +19,20 @@
     height: 100%;
     background-color: #212120;
     opacity: 70%;
-    z-index: 19;
+    z-index: 10000;
 }
 
 .SignUpModal-Container{
     width: 400px;
     height: 578px;
     position: absolute;
-    z-index:20;
+    z-index: 10001;
     background-color: #FFFEFC;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
-    z-index: 20;
 }
 
 .SignUpModal-FirstLine{

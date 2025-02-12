@@ -32,8 +32,11 @@
 }
 
 .Header-First-Logo {
+    display: flex;
     flex-grow: 1;
     margin-left: 32px;
+    align-items: center;
+    padding-left: 12px;
 }
 
 .Header-First-SearchBar {
