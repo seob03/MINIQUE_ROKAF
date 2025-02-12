@@ -9,10 +9,10 @@ const bcrypt = require('bcrypt');
 router.post('/tryLogin', async (요청, 응답, next) => {
   passport.authenticate('local', (error, user, info) => {
     if (error) return 응답.status(500).json(error)
-    if (!user) return 응답.status(401).json(info.message)
+    if (!user) return 응답.status(401).json({ success: false, message: info?.message || '로그인 실패' })
     요청.logIn(user, (err) => {
       if (err) return next(err)
-      응답.json({ message: '로그인 성공' });  // 로그인 성공 후 응답
+      return 응답.json({ success: true, message: info?.message || '로그인 성공' });;  // 로그인 성공 후 응답
     })
   })(요청, 응답, next)
 })

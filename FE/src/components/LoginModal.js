@@ -26,6 +26,7 @@ function LoginModal(props) {
             .then(response => response.json())
             .then(data => {
                 console.log('서버 응답:', data);
+                alert(data.message)
                 dispatch(changeLogIn(true));
                 dispatch(changeIsOpen(false));
             })

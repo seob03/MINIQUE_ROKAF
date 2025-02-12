@@ -39,10 +39,8 @@ router.use(passport.session())
 passport.use(new LocalStrategy(async (입력한아이디, 입력한비번, cb) => {
   let userAuthInfo = await db.collection('user').findOne({ username: 입력한아이디 })
   if (!userAuthInfo) {
-    console.log('아이디가 DB에 존재하지 않습니다.')
-    return cb(null, false, { message: '아이디 DB에 없음' })
+    return cb(null, false, { message: '존재하지 않는 ID 입니다.' })
   }
-
   // bcrypt.compare는 비동기 함수이므로 await 사용 필요
   const isPasswordMatch = await bcrypt.compare(입력한비번, userAuthInfo.password);
   if (isPasswordMatch) {
@@ -50,7 +48,7 @@ passport.use(new LocalStrategy(async (입력한아이디, 입력한비번, cb) =
     return cb(null, userAuthInfo)
   } else {
     console.log('비밀번호가 일치하지 않습니다.')
-    return cb(null, false, { message: '비번불일치' });
+    return cb(null, false, { message: '비밀번호가 일치하지 않습니다.' });
   }
 }))
 
