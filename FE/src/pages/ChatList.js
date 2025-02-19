@@ -37,6 +37,7 @@ function ChatList() {
     const chatBoxRef = useRef(null);
     const chatRoomId = props?.chat_id || "";
     let [me, setMe] = useState("");
+    const [isMessageFromUser, setIsMessageFromUser] = useState(false)
 
     // 나의 정보 받아오기
     useEffect(() => {
@@ -60,6 +61,7 @@ function ChatList() {
         .then(response => response.json())
         .then(data => {
           setMessages(data);
+          setIsMessageFromUser(false) // 유저가 입력한 메시지로 인해 Messages의 상태가 변경된 것이 아니다.
         })
         .catch(error => console.error("이전 채팅 fetch 오류:", error));
     }, [chatRoomId]);
@@ -70,6 +72,9 @@ function ChatList() {
       const lastMessage = messages[messages.length - 1];
       if (!lastMessage.text.trim() && !lastMessage.image) return;
       if (lastMessage.user !== me) return;
+
+      // 유저때문에 Messages 상태가 바뀌는 게 아니면 저장 훅 실행 X
+      if (!isMessageFromUser) return
 
       const messageData = {
         room: chatRoomId,
@@ -84,6 +89,10 @@ function ChatList() {
         body: JSON.stringify(messageData)
       })
         .then(response => response.json())
+        .then(data => {
+          console.log(data);
+          setIsMessageFromUser(false) // 기본값으로 돌려놓기
+        })
         .catch(error => console.error('fetch 오류:', error));
     }, [messages]);
 
@@ -96,7 +105,7 @@ function ChatList() {
       socket.emit("ask-join", chatRoomId);
 
       return () => {
-        socket.disconnect();
+        // socket.disconnect();
       };
     }, [chatRoomId]);
 
@@ -123,6 +132,7 @@ function ChatList() {
           image: selectedImage, // 이미지 포함
           room: chatRoomId
         });
+        setIsMessageFromUser(true) // 유저가 입력한 메시지로 인해 Messages의 상태가 변경됐다
         setMessage("");
         setSelectedImage(null); // 전송 후 초기화
       }
