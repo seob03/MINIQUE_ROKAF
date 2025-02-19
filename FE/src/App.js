@@ -38,7 +38,7 @@ function App() {
         }}>
           <LoginModal />
           <SignUpModal />
-          <div style={{ width: '1024px' }}>
+          <div style={{ width: '1024px'}}>
             <Routes>
               <Route path="/" element={<NewsList />} />
               <Route path="/write" element={<NewsWrite />} />

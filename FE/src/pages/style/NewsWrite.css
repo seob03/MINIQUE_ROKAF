@@ -7,11 +7,9 @@
 }
 
 .Write-Title-2 {
-    display: block;
     font-size: 16px;
     font-family: NotoSansKR-Medium;
-    width: 172px;
-    margin-top: 0.6rem;
+    color: #212120;
 }
 
 .Write-Image {
@@ -23,37 +21,37 @@
 
 .Write-Input-Row {
     display: flex;
+    flex-direction: column;
     margin-bottom: 36px;
 }
 
 .Write-Input-Title {
-    border-radius: 2px;
+    border-radius: 4px;
     border: 1px solid #B6B2AD;
-    width: 700px;
+    width: 100%;
     height: 3rem;
-    flex-grow: 1;
 }
 
 .Write-Input-Content {
-    border-radius: 2px;
+    border-radius: 4px;
     border: 1px solid #B6B2AD;
-    width: 700px;
+    width: 100%;
     height: 120px;
     align-content: baseline;
-    flex-grow: 1;
+    text-align: left;
 }
 
 .Write-Input {
-    border-radius: 2px;
+    border-radius: 4px;
     border: 1px solid #B6B2AD;
-    width: 200px;
+    width: 240px;
     height: 3rem;
 }
 
 .Write-Input-Price {
-    border-radius: 2px;
+    border-radius: 4px;
     border: 1px solid #B6B2AD;
-    width: 160px;
+    width: 240px;
     height: 3rem;
 }
 
@@ -64,8 +62,7 @@
 
 .Write-ButtonArea {
     display: flex;
-    width: 300px;
-    justify-self: center;
+    justify-self: left;
     justify-content: space-between;
 }
 
@@ -74,8 +71,8 @@
     width: 100%;
     justify-content: flex-start;
     align-items: flex-start;
-    margin-top: 8px;
-    gap: 40px;
+    margin-top: 12px;
+    gap: 30px;
     flex-wrap: wrap;
     box-sizing: border-box;
 }
@@ -99,8 +96,8 @@
 }
 
 .filedropbox {
-    width: 216px;
-    height: 216px;
+    width: 180px;
+    height: 180px;
     flex-shrink: 0;
     background-color: #fff;
     border-radius: 5px;
@@ -132,8 +129,8 @@
 }
 
 .add-image {
-    width: 56px;
-    height: 56px;
+    width: 54px;
+    height: 54px;
     margin-bottom: 8px;
 }
 
@@ -144,8 +141,9 @@
 }
 
 .image-preview-box {
-    width: 216px;
-    height: 216px;
+    width: 180px;
+    height: 180px;
+    box-shadow: 0px 2px 2px 0px #6F6C69;
     justify-content: center;
     align-items: center;
     overflow: hidden;

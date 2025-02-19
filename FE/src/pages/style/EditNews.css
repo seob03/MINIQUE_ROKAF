@@ -73,15 +73,15 @@
     width: 100%;
     justify-content: flex-start;
     align-items: flex-start;
-    margin-top: 8px;
-    gap: 40px;
+    margin-top: 12px;
+    gap: 30px;
     flex-wrap: wrap;
     box-sizing: border-box;
 }
 
 .file {
     opacity: 0;
-    width: 100%;
+    width: 80%;
     height: 100%;
     position: absolute;
     z-index: 1;
@@ -98,8 +98,8 @@
 }
 
 .dropbox {
-    width: 216px;
-    height: 216px;
+    width: 180px;
+    height: 180px;
     background-color: #fff;
     border-radius: 5px;
     border: 3px solid #eee;
@@ -130,10 +130,9 @@
 }
 
 .add-image {
-    width: 56px;
-    height: 56px;
+    width: 54px;
+    height: 54px;
     margin-bottom: 8px;
-    align-self: center;
 }
 
 .dropbox-text {
@@ -143,12 +142,13 @@
 }
 
 .image-preview-box {
-    width: 216px;
-    height: 216px;
+    width: 180px;
+    height: 180px;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     object-fit: cover;
+    cursor: pointer;
 }
 
 .image-close-button {

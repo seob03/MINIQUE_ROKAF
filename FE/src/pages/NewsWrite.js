@@ -217,15 +217,68 @@ function NewsWrite() {
         );
     }
 
+    function ItemState(){
+        return(
+            <form 
+            onSubmit={(e)=>{
+                e.preventDefault();
+                alert(`${e.target.itemstate.value}를 통해 연락드리겠습니다!`);
+            }}>
+                <fieldset style={{display: 'flex', justifyContent: 'space-between'}}>
+                    <div>
+                        <input type='radio' value={1} id="state-1" name='itemstate'/>
+                        <div style={{display:'flex', flexDirection: 'column'}}>
+                            <span/>
+                            <label for='state-1'>좋지않음</label>
+                        </div>
+                    </div>
+                    <div>
+                        <input type='radio' value={2} id="state-2" name='itemstate'/>
+                        <div style={{display:'flex', flexDirection: 'column'}}>
+                            <span/>
+                            <label for='state-2'>사용감 있음</label>
+                        </div>
+                    </div>
+                    <div>
+                        <input type='radio' value={3} id="state-3" name='itemstate'/>
+                        <div style={{display:'flex', flexDirection: 'column'}}>
+                            <span/>
+                            <label for='state-3'>보통</label>
+                        </div>
+                    </div>
+                    <div>
+                        <input type='radio' value={4} id="state-4" name='itemstate'/>
+                        <div style={{display:'flex', flexDirection: 'column'}}>
+                            <span/>
+                            <label for='state-4'>매우 좋음</label>
+                        </div>
+                    </div>
+                    <div>
+                        <input type='radio' value={5} id="state-5" name='itemstate'/>
+                        <div style={{display:'flex', flexDirection: 'column'}}>
+                            <span/>
+                            <label for='state-5'>새상품</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
+        )
+    }
+
     return (
-        <>
+        <div style={{width: '600px', justifySelf: 'center'}}>
             <div className='Write-Title-1'>
                 상품 등록하기
             </div>
             <UploadBox />
             <div className="Write-Input-Row">
-                <div className="Write-Title-2">
-                    상품명
+                <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: '12px'}}>
+                    <div className="Write-Title-2">
+                        상품명
+                    </div>
+                    <div style={{ justifycontent: 'flex-end', marginLeft: '20px', color: '#B6B2AD'}}>
+                        {상품명.length}/40
+                    </div>
                 </div>
                 <input
                     placeholder=" 판매하시려는 상품의 이름을 입력해 주세요!"
@@ -234,13 +287,15 @@ function NewsWrite() {
                         상품명변경(e.target.value);
                     }}
                     type="text" />
-                <div style={{ justifycontent: 'flex-end', marginLeft: '20px', marginTop: '0.6rem' }}>
-                    {상품명.length}/40
-                </div>
             </div>
             <div className="Write-Input-Row">
-                <div className="Write-Title-2">
-                    상품 상세 설명
+                <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: '12px'}}>
+                    <div className="Write-Title-2">
+                        상품 상세 설명
+                    </div>
+                    <div style={{ display: 'block', marginLeft: '20px', color: '#B6B2AD'}}>
+                        {상품상세설명.length}/200
+                    </div>
                 </div>
                 <input
                     placeholder=" 사용했던 제품에 대해 자세하게 설명해 주세요. 결함이나 특징 등등을 설명해 주시면 좋아요!"
@@ -250,38 +305,30 @@ function NewsWrite() {
                     }}
                     type="text"
                 />
-                <div style={{ display: 'block', marginLeft: '20px', marginTop: '0.6rem' }}>
-                    {상품상세설명.length}/200
-                </div>
             </div>
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">
                     아이 정보 입력
                 </div>
-                <input
-                    placeholder=" 아기가 입고 다닌 당시의 생후 개월 수를 입력해 주세요!"
-                    className="Write-Input"
-                    onChange={(e) => {
-                        개월수변경(e.target.value);
-                    }}
-                    type="text"
-                />
-                <div style={{ marginTop: '0.6rem' }}>
-                    개월
+                <div style={{display: 'flex', alignItems:'center', marginTop: '12px'}}>
+                    <input
+                        placeholder="아기가 입고 다닌 당시의 생후 개월 수를 입력해 주세요!"
+                        className="Write-Input"
+                        onChange={(e) => {
+                            개월수변경(e.target.value);
+                        }}
+                        type="text"
+                    />
+                    <div style={{ fontFamily: 'NotoSansKR-Medium', fontSize: '16px', marginLeft: '12px' }}>
+                        개월
+                    </div>
                 </div>
             </div>
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">
                     상품 상태
                 </div>
-                <input
-                    placeholder=" 이건 드롭다운으로 고를 수 있게 할 거임용."
-                    className="Write-Input"
-                    onChange={(e) => {
-                        상품상태변경(e.target.value);
-                    }}
-                    type="text"
-                />
+                <ItemState/>
             </div>
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">
@@ -300,23 +347,24 @@ function NewsWrite() {
                 <div className="Write-Title-2">
                     가격
                 </div>
-                <input
-                    placeholder=" 판매할 가격을 입력해주세요!"
-                    className="Write-Input-Price"
-                    onChange={(e) => {
-                        가격변경(e.target.value);
-                    }}
-                    type="text"
-                />
-                <div style={{ marginTop: '0.6rem' }}>
-                    원
+                <div style={{display: 'flex', alignItems:'center' , marginTop: '12px'}}>
+                    <input
+                        placeholder=" 판매할 가격을 입력해주세요!"
+                        className="Write-Input-Price"
+                        onChange={(e) => {
+                            가격변경(e.target.value);
+                        }}
+                        type="text"
+                    />
+                    <div style={{ fontFamily: 'NotoSansKR-Medium', fontSize: '16px', marginLeft: '12px' }}>
+                        원
+                    </div>
                 </div>
             </div>
             <div className="Write-ButtonArea">
                 <ButtonMediumBlue text={'글쓰기'} eventHandler={PostNews} />
-                <ButtonMediumGray text={'임시저장'} eventHandler={null} />
             </div>
-        </>
+        </div>
     );
 }
 
