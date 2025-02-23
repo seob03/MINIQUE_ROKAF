@@ -13,8 +13,8 @@ function NewsWrite() {
     let [상품상세설명, 상품상세설명변경] = useState('');
     let [이미지들, 이미지들변경] = useState([]);
     let [개월수정보, 개월수변경] = useState('');
-    let [상위카테고리, 상위카테고리변경] = useState('');
-    let [하위카테고리, 하위카테고리변경] = useState('');
+    let [상위카테고리, 상위카테고리변경] = useState('상위 카테고리');
+    let [하위카테고리, 하위카테고리변경] = useState('하위 카테고리');
     let [상품상태, 상품상태변경] = useState('');
     let [가격, 가격변경] = useState('');
 
@@ -222,52 +222,92 @@ function NewsWrite() {
             <form 
             onSubmit={(e)=>{
                 e.preventDefault();
-                alert(`${e.target.itemstate.value}를 통해 연락드리겠습니다!`);
             }}>
                 <fieldset className='ItemState-field'>
-                    <div>
-                        <input type='radio' value={1} 
-                        id="state-1" name='itemstate' class="radio-out"/>
-                        <div className='label-box'>
-                            <div className='ItemState-Circle-1'/>
-                            <label htmlFor='state-1'>좋지않음</label>
-                        </div>
-                    </div>
-                    <div>
-                        <input type='radio' value={2} 
-                        id="state-2" name='itemstate' class="radio-out"/>
-                        <div className='label-box'>
-                            <span/>
-                            <label htmlFor='state-2'>사용감 있음</label>
-                        </div>
-                    </div>
-                    <div>
-                        <input type='radio' value={3} 
-                        id="state-3" name='itemstate' class="radio-out"/>
-                        <div className='label-box'>
-                            <span/>
-                            <label htmlFor='state-3'>보통</label>
-                        </div>
-                    </div>
-                    <div>
-                        <input type='radio' value={4} 
-                        id="state-4" name='itemstate' class="radio-out"/>
-                        <div className='label-box'>
-                            <span/>
-                            <label htmlFor='state-4'>매우 좋음</label>
-                        </div>
-                    </div>
-                    <div>
-                        <input type='radio' value={5} 
-                        id="state-5" name='itemstate' class="radio-out"/>
-                        <div className='label-box'>
-                            <span/>
-                            <label htmlFor='state-5'>새상품</label>
-                        </div>
-                    </div>
+                    {['좋지 않음', '사용감 있음', '보통', '좋음', '새상품'].map((text,value) => {
+                        const isSelected = 상품상태 === (value+1);
+                        return (
+                            <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
+                                <div style={{display:'flex', alignItems:'center', height: '56px'}}>
+                                    <div
+                                        key={value+1}
+                                        className={`ItemState-Circle-${value+1} ${isSelected ? "selected" : ""}`}
+                                        onClick={() => {
+                                            상품상태변경(value+1);
+                                            console.log("선택됨:", value+1);
+                                        }}
+                                    />
+                                </div>
+                                <div className={`label-box ${isSelected ? "selected" : ""}`}>
+                                    {text}
+                                </div>
+                            </div>
+                        );
+                    })}
                 </fieldset>
             </form>
         )
+    }
+
+    function CategoryDropDown(){
+        let [isDrop1, setDrop1] = useState(false);
+        let [isDrop2, setDrop2] = useState(false);
+
+        const menuItems1=['GIRL', 'BOY'];
+        const menuItems2=['OUTER', 'TOP', 'BOTTOM', 'SHOES', 'ETC']
+
+        return(
+            <div style={{display: 'flex', marginTop: '12px'}}>
+                <div 
+                    className="CategoryDropDown-Box"
+                    onClick={()=>setDrop1(!isDrop1)}
+                >
+                    {상위카테고리}
+                    {
+                        (isDrop1) &&
+                        <div className='Category-DropDown-Container'>
+                            {
+                                menuItems1.map((list1, i) => (
+                                    <div 
+                                        className='Category-DropDown-Menu'
+                                        onClick={()=>{
+                                            상위카테고리변경(list1); 
+                                            setDrop1(false);
+                                    }}>
+                                        {list1}
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    }
+                </div>
+                <img src='/img/Category_Arrow.svg' style={{marginLeft: '44px', marginRight: '44px'}}/>
+                {
+                    (상위카테고리 != '') &&
+                    <div 
+                        className='CategoryDropDown-Box'
+                        onClick={()=>setDrop2(!isDrop2)}
+                    >
+                        {하위카테고리}
+                        {
+                            (isDrop2) &&
+                            <div className='Category-DropDown-Container'>
+                            {
+                                menuItems2.map((list2, i) => (
+                                    <div
+                                        className='Category-DropDown-Menu'
+                                        onClick={()=>{하위카테고리변경(list2); setDrop2(false)}}
+                                    >
+                                    {list2}
+                                    </div>
+                                ))
+                            }
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        );
     }
 
     return (
@@ -339,14 +379,7 @@ function NewsWrite() {
                 <div className="Write-Title-2">
                     카테고리
                 </div>
-                <input
-                    placeholder=" 카테고리."
-                    className="Write-Input"
-                    onChange={(e) => {
-                        // 상품상태변경(e.target.value);
-                    }}
-                    type="text"
-                />
+                <CategoryDropDown/>
             </div>
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">
