@@ -224,40 +224,45 @@ function NewsWrite() {
                 e.preventDefault();
                 alert(`${e.target.itemstate.value}를 통해 연락드리겠습니다!`);
             }}>
-                <fieldset style={{display: 'flex', justifyContent: 'space-between'}}>
+                <fieldset className='ItemState-field'>
                     <div>
-                        <input type='radio' value={1} id="state-1" name='itemstate'/>
-                        <div style={{display:'flex', flexDirection: 'column'}}>
-                            <span/>
-                            <label for='state-1'>좋지않음</label>
+                        <input type='radio' value={1} 
+                        id="state-1" name='itemstate' class="radio-out"/>
+                        <div className='label-box'>
+                            <div className='ItemState-Circle-1'/>
+                            <label htmlFor='state-1'>좋지않음</label>
                         </div>
                     </div>
                     <div>
-                        <input type='radio' value={2} id="state-2" name='itemstate'/>
-                        <div style={{display:'flex', flexDirection: 'column'}}>
+                        <input type='radio' value={2} 
+                        id="state-2" name='itemstate' class="radio-out"/>
+                        <div className='label-box'>
                             <span/>
-                            <label for='state-2'>사용감 있음</label>
+                            <label htmlFor='state-2'>사용감 있음</label>
                         </div>
                     </div>
                     <div>
-                        <input type='radio' value={3} id="state-3" name='itemstate'/>
-                        <div style={{display:'flex', flexDirection: 'column'}}>
+                        <input type='radio' value={3} 
+                        id="state-3" name='itemstate' class="radio-out"/>
+                        <div className='label-box'>
                             <span/>
-                            <label for='state-3'>보통</label>
+                            <label htmlFor='state-3'>보통</label>
                         </div>
                     </div>
                     <div>
-                        <input type='radio' value={4} id="state-4" name='itemstate'/>
-                        <div style={{display:'flex', flexDirection: 'column'}}>
+                        <input type='radio' value={4} 
+                        id="state-4" name='itemstate' class="radio-out"/>
+                        <div className='label-box'>
                             <span/>
-                            <label for='state-4'>매우 좋음</label>
+                            <label htmlFor='state-4'>매우 좋음</label>
                         </div>
                     </div>
                     <div>
-                        <input type='radio' value={5} id="state-5" name='itemstate'/>
-                        <div style={{display:'flex', flexDirection: 'column'}}>
+                        <input type='radio' value={5} 
+                        id="state-5" name='itemstate' class="radio-out"/>
+                        <div className='label-box'>
                             <span/>
-                            <label for='state-5'>새상품</label>
+                            <label htmlFor='state-5'>새상품</label>
                         </div>
                     </div>
                 </fieldset>

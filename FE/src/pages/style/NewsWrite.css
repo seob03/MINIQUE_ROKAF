@@ -158,3 +158,38 @@
     z-index: 4;
     cursor: pointer;
 }
+
+.ItemState-field{
+    display: flex;
+    justify-content: space-between;
+    gap: 70px;
+}
+
+.ItemState-Circle-1{
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1px solid #E14A2B;
+    transition: background-color 0.3s ease;
+}
+[type="radio"]:checked + .label-box .ItemState-Circle-1 {
+    background-color: #E14A2B;
+}
+
+.radio-out{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding:0;
+    border:0;
+    overflow: hidden;
+    margin: -1px;
+    clip-path: inset(50%);
+}
+
+.label-box{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
