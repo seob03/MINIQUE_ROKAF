@@ -137,7 +137,8 @@ function Detail() {
         sellerId: pageResult.user_id,
         productName: pageResult.productName,
         productPrice: pageResult.productPrice,
-        productFrontPhoto: pageResult.productPhoto[0]
+        productFrontPhoto: pageResult.productPhoto[0],
+        productID: id
       })
     })
       .then(response => response.json())

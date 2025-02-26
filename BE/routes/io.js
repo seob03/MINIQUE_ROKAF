@@ -66,11 +66,30 @@ module.exports = function (io) {
 
         // 유저가 보낸 메세지를 해당 room에 제공하기
         socket.on('message-send', async (data) => {
+            let client
             try {
                 const timestamp = new Date().toISOString();
+                const url = "mongodb://127.0.0.1:27017";
+                const dbName = "forum";
+                client = new MongoClient(url);
+                await client.connect();
+                const db = client.db(dbName);
+                const messagesCollection = db.collection("chatMessages");
+
+                // MongoDB에 메시지 저장
+                const result = await messagesCollection.insertOne({
+                    user: data.username,
+                    text: data.text,
+                    room: data.room,
+                    image: data.image || "",
+                    timestamp: timestamp,
+                    isRead: false
+                });
+                const messageId = result.insertedId; // MongoDB에서 자동 생성된 _id 가져오기
+
                 // data.room에 해당하는 방에 메시지 브로드캐스트
                 io.to(data.room).emit('message-broadcast', {
-                    // 아이디집어넣어,
+                    _id: messageId.toString(),
                     user: data.username,
                     text: data.text,
                     room: data.room,
@@ -80,6 +99,10 @@ module.exports = function (io) {
                 });
             } catch (error) {
                 console.error("message-send 처리 중 에러:", error);
+            } finally {
+                if (client) {
+                    await client.close(); // MongoDB 연결 종료
+                }
             }
         })
 

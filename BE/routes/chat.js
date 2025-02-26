@@ -32,7 +32,7 @@ router.get('/chat/getChatMessages', async (요청, 응답) => {
 // 채팅방 DB 저장하는 API
 router.post('/chat/request/', async (요청, 응답) => {
   db = 요청.db
-  let { sellerId, productName, productPrice, productFrontPhoto } = 요청.body;
+  let { sellerId, productName, productPrice, productFrontPhoto, productID } = 요청.body;
 
   let sellerInfo = await db.collection('user').findOne({ _id: new ObjectId(sellerId) })
   let sellerName = sellerInfo.username
@@ -42,6 +42,7 @@ router.post('/chat/request/', async (요청, 응답) => {
     productName: productName,
     productPrice: productPrice,
     productFrontPhoto: productFrontPhoto,
+    productID: productID,
     date: new Date()
   })
 
@@ -49,7 +50,7 @@ router.post('/chat/request/', async (요청, 응답) => {
 })
 
 // 채팅방 리스트 보여주는 API
-router.get('/chat/getChatList', async (요청, 응답) => {
+router.get('/chat/getChatList/', async (요청, 응답) => {
   db = 요청.db
   if (요청.user) {
     let result = await db.collection('chatRoom').find({ member: 요청.user.id }).toArray()
@@ -67,7 +68,7 @@ router.get('/chat/getUserInfo', async (요청, 응답) => {
     응답.json({ message: "로그인이 안되어있는 유저입니다." })
 })
 
-// 클라이언트는 POST 요청으로 { room, user, text } 정보를 전송
+// 클라이언트는 POST 요청으로 { room, user, text } 정보를 전송 (일단 사용 안 함)
 router.post('/chat/saveMessage', async (요청, 응답) => {
   db = 요청.db
   try {

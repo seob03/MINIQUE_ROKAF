@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { io } from "socket.io-client";
 import './style/ChatList.css';
 const socket = io("http://localhost:8080");
@@ -12,6 +13,9 @@ function ChatList() {
   const [productName, setProductName] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productFrontPhoto, setProductFrontPhoto] = useState('')
+  const [productID, setProductID] = useState('');
+  
+  let navigate = useNavigate();
 
   // 채팅 리스트 받아오기
   useEffect(() => {
@@ -130,62 +134,20 @@ function ChatList() {
       };
     }, []);
 
-
-
-    // 메세지 저장 훅
-    useEffect(() => {
-      if (messages.length === 0) return;
-      const lastMessage = messages[messages.length - 1];
-      if (!lastMessage.text.trim() && !lastMessage.image) return;
-      if (lastMessage.user !== me) return;
-
-      // 유저때문에 Messages 상태가 바뀌는 게 아니면 저장 훅 실행 X
-      if (!isMessageFromUser) return
-
-      const messageData = {
-        room: chatRoomId,
-        user: me,
-        text: lastMessage.text || "",
-        image: lastMessage.image || "",
-        isRead: false
-      };
-
-      fetch('/chat/saveMessage', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(messageData)
-      })
-        .then(response => response.json())
-        .then(data => {
-          setNewMessage(data);
-          console.log('입력한 메시지 정보:', data);
-          setIsMessageFromUser(false) // 기본값으로 돌려놓기
-        })
-        .catch(error => console.error('fetch 오류:', error));
-    }, [messages]);
-
-    // useEffect(() => {
-    //   // 메시지 저장되고 나서 
-    //   if (messages.length > 0) {
-    //     markMessagesAsRead(messages);
-    //   }
-    // }, [])
-
     // WebSocket 메시지 수신 처리
-    useEffect(() => { // 오류오류오류오류
+    useEffect(() => { 
 
       socket.emit("ask-join", chatRoomId);
 
+      socket.on("message-broadcast", (data) => {
+        setMessages((prevMessages) => [...prevMessages, { ...data, isRead: false }]);
+    });
+
       return () => {
         // 클라이언트에서 diconnect 호출하지 X
+        socket.off("message-broadcast");
       };
     }, [chatRoomId]);
-
-    useEffect(() => {
-      socket.on("message-broadcast", (data) => {
-        setMessages((prevMessages) => [...prevMessages, { ...data, isRead: false, _id: newMessage._id }]);
-      });
-    }, [newMessage])
 
     // 스크롤 최하단으로 상시 업데이트
     useEffect(() => {
@@ -235,7 +197,7 @@ function ChatList() {
           </div>
           <div className='chatting-opponent-text'>{props.sellerName}</div>
         </div>
-        <div className="chatting-item">
+        <div className="chatting-item" onClick={()=>{navigate('/detail/' + props.productID)}}>
           <div className="chatting-item-img">
             <img src={props.productFrontPhoto} className='chatting-item-imgsource' alt="상품" />
           </div>
@@ -351,6 +313,7 @@ function ChatList() {
                     setProductName(chat.productName);
                     setProductPrice(chat.productPrice);
                     setProductFrontPhoto(chat.productFrontPhoto)
+                    setProductID(chat.productID)
                   }}>
                   <div className='chat-list-box-img'>
                     <img src='/img/jilsander.png' className='chat-list-box-imgsource' alt="채팅" />
