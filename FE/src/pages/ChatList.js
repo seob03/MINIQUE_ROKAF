@@ -36,8 +36,10 @@ function ChatList() {
     const [selectedImage, setSelectedImage] = useState(null); // 이미지 상태 추가
     const chatBoxRef = useRef(null);
     const chatRoomId = props?.chat_id || "";
-    let [me, setMe] = useState("");
+    const [me, setMe] = useState("");
     const [isMessageFromUser, setIsMessageFromUser] = useState(false)
+
+    const [newMessage, setNewMessage] = useState('')
 
     // 나의 정보 받아오기
     useEffect(() => {
@@ -47,11 +49,13 @@ function ChatList() {
       })
         .then(response => response.json())
         .then(data => {
+          console.log('check: ', data)
           setMe(data.username);
         })
         .catch(error => console.error('fetch 오류:', error));
     }, []);
 
+    // 채팅방 메시지 불러오기
     useEffect(() => {
       if (!chatRoomId) return;
       fetch(`/chat/getChatMessages?room=${chatRoomId}`, {
@@ -65,6 +69,68 @@ function ChatList() {
         })
         .catch(error => console.error("이전 채팅 fetch 오류:", error));
     }, [chatRoomId]);
+
+    // 메시지 읽음 처리 함수 + lastReadRef를 사용해 중복 요청 방지
+    const lastReadRef = useRef(new Set());
+    const markMessagesAsRead = (messages) => {
+      if (!me) return;
+
+      console.log('📝 모든 messages 길이:', messages.length);
+
+      const unreadMessages = messages
+        .filter(msg => {
+          console.log('msg', msg)
+          const isUnread = !msg.isRead;
+          const isNotMine = msg.user !== me;
+          const isNotProcessed = !lastReadRef.current.has(msg._id);
+          console.log(`🔍 메시지 ID: ${msg._id}, isUnread: ${isUnread}, isNotMine: ${isNotMine}, isNotProcessed: ${isNotProcessed}`);
+          return isUnread && isNotMine && isNotProcessed;
+        })
+        .map(msg => msg._id);
+
+      console.log('📌 unreadMessages:', unreadMessages);
+
+      console.log('if 입장전');
+      if (unreadMessages.length > 0) {
+        console.log('if 입장후');
+        socket.emit("message-read", { roomId: chatRoomId, messageIds: unreadMessages, username: me });
+
+        setMessages(prevMessages => {
+          return prevMessages.map(msg => {
+            if (unreadMessages.includes(msg._id)) {
+              lastReadRef.current.add(msg._id); // 업데이트된 후에만 추가
+              return { ...msg, isRead: true };
+            }
+            return msg;
+          });
+        });
+      }
+    };
+
+    // messages 변경 시 읽음 처리
+    useEffect(() => {
+      console.log('🚀 현재 messages 길이:', messages.length);
+      if (messages.length > 0) {
+        markMessagesAsRead(messages);
+      }
+    }, [me, chatRoomId, messages]); // messages와 me가 변경될 때마다 실행
+
+    // 서버에서 읽음 처리 결과를 받으면 메시지 상태 업데이트
+    useEffect(() => {
+      socket.on("message-read-broadcast", ({ messageIds }) => {
+        setMessages(prevMessages =>
+          prevMessages.map(msg =>
+            messageIds.includes(msg._id) ? { ...msg, isRead: true } : msg
+          )
+        );
+      });
+
+      return () => {
+        socket.off("message-read-broadcast");
+      };
+    }, []);
+
+
 
     // 메세지 저장 훅
     useEffect(() => {
@@ -80,7 +146,8 @@ function ChatList() {
         room: chatRoomId,
         user: me,
         text: lastMessage.text || "",
-        image: lastMessage.image || "" // 이미지 추가
+        image: lastMessage.image || "",
+        isRead: false
       };
 
       fetch('/chat/saveMessage', {
@@ -90,24 +157,35 @@ function ChatList() {
       })
         .then(response => response.json())
         .then(data => {
-          console.log(data);
+          setNewMessage(data);
+          console.log('입력한 메시지 정보:', data);
           setIsMessageFromUser(false) // 기본값으로 돌려놓기
         })
         .catch(error => console.error('fetch 오류:', error));
     }, [messages]);
 
-    // 메세지 전파 훅
-    useEffect(() => {
-      socket.on("message-broadcast", (data) => {
-        setMessages((prevMessages) => [...prevMessages, data]);
-      });
+    // useEffect(() => {
+    //   // 메시지 저장되고 나서 
+    //   if (messages.length > 0) {
+    //     markMessagesAsRead(messages);
+    //   }
+    // }, [])
+
+    // WebSocket 메시지 수신 처리
+    useEffect(() => { // 오류오류오류오류
 
       socket.emit("ask-join", chatRoomId);
 
       return () => {
-        // socket.disconnect();
+        // 클라이언트에서 diconnect 호출하지 X
       };
     }, [chatRoomId]);
+
+    useEffect(() => {
+      socket.on("message-broadcast", (data) => {
+        setMessages((prevMessages) => [...prevMessages, { ...data, isRead: false, _id: newMessage._id }]);
+      });
+    }, [newMessage])
 
     // 스크롤 최하단으로 상시 업데이트
     useEffect(() => {
@@ -159,7 +237,6 @@ function ChatList() {
         </div>
         <div className="chatting-item">
           <div className="chatting-item-img">
-            {/* 여기바꿔 */}
             <img src={props.productFrontPhoto} className='chatting-item-imgsource' alt="상품" />
           </div>
           <div className="chatting-item-text">
@@ -178,6 +255,7 @@ function ChatList() {
                       <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', alignItems: 'center', justifyContent: 'center' }}>
                         <span className='chatting-bubble-my-timestamp'>
                           {formatTimestamp(msg.timestamp)}
+                          {msg.isRead ? '읽음' : '안 읽음'}
                         </span>
                         <span className='chatting-bubble-my-text'>{msg.text}</span>
                       </div>
@@ -187,6 +265,7 @@ function ChatList() {
                     <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', alignItems: 'center', justifyContent: 'center' }}>
                       <span className='chatting-bubble-my-timestamp'>
                         {formatTimestamp(msg.timestamp)}
+                        {msg.isRead ? '읽음' : '안 읽음'}
                       </span>
                       <span className='chatting-bubble-my-text'>{msg.text}</span>
                     </div>
@@ -201,6 +280,7 @@ function ChatList() {
                       <span className='chatting-bubble-your-text'>{msg.text}</span>
                       <span className='chatting-bubble-your-timestamp'>
                         {formatTimestamp(msg.timestamp)}
+                        {msg.isRead ? '읽음' : '안 읽음'}
                       </span>
                     </div>
                   </div>
@@ -210,6 +290,7 @@ function ChatList() {
                     <span className='chatting-bubble-your-text'>{msg.text}</span>
                     <span className='chatting-bubble-your-timestamp'>
                       {formatTimestamp(msg.timestamp)}
+                      {msg.isRead ? '읽음' : '안 읽음'}
                     </span>
                   </div>
                 }
@@ -278,9 +359,6 @@ function ChatList() {
                     <div className='chat-list-box-name'>
                       {chat.sellerName}  ·  {chat.productName}
                     </div>
-                    <div className='chat-list-box-lastchat'>
-                      마지막 채팅내역
-                    </div>
                   </div>
                 </div>
               ))}
@@ -293,7 +371,7 @@ function ChatList() {
         <div className="chat-room">
           {(chatID !== '') ?
             <ChatRoom chat_id={chatID} sellerName={sellerName} productName={productName} productPrice={productPrice} productFrontPhoto={productFrontPhoto} />
-            : <div>채팅을 선택하던가</div>
+            : <div>채팅을 시작하려면 왼쪽에서 대화를 선택하세요!</div>
           }
         </div>
       </div>

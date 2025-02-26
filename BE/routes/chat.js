@@ -71,15 +71,16 @@ router.get('/chat/getUserInfo', async (요청, 응답) => {
 router.post('/chat/saveMessage', async (요청, 응답) => {
   db = 요청.db
   try {
-    const { room, user, text, image } = 요청.body;
-    console.log('요청.body:', 요청.body)
-    console.log('요청.user', 요청.user)
+    const { room, user, text, image, isRead } = 요청.body;
+    console.log(요청.user.username, '님이', 요청.body.text, '라고 메시지 전송')
+    // console.log('요청.body:', 요청.body)
+    // console.log('요청.user', 요청.user)
     if (user != 요청.user.username)
       return 응답.status(500).json({ message: '입력자와 로그인한 유저의 이름이 다름' })
     if (!room || !user || !text) {
       return 응답.status(400).json({ message: '필수 필드 누락' });
     }
-    const messageDoc = { room, user, text, timestamp: new Date().toISOString(), image };
+    const messageDoc = { room, user, text, timestamp: new Date().toISOString(), image, isRead };
     await db.collection('chatMessages').insertOne(messageDoc);
     응답.json({ message: '메시지 저장 성공', data: messageDoc });
   } catch (error) {
