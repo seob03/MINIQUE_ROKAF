@@ -13,7 +13,7 @@ function Detail() {
   let [isLiked, setIsLiked] = useState(false);
   let [whoamI, setWhoAmI] = useState('');
   let navigate = useNavigate();
-  let { id } = useParams(); // 글 id
+  let { id } = useParams(); // 글 id (String)
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -90,7 +90,7 @@ function Detail() {
 
   function HeartON() {
     if (!isLoggedIn) {
-      alert('로그인 안해놓고 찜을 어떻게 하려는거임 대체')
+      alert('로그인이 필요한 기능입니다.')
       return
     }
     setIsLiked(true);
@@ -110,7 +110,7 @@ function Detail() {
 
   function HeartOFF() {
     if (!isLoggedIn) {
-      alert('로그인 해주시길 바랍니다.')
+      alert('로그인이 필요한 기능입니다.')
       return
     }
     setIsLiked(false);
@@ -144,7 +144,7 @@ function Detail() {
       .then(response => response.json())
       .then(data => {
         console.log('서버 응답:', data);
-        alert('채팅방 DB 저장 성공')
+        alert(data.message)
         navigate('/chatList')
       })
       .catch(error => {
