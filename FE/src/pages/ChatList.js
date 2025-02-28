@@ -14,7 +14,7 @@ function ChatList() {
   const [productPrice, setProductPrice] = useState('')
   const [productFrontPhoto, setProductFrontPhoto] = useState('')
   const [productID, setProductID] = useState('');
-  
+
   let navigate = useNavigate();
 
   // 채팅 리스트 받아오기
@@ -78,27 +78,18 @@ function ChatList() {
     const lastReadRef = useRef(new Set());
     const markMessagesAsRead = (messages) => {
       if (!me) return;
-
-      console.log('📝 모든 messages 길이:', messages.length);
-
       const unreadMessages = messages
         .filter(msg => {
           console.log('msg', msg)
           const isUnread = !msg.isRead;
           const isNotMine = msg.user !== me;
           const isNotProcessed = !lastReadRef.current.has(msg._id);
-          console.log(`🔍 메시지 ID: ${msg._id}, isUnread: ${isUnread}, isNotMine: ${isNotMine}, isNotProcessed: ${isNotProcessed}`);
           return isUnread && isNotMine && isNotProcessed;
         })
         .map(msg => msg._id);
 
-      console.log('📌 unreadMessages:', unreadMessages);
-
-      console.log('if 입장전');
       if (unreadMessages.length > 0) {
-        console.log('if 입장후');
         socket.emit("message-read", { roomId: chatRoomId, messageIds: unreadMessages, username: me });
-
         setMessages(prevMessages => {
           return prevMessages.map(msg => {
             if (unreadMessages.includes(msg._id)) {
@@ -113,7 +104,6 @@ function ChatList() {
 
     // messages 변경 시 읽음 처리
     useEffect(() => {
-      console.log('🚀 현재 messages 길이:', messages.length);
       if (messages.length > 0) {
         markMessagesAsRead(messages);
       }
@@ -135,13 +125,13 @@ function ChatList() {
     }, []);
 
     // WebSocket 메시지 수신 처리
-    useEffect(() => { 
+    useEffect(() => {
 
       socket.emit("ask-join", chatRoomId);
 
       socket.on("message-broadcast", (data) => {
         setMessages((prevMessages) => [...prevMessages, { ...data, isRead: false }]);
-    });
+      });
 
       return () => {
         // 클라이언트에서 diconnect 호출하지 X
@@ -197,7 +187,7 @@ function ChatList() {
           </div>
           <div className='chatting-opponent-text'>{props.sellerName}</div>
         </div>
-        <div className="chatting-item" onClick={()=>{navigate('/detail/' + props.productID)}}>
+        <div className="chatting-item" onClick={() => { navigate('/detail/' + props.productID) }}>
           <div className="chatting-item-img">
             <img src={props.productFrontPhoto} className='chatting-item-imgsource' alt="상품" />
           </div>

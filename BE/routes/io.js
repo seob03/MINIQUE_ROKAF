@@ -38,18 +38,16 @@ module.exports = function (io) {
                 await client.connect();
                 const db = client.db(dbName);
                 const messagesCollection = db.collection("chatMessages");
-                console.log('messageIds@@@:', messageIds)
 
                 // 메시지 조회 후, 작성자가 아닌 메시지만 필터링
                 const messages = await messagesCollection.find({ _id: { $in: messageIds.map(id => new ObjectId(id)) }, room: roomId }).toArray();
                 const filteredMessageIds = messages.filter(msg => msg.user !== username).map(msg => msg._id);
-                console.log("Filtered message IDs:", filteredMessageIds);
                 if (filteredMessageIds.length > 0) {
                     const result = await messagesCollection.updateMany(
                         { _id: { $in: filteredMessageIds }, room: roomId },
                         { $set: { isRead: true } }
                     );
-                    console.log(`📖 ${username}님이 ${roomId}의 ${result.modifiedCount}개 메시지를 읽음`);
+                    // console.log(`📖 ${username}님이 ${roomId}의 ${result.modifiedCount}개 메시지를 읽음`);
                     // 읽음 상태를 실시간으로 모든 사용자에게 전파
                     io.to(roomId).emit("message-read-broadcast", { messageIds: filteredMessageIds })
                 } else {
