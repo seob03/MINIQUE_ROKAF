@@ -70,8 +70,13 @@ function ChatList() {
         .catch(error => console.error("이전 채팅 fetch 오류:", error));
     }, [chatRoomId]);
 
+
+
+
     // 메시지 읽음 처리 함수 + lastReadRef를 사용해 중복 요청 방지
     const lastReadRef = useRef(new Set());
+    
+    
     const markMessagesAsRead = (messages) => {
       if (!me) return;
       const unreadMessages = messages

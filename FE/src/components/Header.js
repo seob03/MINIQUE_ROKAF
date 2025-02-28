@@ -94,7 +94,7 @@ function Header() {
                   borderBottom: i === menuItems.length - 1 ?
                     'none' : '0.5px solid #D9D9D9' 
                   }}
-                  onClick={null}
+                  onClick={()=>navigate(`/category/${list.toLowerCase()}`)}
                 >
                   {list}
                 </div>

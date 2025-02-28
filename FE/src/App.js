@@ -14,6 +14,7 @@ import EditNews from './pages/EditNews';
 import ChatList from './pages/ChatList';
 import MyDetail from './pages/MyDetail';
 import Footer from './components/Footer';
+import CategoryPage from './pages/CategoryPage';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
               <Route path="/updateInfo" element={<SetUserInfo />} />
               <Route path="/search" element={<SearchResult />} />
               <Route path="/detail/:id" element={<Detail />} />
+              <Route path="/category/:cat" element={<CategoryPage/>}/>
               <Route path="/chatList" element={<ChatList />} />
             </Routes>
           </div>

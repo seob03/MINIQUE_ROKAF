@@ -29,7 +29,6 @@ module.exports = function (io) {
         socket.on("message-read", async ({ roomId, messageIds, username }) => {
             let client;
             if (!username || !messageIds.length) return;
-            console.log("log 3")
             if (!username) return
             try {
                 const url = "mongodb://127.0.0.1:27017";
@@ -107,6 +106,7 @@ module.exports = function (io) {
         // 소켓 해제
         socket.on("disconnect", (reason) => {
             console.log(`❌ Socket ${socket.id} disconnected. 이유: ${reason}`);
+            socket.disconnect();
         });
     })
 };
