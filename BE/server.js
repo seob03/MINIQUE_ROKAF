@@ -49,6 +49,7 @@ app.use((요청, 응답, next) => {
 app.use('/', require('./routes/passport.js'))
 // 라우터로 분리한 파일 불러오기 (요청.user 사용 가능해짐)
 app.use('/', require('./routes/post.js'))
+app.use('/', require('./routes/category.js'))
 app.use('/', require('./routes/edit.js'))
 app.use('/', require('./routes/productDetailPage.js'))
 app.use('/', require('./routes/search.js'))

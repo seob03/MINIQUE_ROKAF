@@ -42,6 +42,24 @@ function NewsWrite() {
         return <div>로딩 중...</div>; // 서버 응답을 기다리는 동안 로딩 상태 표시
     }
 
+    // 제품 상태에 따라 String으로 변환하는 메서드
+    function getProductStatus(status) {
+        switch (status) {
+            case 1:
+                return "좋지 않음";  // 예: 판매 중
+            case 2:
+                return "사용감 있음"; // 예: 일시 품절
+            case 3:
+                return "보통";  // 예: 품절
+            case 4:
+                return "좋음";  // 예: 예약 판매
+            case 5:
+                return "새상품";  // 예: 단종
+            default:
+                return "알 수 없음";  // 예: 유효하지 않은 상태
+        }
+    }
+
     function PostNews() {
         if (isLoggedIn) {
             if (!상품명 || !상품상세설명 || !개월수정보 || !상품상태 || !가격) {
@@ -68,7 +86,6 @@ function NewsWrite() {
                 return;
             }
 
-
             fetch('/add', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -77,7 +94,7 @@ function NewsWrite() {
                     productDetailContent: 상품상세설명,
                     productPhoto: 이미지들,
                     childAge: 개월수정보,
-                    productQuality: 상품상태,
+                    productQuality: getProductStatus(상품상태),
                     higherCategory: 상위카테고리,
                     lowerCategory: 하위카테고리,
                     productPrice: 가격
@@ -217,24 +234,24 @@ function NewsWrite() {
         );
     }
 
-    function ItemState(){
-        return(
-            <form 
-            onSubmit={(e)=>{
-                e.preventDefault();
-            }}>
+    function ItemState() {
+        return (
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                }}>
                 <fieldset className='ItemState-field'>
-                    {['좋지 않음', '사용감 있음', '보통', '좋음', '새상품'].map((text,value) => {
-                        const isSelected = 상품상태 === (value+1);
+                    {['좋지 않음', '사용감 있음', '보통', '좋음', '새상품'].map((text, value) => {
+                        const isSelected = 상품상태 === (value + 1);
                         return (
-                            <div style={{display:'flex', flexDirection:'column', alignItems:'center'}}>
-                                <div style={{display:'flex', alignItems:'center', height: '56px'}}>
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', height: '56px' }}>
                                     <div
-                                        key={value+1}
-                                        className={`ItemState-Circle-${value+1} ${isSelected ? "selected" : ""}`}
+                                        key={value + 1}
+                                        className={`ItemState-Circle-${value + 1} ${isSelected ? "selected" : ""}`}
                                         onClick={() => {
-                                            상품상태변경(value+1);
-                                            console.log("선택됨:", value+1);
+                                            상품상태변경(value + 1);
+                                            console.log("선택됨:", value + 1);
                                         }}
                                     />
                                 </div>
@@ -249,18 +266,18 @@ function NewsWrite() {
         )
     }
 
-    function CategoryDropDown(){
+    function CategoryDropDown() {
         let [isDrop1, setDrop1] = useState(false);
         let [isDrop2, setDrop2] = useState(false);
 
-        const menuItems1=['GIRL', 'BOY'];
-        const menuItems2=['OUTER', 'TOP', 'BOTTOM', 'SHOES', 'ETC']
+        const menuItems1 = ['GIRL', 'BOY'];
+        const menuItems2 = ['OUTER', 'TOP', 'BOTTOM', 'SHOES', 'ETC']
 
-        return(
-            <div style={{display: 'flex', marginTop: '12px'}}>
-                <div 
+        return (
+            <div style={{ display: 'flex', marginTop: '12px' }}>
+                <div
                     className="CategoryDropDown-Box"
-                    onClick={()=>setDrop1(!isDrop1)}
+                    onClick={() => setDrop1(!isDrop1)}
                 >
                     {상위카테고리}
                     {
@@ -268,12 +285,12 @@ function NewsWrite() {
                         <div className='Category-DropDown-Container'>
                             {
                                 menuItems1.map((list1, i) => (
-                                    <div 
+                                    <div
                                         className='Category-DropDown-Menu'
-                                        onClick={()=>{
-                                            상위카테고리변경(list1); 
+                                        onClick={() => {
+                                            상위카테고리변경(list1);
                                             setDrop1(false);
-                                    }}>
+                                        }}>
                                         {list1}
                                     </div>
                                 ))
@@ -281,27 +298,27 @@ function NewsWrite() {
                         </div>
                     }
                 </div>
-                <img src='/img/Category_Arrow.svg' style={{marginLeft: '44px', marginRight: '44px'}}/>
+                <img src='/img/Category_Arrow.svg' style={{ marginLeft: '44px', marginRight: '44px' }} />
                 {
                     (상위카테고리 != '') &&
-                    <div 
+                    <div
                         className='CategoryDropDown-Box'
-                        onClick={()=>setDrop2(!isDrop2)}
+                        onClick={() => setDrop2(!isDrop2)}
                     >
                         {하위카테고리}
                         {
                             (isDrop2) &&
                             <div className='Category-DropDown-Container'>
-                            {
-                                menuItems2.map((list2, i) => (
-                                    <div
-                                        className='Category-DropDown-Menu'
-                                        onClick={()=>{하위카테고리변경(list2); setDrop2(false)}}
-                                    >
-                                    {list2}
-                                    </div>
-                                ))
-                            }
+                                {
+                                    menuItems2.map((list2, i) => (
+                                        <div
+                                            className='Category-DropDown-Menu'
+                                            onClick={() => { 하위카테고리변경(list2); setDrop2(false) }}
+                                        >
+                                            {list2}
+                                        </div>
+                                    ))
+                                }
                             </div>
                         }
                     </div>
@@ -311,17 +328,17 @@ function NewsWrite() {
     }
 
     return (
-        <div style={{width: '600px', justifySelf: 'center'}}>
+        <div style={{ width: '600px', justifySelf: 'center' }}>
             <div className='Write-Title-1'>
                 상품 등록하기
             </div>
             <UploadBox />
             <div className="Write-Input-Row">
-                <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: '12px'}}>
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
                     <div className="Write-Title-2">
                         상품명
                     </div>
-                    <div style={{ justifycontent: 'flex-end', marginLeft: '20px', color: '#B6B2AD'}}>
+                    <div style={{ justifycontent: 'flex-end', marginLeft: '20px', color: '#B6B2AD' }}>
                         {상품명.length}/40
                     </div>
                 </div>
@@ -334,11 +351,11 @@ function NewsWrite() {
                     type="text" />
             </div>
             <div className="Write-Input-Row">
-                <div style={{width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: '12px'}}>
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
                     <div className="Write-Title-2">
                         상품 상세 설명
                     </div>
-                    <div style={{ display: 'block', marginLeft: '20px', color: '#B6B2AD'}}>
+                    <div style={{ display: 'block', marginLeft: '20px', color: '#B6B2AD' }}>
                         {상품상세설명.length}/200
                     </div>
                 </div>
@@ -355,7 +372,7 @@ function NewsWrite() {
                 <div className="Write-Title-2">
                     아이 정보 입력
                 </div>
-                <div style={{display: 'flex', alignItems:'center', marginTop: '12px'}}>
+                <div style={{ display: 'flex', alignItems: 'center', marginTop: '12px' }}>
                     <input
                         placeholder="아기가 입고 다닌 당시의 생후 개월 수를 입력해 주세요!"
                         className="Write-Input"
@@ -373,19 +390,19 @@ function NewsWrite() {
                 <div className="Write-Title-2">
                     상품 상태
                 </div>
-                <ItemState/>
+                <ItemState />
             </div>
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">
                     카테고리
                 </div>
-                <CategoryDropDown/>
+                <CategoryDropDown />
             </div>
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">
                     가격
                 </div>
-                <div style={{display: 'flex', alignItems:'center' , marginTop: '12px'}}>
+                <div style={{ display: 'flex', alignItems: 'center', marginTop: '12px' }}>
                     <input
                         placeholder=" 판매할 가격을 입력해주세요!"
                         className="Write-Input-Price"

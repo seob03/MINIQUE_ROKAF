@@ -41,9 +41,6 @@ function ChatList() {
     const chatBoxRef = useRef(null);
     const chatRoomId = props?.chat_id || "";
     const [me, setMe] = useState("");
-    const [isMessageFromUser, setIsMessageFromUser] = useState(false)
-
-    const [newMessage, setNewMessage] = useState('')
 
     // 나의 정보 받아오기
     useEffect(() => {
@@ -69,7 +66,6 @@ function ChatList() {
         .then(response => response.json())
         .then(data => {
           setMessages(data);
-          setIsMessageFromUser(false) // 유저가 입력한 메시지로 인해 Messages의 상태가 변경된 것이 아니다.
         })
         .catch(error => console.error("이전 채팅 fetch 오류:", error));
     }, [chatRoomId]);
@@ -162,7 +158,6 @@ function ChatList() {
           image: selectedImage, // 이미지 포함
           room: chatRoomId
         });
-        setIsMessageFromUser(true) // 유저가 입력한 메시지로 인해 Messages의 상태가 변경됐다
         setMessage("");
         setSelectedImage(null); // 전송 후 초기화
       }
@@ -323,7 +318,7 @@ function ChatList() {
         {/* props로 채팅방에 관련 정보 넘기기 */}
         <div className="chat-room">
           {(chatID !== '') ?
-            <ChatRoom chat_id={chatID} sellerName={sellerName} productName={productName} productPrice={productPrice} productFrontPhoto={productFrontPhoto} />
+            <ChatRoom chat_id={chatID} sellerName={sellerName} productName={productName} productPrice={productPrice} productFrontPhoto={productFrontPhoto} productID={productID} />
             : <div>채팅을 시작하려면 왼쪽에서 대화를 선택하세요!</div>
           }
         </div>
