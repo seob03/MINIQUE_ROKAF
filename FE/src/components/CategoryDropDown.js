@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './style/CategoryDropDown.css';
 
 function CategoryDropDown(props){
     let [isDrop1, setDrop1] = useState(false);
@@ -10,12 +11,15 @@ function CategoryDropDown(props){
     return(
         <div style={{display: 'flex', marginTop: '12px'}}>
             <div 
-                className="CategoryDropDown-Box"
-                onClick={()=>setDrop1(!isDrop1)}
+                className={`CategoryDropDown-Box ${(props.isActive_1) ? '':'inactive'}`}
+                onClick={()=>{setDrop1(!isDrop1); console.log('드롭다운 : ',isDrop1, '둘다 :',isDrop1 && props.isActive_1)}}
             >
-                {props.상위카테고리}
                 {
-                    (isDrop1 && props.isActive) &&
+                    (props.isActive_1)? 
+                    <div>▼ {props.상위카테고리}</div> : <div>{props.상위카테고리}</div>
+                }
+                {
+                    (isDrop1 && props.isActive_1) ?
                     <div className='Category-DropDown-Container'>
                         {
                             menuItems1.map((list1, i) => (
@@ -29,17 +33,17 @@ function CategoryDropDown(props){
                                 </div>
                             ))
                         }
-                    </div>
+                    </div> :null
                 }
             </div>
-            <img src='/img/Category_Arrow.svg' style={{marginLeft: '44px', marginRight: '44px'}}/>
+            <img src='/img/Category_Arrow.svg' style={{marginLeft: '30px', marginRight: '30px'}}/>
             {
                 (props.상위카테고리 != '') &&
                 <div 
                     className='CategoryDropDown-Box'
                     onClick={()=>setDrop2(!isDrop2)}
                 >
-                    ▼{props.하위카테고리}
+                    ▼ {props.하위카테고리}
                     {
                         (isDrop2) &&
                         <div className='Category-DropDown-Container'>
