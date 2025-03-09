@@ -10,7 +10,7 @@ function CategoryPage() {
     let [카테고리게시글, 카테고리게시글변경] = useState('');
     let { cat } = useParams();
 
-    // 상위 카테고리 불러오기
+    // 상위 카테고리 불러오기 
     useEffect(() => {
         console.log('상위카테고리 useEffect 실행')
         fetch(`/category/getHigherPosts?higherCategory=${cat}`, {
