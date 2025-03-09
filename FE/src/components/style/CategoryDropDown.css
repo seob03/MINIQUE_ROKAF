@@ -14,7 +14,7 @@
 .CategoryDropDown-Box.inactive{
     width: 100px;
     border: none;
-    cursor: none;
+    cursor: auto;
 }
 
 .Category-DropDown-Container{
