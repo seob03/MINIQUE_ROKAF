@@ -1,9 +1,10 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Card from '../components/Card.js';
 import DetailSlider from "../components/DetailSlider.js";
 import { ButtonMedium, WideButton, DeleteButtonHalf } from '../components/Buttons';
+import { changeIsOpen } from "../store/store.js";
 import './style/Detail.css';
 
 function Detail() {
@@ -13,6 +14,7 @@ function Detail() {
   let [isLiked, setIsLiked] = useState(false);
   let [whoamI, setWhoAmI] = useState('');
   let navigate = useNavigate();
+  let dispatch = useDispatch();
   let { id } = useParams(); // 글 id (String)
 
   useEffect(() => {
@@ -232,10 +234,15 @@ function Detail() {
           </div>
           <div className="Detail-Info">
             <div className="Detail-Info-Title">
-              배송비
+              카테고리
             </div>
             <div className="Detail-Info-Content">
-              3500원
+              {pageResult.higherCategory} 
+              <img 
+              src='/img/Category_Arrow.svg' 
+              style={{width: '6px', height: '26px', marginLeft: '12px', marginRight: '12px'}}
+              />
+              {pageResult.lowerCategory}
             </div>
           </div>
           <Link to={'/store/' + pageResult.user_id} style={{ textDecoration: 'none', color: 'black' }}>
@@ -267,7 +274,7 @@ function Detail() {
           {(isLoggedIn) ? <LoginStateButtonArea />
             :
             <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center' }}>
-              <WideButton text={'로그인하여 구매하기'} /> {/*로그인하여 구매하기 뭐 이런걸로 바꿀 것*/}
+              <WideButton text={'로그인하여 구매하기'} eventHandler={()=>{dispatch(changeIsOpen(true))}}/>
             </div>
           }
         </div>
