@@ -39,7 +39,7 @@ function App() {
         }}>
           <LoginModal />
           <SignUpModal />
-          <div style={{ width: '1024px'}}>
+          <div style={{ width: '1024px' }}>
             <Routes>
               <Route path="/" element={<NewsList />} />
               <Route path="/write" element={<NewsWrite />} />
@@ -49,7 +49,7 @@ function App() {
               <Route path="/updateInfo" element={<SetUserInfo />} />
               <Route path="/search" element={<SearchResult />} />
               <Route path="/detail/:id" element={<Detail />} />
-              <Route path="/category/:cat" element={<CategoryPage/>}/>
+              <Route path="/category/:cat" element={<CategoryPage />} />
               <Route path="/chatList" element={<ChatList />} />
             </Routes>
           </div>
