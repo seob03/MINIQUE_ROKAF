@@ -54,10 +54,12 @@ function CategoryPage() {
 
     return (
         <>
-            <CategoryDropDown isActive={false}
-                상위카테고리={cat.toUpperCase()} 상위카테고리변경={상위카테고리변경}
-                하위카테고리={하위카테고리} 하위카테고리변경={하위카테고리변경}
-            />
+            <div style={{ marginTop: '30px' }}>
+                <CategoryDropDown isActive_1={false}
+                    상위카테고리={cat.toUpperCase()} 상위카테고리변경={상위카테고리변경}
+                    하위카테고리={하위카테고리} 하위카테고리변경={하위카테고리변경}
+                />
+            </div>
             <div>
                 <div className="Recommend-Title">
                     {cat.toUpperCase()} {

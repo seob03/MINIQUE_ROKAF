@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { changeIsOpen } from "../store/store.js";
 import { ButtonMediumBlue, ButtonMediumGray } from '../components/Buttons';
 import { ReactComponent as AddImage } from '../components/AddImage.svg';
+import CategoryDropDown from '../components/CategoryDropDown.js';
 import './style/NewsWrite.css';
 
 function NewsWrite() {
@@ -266,67 +267,6 @@ function NewsWrite() {
         )
     }
 
-    function CategoryDropDown() {
-        let [isDrop1, setDrop1] = useState(false);
-        let [isDrop2, setDrop2] = useState(false);
-
-        const menuItems1 = ['GIRL', 'BOY'];
-        const menuItems2 = ['OUTER', 'TOP', 'BOTTOM', 'SHOES', 'ETC']
-
-        return (
-            <div style={{ display: 'flex', marginTop: '12px' }}>
-                <div
-                    className="CategoryDropDown-Box"
-                    onClick={() => setDrop1(!isDrop1)}
-                >
-                    {상위카테고리}
-                    {
-                        (isDrop1) &&
-                        <div className='Category-DropDown-Container'>
-                            {
-                                menuItems1.map((list1, i) => (
-                                    <div
-                                        className='Category-DropDown-Menu'
-                                        onClick={() => {
-                                            상위카테고리변경(list1);
-                                            setDrop1(false);
-                                        }}>
-                                        {list1}
-                                    </div>
-                                ))
-                            }
-                        </div>
-                    }
-                </div>
-                <img src='/img/Category_Arrow.svg' style={{ marginLeft: '44px', marginRight: '44px' }} />
-                {
-                    (상위카테고리 != '') &&
-                    <div
-                        className='CategoryDropDown-Box'
-                        onClick={() => setDrop2(!isDrop2)}
-                    >
-                        {하위카테고리}
-                        {
-                            (isDrop2) &&
-                            <div className='Category-DropDown-Container'>
-                                {
-                                    menuItems2.map((list2, i) => (
-                                        <div
-                                            className='Category-DropDown-Menu'
-                                            onClick={() => { 하위카테고리변경(list2); setDrop2(false) }}
-                                        >
-                                            {list2}
-                                        </div>
-                                    ))
-                                }
-                            </div>
-                        }
-                    </div>
-                }
-            </div>
-        );
-    }
-
     return (
         <div style={{ width: '600px', justifySelf: 'center' }}>
             <div className='Write-Title-1'>
@@ -396,7 +336,10 @@ function NewsWrite() {
                 <div className="Write-Title-2">
                     카테고리
                 </div>
-                <CategoryDropDown />
+                <CategoryDropDown isActive_1={true}
+                상위카테고리={상위카테고리} 상위카테고리변경={상위카테고리변경} 
+                하위카테고리={하위카테고리} 하위카테고리변경={하위카테고리변경}
+                />
             </div>
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">
