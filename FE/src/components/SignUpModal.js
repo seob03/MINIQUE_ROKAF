@@ -78,6 +78,8 @@ function SignUpModal() {
                         <input onChange={(e) => { setUserID(e.target.value); }}
                             type="text"
                             className='SignUpModal-Input'
+                            placeholder='4자 이상 20자 이하'
+
                         />
                     </div>
                     <div className='SignUpModal-Input-Area'>
@@ -88,6 +90,7 @@ function SignUpModal() {
                         <input onChange={(e) => { setUserPassword(e.target.value); }}
                             type="password"
                             className='SignUpModal-Input'
+                            placeholder='8자 이상 20자 이하'
                         />
                     </div>
                     <div className='SignUpModal-Input-Area'>
@@ -98,6 +101,7 @@ function SignUpModal() {
                         <input onChange={(e) => { setUserPasswordCheck(e.target.value); }}
                             type="password"
                             className='SignUpModal-Input'
+                            placeholder='설정한 비밀번호를 확인해보세요!'
                         />
                     </div>
                     <SignUpButton eventHandler={SignUp} />
