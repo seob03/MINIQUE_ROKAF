@@ -6,6 +6,7 @@ import DetailSlider from "../components/DetailSlider.js";
 import { ButtonMedium, WideButton, DeleteButtonHalf } from '../components/Buttons';
 import { changeIsOpen } from "../store/store.js";
 import './style/Detail.css';
+import Swal from 'sweetalert2';
 
 function Detail() {
   let [pageResult, setPageResult] = useState([]);
@@ -68,25 +69,53 @@ function Detail() {
   }, [id]); // id가 변경될 때마다 호출
 
   function handleDelete() {
-    // eslint-disable-next-line no-restricted-globals
-    if (confirm('글을 삭제하시겠습니까? 삭제된 글은 복구되지 않습니다.')) {
-      fetch('/productDetail/delete/' + id,
-        {
+    Swal.fire({
+      title: "글을 삭제하시겠습니까?",
+      text: "삭제된 글은 복구되지 않습니다.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "네, 삭제합니다!",
+      cancelButtonText: "아니요, 취소할래요!",
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch('/productDetail/delete/' + id, {
           method: 'DELETE',
         })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data == true)
-            alert("글이 정상적으로 삭제되었습니다.")
-          else
-            alert("삭제 권한이 존재하지 않습니다.")
-          navigate('/');
-        })
-        .catch((error) => {
-          console.error('Error fetching data:', error);
-        });
-    }
+          .then((response) => response.json())
+          .then((data) => {
+            if (data === true) {
+              Swal.fire({
+                title: "삭제 완료!",
+                text: "글이 정상적으로 삭제되었습니다.",
+                icon: "success",
+                confirmButtonText: "확인",
+              }).then(() => {
+                navigate('/'); // 삭제 후 메인 페이지로 이동
+              });
+            } else {
+              Swal.fire({
+                title: "삭제 실패",
+                text: "삭제 권한이 존재하지 않습니다.",
+                icon: "error",
+                confirmButtonText: "확인",
+              });
+            }
+          })
+          .catch((error) => {
+            console.error('Error fetching data:', error);
+            Swal.fire({
+              title: "오류 발생!",
+              text: "삭제 중 오류가 발생했습니다.",
+              icon: "error",
+              confirmButtonText: "확인",
+            });
+          });
+      }
+    });
   }
+
 
 
 
@@ -237,10 +266,10 @@ function Detail() {
               카테고리
             </div>
             <div className="Detail-Info-Content">
-              {pageResult.higherCategory} 
-              <img 
-              src='/img/Category_Arrow.svg' 
-              style={{width: '6px', height: '26px', marginLeft: '12px', marginRight: '12px'}}
+              {pageResult.higherCategory}
+              <img
+                src='/img/Category_Arrow.svg'
+                style={{ width: '6px', height: '26px', marginLeft: '12px', marginRight: '12px' }}
               />
               {pageResult.lowerCategory}
             </div>
@@ -274,7 +303,7 @@ function Detail() {
           {(isLoggedIn) ? <LoginStateButtonArea />
             :
             <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center' }}>
-              <WideButton text={'로그인하여 구매하기'} eventHandler={()=>{dispatch(changeIsOpen(true))}}/>
+              <WideButton text={'로그인하여 구매하기'} eventHandler={() => { dispatch(changeIsOpen(true)) }} />
             </div>
           }
         </div>

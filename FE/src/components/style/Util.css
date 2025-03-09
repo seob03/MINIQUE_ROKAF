@@ -1,0 +1,9 @@
+/* SweetAlert2 전체 컨테이너를 최상위로 */
+.custom-swal-container {
+    z-index: 20000 !important;
+}
+
+/* SweetAlert2 팝업도 최상위로 */
+.custom-swal-popup {
+    z-index: 20000 !important;
+}

@@ -4,7 +4,6 @@ const router = require('express').Router()
 router.get('/category/getHigherPosts/', async (요청, 응답) => {
     const db = 요청.db
     const higherCategory = (요청.query.higherCategory).toUpperCase();
-    console.log('higherCategory:', higherCategory)
     let higherCategoryPosts = await db.collection('post').find({ higherCategory: higherCategory }).toArray()
     응답.json(higherCategoryPosts)
 })
@@ -14,8 +13,6 @@ router.get('/category/getLowerPosts/', async (요청, 응답) => {
     const db = 요청.db
     const higherCategory = (요청.query.higherCategory).toUpperCase();
     const lowerCategory = 요청.query.lowerCategory;
-    console.log('higherCategory:', higherCategory)
-    console.log('lowerCategory:', lowerCategory)
     let lowerCategoryPosts = await db.collection('post').find({ higherCategory: higherCategory, lowerCategory: lowerCategory }).toArray()
     응답.json(lowerCategoryPosts)
 })

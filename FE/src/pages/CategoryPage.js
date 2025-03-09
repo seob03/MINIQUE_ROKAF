@@ -24,7 +24,7 @@ function CategoryPage() {
                 카테고리게시글변경(data);
             })
             .catch(error => console.error("이전 채팅 fetch 오류:", error));
-    }, [])
+    }, [cat])
 
 
     const isFirstRender = useRef(true); // 첫 실행 여부를 저장할 ref
@@ -56,7 +56,7 @@ function CategoryPage() {
         <>
             <div style={{ marginTop: '30px' }}>
                 <CategoryDropDown isActive_1={false}
-                    상위카테고리={cat.toUpperCase()} 상위카테고리변경={상위카테고리변경}
+                    상위카테고리={상위카테고리} 상위카테고리변경={상위카테고리변경}
                     하위카테고리={하위카테고리} 하위카테고리변경={하위카테고리변경}
                 />
             </div>

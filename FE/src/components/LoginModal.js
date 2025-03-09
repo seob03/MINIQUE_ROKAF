@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { changeLogIn, changeIsOpen, changeIsSignUpOpen } from "../store/store.js";
 import './style/LoginModal.css';
 import { SignUpButton } from './Buttons.js';
+import { showAlert } from './Util.js';
 
 function LoginModal(props) {
     let [input_userName, setUserName] = useState(''); // 실시간 입력값 받아오기
@@ -15,26 +16,40 @@ function LoginModal(props) {
         dispatch(changeIsOpen(false));
         dispatch(changeIsSignUpOpen(true));
     }
-
     function handleLogin() {
         fetch('/tryLogin', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username: input_userName, password: input_userPassword }),
-            withCredentials: true
+            credentials: 'include' // 쿠키 포함
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`로그인 실패 (HTTP ${response.status})`);
+                }
+                return response.json();
+            })
             .then(data => {
                 console.log('서버 응답:', data);
-                alert(data.message)
-                dispatch(changeLogIn(true));
-                dispatch(changeIsOpen(false));
+                showAlert({
+                    title: "로그인 성공!",
+                    text: data.message,
+                    icon: "success",
+                }).then(() => {
+                    dispatch(changeLogIn(true));
+                    dispatch(changeIsOpen(false));
+                });
             })
             .catch(error => {
-                alert('로그인에 실패하였습니다.')
                 console.error('fetch 오류:', error);
+                showAlert({
+                    title: "로그인 실패",
+                    text: "아이디 또는 비밀번호가 올바르지 않습니다.",
+                    icon: "error",
+                });
             });
     }
+
 
     function handleKeyDown(e) {
         if (e.key === 'Enter') {
