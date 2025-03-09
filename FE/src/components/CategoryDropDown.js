@@ -8,19 +8,11 @@ function CategoryDropDown(props) {
     const menuItems1 = ['GIRL', 'BOY'];
     const menuItems2 = ['OUTER', 'TOP', 'BOTTOM', 'SHOES', 'ETC']
 
-<<<<<<< HEAD
-    return (
-        <div style={{ display: 'flex', marginTop: '12px' }}>
-            <div
-                className="CategoryDropDown-Box"
-                onClick={() => setDrop1(!isDrop1)}
-=======
     return(
         <div style={{display: 'flex', marginTop: '12px'}}>
             <div 
                 className={`CategoryDropDown-Box ${(props.isActive_1) ? '':'inactive'}`}
                 onClick={()=>{setDrop1(!isDrop1); console.log('드롭다운 : ',isDrop1, '둘다 :',isDrop1 && props.isActive_1)}}
->>>>>>> 30c23d5d9d82190b24d78069b18fcdba81457de4
             >
                 {
                     (props.isActive_1)? 
@@ -44,11 +36,7 @@ function CategoryDropDown(props) {
                     </div> :null
                 }
             </div>
-<<<<<<< HEAD
-            <img src='/img/Category_Arrow.svg' style={{ marginLeft: '44px', marginRight: '44px' }} />
-=======
             <img src='/img/Category_Arrow.svg' style={{marginLeft: '30px', marginRight: '30px'}}/>
->>>>>>> 30c23d5d9d82190b24d78069b18fcdba81457de4
             {
                 (props.상위카테고리 != '') &&
                 <div
