@@ -8,35 +8,35 @@ function CategoryDropDown(props) {
     const menuItems1 = ['GIRL', 'BOY'];
     const menuItems2 = ['OUTER', 'TOP', 'BOTTOM', 'SHOES', 'ETC']
 
-    return(
-        <div style={{display: 'flex', marginTop: '12px'}}>
-            <div 
-                className={`CategoryDropDown-Box ${(props.isActive_1) ? '':'inactive'}`}
-                onClick={()=>{setDrop1(!isDrop1); console.log('드롭다운 : ',isDrop1, '둘다 :',isDrop1 && props.isActive_1)}}
+    return (
+        <div style={{ display: 'flex', marginTop: '12px' }}>
+            <div
+                className={`CategoryDropDown-Box ${(props.isActive_1) ? '' : 'inactive'}`}
+                onClick={() => { setDrop1(!isDrop1); console.log('드롭다운 : ', isDrop1, '둘다 :', isDrop1 && props.isActive_1) }}
             >
                 {
-                    (props.isActive_1)? 
-                    <div>▼ {props.상위카테고리}</div> : <div>{props.상위카테고리}</div>
+                    (props.isActive_1) ?
+                        <div>▼ {props.상위카테고리}</div> : <div>{props.상위카테고리}</div>
                 }
                 {
                     (isDrop1 && props.isActive_1) ?
-                    <div className='Category-DropDown-Container'>
-                        {
-                            menuItems1.map((list1, i) => (
-                                <div
-                                    className='Category-DropDown-Menu'
-                                    onClick={() => {
-                                        props.상위카테고리변경(list1);
-                                        setDrop1(false);
-                                    }}>
-                                    {list1}
-                                </div>
-                            ))
-                        }
-                    </div> :null
+                        <div className='Category-DropDown-Container'>
+                            {
+                                menuItems1.map((list1, i) => (
+                                    <div
+                                        className='Category-DropDown-Menu'
+                                        onClick={() => {
+                                            props.상위카테고리변경(list1);
+                                            setDrop1(false);
+                                        }}>
+                                        {list1}
+                                    </div>
+                                ))
+                            }
+                        </div> : null
                 }
             </div>
-            <img src='/img/Category_Arrow.svg' style={{marginLeft: '30px', marginRight: '30px'}}/>
+            <img src='/img/Category_Arrow.svg' style={{ marginLeft: '30px', marginRight: '30px' }} />
             {
                 (props.상위카테고리 != '') &&
                 <div
