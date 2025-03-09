@@ -44,10 +44,10 @@ function SignUpModal() {
             .then(data => {
                 alert(data.message)
                 console.log('서버 응답:', data);
-                // navigate('/updateInfo');
+                dispatch(changeIsSignUpOpen(false));
             })
             .catch(error => {
-                alert(error.message)
+                alert(`회원가입 실패: ${error.message}`);
                 console.error('fetch 오류:', error);
             });
     }
