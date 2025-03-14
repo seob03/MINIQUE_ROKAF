@@ -8,7 +8,7 @@ router.get('/category/getHigherPosts/', async (요청, 응답) => {
     응답.json(higherCategoryPosts)
 })
 
-// 하위 카테고리 상품 불러오기
+// 하위까지 같은 카테고리 상품 불러오기
 router.get('/category/getLowerPosts/', async (요청, 응답) => {
     const db = 요청.db
     const higherCategory = (요청.query.higherCategory).toUpperCase();

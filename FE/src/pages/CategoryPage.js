@@ -48,7 +48,7 @@ function CategoryPage() {
                 console.log('하위카테고리:', data);
                 카테고리게시글변경(data);
             })
-            .catch(error => console.error("이전 채팅 fetch 오류:", error));
+            .catch(error => console.error("fetch 오류:", error));
     }, [하위카테고리]);
 
 

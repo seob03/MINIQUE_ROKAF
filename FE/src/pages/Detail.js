@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Card from '../components/Card.js';
+import CardSmall from '../components/CardSmall';
 import DetailSlider from "../components/DetailSlider.js";
 import { ButtonMedium, WideButton, DeleteButtonHalf } from '../components/Buttons';
 import { changeIsOpen } from "../store/store.js";
@@ -18,6 +18,7 @@ function Detail() {
   let navigate = useNavigate();
   let dispatch = useDispatch();
   let { id } = useParams(); // 글 id (String)
+  let [recommend, setRecommend] = useState('');
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -116,10 +117,7 @@ function Detail() {
       }
     });
   }
-
-
-
-
+  // 찜 기능
   function HeartON() {
     if (!isLoggedIn) {
       alert('로그인이 필요한 기능입니다.')
@@ -199,7 +197,7 @@ function Detail() {
         });
       });
   }
-
+  // 로그인에 따라 버튼 달라지도록
   function LoginStateButtonArea() {
     if (!pageResult || !pageResult.user_id) {
       return null;
@@ -218,6 +216,24 @@ function Detail() {
       )
     }
   }
+
+  // 카테고리 같은 추천 게시글 불러오기
+  useEffect(() => {
+    console.log('하위카테고리 useEffect 실행');
+    const params = new URLSearchParams({
+      higherCategory: pageResult.higherCategory,
+      lowerCategory: pageResult.lowerCategory
+    });
+    fetch(`/category/getLowerPosts?${params.toString()}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(response => response.json())
+      .then(data => {
+        setRecommend(data)
+      })
+      .catch(error => console.error("fetch 오류:", error));
+  }, [pageResult]);
 
   return (
     <div>
@@ -329,11 +345,21 @@ function Detail() {
       <div style={{ display: 'block', fontSize: '20px', fontFamily: 'NotoSansKR-Medium', marginTop: '180px' }}>
         같은 카테고리의 상품
       </div>
-      <div class="Detail-Container">
-        <Card photo={''} brand={'SainLaurant'} title={'가라1'} size={'62'} price={'1억'} />
-        <Card photo={''} brand={'Gucci'} title={'가라2'} size={'62'} price={'2억'} />
-        <Card photo={''} brand={'Tesla'} title={'가라3'} size={'62'} price={'3억'} />
-        <Card photo={''} brand={'Apple'} title={'가라4'} size={'62'} price={'4억'} />
+      <div>
+        <div className="Recommend-Title">
+          {(recommend.length > 0) ? (
+            recommend.map(post => (
+              <CardSmall
+                photo={post.productPhoto || undefined}
+                brand={'MONCLER'}
+                title={post.productName}
+                size={post.childAge}
+                price={Number(post.productPrice).toLocaleString()}
+                link={'/detail/' + post._id}
+              />
+            ))
+          ) : <div>나중에 OUTER 같은 걸 제일 큰 카테고리로 하면 상위 카테고리불러오도록 하자.</div>}
+        </div>
       </div>
     </div>
   );
