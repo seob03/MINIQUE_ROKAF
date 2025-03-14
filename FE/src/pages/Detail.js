@@ -7,6 +7,7 @@ import { ButtonMedium, WideButton, DeleteButtonHalf } from '../components/Button
 import { changeIsOpen } from "../store/store.js";
 import './style/Detail.css';
 import Swal from 'sweetalert2';
+import { showAlert } from '../components/Util.js';
 
 function Detail() {
   let [pageResult, setPageResult] = useState([]);
@@ -161,7 +162,7 @@ function Detail() {
 
   // 채팅 생성 요청
   function ChatReq() {
-    fetch(('/chat/request/'), {
+    fetch('/chat/request/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -170,16 +171,32 @@ function Detail() {
         productPrice: pageResult.productPrice,
         productFrontPhoto: pageResult.productPhoto[0],
         productID: id
-      })
+      }),
+      credentials: 'include' // 세션 정보도 함께 전송 (로그인 상태 유지)
     })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          return response.json().then(err => Promise.reject(err));
+        }
+        return response.json();
+      })
       .then(data => {
         console.log('서버 응답:', data);
-        alert(data.message)
-        navigate('/chatList')
+        showAlert({
+          title: "채팅방 생성 완료!",
+          text: "채팅 목록으로 이동할게요!",
+          icon: "success",
+        }).then(() => {
+          navigate('/chatList'); // 채팅방 리스트로 이동
+        });
       })
       .catch(error => {
         console.error('fetch 오류:', error);
+        showAlert({
+          title: "채팅방 생성 실패",
+          text: error?.message || "서버 오류 발생",
+          icon: "error",
+        });
       });
   }
 

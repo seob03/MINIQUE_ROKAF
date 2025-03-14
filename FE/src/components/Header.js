@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeLogIn, changeIsOpen } from "../store/store.js";
+import { showAlert } from './Util.js';
 
 function Header() {
   let isLoggedIn = useSelector((state) => { return state.isLoggedIn }) // 로그인 상태를 추적할 상태
@@ -34,67 +35,80 @@ function Header() {
 
   async function handleLogOut() {
     try {
-      // 로그아웃 요청 보내기
+      // 로그아웃 요청
       const response = await fetch('/logOut', {
         method: 'POST',
-        credentials: 'same-origin', // 세션 쿠키가 포함되도록 설정
+        credentials: 'same-origin', // 세션 쿠키 포함
       });
 
       if (response.ok) {
-        dispatch(changeLogIn(false));
+        dispatch(changeLogIn(false)); // Redux 상태 변경
+        showAlert({
+          title: "로그아웃 성공!",
+          text: "안녕히 가세요!! 다음에 또 봐요 😊",
+          icon: "success"
+        });
       } else {
-        alert('로그아웃 실패');
+        showAlert({
+          title: "로그아웃 실패",
+          text: "로그아웃에 실패했습니다.",
+          icon: "error"
+        });
       }
     } catch (error) {
       console.error('로그아웃 중 오류 발생:', error);
-      alert('로그아웃 실패');
+      showAlert({
+        title: "서버 오류",
+        text: "서버에 문제가 발생했습니다.",
+        icon: "error"
+      });
     }
   }
 
   function CategoryDropDown() {
     let [isDropDown, setDropDown] = useState(false)
 
-    function handleClickContainer(){
+    function handleClickContainer() {
       setDropDown(!isDropDown);
       setTimeout(() => {
         setDropDown(false);
       }, 1000);
     }
 
-    function handleBlurContainer(){
-      setTimeout(()=>{
+    function handleBlurContainer() {
+      setTimeout(() => {
         setDropDown(false)
       }, 200);
     }
 
-    function handleMouseLeave(){
+    function handleMouseLeave() {
       setTimeout(() => {
-          setDropDown(false);
+        setDropDown(false);
       }, 200);
     }
 
-    const menuItems=['BEST', 'GIRL', 'BOY'];
+    const menuItems = ['BEST', 'GIRL', 'BOY'];
 
-    return(
-      <div style={{position: 'relative'}} onBlur={handleBlurContainer} 
-        onMouseEnter={()=>{setDropDown(true);}} 
+    return (
+      <div style={{ position: 'relative' }} onBlur={handleBlurContainer}
+        onMouseEnter={() => { setDropDown(true); }}
         onMouseLeave={handleMouseLeave}>
         <div className="Header-DropDown-Title">
           {isDropDown ? '▲' : '▼'}
-          <div style={{width:'0.6rem'}}/>
+          <div style={{ width: '0.6rem' }} />
           CATEGORY
         </div>
-        {isDropDown && 
+        {isDropDown &&
           <div className='Header-DropDown-Container'>
             {
               menuItems.map((list, i) => (
-                <div 
-                  className='Header-DropDown-Menu' 
-                  style={{ 
-                  borderBottom: i === menuItems.length - 1 ?
-                    'none' : '0.5px solid #D9D9D9' 
+                <div
+                  className='Header-DropDown-Menu'
+                  style={{
+                    borderBottom: i === menuItems.length - 1 ?
+                      'none' : '0.5px solid #D9D9D9'
                   }}
-                  onClick={()=>navigate(`/category/${list.toLowerCase()}`)}
+                  onClick={() => navigate(`/category/${list.toLowerCase()}`)}
                 >
                   {list}
                 </div>
@@ -109,53 +123,53 @@ function Header() {
   function MyInfoDropDown() {
     let [isDropDown, setDropDown] = useState(false)
 
-    function handleClickContainer(){
+    function handleClickContainer() {
       setDropDown(!isDropDown);
       setTimeout(() => {
         setDropDown(false);
       }, 1000);
     }
 
-    function handleBlurContainer(){
-      setTimeout(()=>{
+    function handleBlurContainer() {
+      setTimeout(() => {
         setDropDown(false)
       }, 200);
     }
 
-    function handleMouseLeave(){
+    function handleMouseLeave() {
       setTimeout(() => {
-          setDropDown(false);
+        setDropDown(false);
       }, 200);
     }
 
-    return(
-      (isLoggedIn) ? 
-      <div style={{position: 'relative'}} onBlur={handleBlurContainer}
-        onMouseEnter={()=>{setDropDown(true);}} 
-        onMouseLeave={handleMouseLeave}>
-        <div className="Header-DropDown-Title">
-          <img src="/img/My_Info.svg"/>      
-        </div>
-        {isDropDown && 
-          <div className='Header-InfoDropDown-Container'>
-            <div 
-              className='Header-InfoDropDown-Menu' 
-              onClick={handleLogOut}
-            >
-              로그아웃
-            </div>
-            <div 
-              className='Header-InfoDropDown-Menu' 
-              onClick={()=>{navigate('/myStore')}}
-            >
-              내 정보
-            </div>
+    return (
+      (isLoggedIn) ?
+        <div style={{ position: 'relative' }} onBlur={handleBlurContainer}
+          onMouseEnter={() => { setDropDown(true); }}
+          onMouseLeave={handleMouseLeave}>
+          <div className="Header-DropDown-Title">
+            <img src="/img/My_Info.svg" />
           </div>
-        }
-      </div>
-      : <div 
+          {isDropDown &&
+            <div className='Header-InfoDropDown-Container'>
+              <div
+                className='Header-InfoDropDown-Menu'
+                onClick={handleLogOut}
+              >
+                로그아웃
+              </div>
+              <div
+                className='Header-InfoDropDown-Menu'
+                onClick={() => { navigate('/myStore') }}
+              >
+                내 정보
+              </div>
+            </div>
+          }
+        </div>
+        : <div
           onClick={handleLogin}
-          style={{fontFamily: 'NotoSansKR-Medium', cursor: 'pointer'}}
+          style={{ fontFamily: 'NotoSansKR-Medium', cursor: 'pointer' }}
         >
           로그인
         </div>
@@ -167,7 +181,7 @@ function Header() {
       <div className='Header-First'>
         <div className='Header-First-Logo'>
           <a href="/">
-            <Image src="/img/Logo_horizontal.svg"/>
+            <Image src="/img/Logo_horizontal.svg" />
           </a>
         </div>
         <div className='Header-First-SearchBar'>
@@ -175,7 +189,7 @@ function Header() {
         </div>
         <div className='Header-First-Menu'>
           <div className='Header-First-Menu-Buttons'>
-            <CategoryDropDown/>
+            <CategoryDropDown />
           </div>
           <div className='Header-First-Menu-Buttons'>
             <Link to="/chatList" className='Header-Menu-Link'>채팅내역</Link>
@@ -186,7 +200,7 @@ function Header() {
               <Link onClick={handleLogin} className='Header-Menu-Link'>판매하기</Link>}
           </div>
           <div className='Header-First-Menu-Buttons'>
-            <MyInfoDropDown/>
+            <MyInfoDropDown />
           </div>
         </div>
       </div>

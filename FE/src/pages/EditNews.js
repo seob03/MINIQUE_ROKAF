@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { ButtonMediumBlue, ButtonMediumGray } from '../components/Buttons';
 import { ReactComponent as AddImage } from '../components/AddImage.svg';
 import './style/EditNews.css';
+import { showAlert } from '../components/Util.js';
 
 function EditNews() {
     let { id } = useParams();
@@ -37,27 +38,42 @@ function EditNews() {
     }, [id])
 
     function handleEdit() {
-        fetch(('/editPost/' + id), {
+        fetch(`/editPost/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                productName: (상품명 ? 상품명 : defaultInfo.productName),
-                productDetailContent: (상품상세설명 ? 상품상세설명 : defaultInfo.productDetailContent),
-                productPhoto: (이미지들 ? 이미지들 : defaultInfo.productPhoto),
-                childAge: (개월수정보 ? 개월수정보 : defaultInfo.childAge),
-                productQuality: (상품상태 ? 상품상태 : defaultInfo.productQuality),
-                productPrice: (가격 ? 가격 : defaultInfo.productPrice),
+                productName: 상품명 || defaultInfo.productName,
+                productDetailContent: 상품상세설명 || defaultInfo.productDetailContent,
+                productPhoto: 이미지들 || defaultInfo.productPhoto,
+                childAge: 개월수정보 || defaultInfo.childAge,
+                productQuality: 상품상태 || defaultInfo.productQuality,
+                productPrice: 가격 || defaultInfo.productPrice,
                 like: defaultInfo.like
             })
         })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`글 수정 실패 (HTTP ${response.status})`);
+                }
+                return response.json();
+            })
             .then(data => {
                 console.log('서버 응답:', data);
-                alert('글 수정 완료')
-                navigate('/'); // 글 쓰기 완료하면 메인 페이지로
+                showAlert({
+                    title: "글 수정 완료!",
+                    text: "상품 정보가 성공적으로 수정되었습니다.",
+                    icon: "success",
+                }).then(() => {
+                    navigate('/'); // 글 수정 완료 후 메인 페이지로 이동
+                });
             })
             .catch(error => {
                 console.error('fetch 오류:', error);
+                showAlert({
+                    title: "글 수정 실패",
+                    text: "수정 중 오류가 발생했습니다.",
+                    icon: "error",
+                });
             });
     }
 
@@ -276,7 +292,6 @@ function EditNews() {
             </div>
             <div className="Edit-ButtonArea">
                 <ButtonMediumBlue text={'수정완료'} eventHandler={handleEdit} />
-                <ButtonMediumGray text={'임시저장'} eventHandler={null} />
             </div>
         </div>
     )

@@ -6,6 +6,7 @@ import { ButtonMediumBlue, ButtonMediumGray } from '../components/Buttons';
 import { ReactComponent as AddImage } from '../components/AddImage.svg';
 import CategoryDropDown from '../components/CategoryDropDown.js';
 import './style/NewsWrite.css';
+import { showAlert } from '../components/Util.js';
 
 function NewsWrite() {
     let dispatch = useDispatch();
@@ -61,60 +62,84 @@ function NewsWrite() {
         }
     }
 
+
     function PostNews() {
-        if (isLoggedIn) {
-            if (!상품명 || !상품상세설명 || !개월수정보 || !상품상태 || !가격) {
-                alert("모든 필드를 작성해주세요.");
-                return;
-            }
-
-            // 아이 개월 수 정보 필드 점검
-            if (!Number.isInteger(Number(개월수정보))) {
-                alert("아기의 개월 수 정보는 정수로 입력해주세요.");
-                return;
-            }
-            else if (개월수정보 <= 0) {
-                alert("아기의 개월 수 정보는 양수로 입력해주세요.");
-                return;
-            }
-
-            // 가격 필드 점검
-            if (!Number.isInteger(Number(가격))) {
-                alert("가격은 유효한 정수로 입력해주세요.");
-                return;
-            } else if (가격 <= 0) {
-                alert("최소 판매 가격은 1원입니다.");
-                return;
-            }
-
-            fetch('/add', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    productName: 상품명,
-                    productDetailContent: 상품상세설명,
-                    productPhoto: 이미지들,
-                    childAge: 개월수정보,
-                    productQuality: getProductStatus(상품상태),
-                    higherCategory: 상위카테고리,
-                    lowerCategory: 하위카테고리,
-                    productPrice: 가격
-                })
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('서버 응답:', data);
-                    navigate('/'); // 글 쓰기 완료하면 메인 페이지로 보내기
-                })
-                .catch(error => {
-                    console.error('fetch 오류:', error);
-                });
+        if (!isLoggedIn) {
+            dispatch(changeIsOpen(true)); // 로그인 페이지로 이동
+            return;
         }
-        else
-            dispatch(changeIsOpen(true)); // 로그인 안 되어 있으면 로그인 페이지로 이동시키기
-    }
-    // 파일 선택 핸들러
 
+        // 모든 필드 입력 여부 검사
+        if (!상품명 || !상품상세설명 || !개월수정보 || !상품상태 || !가격 || !이미지들) {
+            return showAlert({
+                title: "입력 오류",
+                text: "모든 필드를 작성해주세요.",
+                icon: "warning",
+            });
+        }
+
+        // 아이 개월 수 정보 검사
+        const age = Number(개월수정보);
+        if (!Number.isInteger(age) || age <= 0) {
+            return showAlert({
+                title: "입력 오류",
+                text: "아기의 개월 수 정보는 양의 정수로 입력해주세요.",
+                icon: "warning",
+            });
+        }
+
+        // 가격 필드 검사
+        const price = Number(가격);
+        if (!Number.isInteger(price) || price <= 0) {
+            return showAlert({
+                title: "입력 오류",
+                text: "가격은 1원 이상의 정수로 입력해주세요.",
+                icon: "warning",
+            });
+        }
+
+        // 서버 요청
+        fetch('/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                productName: 상품명,
+                productDetailContent: 상품상세설명,
+                productPhoto: 이미지들,
+                childAge: 개월수정보,
+                productQuality: getProductStatus(상품상태),
+                higherCategory: 상위카테고리,
+                lowerCategory: 하위카테고리,
+                productPrice: 가격
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(err => Promise.reject(err));
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('서버 응답:', data);
+                showAlert({
+                    title: "게시글 등록 완료!",
+                    text: "상품이 성공적으로 등록되었습니다.",
+                    icon: "success",
+                }).then(() => {
+                    navigate('/'); // 글 쓰기 완료하면 메인 페이지로
+                });
+            })
+            .catch(error => {
+                console.error('fetch 오류:', error);
+                showAlert({
+                    title: "서버 오류",
+                    text: "상품 등록에 실패했습니다.",
+                    icon: "error",
+                });
+            });
+    }
+
+    // 파일 선택 핸들러
     function UploadBox() {
         const [isActive, setActive] = useState(false);
 
@@ -337,8 +362,8 @@ function NewsWrite() {
                     카테고리
                 </div>
                 <CategoryDropDown isActive_1={true}
-                상위카테고리={상위카테고리} 상위카테고리변경={상위카테고리변경} 
-                하위카테고리={하위카테고리} 하위카테고리변경={하위카테고리변경}
+                    상위카테고리={상위카테고리} 상위카테고리변경={상위카테고리변경}
+                    하위카테고리={하위카테고리} 하위카테고리변경={하위카테고리변경}
                 />
             </div>
             <div className="Write-Input-Row">
