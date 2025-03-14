@@ -189,7 +189,7 @@ function Header() {
         </div>
         <div className='Header-First-Menu'>
           <div className='Header-First-Menu-Buttons'>
-            <CategoryDropDown />
+            <Link to="/category" className='Header-Menu-Link'>CATEGORY</Link>
           </div>
           <div className='Header-First-Menu-Buttons'>
             <Link to="/chatList" className='Header-Menu-Link'>채팅내역</Link>

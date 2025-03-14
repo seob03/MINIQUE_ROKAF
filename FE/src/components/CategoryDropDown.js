@@ -5,8 +5,8 @@ function CategoryDropDown(props) {
     let [isDrop1, setDrop1] = useState(false);
     let [isDrop2, setDrop2] = useState(false);
 
-    const menuItems1 = ['GIRL', 'BOY'];
-    const menuItems2 = ['OUTER', 'TOP', 'BOTTOM', 'SHOES', 'ETC']
+    const menuItems1 = ['OUTER', 'TOP', 'BOTTOM', 'SHOES', 'ETC']
+    const menuItems2 = ['GIRL', 'BOY']
 
     return (
         <div style={{ display: 'flex', marginTop: '12px' }}>

@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import './style/NewsList.css';
-import { useParams } from 'react-router-dom';
 import CardSmall from '../components/CardSmall';
 import CategoryDropDown from '../components/CategoryDropDown';
 
@@ -8,23 +7,22 @@ function CategoryPage() {
     let [상위카테고리, 상위카테고리변경] = useState('');
     let [하위카테고리, 하위카테고리변경] = useState('');
     let [카테고리게시글, 카테고리게시글변경] = useState('');
-    let { cat } = useParams();
 
     // 상위 카테고리 불러오기 
     useEffect(() => {
         console.log('상위카테고리 useEffect 실행')
-        fetch(`/category/getHigherPosts?higherCategory=${cat}`, {
+        fetch(`/category/getHigherPosts?higherCategory=${상위카테고리}`, {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
             .then(response => response.json())
             .then(data => {
                 console.log('상위카테고리:', data)
-                상위카테고리변경(cat);
+                상위카테고리변경(상위카테고리);
                 카테고리게시글변경(data);
             })
             .catch(error => console.error("이전 채팅 fetch 오류:", error));
-    }, [cat])
+    }, [상위카테고리])
 
 
     const isFirstRender = useRef(true); // 첫 실행 여부를 저장할 ref
@@ -55,14 +53,25 @@ function CategoryPage() {
     return (
         <>
             <div style={{ marginTop: '30px' }}>
-                <CategoryDropDown isActive_1={false}
+                <CategoryDropDown isActive_1={true}
                     상위카테고리={상위카테고리} 상위카테고리변경={상위카테고리변경}
                     하위카테고리={하위카테고리} 하위카테고리변경={하위카테고리변경}
                 />
             </div>
+            {
+            (상위카테고리 == '' && 하위카테고리 == '') ? 
+                <>
+                    <div className="Recommend-Title">
+                        BEST
+                    </div>
+                    <div className="Recommend-Gallery">
+                        
+                    </div>
+                </>
+            :
             <div>
-                <div className="Recommend-Title">
-                    {cat.toUpperCase()} {
+                <div>
+                    {
                         (카테고리게시글.length > 0) ? (
                             카테고리게시글.map(post => (
                                 <CardSmall
@@ -74,14 +83,11 @@ function CategoryPage() {
                                     link={'/detail/' + post._id}
                                 />
                             ))
-                        ) : <div>로딩중입니다...</div>
+                        ) : <div>해당 카테고리 상품이 없습니다.</div>
                     }
                 </div>
-                <div className="Recommend-Gallery">
-                    일단 CategoryDropDwon 상위카테고리는 박스 없애고 뒤에만 박스 넣을 것.
-                    이후
-                </div>
             </div>
+            }
         </>
     );
 }
