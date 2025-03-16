@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ButtonMediumBlue, ButtonMediumGray } from '../components/Buttons';
 import { ReactComponent as AddImage } from '../components/AddImage.svg';
+import CategoryDropDown from '../components/CategoryDropDown.js';
 import './style/EditNews.css';
 import { showAlert } from '../components/Util.js';
 
@@ -13,6 +14,8 @@ function EditNews() {
     let [상품상세설명, 상품상세설명변경] = useState('');
     let [이미지들, 이미지들변경] = useState([]);
     let [개월수정보, 개월수변경] = useState('');
+    let [상위카테고리, 상위카테고리변경] = useState('상위 카테고리');
+    let [하위카테고리, 하위카테고리변경] = useState('하위 카테고리');
     let [상품상태, 상품상태변경] = useState('');
     let [가격, 가격변경] = useState('');
     const [isActive, setActive] = useState(false);
@@ -143,8 +146,8 @@ function EditNews() {
         };
 
         return (
-            <div className='Write-Image'>
-                <div className="Write-Title-2">
+            <div className='Edit-Image'>
+                <div className="Edit-Title-2">
                     이미지 업로드
                 </div>
                 <div className='upload-Container'>
@@ -195,34 +198,74 @@ function EditNews() {
         );
     }
 
+    function ItemState() {
+        return (
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                }}>
+                <fieldset className='ItemState-field'>
+                    {['좋지 않음', '사용감 있음', '보통', '좋음', '새상품'].map((text, value) => {
+                        const isSelected = 상품상태 === (value + 1);
+                        return (
+                            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', height: '56px' }}>
+                                    <div
+                                        key={value + 1}
+                                        className={`ItemState-Circle-${value + 1} ${isSelected ? "selected" : ""}`}
+                                        onClick={() => {
+                                            상품상태변경(value + 1);
+                                            console.log("선택됨:", value + 1);
+                                        }}
+                                    />
+                                </div>
+                                <div className={`label-box ${isSelected ? "selected" : ""}`}>
+                                    {text}
+                                </div>
+                            </div>
+                        );
+                    })}
+                </fieldset>
+            </form>
+        )
+    }
+
     return (
-        <div>
+        <div style={{width: '600px', justifySelf:'center'}}>
             <div className='Edit-Title-1'>
                 상품 수정하기
             </div>
             <UploadBox />
             <div className="Edit-Input-Row">
-                <div className="Edit-Title-2">
-                    상품명
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
+                    <div className="Edit-Title-2">
+                        상품명
+                    </div>
+                    <div style={{ justifycontent: 'flex-end', marginLeft: '20px', color: '#B6B2AD' }}>
+                        {상품명.length}/40
+                        {/* {
+                            (상품명.length == 0) ? 
+                            <div>{defaultInfo.productName.length}</div>
+                            : <div>{상품명.length}/40</div>
+                        } */}
+                    </div>
                 </div>
                 <input
-                    defaultValue={defaultInfo.productName}
-                    className="Edit-Input-Title"
-                    onChange={(e) => {
-                        상품명변경(e.target.value);
-                    }}
-                    type="text" />
-                <div style={{
-                    justifycontent: 'flex-end',
-                    marginLeft: '20px',
-                    marginTop: '0.6rem'
-                }}>
-
-                </div>
+                defaultValue={defaultInfo.productName}
+                className="Edit-Input-Title"
+                onChange={(e) => {
+                    상품명변경(e.target.value);
+                }}
+                type="text" />
             </div>
             <div className="Edit-Input-Row">
-                <div className="Edit-Title-2">
-                    상품 상세 설명
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
+                    <div className="Edit-Title-2">
+                        상품 상세 설명
+                    </div>
+                    <div style={{ display: 'block', marginLeft: '20px', color: '#B6B2AD' }}>
+                        {상품상세설명.length}/200
+                    </div>
                 </div>
                 <input
                     defaultValue={defaultInfo.productDetailContent}
@@ -232,62 +275,56 @@ function EditNews() {
                     }}
                     type="text"
                 />
-                <div style={{
-                    display: 'block',
-                    marginLeft: '20px',
-                    marginTop: '0.6rem'
-                }}>
-
-                </div>
             </div>
             <div className="Edit-Input-Row">
                 <div className="Edit-Title-2">
                     아이 정보 입력
                 </div>
-                <input
-                    defaultValue={defaultInfo.childAge}
-                    className="Edit-Input"
-                    onChange={(e) => {
-                        개월수변경(e.target.value);
-                    }}
-                    type="text"
-                />
-                <div style={{ marginTop: '0.6rem' }}>
-                    개월
+                <div style={{ display: 'flex', alignItems: 'center', marginTop: '12px' }}>
+                    <input
+                        defaultValue={defaultInfo.childAge}
+                        className="Edit-Input"
+                        onChange={(e) => {
+                            개월수변경(e.target.value);
+                        }}
+                        type="text"
+                    />
+                    <div style={{ fontFamily: 'NotoSansKR-Medium', fontSize: '16px', marginLeft: '12px' }}>
+                        개월
+                    </div>
                 </div>
             </div>
             <div className="Edit-Input-Row">
                 <div className="Edit-Title-2">
                     상품 상태
                 </div>
-                <input
-                    defaultValue={defaultInfo.productQuality}
-                    className="Edit-Input"
-                    onChange={(e) => {
-                        상품상태변경(e.target.value);
-                    }}
-                    type="text"
-                />
+                <ItemState/>
             </div>
             <div className="Edit-Input-Row">
                 <div className="Edit-Title-2">
                     카테고리
                 </div>
+                <CategoryDropDown isActive_1={true}
+                    상위카테고리={상위카테고리} 상위카테고리변경={상위카테고리변경}
+                    하위카테고리={하위카테고리} 하위카테고리변경={하위카테고리변경}
+                />
             </div>
             <div className="Edit-Input-Row">
                 <div className="Edit-Title-2">
                     가격
                 </div>
-                <input
-                    defaultValue={defaultInfo.productPrice}
-                    className="Edit-Input-Price"
-                    onChange={(e) => {
-                        가격변경(e.target.value);
-                    }}
-                    type="text"
-                />
-                <div style={{ marginTop: '0.6rem' }}>
-                    원
+                <div style={{ display: 'flex', alignItems: 'center', marginTop: '12px' }}>
+                    <input
+                        defaultValue={defaultInfo.productPrice}
+                        className="Edit-Input-Price"
+                        onChange={(e) => {
+                            가격변경(e.target.value);
+                        }}
+                        type="text"
+                    />
+                    <div style={{fontFamily: 'NotoSansKR-Medium', fontSize: '16px', marginLeft: '12px'}}>
+                        원
+                    </div>
                 </div>
             </div>
             <div className="Edit-ButtonArea">

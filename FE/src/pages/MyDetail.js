@@ -96,8 +96,7 @@ function MyDetail() {
                                     <div>아직 로딩중</div>
                                 )}
                             </>
-                        </div>,
-                        <div></div>
+                        </div>
                     ][props.tab]
                 }
             </div>
@@ -129,9 +128,6 @@ function MyDetail() {
                         <div style={{ marginRight: '56px' }}>
                             상품 개수 {posts.length}개
                         </div>
-                        <div>
-                            받은 후기 O건
-                        </div>
                     </div>
                 </div>
             </div>
@@ -145,10 +141,6 @@ function MyDetail() {
                     <div className="Store-Tab-Title"
                         onClick={() => setTab(1)}>
                         찜
-                    </div>
-                    <div className="Store-Tab-Title"
-                        onClick={() => setTab(2)}>
-                        후기
                     </div>
                 </div>
             </div>
