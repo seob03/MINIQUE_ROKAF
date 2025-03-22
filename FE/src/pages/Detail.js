@@ -43,7 +43,6 @@ function Detail() {
       fetch('/isLikedPost/' + id)
         .then((response) => response.json())
         .then((data) => {
-          console.log('좋아요 눌러져 있나요?:', data)
           setIsLiked(data);
         })
         .catch((error) => {
@@ -219,12 +218,11 @@ function Detail() {
 
   // 카테고리 같은 추천 게시글 불러오기
   useEffect(() => {
-    console.log('하위카테고리 useEffect 실행');
     const params = new URLSearchParams({
       higherCategory: pageResult.higherCategory,
       lowerCategory: pageResult.lowerCategory
     });
-    fetch(`/category/getLowerPosts?${params.toString()}`, {
+    fetch(`/category/getHigherPosts?${params.toString()}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -347,18 +345,20 @@ function Detail() {
       </div>
       <div>
         <div className="Recommend-Title">
-          {(recommend.length > 0) ? (
-            recommend.map(post => (
-              <CardSmall
-                photo={post.productPhoto || undefined}
-                brand={'MONCLER'}
-                title={post.productName}
-                size={post.childAge}
-                price={Number(post.productPrice).toLocaleString()}
-                link={'/detail/' + post._id}
-              />
-            ))
-          ) : <div>나중에 OUTER 같은 걸 제일 큰 카테고리로 하면 상위 카테고리불러오도록 하자.</div>}
+          {
+            (recommend.length > 0) ? (
+              recommend.map(post => (
+                <CardSmall
+                  photo={post.productPhoto || undefined}
+                  brand={'MONCLER'}
+                  title={post.productName}
+                  size={post.childAge}
+                  price={Number(post.productPrice).toLocaleString()}
+                  link={'/detail/' + post._id}
+                />
+              ))
+            ) : <div>나중에 OUTER 같은 걸 제일 큰 카테고리로 하면 상위 카테고리불러오도록 하자.</div>
+          }
         </div>
       </div>
     </div>

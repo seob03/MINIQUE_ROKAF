@@ -33,7 +33,7 @@ function LoginModal(props) {
                 console.log('서버 응답:', data);
                 showAlert({
                     title: "로그인 성공!",
-                    text: "쇼핑을 시작해봅시다 😊",
+                    text: "좋아요! 쇼핑을 시작해 봅시다. 😊",
                     icon: "success",
                 }).then(() => {
                     dispatch(changeLogIn(true));

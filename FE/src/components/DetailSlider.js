@@ -8,7 +8,6 @@ function DetailSlider(props) {
     const TOTAL_SLIDES = props.data?.length || 0;
     const slideRef = useRef(null);
 
-    console.log(TOTAL_SLIDES);
     const nextSlide = () => {
         if (currentSlide >= TOTAL_SLIDES - 1) {
             setCurrentSlide(0);

@@ -17,4 +17,11 @@ router.get('/category/getLowerPosts/', async (요청, 응답) => {
     응답.json(lowerCategoryPosts)
 })
 
+// BEST (찜 많은 순으로) 카테고리 상품 불러오기
+router.get('/category/getBESTPosts/', async (요청, 응답) => {
+    const db = 요청.db
+    let BESTPosts = await db.collection('post').find().sort({ like: -1 }).toArray()
+    응답.json(BESTPosts)
+})
+
 module.exports = router

@@ -317,14 +317,14 @@ function ChatList() {
               ))}
             </>
           ) : (
-            <div>구매하려는 게시글에서 채팅하기를 눌러 채팅을 시작해보세요. 😊</div>
+            <div>거래중인 상품이 없어요! 구매하려는 게시글에서 채팅하기를 눌러 채팅을 시작해주세요.</div>
           )}
         </div>
         {/* props로 채팅방에 관련 정보 넘기기 */}
         <div className="chat-room">
           {(chatID !== '') ?
             <ChatRoom chat_id={chatID} sellerName={sellerName} productName={productName} productPrice={productPrice} productFrontPhoto={productFrontPhoto} productID={productID} />
-            : <div> 채팅을 시작하려면 왼쪽에서 대화를 선택해주세요. 😊</div>
+            : <div>채팅을 시작하려면 왼쪽에서 대화를 선택해주세요. 😊</div>
           }
         </div>
       </div>
