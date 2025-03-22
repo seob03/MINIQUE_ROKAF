@@ -252,9 +252,8 @@ function Detail() {
             <div className="HeartBox">
               <div>
                 {(isLiked) ?
-                  <div onClick={() => { HeartOFF() }} style={{ fontSize: '20px', color: '#DB4437', cursor: 'pointer' }}>♥</div>
-                  :
-                  <div onClick={() => { HeartON() }} style={{ fontSize: '20px', color: '#212120', cursor: 'pointer' }}>♡</div>
+                  <img src="/img/Heart_Fill.svg" onClick={()=>{HeartOFF()}} className='HeartBox-Image'/>
+                  :<img src="/img/Heart_Unfill.svg" onClick={()=>{HeartON()}} className='HeartBox-Image'/>
                 }
               </div>
               <div>
