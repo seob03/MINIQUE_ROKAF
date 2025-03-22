@@ -95,23 +95,21 @@ function CategoryPage() {
                         </div>
                     </>
                     :
-                    <div>
-                        <div>
-                            {
-                                (카테고리게시글.length > 0) ? (
-                                    카테고리게시글.map(post => (
-                                        <CardSmall
-                                            photo={post.productPhoto || undefined}
-                                            brand={'MONCLER'}
-                                            title={post.productName}
-                                            size={post.childAge}
-                                            price={Number(post.productPrice).toLocaleString()}
-                                            link={'/detail/' + post._id}
-                                        />
-                                    ))
-                                ) : <div>해당 카테고리 상품이 없습니다.</div>
-                            }
-                        </div>
+                    <div className='Category-Result'>
+                        {
+                            (카테고리게시글.length > 0) ? (
+                                카테고리게시글.map(post => (
+                                    <CardSmall
+                                        photo={post.productPhoto || undefined}
+                                        brand={'MONCLER'}
+                                        title={post.productName}
+                                        size={post.childAge}
+                                        price={Number(post.productPrice).toLocaleString()}
+                                        link={'/detail/' + post._id}
+                                    />
+                                ))
+                            ) : <div>해당 카테고리 상품이 없습니다.</div>
+                        }
                     </div>
             }
         </>

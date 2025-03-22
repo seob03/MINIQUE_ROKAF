@@ -122,6 +122,13 @@
     cursor: pointer;
 }
 
+.Detail-Recommend {
+    display: flex;
+    flex-wrap: wrap;
+    gap : 84px;
+    justify-content: flex-start;
+}
+
 .HeartBox {
     display: flex;
     flex-direction: column;

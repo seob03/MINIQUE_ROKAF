@@ -342,23 +342,21 @@ function Detail() {
       <div style={{ display: 'block', fontSize: '20px', fontFamily: 'NotoSansKR-Medium', marginTop: '180px' }}>
         같은 카테고리의 상품
       </div>
-      <div>
-        <div className="Recommend-Title">
-          {
-            (recommend.length > 0) ? (
-              recommend.map(post => (
-                <CardSmall
-                  photo={post.productPhoto || undefined}
-                  brand={'MONCLER'}
-                  title={post.productName}
-                  size={post.childAge}
-                  price={Number(post.productPrice).toLocaleString()}
-                  link={'/detail/' + post._id}
-                />
-              ))
-            ) : <div>나중에 OUTER 같은 걸 제일 큰 카테고리로 하면 상위 카테고리불러오도록 하자.</div>
-          }
-        </div>
+      <div className="Detail-Recommend">
+        {
+          (recommend.length > 0) ? (
+            recommend.map(post => (
+              <CardSmall
+                photo={post.productPhoto || undefined}
+                brand={'MONCLER'}
+                title={post.productName}
+                size={post.childAge}
+                price={Number(post.productPrice).toLocaleString()}
+                link={'/detail/' + post._id}
+              />
+            ))
+          ) : <div>나중에 OUTER 같은 걸 제일 큰 카테고리로 하면 상위 카테고리불러오도록 하자.</div>
+        }
       </div>
     </div>
   );

@@ -29,3 +29,10 @@
     justify-content: flex-start;
     align-items: flex-start;
 }
+
+.Category-Result {
+    display: flex;
+    flex-wrap: wrap;
+    gap : 84px;
+    justify-content: flex-start;
+}

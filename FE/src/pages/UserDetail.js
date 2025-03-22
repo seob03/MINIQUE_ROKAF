@@ -72,7 +72,7 @@ function UserDetail() {
                                 <div>아직 로딩중</div>
                             )}
                         </>,
-                        <div>후기 내용</div>
+                        <div>판매완료된 상품들</div>
                     ][props.tab]
                 }
             </div>
@@ -104,9 +104,6 @@ function UserDetail() {
                         <div style={{ marginRight: '56px' }}>
                             상품 개수 {posts.length}
                         </div>
-                        <div>
-                            후기 O건
-                        </div>
                     </div>
                 </div>
             </div>
@@ -119,7 +116,7 @@ function UserDetail() {
                     </div>
                     <div className="Store-Tab-Title"
                         onClick={() => setTab(1)}>
-                        후기
+                        판매완료
                     </div>
                 </div>
             </div>
