@@ -10,7 +10,7 @@ function CategoryPage() {
 
     const isFirstRender = useRef(true); // 첫 실행 여부를 저장할 ref
 
-    // ✅ BEST 카테고리 불러오기 (첫 렌더링 때만 실행)
+    // BEST 카테고리 불러오기 (첫 렌더링 때만 실행)
     useEffect(() => {
         fetch('/category/getBESTPosts/', {
             method: 'GET',
@@ -23,7 +23,7 @@ function CategoryPage() {
             .catch(error => console.error("BEST 카테고리 fetch 오류:", error));
     }, []);
 
-    // ✅ 상위 카테고리 불러오기 (상위카테고리 변경 시 실행)
+    // 상위 카테고리 불러오기 (상위카테고리 변경 시 실행)
     useEffect(() => {
         if (!상위카테고리) return; // 상위카테고리가 없으면 요청 안 함
         fetch(`/category/getHigherPosts?higherCategory=${상위카테고리}`, {
@@ -38,7 +38,7 @@ function CategoryPage() {
             .catch(error => console.error("상위 카테고리 fetch 오류:", error));
     }, [상위카테고리]);
 
-    // ✅ 하위 카테고리 불러오기 (첫 실행 제외)
+    // 하위 카테고리 불러오기 (첫 실행 제외)
     useEffect(() => {
         if (isFirstRender.current) {
             isFirstRender.current = false; // 첫 실행을 무시하고, 다음부터 실행되도록 설정

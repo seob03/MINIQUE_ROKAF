@@ -40,6 +40,25 @@ function EditNews() {
         fetchData(id);
     }, [id])
 
+
+    // 제품 상태에 따라 String으로 변환하는 메서드
+    function getProductStatus(status) {
+        switch (status) {
+            case 1:
+                return "좋지 않음";  // 예: 판매 중
+            case 2:
+                return "사용감 있음"; // 예: 일시 품절
+            case 3:
+                return "보통";  // 예: 품절
+            case 4:
+                return "좋음";  // 예: 예약 판매
+            case 5:
+                return "새상품";  // 예: 단종
+            default:
+                return "알 수 없음";  // 예: 유효하지 않은 상태
+        }
+    }
+
     function handleEdit() {
         fetch(`/editPost/${id}`, {
             method: 'PUT',
@@ -49,7 +68,9 @@ function EditNews() {
                 productDetailContent: 상품상세설명 || defaultInfo.productDetailContent,
                 productPhoto: 이미지들 || defaultInfo.productPhoto,
                 childAge: 개월수정보 || defaultInfo.childAge,
-                productQuality: 상품상태 || defaultInfo.productQuality,
+                productQuality: getProductStatus(상품상태) || defaultInfo.productQuality,
+                higherCategory: 상위카테고리,
+                lowerCategory: 하위카테고리,
                 productPrice: 가격 || defaultInfo.productPrice,
                 like: defaultInfo.like
             })
@@ -231,7 +252,7 @@ function EditNews() {
     }
 
     return (
-        <div style={{width: '600px', justifySelf:'center'}}>
+        <div style={{ width: '600px', justifySelf: 'center' }}>
             <div className='Edit-Title-1'>
                 상품 수정하기
             </div>
@@ -251,12 +272,12 @@ function EditNews() {
                     </div>
                 </div>
                 <input
-                defaultValue={defaultInfo.productName}
-                className="Edit-Input-Title"
-                onChange={(e) => {
-                    상품명변경(e.target.value);
-                }}
-                type="text" />
+                    defaultValue={defaultInfo.productName}
+                    className="Edit-Input-Title"
+                    onChange={(e) => {
+                        상품명변경(e.target.value);
+                    }}
+                    type="text" />
             </div>
             <div className="Edit-Input-Row">
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
@@ -298,7 +319,7 @@ function EditNews() {
                 <div className="Edit-Title-2">
                     상품 상태
                 </div>
-                <ItemState/>
+                <ItemState />
             </div>
             <div className="Edit-Input-Row">
                 <div className="Edit-Title-2">
@@ -322,7 +343,7 @@ function EditNews() {
                         }}
                         type="text"
                     />
-                    <div style={{fontFamily: 'NotoSansKR-Medium', fontSize: '16px', marginLeft: '12px'}}>
+                    <div style={{ fontFamily: 'NotoSansKR-Medium', fontSize: '16px', marginLeft: '12px' }}>
                         원
                     </div>
                 </div>
