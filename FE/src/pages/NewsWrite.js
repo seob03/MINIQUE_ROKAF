@@ -19,6 +19,8 @@ function NewsWrite() {
     let [하위카테고리, 하위카테고리변경] = useState('하위 카테고리');
     let [상품상태, 상품상태변경] = useState('');
     let [가격, 가격변경] = useState('');
+    // 생후 개월 수 옵션
+    const months = Array.from({ length: 120 }, (_, index) => index + 1); // 1개월부터 120개월까지
 
     let navigate = useNavigate();
     let [isLoggedIn, setIsLoggedIn] = useState(null); // 로그인 상태를 추적할 상태
@@ -338,18 +340,29 @@ function NewsWrite() {
                     아이 정보 입력
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', marginTop: '12px' }}>
-                    <input
-                        placeholder="아기가 입고 다닌 당시의 생후 개월 수를 입력해 주세요!"
-                        className="Write-Input"
-                        onChange={(e) => {
-                            개월수변경(e.target.value);
+                    <select
+                        value={개월수정보}
+                        onChange={(e) => 개월수변경(Number(e.target.value))} // select 값 변경 시 상태 업데이트
+                        style={{
+                            padding: '8px 16px',
+                            fontSize: '16px',
+                            borderRadius: '8px',
+                            border: '1px solid #ccc',
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                            backgroundColor: '#f8f8f8',
+                            transition: 'all 0.3s ease',
+                            cursor: 'pointer',
                         }}
-                        type="text"
-                    />
-                    <div style={{ fontFamily: 'NotoSansKR-Medium', fontSize: '16px', marginLeft: '12px' }}>
-                        개월
-                    </div>
+                    >
+                        <option value={0}>선택하세요</option>
+                        {months.map((month) => (
+                            <option key={month} value={month}>
+                                {month} 개월
+                            </option>
+                        ))}
+                    </select>
                 </div>
+
             </div>
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">
