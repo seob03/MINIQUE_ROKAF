@@ -209,21 +209,25 @@ function ChatList() {
                   (
                     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
                       <img src={msg.image} alt="보낸 이미지" className='chat-image' />
-                      <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', alignItems: 'center', justifyContent: 'center' }}>
-                        <span className='chatting-bubble-my-timestamp'>
+                      <div style={{ display: 'flex', flexDirection: 'row', gap: '4px', alignItems: 'flex-end', justifyContent: 'center' }}>
+                        <div className='chatting-bubble-my-timestamp'>
+                          <div className='chatting-bubble-isread'>
+                            {msg.isRead ? '' : '1'}
+                          </div>
                           {formatTimestamp(msg.timestamp)}
-                          {msg.isRead ? '읽음' : '안 읽음'}
-                        </span>
+                        </div>
                         <span className='chatting-bubble-my-text'>{msg.text}</span>
                       </div>
                     </div>
                   ) : msg.image ? <img src={msg.image} alt="보낸 이미지" className='chat-image' />
                     :
-                    <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', alignItems: 'center', justifyContent: 'center' }}>
-                      <span className='chatting-bubble-my-timestamp'>
+                    <div style={{ display: 'flex', flexDirection: 'row', gap: '0px', alignItems: 'flex-end', justifyContent: 'center' }}>
+                      <div className='chatting-bubble-my-timestamp'>
+                        <div className='chatting-bubble-isread'>
+                          {msg.isRead ? '' : '1'}
+                        </div>
                         {formatTimestamp(msg.timestamp)}
-                        {msg.isRead ? '읽음' : '안 읽음'}
-                      </span>
+                      </div>
                       <span className='chatting-bubble-my-text'>{msg.text}</span>
                     </div>
                 }
@@ -233,22 +237,26 @@ function ChatList() {
                 {msg.image && msg.text ? (
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                     <img src={msg.image} alt="받은 이미지" className='chat-image' />
-                    <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', gap: '0px', alignItems: 'flex-end', justifyContent: 'center' }}>
                       <span className='chatting-bubble-your-text'>{msg.text}</span>
-                      <span className='chatting-bubble-your-timestamp'>
+                      <div className='chatting-bubble-your-timestamp'>
+                        <div className='chatting-bubble-isread'>
+                          {msg.isRead ? '' : '1'}
+                        </div>
                         {formatTimestamp(msg.timestamp)}
-                        {msg.isRead ? '읽음' : '안 읽음'}
-                      </span>
+                      </div>
                     </div>
                   </div>
                 ) : msg.image ? <img src={msg.image} alt="보낸 이미지" className='chat-image' />
                   :
-                  <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ display: 'flex', flexDirection: 'row', gap: '0px', alignItems: 'flex-end', justifyContent: 'center' }}>
                     <span className='chatting-bubble-your-text'>{msg.text}</span>
-                    <span className='chatting-bubble-your-timestamp'>
+                    <div className='chatting-bubble-your-timestamp'>
+                      <div className='chatting-bubble-isread'>
+                        {msg.isRead ? '' : '1'}
+                      </div>
                       {formatTimestamp(msg.timestamp)}
-                      {msg.isRead ? '읽음' : '안 읽음'}
-                    </span>
+                    </div>
                   </div>
                 }
               </div>
