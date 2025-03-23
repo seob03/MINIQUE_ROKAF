@@ -6,12 +6,38 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.json({ limit: '10mb' }));
 const path = require('path');
 
+// 해당 유저가 판매중인 상품 보여주기
+router.get('/userSellingPosts/:user_id', async (요청, 응답) => {
+    const db = 요청.db;
+    try {
+        let result = await db.collection('post').find({ isSell: { $ne: true } }).toArray();
+        응답.json(result);
+    }
+    catch (error) {
+        응답.status(500).send('Database error');
+    }
+})
+
+
+// 해당 유저가 판매 완료한 상품만 보여주기
+router.get('/userSoldPosts/:user_id', async (요청, 응답) => {
+    const db = 요청.db;
+    try {
+        let result = await db.collection('post').find({ isSell: { $ne: false } }).toArray();
+        응답.json(result);
+    }
+    catch (error) {
+        응답.status(500).send('Database error');
+    }
+})
+
 // 해당 글 작성자의 작성 글 모두 제공하는 API
-router.get('/userPosts/:user_id', async (요청, 응답) => {
+router.get('/userSoldProduct/:id', async (요청, 응답) => {
     const db = 요청.db;  // 요청 객체에서 db 가져오기
-    let posts = await db.collection('post').find({ user_id: 요청.params.user_id }).toArray();
+    let posts = await db.collection('post').find({ user_id: 요청.params.user_id, isSell: true }).toArray();
     응답.json(posts);
 })
+
 
 // 해당 글 작성자 정보를 받아오는 API
 router.get('/userInfo/:id', async (요청, 응답) => {
@@ -20,5 +46,7 @@ router.get('/userInfo/:id', async (요청, 응답) => {
     delete userInfoData.password; // 해당 유저의 password 제거하고 전송
     응답.json(userInfoData);
 })
+
+
 
 module.exports = router

@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 router.use(bodyParser.json({ limit: '10mb' }));
 const path = require('path');
 
-// 메인 페이지에서 판매가 되지 않은 상품들만 보여줌
+// 판매중인 게시글만 불러오기
 router.get('/getPostLists', async (요청, 응답) => {
   db = 요청.db;
   try {

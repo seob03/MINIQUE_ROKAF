@@ -72,9 +72,9 @@ function Detail() {
   // 판매 처리 함수
   function sold() {
     showConfirm({
-      title: "상품을 판매 완료로 변경하시겠습니까?",
+      title: "판매 완료로 변경하시겠습니까?",
       text: "한 번 변경하면 되돌릴 수 없습니다.",
-      confirmText: "네, 판매 완료 처리합니다!",
+      confirmText: "네, 판매 완료 됐어요!",
       cancelText: "아니요, 취소할래요!",
     }).then((result) => {
       if (result.isConfirmed) {

@@ -9,12 +9,14 @@ import './style/UserDetail.css';
 function UserDetail() {
     let [tab, setTab] = useState(0);
     let { user_id } = useParams();
-    let [posts, setPosts] = useState([]);
+    let [sellingPosts, setSellingPosts] = useState([]);
+    let [soldPosts, setSoldPosts] = useState([]);
     let [userInfo, setUserInfo] = useState('') // username, _id 필드 반환
+
     useEffect(() => {
-        // 두 개의 fetch 요청을 병렬로 처리
+        // 세 개의 fetch 요청을 병렬로 처리
         Promise.all([
-            fetch('/userPosts/' + user_id, {
+            fetch('/userSellingPosts/' + user_id, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
             }).then(response => response.json()),
@@ -22,22 +24,23 @@ function UserDetail() {
             fetch('/userInfo/' + user_id, {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json' },
-            }).then(response => response.json())
+            }).then(response => response.json()),
+
+            fetch('/userSoldPosts/' + user_id, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json' },
+            }).then(response => response.json()),
         ])
-            .then(([postsData, userInfoData]) => {
-                // 두 요청이 성공적으로 완료된 후 결과 처리
-                setPosts(postsData);
+            .then(([sellingPostsData, userInfoData, soldPostsData]) => { // 세 개의 응답 데이터 처리
+                setSellingPosts(sellingPostsData);
                 setUserInfo(userInfoData);
-                console.log('서버 응답 >> postsData:', postsData, 'userInfoData:', userInfoData);
+                setSoldPosts(soldPostsData);
+                console.log('서버 응답 >> sellingPostsData:', sellingPostsData, 'userInfoData:', userInfoData, 'soldPostsData:', soldPostsData);
             })
             .catch(error => {
                 console.error('fetch 오류:', error);
             });
     }, [user_id]);
-
-    useEffect(() => {
-        console.log('posts:', posts)
-    }, [posts])
 
     function TabContent(props) {
         let [fade, setFade] = useState('')
@@ -55,9 +58,9 @@ function UserDetail() {
                 {
                     [
                         <>
-                            {props.posts && props.posts.length > 0 ? (
+                            {props.sellingPosts && props.sellingPosts.length > 0 ? (
                                 <div className='TabContent-Item'>
-                                    {props.posts.map(post => (
+                                    {props.sellingPosts.map(post => (
                                         <CardSmall
                                             photo={post.productPhoto || undefined}
                                             brand={'Brand'}
@@ -69,10 +72,27 @@ function UserDetail() {
                                     ))}
                                 </div>
                             ) : (
-                                <div>아직 로딩중</div>
+                                <div>판매중인 상품이 없습니다.</div>
                             )}
                         </>,
-                        <div>판매완료된 상품들</div>
+                        <>
+                            {props.soldPosts && props.soldPosts.length > 0 ? (
+                                <div className='TabContent-Item'>
+                                    {props.soldPosts.map(post => (
+                                        <CardSmall
+                                            photo={post.productPhoto || undefined}
+                                            brand={'Brand'}
+                                            title={post.productName}
+                                            size={post.childAge}
+                                            price={post.productPrice}
+                                            link={'/detail/' + post._id}
+                                        />
+                                    ))}
+                                </div>
+                            ) : (
+                                <div>판매한 상품이 없습니다.</div>
+                            )}
+                        </>
                     ][props.tab]
                 }
             </div>
@@ -99,10 +119,10 @@ function UserDetail() {
                     </div>
                     <div className='Store-Content-Detail'>
                         <div style={{ marginRight: '56px' }}>
-                            상품 판매 OO회
+                            상품 판매 {soldPosts.length}회
                         </div>
                         <div style={{ marginRight: '56px' }}>
-                            상품 개수 {posts.length}
+                            판매중인 상품 개수 {sellingPosts.length}
                         </div>
                     </div>
                 </div>
@@ -111,7 +131,7 @@ function UserDetail() {
                 <div class="Store-Tab">
                     <div className="Store-Tab-Title"
                         onClick={() => setTab(0)}>
-                        상품
+                        판매중
                         {(tab == '0') ?? <img src='/img/Tab_Bar.svg' style={{ width: '60px' }} />}
                     </div>
                     <div className="Store-Tab-Title"
@@ -120,7 +140,7 @@ function UserDetail() {
                     </div>
                 </div>
             </div>
-            <TabContent tab={tab} posts={posts} />
+            <TabContent tab={tab} sellingPosts={sellingPosts} soldPosts={soldPosts} />
         </>
     );
 }
