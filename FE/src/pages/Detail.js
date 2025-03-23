@@ -125,7 +125,7 @@ function Detail() {
         })
           .then((response) => response.json())
           .then((data) => {
-            if (data === true) {
+            if (data.success === true) {
               showAlert({
                 title: "삭제 완료!",
                 text: "글이 정상적으로 삭제되었습니다.",

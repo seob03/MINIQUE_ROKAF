@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from "react-router-dom";
-
-import Card from '../components/Card';
 import CardSmall from '../components/CardSmall';
-
 import './style/UserDetail.css';
 
 function UserDetail() {
@@ -16,20 +13,9 @@ function UserDetail() {
     useEffect(() => {
         // 세 개의 fetch 요청을 병렬로 처리
         Promise.all([
-            fetch('/userSellingPosts/' + user_id, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            }).then(response => response.json()),
-
-            fetch('/userInfo/' + user_id, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            }).then(response => response.json()),
-
-            fetch('/userSoldPosts/' + user_id, {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json' },
-            }).then(response => response.json()),
+            fetch('/userSellingPosts/' + user_id, { method: 'GET', headers: { 'Content-Type': 'application/json' }, }).then(response => response.json()),
+            fetch('/userInfo/' + user_id, { method: 'GET', headers: { 'Content-Type': 'application/json' }, }).then(response => response.json()),
+            fetch('/userSoldPosts/' + user_id, { method: 'GET', headers: { 'Content-Type': 'application/json' }, }).then(response => response.json()),
         ])
             .then(([sellingPostsData, userInfoData, soldPostsData]) => { // 세 개의 응답 데이터 처리
                 setSellingPosts(sellingPostsData);

@@ -81,4 +81,20 @@ router.get('/chat/getUserInfo', async (요청, 응답) => {
     응답.json({ message: "로그인이 안되어있는 유저입니다." })
 })
 
+// 채탱방 나가기
+router.get('/chat/exitChatRoom/:chatRoomId', async (요청, 응답) => {
+  try {
+    const db = 요청.db;
+    const result = await db.collection('post').deleteOne({ _id: new ObjectId(요청.params.chatRoomId) });
+    if (result.deletedCount === 0) {
+      return 응답.status(404).json({ message: '채팅방을 찾을 수 없습니다.' });
+    }
+    응답.json({ message: '채팅방이 성공적으로 삭제되었습니다.' });
+  } catch (error) {
+    console.error('채팅방 삭제 중 오류 발생:', error);
+    응답.status(500).json({ message: '서버 오류가 발생했습니다.' });
+  }
+});
+
+
 module.exports = router;
