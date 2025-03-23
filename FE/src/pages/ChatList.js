@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { io } from "socket.io-client";
 import './style/ChatList.css';
+import { showAlert, showConfirm } from '../components/Util.js';
 const socket = io("http://localhost:8080");
 
 function ChatList() {
@@ -50,7 +51,6 @@ function ChatList() {
       })
         .then(response => response.json())
         .then(data => {
-          console.log('check: ', data)
           setMe(data.username);
         })
         .catch(error => console.error('fetch 오류:', error));
@@ -81,7 +81,6 @@ function ChatList() {
       if (!me) return;
       const unreadMessages = messages
         .filter(msg => {
-          console.log('msg', msg)
           const isUnread = !msg.isRead;
           const isNotMine = msg.user !== me;
           const isNotProcessed = !lastReadRef.current.has(msg._id);
@@ -179,17 +178,59 @@ function ChatList() {
       }
     };
 
+    function exitChatRoom() {
+      showConfirm({
+        title: "채팅방을 나갈까요?",
+        text: "삭제된 채팅방은 복구할 수 없습니다.",
+        confirmText: "네, 나갈래요!",
+        cancelText: "아니요, 안나갈래요!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch('/chat/exitChatRoom/' + chatRoomId, {
+            method: "GET",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success === true) {
+                showAlert({
+                  title: "채팅 나가기 완료!",
+                  icon: "success",
+                }).then(() => {
+                  navigate(0);
+                });
+              } else {
+                showAlert({
+                  title: "채팅 나가기 실패",
+                  text: "다시 시도해 주세요 !",
+                  icon: "error",
+                });
+              }
+            })
+            .catch((error) => {
+              console.error("Error fetching data:", error);
+              showAlert({
+                title: "오류 발생!",
+                text: "채팅방을 나가던 중 오류가 발생했습니다.",
+                icon: "error",
+              });
+            });
+        }
+      });
+    }
+
+
+
     return (
       <div className="chatting-box">
         <div className="chatting-opponent">
-          <div style={{display: 'flex', alignItems: 'center'}}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <div className='chatting-opponent-img'>
               <img src='/img/jilsander.png' className='chat-list-box-imgsource' alt="상점" />
             </div>
             <div className='chatting-opponent-text'>{props.sellerName}</div>
           </div>
-          <div className='chatting-out-button'>
-            <div className='exit-img'/>
+          <div className='chatting-out-button' onClick={() => { exitChatRoom() }}>
+            <div className='exit-img' />
           </div>
         </div>
         <div className="chatting-item" onClick={() => { navigate('/detail/' + props.productID) }}>
@@ -330,14 +371,14 @@ function ChatList() {
               ))}
             </>
           ) : (
-            <div>거래중인 상품이 없어요!</div>
+            null
           )}
         </div>
         {/* props로 채팅방에 관련 정보 넘기기 */}
         <div className="chat-room">
           {(chatID !== '') ?
             <ChatRoom chat_id={chatID} sellerName={sellerName} productName={productName} productPrice={productPrice} productFrontPhoto={productFrontPhoto} productID={productID} />
-            : <div>채팅을 시작하려면 왼쪽에서 대화를 선택해주세요. 😊</div>
+            : <div>채팅을 시작하려면 왼쪽에서 대화를 선택해주세요. 채팅 만들려면 알제?😊</div>
           }
         </div>
       </div>

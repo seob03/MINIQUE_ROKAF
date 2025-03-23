@@ -6,7 +6,6 @@ import DetailSlider from "../components/DetailSlider.js";
 import { ButtonMedium, WideButton, DeleteButtonHalf } from '../components/Buttons';
 import { changeIsOpen } from "../store/store.js";
 import './style/Detail.css';
-import Swal from 'sweetalert2';
 import { showAlert, showConfirm } from '../components/Util.js';
 
 function Detail() {
