@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { changeIsSignUpOpen } from "../store/store.js";
 import './style/SignUpModal.css';
+import { showAlert } from './Util.js';
 
 function SignUpModal() {
     let [new_userID, setUserID] = useState('');
@@ -26,7 +27,6 @@ function SignUpModal() {
             </div>
         );
     }
-
     function SignUp() {
         fetch('/trySignUp', {
             method: 'POST',
@@ -35,23 +35,30 @@ function SignUpModal() {
         })
             .then(response => {
                 if (!response.ok) {
-                    // HTTP 상태 코드가 400~599인 경우 에러 처리
                     return response.json().then(err => { throw new Error(err.message); });
                 }
                 return response.json();
             })
-
             .then(data => {
-                alert(data.message)
+                showAlert({
+                    title: '🎊 환영합니다 🎊',
+                    text: '회원가입이 성공적으로 완료되었습니다.',
+                    icon: 'success'
+                }).then(() => {
+                    dispatch(changeIsSignUpOpen(false));
+                    navigate(0)
+                });
                 console.log('서버 응답:', data);
-                dispatch(changeIsSignUpOpen(false));
             })
             .catch(error => {
-                alert(`회원가입 실패: ${error.message}`);
+                showAlert({
+                    title: '회원가입 실패',
+                    text: error.message,
+                    icon: 'error'
+                });
                 console.error('fetch 오류:', error);
             });
     }
-
     return (
         (isSignUpOpen) ?
             <div className='SignUpModal-Wrapper'>

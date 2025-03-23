@@ -71,7 +71,7 @@ function Detail() {
   // 판매 처리 함수
   function sold() {
     showConfirm({
-      title: "판매 완료로 변경하시겠습니까?",
+      title: "판매 완료로 변경하시겠어요?",
       text: "한 번 변경하면 되돌릴 수 없습니다.",
       confirmText: "네, 판매 완료 됐어요!",
       cancelText: "아니요, 취소할래요!",
@@ -85,8 +85,8 @@ function Detail() {
           .then((data) => {
             if (data.success) {
               showAlert({
-                title: "판매 완료!",
-                text: "상품이 성공적으로 판매 완료 처리되었습니다.",
+                title: "판매 완료",
+                text: "상품이 성공적으로 거래되었습니다.",
                 icon: "success",
               }).then(() => {
                 navigate("/");
@@ -102,7 +102,7 @@ function Detail() {
           .catch((error) => {
             console.error("판매 처리 fetch 오류:", error);
             showAlert({
-              title: "오류 발생!",
+              title: "오류 발생",
               text: "판매 완료 처리 중 오류가 발생했습니다.",
               icon: "error",
             });

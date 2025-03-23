@@ -8,7 +8,6 @@ import { showAlert } from './Util.js';
 function LoginModal(props) {
     let [input_userName, setUserName] = useState(''); // 실시간 입력값 받아오기
     let [input_userPassword, setUserPassword] = useState('');
-
     let isOpen = useSelector((state) => { return state.isOpen })
     let dispatch = useDispatch();
 
@@ -32,13 +31,13 @@ function LoginModal(props) {
             .then(data => {
                 console.log('서버 응답:', data);
                 showAlert({
-                    title: "로그인 성공!",
-                    text: "좋아요! 쇼핑을 시작해 봅시다. 😊",
+                    title: "🎉 다시 만나서 반가워요! 🎉",
+                    text: "지금 바로 쇼핑을 시작해 보세요.",
                     icon: "success",
                 }).then(() => {
                     dispatch(changeLogIn(true));
                     dispatch(changeIsOpen(false));
-                });
+                })
             })
             .catch(error => {
                 console.error('fetch 오류:', error);
