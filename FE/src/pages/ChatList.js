@@ -182,10 +182,15 @@ function ChatList() {
     return (
       <div className="chatting-box">
         <div className="chatting-opponent">
-          <div className='chatting-opponent-img'>
-            <img src='/img/jilsander.png' className='chat-list-box-imgsource' alt="상점" />
+          <div style={{display: 'flex', alignItems: 'center'}}>
+            <div className='chatting-opponent-img'>
+              <img src='/img/jilsander.png' className='chat-list-box-imgsource' alt="상점" />
+            </div>
+            <div className='chatting-opponent-text'>{props.sellerName}</div>
           </div>
-          <div className='chatting-opponent-text'>{props.sellerName}</div>
+          <div className='chatting-out-button'>
+            <div className='exit-img'/>
+          </div>
         </div>
         <div className="chatting-item" onClick={() => { navigate('/detail/' + props.productID) }}>
           <div className="chatting-item-img">
