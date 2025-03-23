@@ -18,6 +18,11 @@ function ChatList() {
 
   let navigate = useNavigate();
 
+  /// 스크롤을 최상단으로 가져온다 (첫 렌더링 때만 실행)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // 채팅 리스트 받아오기
   useEffect(() => {
     fetch('/chat/getChatList/', {
@@ -342,13 +347,11 @@ function ChatList() {
 
   return (
     <>
-      <div className='chatList-title'>채팅</div>
       <div className='chatList'>
         <div className="chat-list">
           {(chats && chats.length > 0) ? (
             <>
               {chats.map((chat) => (
-
                 <div key={chat._id} className='chat-list-box'
                   // 채팅방 모듈로 전송할 이미지
                   onClick={() => {
@@ -378,7 +381,12 @@ function ChatList() {
         <div className="chat-room">
           {(chatID !== '') ?
             <ChatRoom chat_id={chatID} sellerName={sellerName} productName={productName} productPrice={productPrice} productFrontPhoto={productFrontPhoto} productID={productID} />
-            : <div>채팅을 시작하려면 왼쪽에서 대화를 선택해주세요. 채팅 만들려면 알제?😊</div>
+            : 
+            <div className="start-chat-box">
+              <img src={'/img/Logo_Square.svg'} style={{width: '180px', height: '180px', opacity: '50%'}}/>
+              <div>채팅을 시작하려면 왼쪽에서 대화를 선택해주세요.</div>
+              <div>채팅 만들려면 알제?😊</div>
+            </div>
           }
         </div>
       </div>

@@ -160,7 +160,7 @@ function Header() {
               </div>
               <div
                 className='Header-InfoDropDown-Menu'
-                onClick={() => { navigate('/myStore') }}
+                onClick={() => { navigate('/myStore'); window.scrollTo({left:0, top:0}); }}
               >
                 내 정보
               </div>

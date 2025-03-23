@@ -10,6 +10,11 @@ function CategoryPage() {
 
     const isFirstRender = useRef(true); // 첫 실행 여부를 저장할 ref
 
+    /// 스크롤을 최상단으로 가져온다 (첫 렌더링 때만 실행)
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     // BEST 카테고리 불러오기 (첫 렌더링 때만 실행)
     useEffect(() => {
         fetch('/category/getBESTPosts/', {

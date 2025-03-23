@@ -10,6 +10,11 @@ function UserDetail() {
     let [soldPosts, setSoldPosts] = useState([]);
     let [userInfo, setUserInfo] = useState('') // username, _id 필드 반환
 
+    /// 스크롤을 최상단으로 가져온다 (첫 렌더링 때만 실행)
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     useEffect(() => {
         // 세 개의 fetch 요청을 병렬로 처리
         Promise.all([
