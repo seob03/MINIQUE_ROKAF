@@ -24,7 +24,7 @@ router.get('/edit/:id', async (요청, 응답) => {
 router.put('/editPost/:id', async (요청, 응답) => {
     db = 요청.db;
     console.log(요청.body)
-    let result = await db.collection('post').updateOne({ _id: new ObjectId(요청.params.id) },
+    await db.collection('post').updateOne({ _id: new ObjectId(요청.params.id) },
         {
             $set:
             {
@@ -38,7 +38,8 @@ router.put('/editPost/:id', async (요청, 응답) => {
                 higherCategory: 요청.body.higherCategory,
                 lowerCategory: 요청.body.lowerCategory,
                 productPrice: 요청.body.productPrice,
-                like: 요청.body.like
+                like: 요청.body.like,
+                isSell: 요청.body.isSell
             }
         })
     // 응답이 있어야 fetch의 아래로 내려갈 수 있음

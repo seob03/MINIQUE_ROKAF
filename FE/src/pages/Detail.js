@@ -7,7 +7,7 @@ import { ButtonMedium, WideButton, DeleteButtonHalf } from '../components/Button
 import { changeIsOpen } from "../store/store.js";
 import './style/Detail.css';
 import Swal from 'sweetalert2';
-import { showAlert } from '../components/Util.js';
+import { showAlert, showConfirm } from '../components/Util.js';
 
 function Detail() {
   let [pageResult, setPageResult] = useState([]);
@@ -69,53 +69,90 @@ function Detail() {
     fetchData(); // 비동기 함수 호출
   }, [id]); // id가 변경될 때마다 호출
 
-  function handleDelete() {
-    Swal.fire({
-      title: "글을 삭제하시겠습니까?",
-      text: "삭제된 글은 복구되지 않습니다.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "네, 삭제합니다!",
-      cancelButtonText: "아니요, 취소할래요!",
-      confirmButtonColor: "#d33",
-      cancelButtonColor: "#3085d6",
+  // 판매 처리 함수
+  function sold() {
+    showConfirm({
+      title: "상품을 판매 완료로 변경하시겠습니까?",
+      text: "한 번 변경하면 되돌릴 수 없습니다.",
+      confirmText: "네, 판매 완료 처리합니다!",
+      cancelText: "아니요, 취소할래요!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch('/productDetail/delete/' + id, {
-          method: 'DELETE',
+        fetch('/sold/' + id, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
         })
           .then((response) => response.json())
           .then((data) => {
-            if (data === true) {
-              Swal.fire({
-                title: "삭제 완료!",
-                text: "글이 정상적으로 삭제되었습니다.",
+            if (data.success) {
+              showAlert({
+                title: "판매 완료!",
+                text: "상품이 성공적으로 판매 완료 처리되었습니다.",
                 icon: "success",
-                confirmButtonText: "확인",
               }).then(() => {
-                navigate('/'); // 삭제 후 메인 페이지로 이동
+                navigate("/");
               });
             } else {
-              Swal.fire({
-                title: "삭제 실패",
-                text: "삭제 권한이 존재하지 않습니다.",
+              showAlert({
+                title: "처리 실패",
+                text: "판매 완료 처리 중 문제가 발생했습니다.",
                 icon: "error",
-                confirmButtonText: "확인",
               });
             }
           })
           .catch((error) => {
-            console.error('Error fetching data:', error);
-            Swal.fire({
+            console.error("판매 처리 fetch 오류:", error);
+            showAlert({
               title: "오류 발생!",
-              text: "삭제 중 오류가 발생했습니다.",
+              text: "판매 완료 처리 중 오류가 발생했습니다.",
               icon: "error",
-              confirmButtonText: "확인",
             });
           });
       }
     });
   }
+  // 글 삭제함수
+  function handleDelete() {
+    showConfirm({
+      title: "글을 삭제하시겠습니까?",
+      text: "삭제된 글은 복구되지 않습니다.",
+      confirmText: "네, 삭제합니다!",
+      cancelText: "아니요, 취소할래요!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`/productDetail/delete/${id}`, {
+          method: "DELETE",
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data === true) {
+              showAlert({
+                title: "삭제 완료!",
+                text: "글이 정상적으로 삭제되었습니다.",
+                icon: "success",
+              }).then(() => {
+                navigate("/");
+              });
+            } else {
+              showAlert({
+                title: "삭제 실패",
+                text: "삭제 권한이 존재하지 않습니다.",
+                icon: "error",
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching data:", error);
+            showAlert({
+              title: "오류 발생!",
+              text: "삭제 중 오류가 발생했습니다.",
+              icon: "error",
+            });
+          });
+      }
+    });
+  }
+
   // 찜 기능
   function HeartON() {
     if (!isLoggedIn) {
@@ -207,6 +244,7 @@ function Detail() {
         <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center' }}>
           <DeleteButtonHalf eventHandler={handleDelete} />
           <ButtonMedium text={'수정하기'} eventHandler={() => { navigate('/edit/' + id) }} />
+          <ButtonMedium text={'판매완료'} eventHandler={sold} />
         </div>
       )
     } else {
@@ -252,8 +290,8 @@ function Detail() {
             <div className="HeartBox">
               <div>
                 {(isLiked) ?
-                  <img src="/img/Heart_Fill.svg" onClick={()=>{HeartOFF()}} className='HeartBox-Image'/>
-                  :<img src="/img/Heart_Unfill.svg" onClick={()=>{HeartON()}} className='HeartBox-Image'/>
+                  <img src="/img/Heart_Fill.svg" onClick={() => { HeartOFF() }} className='HeartBox-Image' />
+                  : <img src="/img/Heart_Unfill.svg" onClick={() => { HeartON() }} className='HeartBox-Image' />
                 }
               </div>
               <div>
@@ -355,7 +393,7 @@ function Detail() {
                 link={'/detail/' + post._id}
               />
             ))
-          ) : <div>나중에 OUTER 같은 걸 제일 큰 카테고리로 하면 상위 카테고리불러오도록 하자.</div>
+          ) : <div>이런, 같은 카테고리의 상품이 존재하지 않아요.</div>
         }
       </div>
     </div>

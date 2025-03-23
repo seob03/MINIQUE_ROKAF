@@ -23,7 +23,6 @@ router.get('/productDetail/getUserInfo', async (요청, 응답) => {
 // 글 삭제 API
 router.delete('/productDetail/delete/:id', async (요청, 응답) => {
     const db = 요청.db;  // 요청 객체에서 db 가져오기
-    console.log('디비 테스트:', db)
     if (!db) {
         return 응답.status(500).send('DB 연결 실패');
     }
@@ -34,6 +33,21 @@ router.delete('/productDetail/delete/:id', async (요청, 응답) => {
     }
     else {
         응답.send(false)
+    }
+})
+
+// 판매 완료 처리
+router.get('/sold/:id', async (요청, 응답) => {
+    const db = 요청.db;
+    try {
+        await db.collection('post').updateOne(
+            { _id: new ObjectId(요청.params.id) },
+            { $set: { isSell: true } }
+        );
+        응답.json({ success: true, message: '판매 완료' });
+    } catch (error) {
+        console.error("판매 완료 처리 오류:", error);
+        응답.status(500).json({ success: false, message: '서버 오류 발생' });
     }
 })
 

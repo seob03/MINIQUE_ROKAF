@@ -72,7 +72,8 @@ function EditNews() {
                 higherCategory: 상위카테고리,
                 lowerCategory: 하위카테고리,
                 productPrice: 가격 || defaultInfo.productPrice,
-                like: defaultInfo.like
+                like: defaultInfo.like,
+                isSell: defaultInfo.isSell
             })
         })
             .then(response => {
