@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { io } from "socket.io-client";
 import './style/ChatList.css';
 import { showAlert, showConfirm } from '../components/Util.js';
@@ -17,6 +17,20 @@ function ChatList() {
   const [productID, setProductID] = useState('');
 
   let navigate = useNavigate();
+  let location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname.includes('/chatList')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto'; // 다른 페이지에서는 스크롤이 가능하도록 설정
+    }
+
+    // 컴포넌트가 언마운트될 때 초기화
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [location.pathname]);
 
   /// 스크롤을 최상단으로 가져온다 (첫 렌더링 때만 실행)
   useEffect(() => {
