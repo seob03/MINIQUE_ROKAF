@@ -147,23 +147,27 @@ function Header() {
         <div style={{ position: 'relative' }} onBlur={handleBlurContainer}
           onMouseEnter={() => { setDropDown(true); }}
           onMouseLeave={handleMouseLeave}>
-          <div className="Header-DropDown-Title">
+          <div
+            className="Header-DropDown-Title"
+            onClick={() => navigate("/myStore")}
+            style={{ cursor: "pointer" }}>
             <img src="/img/My_Info.svg" />
           </div>
           {isDropDown &&
             <div className='Header-InfoDropDown-Container'>
               <div
                 className='Header-InfoDropDown-Menu'
-                onClick={handleLogOut}
+                onClick={() => { navigate('/myStore'); window.scrollTo({ left: 0, top: 0 }); }}
               >
-                로그아웃
+                내 상점
               </div>
               <div
                 className='Header-InfoDropDown-Menu'
-                onClick={() => { navigate('/myStore'); window.scrollTo({left:0, top:0}); }}
+                onClick={handleLogOut}
               >
-                내 정보
+                LogOut
               </div>
+
             </div>
           }
         </div>
