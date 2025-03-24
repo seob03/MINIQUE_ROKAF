@@ -21,6 +21,7 @@ function NewsWrite() {
     let [가격, 가격변경] = useState('');
     // 생후 개월 수 옵션
     const months = Array.from({ length: 120 }, (_, index) => index + 1); // 1개월부터 120개월까지
+    const [isOpen, setIsOpen] = useState(false);
 
     let navigate = useNavigate();
     let [isLoggedIn, setIsLoggedIn] = useState(null); // 로그인 상태를 추적할 상태
@@ -327,7 +328,7 @@ function NewsWrite() {
                     </div>
                 </div>
                 <input
-                    placeholder=" 사용했던 제품에 대해 자세하게 설명해 주세요. 결함이나 특징 등등을 설명해 주시면 좋아요!"
+                    placeholder=" 사용했던 제품에 대해 자세하게 설명해 주세요!"
                     className="Write-Input-Content"
                     onChange={(e) => {
                         상품상세설명변경(e.target.value);
@@ -341,23 +342,37 @@ function NewsWrite() {
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', marginTop: '12px' }}>
                     <select
-                        value={개월수정보}
-                        onChange={(e) => 개월수변경(Number(e.target.value))} // select 값 변경 시 상태 업데이트
                         style={{
-                            padding: '8px 16px',
-                            fontSize: '16px',
-                            borderRadius: '8px',
-                            border: '1px solid #ccc',
-                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-                            backgroundColor: '#f8f8f8',
-                            transition: 'all 0.3s ease',
-                            cursor: 'pointer',
+                            padding: "8px",
+                            fontSize: "16px",
+                            border: "1px solid #ccc",
+                            borderRadius: "4px",
+                            cursor: "pointer",
+                            position: "relative",
+                            transition: "max-height 0.3s ease-in-out",
+                            maxHeight: isOpen ? "300px" : "200px",
+                            overflow: "hidden",
+                            zIndex: 10,
+                        }}
+                        onFocus={(e) => {
+                            e.target.size = 10;
+                            e.target.style.overflowY = "auto";
+                        }}
+                        onBlur={(e) => {
+                            e.target.size = 1;
+                            e.target.style.overflowY = "hidden";
+                        }}
+                        onChange={(e) => {
+                            e.target.size = 1;
+                            e.target.blur();
                         }}
                     >
-                        <option value={0}>선택하세요</option>
-                        {months.map((month) => (
-                            <option key={month} value={month}>
-                                {month} 개월
+                        <option value="" disabled selected>
+                            선택하세요
+                        </option>
+                        {Array.from({ length: 120 }, (_, i) => (
+                            <option key={i + 1} value={i + 1}>
+                                {i + 1}개월
                             </option>
                         ))}
                     </select>
