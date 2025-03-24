@@ -317,7 +317,7 @@ function Detail() {
               아이 나이
             </div>
             <div className="Detail-Info-Content">
-              {pageResult.childAge}
+              {pageResult.childAge}개월
             </div>
           </div>
           <div className="Detail-Info">

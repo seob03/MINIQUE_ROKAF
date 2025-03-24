@@ -365,6 +365,7 @@ function NewsWrite() {
                         onChange={(e) => {
                             e.target.size = 1;
                             e.target.blur();
+                            개월수변경(e.target.value);
                         }}
                     >
                         <option value="" disabled selected>
