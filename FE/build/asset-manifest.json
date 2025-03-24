@@ -1,16 +1,7 @@
 {
   "files": {
-<<<<<<< Updated upstream
-    "main.css": "/static/css/main.591301fa.css",
-<<<<<<< HEAD
-    "main.js": "/static/js/main.c69f0956.js",
-=======
-    "main.js": "/static/js/main.ff8130d9.js",
-=======
-    "main.css": "/static/css/main.84ad0c91.css",
-    "main.js": "/static/js/main.379e7c12.js",
->>>>>>> Stashed changes
->>>>>>> d565424f12e348147799b3ec55fbf612bee95b3b
+    "main.css": "/static/css/main.081a0553.css",
+    "main.js": "/static/js/main.d4a1ad88.js",
     "static/js/453.fbc37f3d.chunk.js": "/static/js/453.fbc37f3d.chunk.js",
     "static/media/NotoSansKR-Thin.ttf": "/static/media/NotoSansKR-Thin.3c76aeeeb0d5302e0042.ttf",
     "static/media/NotoSansKR-ExtraLight.ttf": "/static/media/NotoSansKR-ExtraLight.a8d29999646a399fbca4.ttf",
@@ -45,26 +36,12 @@
     "static/media/GetOut_Hover.svg": "/static/media/GetOut_Hover.c2ae5d0dc05d56078ae0.svg",
     "static/media/AddImage.svg": "/static/media/AddImage.10d652fb30ea66b59c274d44f51a185f.svg",
     "static/media/Tab_Bar.svg": "/static/media/Tab_Bar.c605380417fc0234c98e.svg",
-<<<<<<< Updated upstream
-    "main.591301fa.css.map": "/static/css/main.591301fa.css.map",
-    "main.c69f0956.js.map": "/static/js/main.c69f0956.js.map",
+    "main.081a0553.css.map": "/static/css/main.081a0553.css.map",
+    "main.d4a1ad88.js.map": "/static/js/main.d4a1ad88.js.map",
     "453.fbc37f3d.chunk.js.map": "/static/js/453.fbc37f3d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.591301fa.css",
-<<<<<<< HEAD
-    "static/js/main.c69f0956.js"
-=======
-    "static/js/main.ff8130d9.js"
-=======
-    "main.84ad0c91.css.map": "/static/css/main.84ad0c91.css.map",
-    "main.379e7c12.js.map": "/static/js/main.379e7c12.js.map",
-    "453.fbc37f3d.chunk.js.map": "/static/js/453.fbc37f3d.chunk.js.map"
-  },
-  "entrypoints": [
-    "static/css/main.84ad0c91.css",
-    "static/js/main.379e7c12.js"
->>>>>>> Stashed changes
->>>>>>> d565424f12e348147799b3ec55fbf612bee95b3b
+    "static/css/main.081a0553.css",
+    "static/js/main.d4a1ad88.js"
   ]
 }

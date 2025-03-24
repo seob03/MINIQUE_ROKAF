@@ -8,7 +8,7 @@ import './style/MyDetail.css';
 
 function MyDetail() {
     let [tab, setTab] = useState(0);
-    let [posts, setPosts] = useState([]);
+    let [sellingPosts, setSellingPosts] = useState([]);
     let [favoritePosts, setFavoritePosts] = useState([]);
 
     // 본인의 게시글 가져오기
@@ -19,7 +19,7 @@ function MyDetail() {
         })
             .then(response => response.json())
             .then(data => {
-                setPosts(data);
+                setSellingPosts(data);
                 console.log('서버 응답:', data);
             })
             .catch(error => {
@@ -60,9 +60,9 @@ function MyDetail() {
                 {
                     [
                         <>
-                            {props.myPosts && props.myPosts.length > 0 ? (
+                            {props.SellingPosts && props.SellingPosts.length > 0 ? (
                                 <div className='TabContent-Item'>
-                                    {props.myPosts.map(post => (
+                                    {props.SellingPosts.map(post => (
                                         <CardSmall
                                             photo={post.productPhoto[0] || undefined}
                                             brand={'Brand'}
@@ -74,7 +74,7 @@ function MyDetail() {
                                     ))}
                                 </div>
                             ) : (
-                                <div>아직 로딩중</div>
+                                <div>판매중인 상품이 없습니다.</div>
                             )}
                         </>,
                         <div>
@@ -93,7 +93,7 @@ function MyDetail() {
                                         ))}
                                     </div>
                                 ) : (
-                                    <div>아직 로딩중</div>
+                                    <div>찜해둔 상품이 없습니다.</div>
                                 )}
                             </>
                         </div>
@@ -122,12 +122,21 @@ function MyDetail() {
                         </div>
                     </div>
                     <div className='Store-Content-Detail'>
-                        <div style={{ marginRight: '56px' }}>
-                            상품 판매 OO회
+                        <div style={{ marginRight: '56px', display: 'flex' }}>
+                            판매중
+                            <div style={{ fontFamily: 'NotoSansKR-Medium', marginLeft: '0.3rem' }}>
+                                {sellingPosts.length}
+                            </div>
+                            개
                         </div>
-                        <div style={{ marginRight: '56px' }}>
-                            상품 개수 {posts.length}개
+                        <div style={{ marginRight: '56px', display: 'flex' }}>
+                            상품 판매
+                            <div style={{ fontFamily: 'NotoSansKR-Medium', marginLeft: '0.3rem' }}>
+                                {/*soldPosts.length*/}
+                            </div>
+                            회
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -144,7 +153,7 @@ function MyDetail() {
                     </div>
                 </div>
             </div>
-            <TabContent tab={tab} myPosts={posts} favoritePosts={favoritePosts} />
+            <TabContent tab={tab} SellingPosts={sellingPosts} favoritePosts={favoritePosts} />
         </>
     );
 }

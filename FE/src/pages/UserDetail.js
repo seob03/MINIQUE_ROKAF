@@ -109,11 +109,19 @@ function UserDetail() {
                         </div>
                     </div>
                     <div className='Store-Content-Detail'>
-                        <div style={{ marginRight: '56px' }}>
-                            상품 판매 {soldPosts.length}회
+                        <div style={{ marginRight: '56px', display: 'flex' }}>
+                            판매중
+                            <div style={{ fontFamily: 'NotoSansKR-Medium', marginLeft: '0.3rem' }}>
+                                {sellingPosts.length}
+                            </div>
+                            개
                         </div>
-                        <div style={{ marginRight: '56px' }}>
-                            판매중인 상품 개수 {sellingPosts.length}
+                        <div style={{ marginRight: '56px', display: 'flex' }}>
+                            상품 판매
+                            <div style={{ fontFamily: 'NotoSansKR-Medium', marginLeft: '0.3rem' }}>
+                                {soldPosts.length}
+                            </div>
+                            회
                         </div>
                     </div>
                 </div>
