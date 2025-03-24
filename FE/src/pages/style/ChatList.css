@@ -1,3 +1,7 @@
+body {
+  overflow: hidden;
+}
+
 .chatList-title {
   display: block;
   margin-top: 30px;
@@ -14,6 +18,23 @@
 .chat-list {
   width: 50%;
   margin-right: 64px;
+  height: 620px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.chat-list::-webkit-scrollbar{
+  width: 6px;
+  margin-left: 2px;
+}
+
+.chat-list::-webkit-scrollbar-thumb{
+  background: #B6B2AD;
+  border-radius: 3px;
+}
+
+.chat-list::-webkit-scrollbar-track {
+  background: none;
 }
 
 .chat-list-box {
@@ -30,8 +51,8 @@
 }
 
 .chat-list-box-img {
-  width: 60px;
-  height: 60px;
+  width: 44px;
+  height: 44px;
   border-radius: 70%;
   margin-left: 13px;
   overflow: hidden;
@@ -69,6 +90,7 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  max-width: 460px;
   height: 620px;
   padding: 24px;
   background-color: #FFFFFF;
@@ -131,8 +153,8 @@
   height: 54px;
   border-radius: 4px;
   margin-top: 16px;
-  background-color: #212120;
-  color: #FFFEFC;
+  background-color: #040e2d42;
+  color: #31363a;
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -351,6 +373,7 @@
   display:flex;
   flex-direction: column;
   width: 100%;
+  max-width: 460px;
   align-items: center;
   justify-content: center;
   height: 620px;
