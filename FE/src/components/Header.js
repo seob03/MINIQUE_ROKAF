@@ -1,7 +1,7 @@
 import './style/Header.css';
 import SearchBar from './SearchBar';
 import Image from 'react-bootstrap/Image';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeLogIn, changeIsOpen } from "../store/store.js";
@@ -193,14 +193,29 @@ function Header() {
         </div>
         <div className='Header-First-Menu'>
           <div className='Header-First-Menu-Buttons'>
-            <Link to="/category" className='Header-Menu-Link'>CATEGORY</Link>
+            <NavLink
+              to="/category"
+              className={({ isActive }) => isActive ? 'Header-Menu-Link active-link' : 'Header-Menu-Link'}
+            >
+              CATEGORY
+            </NavLink>
           </div>
           <div className='Header-First-Menu-Buttons'>
-            <Link to="/chatList" className='Header-Menu-Link'>채팅내역</Link>
+            <NavLink
+              to="/chatList"
+              className={({ isActive }) => isActive ? 'Header-Menu-Link active-link' : 'Header-Menu-Link'}
+            >
+              채팅내역
+            </NavLink>
           </div>
           <div className='Header-First-Menu-Buttons'>
             {(isLoggedIn) ?
-              <Link to="/write" className='Header-Menu-Link'>판매하기</Link> :
+              <NavLink
+                to="/write"
+                className={({ isActive }) => isActive ? 'Header-Menu-Link active-link' : 'Header-Menu-Link'}
+              >
+                판매하기
+              </NavLink> :
               <Link onClick={handleLogin} className='Header-Menu-Link'>판매하기</Link>}
           </div>
           <div className='Header-First-Menu-Buttons'>

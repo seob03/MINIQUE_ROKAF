@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CardSmall from '../components/CardSmall';
 import DetailSlider from "../components/DetailSlider.js";
-import { ButtonMedium, WideButton, DeleteButtonHalf } from '../components/Buttons';
+import { ButtonMedium, WideButton, DeleteButton } from '../components/Buttons';
 import { changeIsOpen } from "../store/store.js";
 import './style/Detail.css';
 import { showAlert, showConfirm } from '../components/Util.js';
@@ -241,7 +241,7 @@ function Detail() {
     if (whoamI.id == pageResult.user_id) {
       return (
         <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center' }}>
-          <DeleteButtonHalf eventHandler={handleDelete} />
+          <DeleteButton eventHandler={handleDelete} />
           <ButtonMedium text={'수정하기'} eventHandler={() => { navigate('/edit/' + id) }} />
           <ButtonMedium text={'판매완료'} eventHandler={sold} />
         </div>
@@ -361,9 +361,6 @@ function Detail() {
                     상품 개
                   </div>
                 </div>
-              </div>
-              <div className="Detail-UserBox-Follow">
-                + 팔로우
               </div>
             </div>
           </Link>

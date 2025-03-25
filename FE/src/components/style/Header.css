@@ -54,18 +54,27 @@
 }
 
 .Header-First-Menu-Buttons {
-    text-align:right;
+    text-align: right;
 }
 
-.Header-Menu-Link{
+.Header-Menu-Link {
     text-decoration: none;
-    color: #212120;
+    color: #B6B2AD;
     font-family: NotoSansKR-Medium;
+    transition: color 0.2s ease-in-out, text-decoration 0.2s ease-in-out;
 }
 
-.Header-DropDown-Title{
+.Header-Menu-Link:hover {
+    color: #212120;
+}
+
+.active-link {
+    color: #212120;
+}
+
+.Header-DropDown-Title {
     display: flex;
-    font-family:NotoSansKR-Medium;
+    font-family: NotoSansKR-Medium;
     color: #212120;
     cursor: pointer;
     height: 40px;
@@ -74,17 +83,17 @@
     background: #FFFEFC;
 }
 
-.Header-DropDown-Container{
+.Header-DropDown-Container {
     position: absolute;
     right: 0;
     z-index: 10;
     border-radius: 4px;
-    width:120px;
-    background:#FFFEFC;
+    width: 120px;
+    background: #FFFEFC;
     box-shadow: 0px 2px 2px 0px #6F6C69;
 }
 
-.Header-DropDown-Menu{
+.Header-DropDown-Menu {
     font-family: NotoSansKR-Medium;
     color: #212120;
     cursor: pointer;
@@ -97,17 +106,17 @@
     border-bottom: 0.5px solid #D9D9D9;
 }
 
-.Header-InfoDropDown-Container{
+.Header-InfoDropDown-Container {
     position: absolute;
     right: 0;
     z-index: 10;
     border-radius: 4px;
-    width:150px;
-    background:#FFFEFC;
+    width: 150px;
+    background: #FFFEFC;
     box-shadow: 0px 2px 2px 0px #6F6C69;
 }
 
-.Header-InfoDropDown-Menu{
+.Header-InfoDropDown-Menu {
     font-family: NotoSansKR-Medium;
     color: #212120;
     cursor: pointer;
