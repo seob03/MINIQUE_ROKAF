@@ -1,4 +1,4 @@
-.CardSmallContainer{
+.CardSmallContainer {
     width: 192px;
     height: 288px;
     margin-bottom: 10px;
@@ -6,43 +6,76 @@
     cursor: pointer;
 }
 
-.CardSmall-Image{
+.CardSmall-Image {
     width: 192px;
     height: 192px;
-    background-size: cover;
-    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     overflow: hidden;
-    margin-top: 10px;
-    margin-bottom: 4px;
+    /* 넘치는 이미지 잘라줌 */
+    background-color: #f0f0f0;
+    /* 이미지가 없을 때 확인용 */
+    box-sizing: border-box;
 }
 
-.CardSmall-Image.cover{
+.CardSmall-Image::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* 이미지를 잘라서 컨테이너에 맞춤 */
-    position: absolute; /* 컨테이너 안에서의 위치 고정 */
+    background-color: rgba(0, 0, 0, 0);
+    /* 기본적으로 투명 */
+    transition: background-color 0.3s ease-in-out;
+    /* 부드럽게 */
+}
+
+.CardSmall-Image:hover::after {
+    background-color: rgba(0, 0, 0, 0.1);
+    /* 마우스 올리면 살짝 회색 덮기 */
+}
+
+.CardSmall-Image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 부모 div를 꽉 채움 */
+    object-position: center;
+    /* 중앙 정렬 */
+}
+
+
+.CardSmall-Image.cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 이미지를 잘라서 컨테이너에 맞춤 */
+    position: absolute;
+    /* 컨테이너 안에서의 위치 고정 */
     top: 0;
     left: 0;
 }
 
-.Card-First{
-    display : flex;
+.Card-First {
+    display: flex;
     font-size: 12px;
     margin-bottom: 2px;
     font-family: NotoSansKR-Medium;
 }
 
-.Card-Title{
-    display : block;
-    font-Size : 16px;
+.Card-Title {
+    display: block;
+    font-Size: 16px;
     margin-top: 2px;
     margin-bottom: 2px;
     font-family: NotoSansKR-Regular;
 }
 
-.Card-Price{
-    display : block;
-    font-Size : 16px;
+.Card-Price {
+    display: block;
+    font-Size: 16px;
     font-family: NotoSansKR-Bold;
 }
