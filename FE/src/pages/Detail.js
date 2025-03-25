@@ -240,11 +240,13 @@ function Detail() {
 
     if (whoamI.id == pageResult.user_id) {
       return (
-        <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center' }}>
-          <DeleteButton eventHandler={handleDelete} />
-          <ButtonMedium text={'수정하기'} eventHandler={() => { navigate('/edit/' + id) }} />
+        <>
+          <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center' }}>
+            <DeleteButton eventHandler={handleDelete} />
+            <ButtonMedium text={'수정하기'} eventHandler={() => { navigate('/edit/' + id) }} />
+          </div>
           <ButtonMedium text={'판매완료'} eventHandler={sold} />
-        </div>
+        </>
       )
     } else {
       return (

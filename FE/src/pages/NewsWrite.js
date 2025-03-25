@@ -313,6 +313,7 @@ function NewsWrite() {
                 <input
                     placeholder=" 판매하시려는 상품의 이름을 입력해 주세요!"
                     className="Write-Input-Title"
+                    maxLength={40}
                     onChange={(e) => {
                         상품명변경(e.target.value);
                     }}
@@ -324,12 +325,13 @@ function NewsWrite() {
                         상품 상세 설명
                     </div>
                     <div style={{ display: 'block', marginLeft: '20px', color: '#B6B2AD' }}>
-                        {상품상세설명.length}/200
+                        {상품상세설명.length}/400
                     </div>
                 </div>
-                <input
+                <textarea
                     placeholder=" 사용했던 제품에 대해 자세하게 설명해 주세요!"
                     className="Write-Input-Content"
+                    maxLength={400}
                     onChange={(e) => {
                         상품상세설명변경(e.target.value);
                     }}
