@@ -18,7 +18,7 @@ function Detail() {
   let dispatch = useDispatch();
   let { id } = useParams(); // 글 id (String)
   let [recommend, setRecommend] = useState('');
-
+  let [sellingPosts, setSellingPosts] = useState('');
   useEffect(() => {
     if (isLoggedIn) {
       fetch('/productDetail/getUserInfo')
@@ -272,6 +272,20 @@ function Detail() {
       .catch(error => console.error("fetch 오류:", error));
   }, [pageResult]);
 
+  // 판매중인 상품 개수 받아오기
+  useEffect(() => {
+    console.log(pageResult)
+    fetch('/userSellingPosts/' + pageResult.user_id, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(response => response.json())
+      .then(data => {
+        setSellingPosts(data)
+      })
+      .catch(error => console.error("fetch 오류:", error));
+  }, [pageResult]);
+
   return (
     <div>
       <div className="Detail-Container">
@@ -360,7 +374,7 @@ function Detail() {
                     |
                   </div>
                   <div>
-                    상품 개
+                    판매중인 상품 {sellingPosts.length}개
                   </div>
                 </div>
               </div>
