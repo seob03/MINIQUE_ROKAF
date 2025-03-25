@@ -80,6 +80,30 @@
     transform: scale(0.95);
 }
 
+.WideButtonGray {
+    border-radius: 8px;
+    width: 426px;
+    height: 60px;
+    background-color: #6F6C69;
+    border: none;
+    color: #FFFEFC;
+    text-align: center;
+    padding: 12px;
+    font-size: 20px;
+    font-family: NotoSansKR-SemiBold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.WideButtonGray:hover {
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    transform: scale(1.02);
+}
+
 .ButtonMedium {
     border-radius: 8px;
     /* 기존보다 부드럽게 */
@@ -101,8 +125,8 @@
 }
 
 .ButtonMedium:hover {
-    background-color: #212120;
-    border: 1px solid #212120;
+    background-color: #4169E1;
+    border: none;
     color: #FFFEFC;
     box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
     transform: scale(1.05);

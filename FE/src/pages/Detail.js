@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import CardSmall from '../components/CardSmall';
 import DetailSlider from "../components/DetailSlider.js";
-import { ButtonMedium, WideButton, DeleteButton } from '../components/Buttons';
+import { ButtonMedium, WideButton, DeleteButton, WideButtonGray } from '../components/Buttons';
 import { changeIsOpen } from "../store/store.js";
 import './style/Detail.css';
 import { showAlert, showConfirm } from '../components/Util.js';
@@ -241,11 +241,11 @@ function Detail() {
     if (whoamI.id == pageResult.user_id) {
       return (
         <>
-          <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px'}}>
             <DeleteButton eventHandler={handleDelete} />
             <ButtonMedium text={'수정하기'} eventHandler={() => { navigate('/edit/' + id) }} />
           </div>
-          <ButtonMedium text={'판매완료'} eventHandler={sold} />
+          <WideButtonGray text={'판매완료'} eventHandler={sold} />
         </>
       )
     } else {

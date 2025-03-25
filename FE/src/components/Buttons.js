@@ -32,6 +32,14 @@ export function WideButton(props) {
     );
 }
 
+export function WideButtonGray(props) {
+    return (
+        <div className='WideButtonGray' onClick={props.eventHandler}>
+            {props.text}
+        </div>
+    );
+}
+
 export function ButtonMedium(props) {
     return (
         <div className='ButtonMedium' onClick={props.eventHandler}>
