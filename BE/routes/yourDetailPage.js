@@ -10,7 +10,7 @@ const path = require('path');
 router.get('/userSellingPosts/:user_id', async (요청, 응답) => {
     const db = 요청.db;
     try {
-        let result = await db.collection('post').find({ isSell: { $ne: true } }).toArray();
+        let result = await db.collection('post').find({ user_id: 요청.params.user_id, isSell: { $ne: true } }).toArray();
         응답.json(result);
     }
     catch (error) {
@@ -23,7 +23,7 @@ router.get('/userSellingPosts/:user_id', async (요청, 응답) => {
 router.get('/userSoldPosts/:user_id', async (요청, 응답) => {
     const db = 요청.db;
     try {
-        let result = await db.collection('post').find({ isSell: { $ne: false } }).toArray();
+        let result = await db.collection('post').find({ user_id: 요청.params.user_id, isSell: { $ne: false } }).toArray();
         응답.json(result);
     }
     catch (error) {
