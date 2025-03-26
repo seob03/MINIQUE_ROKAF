@@ -22,7 +22,6 @@
 .Recommend-Gallery {
     display: flex;
     font-family: NotoSansKR-Medium;
-    margin-top: 24px;
     flex-wrap: wrap;
     margin-top: 36px;
     gap: 84px;
@@ -35,4 +34,9 @@
     flex-wrap: wrap;
     gap : 84px;
     justify-content: flex-start;
+}
+
+.No-Search-Result{
+    margin-top: 32px;
+    font-family: NotoSansKR-Regular;
 }

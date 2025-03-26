@@ -43,36 +43,38 @@ function SearchResult() {
   }
 
   if (!searchPostData.length) {
-    return <div>검색 결과가 없습니다.</div>;
+    return <div style={{marginTop: '30px'}}>검색 결과가 없습니다.😓</div>;
   }
 
 
   return (
-    <div>
-      <div>
-        <div className="Recommend-Title">
-          {searchData}에 대한 검색 결과입니다.
-        </div>
-        <div className="Recommend-Gallery">
-          {
-            (searchPostData.length > 0) ? (
-              searchPostData.map(post => (
-                <CardSmall
-                  photo={post.productPhoto || undefined}
-                  brand={'MONCLER'}
-                  title={post.productName}
-                  size={post.childAge}
-                  price={Number(post.productPrice).toLocaleString()}
-                  link={'/detail/' + post._id}
-                />
-              ))
-            ) : <div style={{ marginTop: '30px', fontFamily: 'NotoSansKR-Regular' }}>
-              검색 결과가 없습니다
-            </div>
-          }
-        </div>
-      </div>
-    </div>
+    <>
+      {
+        (searchPostData.length > 0) ?
+        <div>
+          <div className="Recommend-Title">
+            {searchData}에 대한 검색 결과입니다.
+          </div>
+          <div className="Recommend-Gallery">
+            {
+                searchPostData.map(post => (
+                  <CardSmall
+                    photo={post.productPhoto || undefined}
+                    brand={'MONCLER'}
+                    title={post.productName}
+                    size={post.childAge}
+                    price={Number(post.productPrice).toLocaleString()}
+                    link={'/detail/' + post._id}
+                  />
+                ))
+            }
+          </div>
+        </div> 
+        : <div style={{marginTop: '36px'}}>
+            검색 결과가 없습니다.😓
+          </div>
+      }
+    </>
   );
 }
 
