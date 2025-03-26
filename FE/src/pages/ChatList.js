@@ -398,7 +398,7 @@ function ChatList() {
             : 
             <div className="start-chat-box">
               <img src={'/img/Logo_Square.svg'} style={{width: '180px', height: '180px', opacity: '50%'}}/>
-              <div>채팅을 시작하려면 왼쪽에서 대화를 선택해주세요.</div>
+              <div style={{marginTop: '8px', marginBottom: '8px'}}>채팅을 시작하려면 왼쪽에서 대화를 선택해주세요.</div>
               <div>채팅 만들려면 알제?😊</div>
             </div>
           }

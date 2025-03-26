@@ -133,13 +133,13 @@ function Header() {
     function handleBlurContainer() {
       setTimeout(() => {
         setDropDown(false)
-      }, 200);
+      }, 500);
     }
 
     function handleMouseLeave() {
       setTimeout(() => {
         setDropDown(false);
-      }, 200);
+      }, 500);
     }
 
     return (

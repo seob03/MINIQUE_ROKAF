@@ -79,6 +79,11 @@
 
 .chat-room {
   width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .chatting-box {
@@ -381,4 +386,5 @@
   overflow: hidden;
   position: relative;
   color: #6F6C69;
+  font-family: NotoSansKR-Regular;
 }

@@ -4,6 +4,7 @@
     margin-bottom: 24px;
     font-size: 20px;
     font-family: NotoSansKR-Medium;
+    text-align: center;
 }
 
 .Write-Title-2 {
@@ -26,20 +27,35 @@
 }
 
 .Write-Input-Title {
-    border-radius: 4px;
+    border-radius: 8px;
     border: 1px solid #B6B2AD;
     width: 100%;
-    height: 3rem;
+    padding: 12px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+.Write-Input-Title:focus {
+    border-color: #4169E1;
 }
 
 .Write-Input-Content {
-    border-radius: 4px;
+    border-radius: 8px;
     border: 1px solid #B6B2AD;
     width: 100%;
+    padding: 12px;
+    font-size: 16px;
     height: 320px;
+    resize: none;
+    outline: none;
     align-content: baseline;
     text-align: left;
+    transition: border-color 0.3s;
 }
+.Write-Input-Content:focus {
+    border-color: #4169E1;
+}
+
 
 .Write-Input {
     border-radius: 4px;
@@ -49,21 +65,23 @@
 }
 
 .Write-Input-Price {
-    border-radius: 4px;
+    border-radius: 8px;
     border: 1px solid #B6B2AD;
+    padding: 12px;
+    font-size: 16px;
     width: 240px;
-    height: 3rem;
+    outline: none;
+    transition: border-color 0.3s;
 }
 
 .Write-Input-Price:focus {
-    border-radius: 0px !important;
-    border: 1px solid #4169E1 !important;
+    border-color: #4169E1;
 }
 
 .Write-ButtonArea {
     display: flex;
-    justify-self: left;
-    justify-content: space-between;
+    justify-content: center;
+    margin-top: 40px;
 }
 
 .upload-Container {
@@ -101,7 +119,7 @@
     flex-shrink: 0;
     background-color: #fff;
     border-radius: 5px;
-    border: 3px solid #eee;
+    border: 3px dashed #eee;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -109,28 +127,27 @@
     position: relative;
     align-self: flex-start;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .filedropbox:hover {
     border-color: #4169E1;
-    transition: 0.1s;
 }
 
 .filedropbox.active {
     background-color: #efeef3;
     border-color: #4169E1;
-    transition: 0.1s;
 }
 
 .filedropbox:hover .add-image {
     fill: #4169E1;
     margin-bottom: 8px;
-    transition: fill 0.1s;
+    transition: fill 0.3s ease;
 }
 
 .add-image {
-    width: 54px;
-    height: 54px;
+    width: 52px;
+    height: 52px;
     margin-bottom: 8px;
 }
 
@@ -221,7 +238,7 @@
 .ItemState-Circle-3:hover,
 .ItemState-Circle-4:hover,
 .ItemState-Circle-5:hover {
-    transform: scale(1.05);
+    transform: scale(1.15);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
 }
 
