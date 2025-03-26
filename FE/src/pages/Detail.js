@@ -19,7 +19,6 @@ function Detail() {
   let { id } = useParams(); // 글 id (String)
   let [recommend, setRecommend] = useState('');
   let [sellingPosts, setSellingPosts] = useState('');
-
   useEffect(() => {
     if (isLoggedIn) {
       fetch('/productDetail/getUserInfo')
@@ -34,7 +33,7 @@ function Detail() {
     } else {
       setWhoAmI(null)
     }
-  }, [id])
+  }, [id, isLoggedIn])
 
 
   // 로그인 된 유저가 현재 게시글을 좋아요 누른 적이 있는지 추적
@@ -236,12 +235,9 @@ function Detail() {
   }
   // 유저에 따라 버튼 달라지도록
   function LoginStateButtonArea() {
-    if (!pageResult || !pageResult.user_id) {
+    if (!whoamI || !pageResult || !pageResult.user_id) {
       return null;
     }
-    console.log('whoamI:', whoamI)
-    console.log('pageResult.user_id:', pageResult.user_id)
-    console.log('whoamI.id == pageResult.user_id:', (whoamI.id == pageResult.user_id))
     if (whoamI.id == pageResult.user_id) {
       return (
         <>
