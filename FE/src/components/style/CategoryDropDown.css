@@ -1,46 +1,75 @@
-.CategoryDropDown-Box{
-    width: 140px;
-    height: 40px;
-    border-radius: 4px;
-    border: 1px solid #B6B2AD;
-    font-family: NotoSansKR-Regular;
+.CategoryDropDown-Box {
+    width: 160px;
+    height: 45px;
+    border-radius: 6px;
+    border: 1px solid #D1D1D1;
+    background-color: #FFFFFF;
+    font-family: 'Noto Sans KR', sans-serif;
     font-size: 16px;
-    padding-left: 12px;
+    padding-left: 16px;
     position: relative;
-    color: #212120;
-    align-content: center;
+    color: #333333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
     cursor: pointer;
 }
-.CategoryDropDown-Box.inactive{
-    width: 100px;
-    border: none;
-    cursor: auto;
+
+.CategoryDropDown-Box.inactive {
+    width: 120px;
+    border: 1px solid #E5E5E5;
+    cursor: not-allowed;
+    background-color: #F7F7F7;
 }
 
-.Category-DropDown-Container{
+/* 드롭다운 컨테이너 */
+.Category-DropDown-Container {
     position: absolute;
-    top: 48px;
+    top: 50px;
     right: 0;
-    z-index: 10;
-    border-radius: 4px;
-    width: 140px;
-    background:#FFFEFC;
-    box-shadow: 0px 2px 2px 0px #6F6C69;
+    z-index: 100;
+    border-radius: 8px;
+    width: 160px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: opacity 0.2s ease-in-out;
 }
 
-.Category-DropDown-Menu{
-    font-family: NotoSansKR-Regular;
-    color: #212120;
+/* 드롭다운 메뉴 항목 */
+.Category-DropDown-Menu {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+    color: #333333;
     cursor: pointer;
     height: 48px;
-    width: 140px;
+    width: 100%;
     text-align: left;
-    padding-left: 12px;
+    padding-left: 20px;
     line-height: 48px;
-    z-index: 10;
-    border-bottom: 0.5px solid #D9D9D9;
-    transition: background-color 0.3s ease;
+    background-color: #FFFFFF;
+    font-weight: normal;
+    /* 기본적으로 볼드체 꺼짐 */
+    transition: background-color 0.3s ease, transform 0.2s ease, font-weight 0.3s ease;
 }
-.Category-DropDown-Menu:hover{
-    background-color: #6F6C69;
+
+.Category-DropDown-Menu:hover {
+    background-color: #EFEFEF;
+    transform: translateX(10px);
+    font-weight: bold;
+    /* 마우스를 올렸을 때만 볼드체 */
+}
+
+.Category-DropDown-Menu:active {
+    background-color: #E0E0E0;
+}
+
+/* 드롭다운 박스 아이콘 (선택 사항: 화살표 아이콘 추가) */
+.CategoryDropDown-Box::after {
+    content: "▼";
+    font-size: 18px;
+    color: #6F6C69;
+    margin-left: auto;
+    padding-right: 10px;
 }

@@ -28,11 +28,12 @@ function Detail() {
         })
         .catch((error) => {
           console.error('Error fetching data:', error);
+          setWhoAmI(null)
         })
     } else {
-      setWhoAmI(false)
+      setWhoAmI(null)
     }
-  }, [id])
+  }, [id, isLoggedIn])
 
 
   // 로그인 된 유저가 현재 게시글을 좋아요 누른 적이 있는지 추적
@@ -232,16 +233,15 @@ function Detail() {
         });
       });
   }
-  // 로그인에 따라 버튼 달라지도록
+  // 유저에 따라 버튼 달라지도록
   function LoginStateButtonArea() {
-    if (!pageResult || !pageResult.user_id) {
+    if (!whoamI || !pageResult || !pageResult.user_id) {
       return null;
     }
-
     if (whoamI.id == pageResult.user_id) {
       return (
         <>
-          <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px'}}>
+          <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
             <DeleteButton eventHandler={handleDelete} />
             <ButtonMedium text={'수정하기'} eventHandler={() => { navigate('/edit/' + id) }} />
           </div>

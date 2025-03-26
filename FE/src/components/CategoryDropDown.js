@@ -16,7 +16,7 @@ function CategoryDropDown(props) {
             >
                 {
                     (props.isActive_1) ?
-                        <div>▼ {props.상위카테고리}</div> : <div>{props.상위카테고리}</div>
+                        <div>{props.상위카테고리}</div> : <div>{props.상위카테고리}</div>
                 }
                 {
                     (isDrop1 && props.isActive_1) ?
@@ -43,7 +43,7 @@ function CategoryDropDown(props) {
                     className='CategoryDropDown-Box'
                     onClick={() => setDrop2(!isDrop2)}
                 >
-                    ▼ {props.하위카테고리}
+                    {props.하위카테고리}
                     {
                         (isDrop2) &&
                         <div className='Category-DropDown-Container'>

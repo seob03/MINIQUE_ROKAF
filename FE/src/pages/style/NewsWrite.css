@@ -281,3 +281,89 @@
     color: #212120;
     font-family: NotoSansKR-Medium;
 }
+
+/* 드롭다운 박스 */
+.Select-DropDown {
+    width: 160px;
+    height: 45px;
+    border-radius: 6px;
+    border: 1px solid #D1D1D1;
+    background-color: #FFFFFF;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+    color: #333333;
+    padding-left: 16px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    appearance: none;
+    /* 기본 화살표 제거 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: all 0.3s ease;
+}
+
+/* 드롭다운이 비활성화 상태일 때 */
+.Select-DropDown:disabled {
+    width: 120px;
+    border: 1px solid #E5E5E5;
+    cursor: not-allowed;
+    background-color: #F7F7F7;
+}
+
+/* 드롭다운 화살표 아이콘 */
+.Select-DropDownWrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.Select-DropDownWrapper::after {
+    content: "▼";
+    font-size: 18px;
+    color: #6F6C69;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+/* 드롭다운 컨테이너 */
+.Select-DropDown-Container {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    z-index: 100;
+    border-radius: 8px;
+    width: 160px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: opacity 0.2s ease-in-out;
+}
+
+/* 드롭다운 메뉴 항목 */
+.Select-DropDown option {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+    color: #333333;
+    cursor: pointer;
+    height: 48px;
+    text-align: left;
+    padding-left: 20px;
+    background-color: #FFFFFF;
+    transition: background-color 0.3s ease, transform 0.2s ease, font-weight 0.3s ease;
+}
+
+/* 마우스 올렸을 때 */
+.Select-DropDown option:hover {
+    background-color: #EFEFEF;
+    transform: translateX(10px);
+    font-weight: bold;
+}
+
+/* 클릭했을 때 */
+.Select-DropDown option:active {
+    background-color: #E0E0E0;
+}
