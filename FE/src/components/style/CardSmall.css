@@ -14,7 +14,6 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
-    /* 이미지가 없을 때 확인용 */
     box-sizing: border-box;
 }
 
