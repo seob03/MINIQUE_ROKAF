@@ -19,12 +19,13 @@ function NewsWrite() {
     let [하위카테고리, 하위카테고리변경] = useState('하위 카테고리');
     let [상품상태, 상품상태변경] = useState('');
     let [가격, 가격변경] = useState('');
-    // 생후 개월 수 옵션
-    const months = Array.from({ length: 120 }, (_, index) => index + 1); // 1개월부터 120개월까지
-    const [isOpen, setIsOpen] = useState(false);
-
     let navigate = useNavigate();
     let [isLoggedIn, setIsLoggedIn] = useState(null); // 로그인 상태를 추적할 상태
+    // 위치 상태 변수
+    const [address, setAddress] = useState("");
+    const [regions, setRegions] = useState([]);
+    const [selectedRegion, setSelectedRegion] = useState("");
+
 
     useEffect(() => {
         // 로그인 상태를 확인하기 위해 서버로 요청
@@ -304,6 +305,35 @@ function NewsWrite() {
         )
     }
 
+    // const handleSearch = async () => {
+    //     if (!address.trim()) return;
+    //     try {
+    //         const response = await fetch(`/region?address=${encodeURIComponent(address)}`);
+    //         const data = await response.json();
+    //         setRegion(data.region || "결과 없음");
+    //     } catch {
+    //         setRegion("검색 실패");
+    //     }
+    // };
+    const handleSearch = async () => {
+        if (!address.trim()) return alert("주소를 입력하세요.");
+
+        try {
+            const response = await fetch(`/region?address=${encodeURIComponent(address)}`);
+            const data = await response.json();
+
+            if (data.regions && data.regions.length > 0) {
+                setRegions(data.regions); // 지역 목록을 상태에 저장
+                setSelectedRegion(""); // 새로운 검색 시 선택 초기화
+            } else {
+                setRegions([]);
+                alert("지역 정보를 찾을 수 없습니다.");
+            }
+        } catch {
+            setRegions([]);
+            alert("검색 중 오류가 발생했습니다.");
+        }
+    };
     return (
         <div style={{ width: '600px', justifySelf: 'center' }}>
             <div className='Write-Title-1'>
@@ -361,7 +391,7 @@ function NewsWrite() {
                             cursor: "pointer",
                             position: "relative",
                             transition: "max-height 0.3s ease-in-out",
-                            maxHeight: isOpen ? "300px" : "200px",
+                            maxHeight: "200px",
                             overflow: "hidden",
                             zIndex: 10,
                         }}
@@ -406,6 +436,42 @@ function NewsWrite() {
                     하위카테고리={하위카테고리} 하위카테고리변경={하위카테고리변경}
                 />
             </div>
+
+            <div className="Write-Input-Row">
+                <div className="Write-Title-2">
+                    거래할 지역
+                </div>
+                <div className="address-search-container">
+                    <div className="search-box">
+                        <input
+                            className="address-input"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            placeholder="도로명 주소 입력"
+                        />
+                        <button className="search-button" onClick={handleSearch}>검색</button>
+                    </div>
+
+                    {regions.length > 0 && (
+                        <div className="region-selection">
+                            <h4>지역을 선택하세요:</h4>
+                            <select
+                                className="region-select"
+                                value={selectedRegion}
+                                onChange={(e) => setSelectedRegion(e.target.value)}
+                            >
+                                <option value="">지역 선택</option>
+                                {regions.map((region, index) => (
+                                    <option key={index} value={region}>{region}</option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
+
+                    {selectedRegion && <p className="selected-region">선택한 지역: {selectedRegion}</p>}
+                </div>
+            </div>
+
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">
                     가격

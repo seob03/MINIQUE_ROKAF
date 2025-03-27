@@ -35,6 +35,7 @@
     outline: none;
     transition: border-color 0.3s;
 }
+
 .Write-Input-Title:focus {
     border-color: #4169E1;
 }
@@ -52,6 +53,7 @@
     text-align: left;
     transition: border-color 0.3s;
 }
+
 .Write-Input-Content:focus {
     border-color: #4169E1;
 }
@@ -366,4 +368,75 @@
 /* 클릭했을 때 */
 .Select-DropDown option:active {
     background-color: #E0E0E0;
+}
+
+.address-search-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.address-input {
+    width: 86%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 10px;
+    transition: border 0.3s ease;
+}
+
+.address-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.search-button {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+.region-selection {
+    margin-top: 20px;
+}
+
+.region-select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #fff;
+    transition: border 0.3s ease;
+}
+
+.region-select:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.selected-region {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333;
 }
