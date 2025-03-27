@@ -77,6 +77,10 @@ function MyDetail() {
                                 <div>판매중인 상품이 없습니다.</div>
                             )}
                         </>,
+                        <>
+                            판매완료 상품 넣어라 여기
+                        </>
+                        ,
                         <div>
                             <>
                                 {props.favoritePosts && props.favoritePosts.length > 0 ? (
@@ -144,11 +148,16 @@ function MyDetail() {
                 <div class="Store-Tab">
                     <div className="Store-Tab-Title"
                         onClick={() => setTab(0)}>
-                        상품
+                        판매중
                         {(tab == '0') ?? <img src='/img/Tab_Bar.svg' style={{ width: '60px' }} />}
                     </div>
                     <div className="Store-Tab-Title"
                         onClick={() => setTab(1)}>
+                        판매완료
+                        {(tab == '1') ?? <img src='/img/Tab_Bar.svg' style={{ width: '60px' }} />}
+                    </div>
+                    <div className="Store-Tab-Title"
+                        onClick={() => setTab(2)}>
                         찜
                     </div>
                 </div>

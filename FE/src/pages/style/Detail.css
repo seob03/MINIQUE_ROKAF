@@ -125,7 +125,7 @@
 .Detail-Recommend {
     display: flex;
     flex-wrap: wrap;
-    gap: 84px;
+    gap: 48px;
     justify-content: flex-start;
 }
 
