@@ -305,16 +305,7 @@ function NewsWrite() {
         )
     }
 
-    // const handleSearch = async () => {
-    //     if (!address.trim()) return;
-    //     try {
-    //         const response = await fetch(`/region?address=${encodeURIComponent(address)}`);
-    //         const data = await response.json();
-    //         setRegion(data.region || "결과 없음");
-    //     } catch {
-    //         setRegion("검색 실패");
-    //     }
-    // };
+    // 도로명 받아오기 함수
     const handleSearch = async () => {
         if (!address.trim()) return alert("주소를 입력하세요.");
 

@@ -4,13 +4,19 @@ const path = require('path');
 const { ObjectId } = require('mongodb');
 
 
-// 로그인 된 유저가 작성한 게시글 받아오기
-router.get('/myDetail/getPosts', async (요청, 응답) => {
+// 내가 판매중인 게시글 받아오기
+router.get('/myDetail/getSellingPosts', async (요청, 응답) => {
     const db = 요청.db;  // 요청 객체에서 db 가져오기
-    let myPosts = await db.collection('post').find({ user_id: 요청.user.id }).toArray()
-    응답.json(myPosts);
+    let mySellingPosts = await db.collection('post').find({ user_id: 요청.user.id, isSell: { $ne: true } }).toArray()
+    응답.json(mySellingPosts);
 })
 
+// 내가 판매한 게시글 받아오기
+router.get('/myDetail/getSoldPosts', async (요청, 응답) => {
+    const db = 요청.db;  // 요청 객체에서 db 가져오기
+    let mySoldPosts = await db.collection('post').find({ user_id: 요청.user.id, isSell: { $ne: false } }).toArray()
+    응답.json(mySoldPosts);
+})
 
 // 로그인 된 유저가 찜한 게시글 가져오기
 router.get('/myDetail/getFavoritePosts', async (요청, 응답) => {

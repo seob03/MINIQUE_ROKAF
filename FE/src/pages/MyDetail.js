@@ -1,7 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from "react-router-dom";
-
-import Card from '../components/Card';
 import CardSmall from '../components/CardSmall';
 
 import './style/MyDetail.css';
@@ -9,17 +6,34 @@ import './style/MyDetail.css';
 function MyDetail() {
     let [tab, setTab] = useState(0);
     let [sellingPosts, setSellingPosts] = useState([]);
+    let [soldPosts, setSoldPosts] = useState([]);
     let [favoritePosts, setFavoritePosts] = useState([]);
 
-    // 본인의 게시글 가져오기
+    // 본인이 판매중인 게시글 가져오기
     useEffect(() => {
-        fetch(('/myDetail/getPosts'), {
+        fetch(('/myDetail/getSellingPosts'), {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
             .then(response => response.json())
             .then(data => {
                 setSellingPosts(data);
+                console.log('서버 응답:', data);
+            })
+            .catch(error => {
+                console.error('fetch 오류:', error);
+            })
+    }, []);
+
+    // 본인이 판매한 게시글 가져오기
+    useEffect(() => {
+        fetch(('/myDetail/getSoldPosts'), {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(response => response.json())
+            .then(data => {
+                setSoldPosts(data);
                 console.log('서버 응답:', data);
             })
             .catch(error => {
@@ -60,9 +74,9 @@ function MyDetail() {
                 {
                     [
                         <>
-                            {props.SellingPosts && props.SellingPosts.length > 0 ? (
+                            {props.sellingPosts && props.sellingPosts.length > 0 ? (
                                 <div className='TabContent-Item'>
-                                    {props.SellingPosts.map(post => (
+                                    {props.sellingPosts.map(post => (
                                         <CardSmall
                                             photo={post.productPhoto[0] || undefined}
                                             brand={'Brand'}
@@ -78,7 +92,26 @@ function MyDetail() {
                             )}
                         </>,
                         <>
-                            판매완료 상품 넣어라 여기
+                            <div>
+                                <>
+                                    {props.soldPosts && props.soldPosts.length > 0 ? (
+                                        <div className='TabContent-Item'>
+                                            {props.soldPosts.map(post => (
+                                                <CardSmall
+                                                    photo={post.productPhoto || undefined}
+                                                    brand={'Brand'}
+                                                    title={post.productName}
+                                                    size={post.childAge}
+                                                    price={post.productPrice}
+                                                    link={'/detail/' + post._id}
+                                                />
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <div>판매한 상품이 없습니다.</div>
+                                    )}
+                                </>
+                            </div>
                         </>
                         ,
                         <div>
@@ -136,7 +169,7 @@ function MyDetail() {
                         <div style={{ marginRight: '56px', display: 'flex' }}>
                             상품 판매
                             <div style={{ fontFamily: 'NotoSansKR-Medium', marginLeft: '0.3rem' }}>
-                                {/*soldPosts.length*/}
+                                {soldPosts.length}
                             </div>
                             회
                         </div>
@@ -162,7 +195,7 @@ function MyDetail() {
                     </div>
                 </div>
             </div>
-            <TabContent tab={tab} SellingPosts={sellingPosts} favoritePosts={favoritePosts} />
+            <TabContent tab={tab} sellingPosts={sellingPosts} soldPosts={soldPosts} favoritePosts={favoritePosts} />
         </>
     );
 }
