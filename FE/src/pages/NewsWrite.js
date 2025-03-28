@@ -45,6 +45,11 @@ function NewsWrite() {
         checkLoginStatus(); // 컴포넌트가 마운트될 때 로그인 상태 확인
     });
 
+    /// 스크롤을 최상단으로 가져온다 (첫 렌더링 때만 실행)
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     if (isLoggedIn === null) {
         return <div>로딩 중...</div>; // 서버 응답을 기다리는 동안 로딩 상태 표시
     }
@@ -436,33 +441,39 @@ function NewsWrite() {
                 <div className="Write-Title-2">
                     거래할 지역
                 </div>
-                <div className="address-search-container">
-                    <div className="search-box">
-                        <input
-                            className="address-input"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            placeholder="도로명 주소 입력"
-                        />
-                        <button className="search-button" onClick={handleSearch}>검색</button>
-                    </div>
-
-                    {regions.length > 0 && (
-                        <div className="region-selection">
-                            <p>지역을 선택하세요</p>
-                            <select
-                                className="region-select"
-                                value={selectedRegion}
-                                onChange={(e) => setSelectedRegion(e.target.value)}
-                            >
-                                <option value="">지역 선택</option>
-                                {regions.map((region, index) => (
-                                    <option key={index} value={region}>{region}</option>
-                                ))}
-                            </select>
-                        </div>
-                    )}
+                <div className="search-box">
+                    <input
+                        className="address-input"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder="도로명 주소 입력"
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              e.preventDefault();
+                              handleSearch();
+                            }
+                        }}
+                    />
+                    <button className="search-button" onClick={handleSearch}>검색</button>
                 </div>
+                <div className="search-help">
+                    거래할 지역명, 지하철역, 도로명으로 검색하세요!
+                </div>
+
+                {regions.length > 0 && (
+                    <div className="region-selection">
+                        <select
+                            className="region-select"
+                            value={selectedRegion}
+                            onChange={(e) => setSelectedRegion(e.target.value)}
+                        >
+                            <option value="">지역 선택</option>
+                            {regions.map((region, index) => (
+                                <option key={index} value={region}>{region}</option>
+                            ))}
+                        </select>
+                    </div>
+                )}
             </div>
 
             <div className="Write-Input-Row">
