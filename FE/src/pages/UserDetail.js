@@ -1,16 +1,31 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { useParams, Link, useNavigate } from "react-router-dom";
 import CardSmall from '../components/CardSmall';
 import './style/UserDetail.css';
 
 function UserDetail() {
-    let [tab, setTab] = useState(0);
     let { user_id } = useParams();
     let [sellingPosts, setSellingPosts] = useState([]);
     let [soldPosts, setSoldPosts] = useState([]);
     let [userInfo, setUserInfo] = useState('') // username, _id 필드 반환
 
-    /// 스크롤을 최상단으로 가져온다 (첫 렌더링 때만 실행)
+    let [tab, setTab] = useState(0);
+    let tabRefs = [useRef(null), useRef(null)];
+    let [indicatorStyle, setIndicatorStyle] = useState({ transform: 'translateX(0px)', width: '0px' });
+
+
+    // 탭이 변경될 때마다 언더바 위치와 너비를 업데이트
+    useLayoutEffect(() => {
+        if (tabRefs[tab].current) {
+            const { offsetLeft, offsetWidth } = tabRefs[tab].current;
+            setIndicatorStyle({
+                transform: `translateX(${offsetLeft + (offsetWidth / 2) - (tabRefs[tab].current.firstChild.offsetWidth / 2)}px)`,
+                width: `${tabRefs[tab].current.firstChild.offsetWidth}px`
+            });
+        }
+    }, [tab]);
+
+    // 스크롤을 최상단으로 가져온다 (첫 렌더링 때만 실행)
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -127,16 +142,23 @@ function UserDetail() {
                 </div>
             </div>
             <div>
-                <div class="Store-Tab">
-                    <div className="Store-Tab-Title"
-                        onClick={() => setTab(0)}>
-                        판매중
-                        {(tab == '0') ?? <img src='/img/Tab_Bar.svg' style={{ width: '60px' }} />}
+                <div className="Store-Tab">
+                    <div
+                        ref={tabRefs[0]}
+                        className={`Store-Tab-Title ${tab === 0 ? "active" : ""}`}
+                        onClick={() => setTab(0)}
+                    >
+                        <span>판매중</span>
                     </div>
-                    <div className="Store-Tab-Title"
-                        onClick={() => setTab(1)}>
-                        판매완료
+                    <div
+                        ref={tabRefs[1]}
+                        className={`Store-Tab-Title ${tab === 1 ? "active" : ""}`}
+                        onClick={() => setTab(1)}
+                    >
+                        <span>판매완료</span>
                     </div>
+                    {/* 언더바 */}
+                    <div className="Tab-Indicator" style={indicatorStyle}></div>
                 </div>
             </div>
             <TabContent tab={tab} sellingPosts={sellingPosts} soldPosts={soldPosts} />

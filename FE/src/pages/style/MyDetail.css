@@ -79,3 +79,45 @@
     background-repeat: no-repeat;
     transition: transform 0.3s ease-in-out;
 }
+
+.MyStore-Tab {
+    display: flex;
+    width: 100%;
+    margin-top: 40px;
+    justify-content: space-around;
+    /* 탭을 균등하게 배치 */
+    position: relative;
+}
+
+.MyStore-Tab-Title {
+    text-align: center;
+    font-family: NotoSansKR-Medium;
+    cursor: pointer;
+    padding: 8px 16px;
+    position: relative;
+    color: #B6B2AD;
+    /* 기본적으로 연한 회색 */
+    transition: color 0.3s ease-in-out;
+    width: 33.3333%;
+    /* 각 탭을 3등분 */
+}
+
+.MyStore-Tab-Title:hover {
+    color: #212120;
+    /* 마우스 오버 시 색상 변경 */
+}
+
+.MyStore-Tab-Title.active {
+    color: #212120;
+    /* 활성화된 탭은 원래 색 */
+}
+
+.MyStoreTab-Indicator {
+    position: absolute;
+    bottom: -2px;
+    height: 4px;
+    background-color: #4169E1;
+    /* 언더바 색상 */
+    border-radius: 2px;
+    transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+}

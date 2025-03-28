@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.d9702028.css",
-    "main.js": "/static/js/main.24a2d125.js",
+    "main.css": "/static/css/main.2848158b.css",
+    "main.js": "/static/js/main.d792e859.js",
     "static/js/453.fbc37f3d.chunk.js": "/static/js/453.fbc37f3d.chunk.js",
     "static/media/NotoSansKR-Thin.ttf": "/static/media/NotoSansKR-Thin.3c76aeeeb0d5302e0042.ttf",
     "static/media/NotoSansKR-ExtraLight.ttf": "/static/media/NotoSansKR-ExtraLight.a8d29999646a399fbca4.ttf",
@@ -36,12 +36,12 @@
     "static/media/GetOut_Hover.svg": "/static/media/GetOut_Hover.c2ae5d0dc05d56078ae0.svg",
     "static/media/AddImage.svg": "/static/media/AddImage.10d652fb30ea66b59c274d44f51a185f.svg",
     "static/media/Tab_Bar.svg": "/static/media/Tab_Bar.c605380417fc0234c98e.svg",
-    "main.d9702028.css.map": "/static/css/main.d9702028.css.map",
-    "main.24a2d125.js.map": "/static/js/main.24a2d125.js.map",
+    "main.2848158b.css.map": "/static/css/main.2848158b.css.map",
+    "main.d792e859.js.map": "/static/js/main.d792e859.js.map",
     "453.fbc37f3d.chunk.js.map": "/static/js/453.fbc37f3d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d9702028.css",
-    "static/js/main.24a2d125.js"
+    "static/css/main.2848158b.css",
+    "static/js/main.d792e859.js"
   ]
 }

@@ -1,13 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import CardSmall from '../components/CardSmall';
-
 import './style/MyDetail.css';
 
 function MyDetail() {
-    let [tab, setTab] = useState(0);
     let [sellingPosts, setSellingPosts] = useState([]);
     let [soldPosts, setSoldPosts] = useState([]);
     let [favoritePosts, setFavoritePosts] = useState([]);
+    let [tab, setTab] = useState(0); // 기본 탭을 0으로 설정
+    const [indicatorStyle, setIndicatorStyle] = useState({ transform: 'translateX(-100%)', width: '33.33%' }); // 초기에 -100%로 설정
+
+    // 탭 클릭 시 언더바 위치 업데이트
+    useEffect(() => {
+        const tabWidth = 100 / 3; // 3개의 탭을 100%로 나누기
+        const translateXValue = tab === 0 ? '-100%' : tab === 1 ? '0%' : '100%'; // 탭에 맞는 위치
+        setIndicatorStyle({
+            transform: `translateX(${translateXValue})`, // 클릭된 탭에 맞춰 이동
+            width: `${tabWidth}%`, // 각 탭의 너비에 맞게 설정
+        });
+    }, [tab]); // tab 상태가 변경될 때마다 실행
 
     // 본인이 판매중인 게시글 가져오기
     useEffect(() => {
@@ -41,7 +51,7 @@ function MyDetail() {
             })
     }, []);
 
-    // 본인이 찜 누른 항목 가져오기
+    // 본인이 찜한 항목 가져오기
     useEffect(() => {
         fetch(('/myDetail/getFavoritePosts'), {
             method: 'GET',
@@ -57,85 +67,68 @@ function MyDetail() {
             })
     }, []);
 
-
     function TabContent(props) {
-        let [fade, setFade] = useState('')
+        let [fade, setFade] = useState('');
 
         useEffect(() => {
-            setTimeout(() => { setFade('TabContent-End') }, 100)
+            setTimeout(() => { setFade('TabContent-End') }, 100);
             return () => {
-                setFade('')
+                setFade('');
             }
-        }, [tab])
+        }, [tab]);
 
         return (
-
             <div className={`TabContent-Start ${fade}`}>
-                {
-                    [
-                        <>
-                            {props.sellingPosts && props.sellingPosts.length > 0 ? (
-                                <div className='TabContent-Item'>
-                                    {props.sellingPosts.map(post => (
-                                        <CardSmall
-                                            photo={post.productPhoto[0] || undefined}
-                                            brand={'Brand'}
-                                            title={post.productName}
-                                            size={post.childAge}
-                                            price={Number(post.productPrice).toLocaleString()}
-                                            link={'/detail/' + post._id}
-                                        />
-                                    ))}
-                                </div>
-                            ) : (
-                                <div>판매중인 상품이 없습니다.</div>
-                            )}
-                        </>,
-                        <>
-                            <div>
-                                <>
-                                    {props.soldPosts && props.soldPosts.length > 0 ? (
-                                        <div className='TabContent-Item'>
-                                            {props.soldPosts.map(post => (
-                                                <CardSmall
-                                                    photo={post.productPhoto || undefined}
-                                                    brand={'Brand'}
-                                                    title={post.productName}
-                                                    size={post.childAge}
-                                                    price={post.productPrice}
-                                                    link={'/detail/' + post._id}
-                                                />
-                                            ))}
-                                        </div>
-                                    ) : (
-                                        <div>판매한 상품이 없습니다.</div>
-                                    )}
-                                </>
-                            </div>
-                        </>
-                        ,
-                        <div>
-                            <>
-                                {props.favoritePosts && props.favoritePosts.length > 0 ? (
-                                    <div className='TabContent-Item'>
-                                        {props.favoritePosts.map(post => (
-                                            <CardSmall
-                                                photo={post.productPhoto[0] || undefined}
-                                                brand={'Brand'}
-                                                title={post.productName}
-                                                size={post.childAge}
-                                                price={Number(post.productPrice).toLocaleString()}
-                                                link={'/detail/' + post._id}
-                                            />
-                                        ))}
-                                    </div>
-                                ) : (
-                                    <div>찜해둔 상품이 없습니다.</div>
-                                )}
-                            </>
+                {[
+                    <div>{props.sellingPosts && props.sellingPosts.length > 0 ? (
+                        <div className='TabContent-Item'>
+                            {props.sellingPosts.map(post => (
+                                <CardSmall
+                                    photo={post.productPhoto[0] || undefined}
+                                    brand={'Brand'}
+                                    title={post.productName}
+                                    size={post.childAge}
+                                    price={Number(post.productPrice).toLocaleString()}
+                                    link={'/detail/' + post._id}
+                                />
+                            ))}
                         </div>
-                    ][props.tab]
-                }
+                    ) : (
+                        <div>판매중인 상품이 없습니다.</div>
+                    )}</div>,
+                    <div>{props.soldPosts && props.soldPosts.length > 0 ? (
+                        <div className='TabContent-Item'>
+                            {props.soldPosts.map(post => (
+                                <CardSmall
+                                    photo={post.productPhoto || undefined}
+                                    brand={'Brand'}
+                                    title={post.productName}
+                                    size={post.childAge}
+                                    price={post.productPrice}
+                                    link={'/detail/' + post._id}
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <div>판매한 상품이 없습니다.</div>
+                    )}</div>,
+                    <div>{props.favoritePosts && props.favoritePosts.length > 0 ? (
+                        <div className='TabContent-Item'>
+                            {props.favoritePosts.map(post => (
+                                <CardSmall
+                                    photo={post.productPhoto[0] || undefined}
+                                    brand={'Brand'}
+                                    title={post.productName}
+                                    size={post.childAge}
+                                    price={Number(post.productPrice).toLocaleString()}
+                                    link={'/detail/' + post._id}
+                                />
+                            ))}
+                        </div>
+                    ) : (
+                        <div>찜한 상품이 없습니다.</div>
+                    )}</div>,
+                ][props.tab]}
             </div>
         );
     }
@@ -173,27 +166,29 @@ function MyDetail() {
                             </div>
                             회
                         </div>
-
                     </div>
                 </div>
             </div>
-            <div>
-                <div class="Store-Tab">
-                    <div className="Store-Tab-Title"
-                        onClick={() => setTab(0)}>
-                        판매중
-                        {(tab == '0') ?? <img src='/img/Tab_Bar.svg' style={{ width: '60px' }} />}
-                    </div>
-                    <div className="Store-Tab-Title"
-                        onClick={() => setTab(1)}>
-                        판매완료
-                        {(tab == '1') ?? <img src='/img/Tab_Bar.svg' style={{ width: '60px' }} />}
-                    </div>
-                    <div className="Store-Tab-Title"
-                        onClick={() => setTab(2)}>
-                        찜
-                    </div>
+            <div className="MyStore-Tab">
+                <div
+                    className={`MyStore-Tab-Title ${tab === 0 ? 'active' : ''}`}
+                    onClick={() => setTab(0)}
+                >
+                    <span>판매중</span>
                 </div>
+                <div
+                    className={`MyStore-Tab-Title ${tab === 1 ? 'active' : ''}`}
+                    onClick={() => setTab(1)}
+                >
+                    <span>판매완료</span>
+                </div>
+                <div
+                    className={`MyStore-Tab-Title ${tab === 2 ? 'active' : ''}`}
+                    onClick={() => setTab(2)}
+                >
+                    <span>찜</span>
+                </div>
+                <div className="MyStoreTab-Indicator" style={indicatorStyle}></div>
             </div>
             <TabContent tab={tab} sellingPosts={sellingPosts} soldPosts={soldPosts} favoritePosts={favoritePosts} />
         </>
