@@ -21,6 +21,7 @@ function NewsWrite() {
     let [가격, 가격변경] = useState('');
     let navigate = useNavigate();
     let [isLoggedIn, setIsLoggedIn] = useState(null); // 로그인 상태를 추적할 상태
+
     // 위치 상태 변수
     const [address, setAddress] = useState("");
     const [regions, setRegions] = useState([]);
@@ -74,7 +75,7 @@ function NewsWrite() {
         }
 
         // 모든 필드 입력 여부 검사
-        if (!상품명 || !상품상세설명 || !개월수정보 || !상품상태 || !가격 || !상위카테고리 || !하위카테고리) {
+        if (!상품명 || !상품상세설명 || !개월수정보 || !상품상태 || !가격 || !상위카테고리 || !하위카테고리 || !selectedRegion) {
             return showAlert({
                 title: "입력 오류",
                 text: "모든 필드를 작성해주세요.",
@@ -123,7 +124,10 @@ function NewsWrite() {
                 productQuality: getProductStatus(상품상태),
                 higherCategory: 상위카테고리,
                 lowerCategory: 하위카테고리,
-                productPrice: 가격
+                region: selectedRegion,
+                productPrice: 가격,
+                like: 0,
+                isSell: false
             })
         })
             .then(response => {
@@ -445,7 +449,7 @@ function NewsWrite() {
 
                     {regions.length > 0 && (
                         <div className="region-selection">
-                            <h4>지역을 선택하세요:</h4>
+                            <p>지역을 선택하세요</p>
                             <select
                                 className="region-select"
                                 value={selectedRegion}
@@ -458,8 +462,6 @@ function NewsWrite() {
                             </select>
                         </div>
                     )}
-
-                    {selectedRegion && <p className="selected-region">선택한 지역: {selectedRegion}</p>}
                 </div>
             </div>
 

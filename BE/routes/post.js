@@ -36,6 +36,7 @@ router.post('/add', async (요청, 응답) => {
     productQuality: 요청.body.productQuality,
     higherCategory: 요청.body.higherCategory,
     lowerCategory: 요청.body.lowerCategory,
+    region: 요청.body.region,
     productPrice: 요청.body.productPrice,
     like: 0,
     isSell: false

@@ -341,7 +341,7 @@ function Detail() {
               지역
             </div>
             <div className="Detail-Info-Content">
-              경기도 평택시 송화리
+              {pageResult.region}
             </div>
           </div>
           <div className="Detail-Info">

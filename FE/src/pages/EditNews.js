@@ -20,6 +20,11 @@ function EditNews() {
     let [가격, 가격변경] = useState('');
     const [isActive, setActive] = useState(false);
 
+    // 위치 상태 변수
+    const [address, setAddress] = useState("");
+    const [regions, setRegions] = useState([]);
+    const [selectedRegion, setSelectedRegion] = useState("");
+
     // 수정하려는 글 값 받아오기 (default 값 설정)
     async function fetchData(id) {
         try {
@@ -71,6 +76,7 @@ function EditNews() {
                 productQuality: getProductStatus(상품상태) || defaultInfo.productQuality,
                 higherCategory: 상위카테고리,
                 lowerCategory: 하위카테고리,
+                region: selectedRegion || defaultInfo.region,
                 productPrice: 가격 || defaultInfo.productPrice,
                 like: defaultInfo.like,
                 isSell: defaultInfo.isSell
@@ -251,6 +257,26 @@ function EditNews() {
             </form>
         )
     }
+    // 도로명 받아오기 함수
+    const handleSearch = async () => {
+        if (!address.trim()) return alert("주소를 입력하세요.");
+
+        try {
+            const response = await fetch(`/region?address=${encodeURIComponent(address)}`);
+            const data = await response.json();
+
+            if (data.regions && data.regions.length > 0) {
+                setRegions(data.regions); // 지역 목록을 상태에 저장
+                setSelectedRegion(""); // 새로운 검색 시 선택 초기화
+            } else {
+                setRegions([]);
+                alert("지역 정보를 찾을 수 없습니다.");
+            }
+        } catch {
+            setRegions([]);
+            alert("검색 중 오류가 발생했습니다.");
+        }
+    };
 
     return (
         <div style={{ width: '600px', justifySelf: 'center' }}>
@@ -265,11 +291,6 @@ function EditNews() {
                     </div>
                     <div style={{ justifycontent: 'flex-end', marginLeft: '20px', color: '#B6B2AD' }}>
                         {상품명.length}/40
-                        {/* {
-                            (상품명.length == 0) ? 
-                            <div>{defaultInfo.productName.length}</div>
-                            : <div>{상품명.length}/40</div>
-                        } */}
                     </div>
                 </div>
                 <input
@@ -330,6 +351,38 @@ function EditNews() {
                     상위카테고리={상위카테고리} 상위카테고리변경={상위카테고리변경}
                     하위카테고리={하위카테고리} 하위카테고리변경={하위카테고리변경}
                 />
+            </div>
+            <div className="Write-Input-Row">
+                <div className="Write-Title-2">
+                    거래할 지역
+                </div>
+                <div className="address-search-container">
+                    <div className="search-box">
+                        <input
+                            className="address-input"
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
+                            placeholder="도로명 주소 입력"
+                        />
+                        <button className="search-button" onClick={handleSearch}>검색</button>
+                    </div>
+
+                    {regions.length > 0 && (
+                        <div className="region-selection">
+                            <p>지역을 선택하세요</p>
+                            <select
+                                className="region-select"
+                                value={selectedRegion}
+                                onChange={(e) => setSelectedRegion(e.target.value)}
+                            >
+                                <option value="">지역 선택</option>
+                                {regions.map((region, index) => (
+                                    <option key={index} value={region}>{region}</option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
+                </div>
             </div>
             <div className="Edit-Input-Row">
                 <div className="Edit-Title-2">
