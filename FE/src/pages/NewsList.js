@@ -17,6 +17,11 @@ function NewsList() {
       }, []);
   }, []);  // 컴포넌트가 마운트될 때 한 번만 실행
 
+  /// 스크롤을 최상단으로 가져온다 (첫 렌더링 때만 실행)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   let today = new Date();
 
   return (
