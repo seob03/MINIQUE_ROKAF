@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import './style/NewsList.css';
 import CardSmall from '../components/CardSmall';
-import CategoryDropDown from '../components/CategoryDropDown';
+import CategoryDropDown from '../components/CategoryDropDown.js';
 
 function CategoryPage() {
     let [상위카테고리, 상위카테고리변경] = useState('');

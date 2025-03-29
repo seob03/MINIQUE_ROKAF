@@ -15,8 +15,8 @@ function NewsWrite() {
     let [상품상세설명, 상품상세설명변경] = useState('');
     let [이미지들, 이미지들변경] = useState([]);
     let [개월수정보, 개월수변경] = useState('');
-    let [상위카테고리, 상위카테고리변경] = useState('상위 카테고리');
-    let [하위카테고리, 하위카테고리변경] = useState('하위 카테고리');
+    let [상위카테고리, 상위카테고리변경] = useState('');
+    let [하위카테고리, 하위카테고리변경] = useState('');
     let [상품상태, 상품상태변경] = useState('');
     let [가격, 가격변경] = useState('');
     let navigate = useNavigate();
@@ -449,8 +449,8 @@ function NewsWrite() {
                         placeholder="도로명 주소 입력"
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
-                              e.preventDefault();
-                              handleSearch();
+                                e.preventDefault();
+                                handleSearch();
                             }
                         }}
                     />
