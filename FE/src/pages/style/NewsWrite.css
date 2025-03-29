@@ -58,30 +58,6 @@
     border-color: #4169E1;
 }
 
-.Write-Dropdown-Box {
-    width: 160px;
-    height: 45px;
-    border-radius: 6px;
-    border: 1px solid #B6B2AD;
-    background-color: #FFFFFF;
-    font-size: 16px;
-    padding-left: 16px;
-    position: relative;
-    color: #333333;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: all 0.3s ease;
-    cursor: pointer;
-}
-
-.Write-Dropdown-Box.inactive {
-    width: 120px;
-    border: 1px solid #4169E1;
-    cursor: not-allowed;
-    background-color: #F7F7F7;
-}
-
 
 .Write-Input {
     border-radius: 4px;

@@ -5,6 +5,7 @@ import { ReactComponent as AddImage } from '../components/AddImage.svg';
 import CategoryDropDown from '../components/CategoryDropDown.js';
 import './style/EditNews.css';
 import { showAlert } from '../components/Util.js';
+import DropDown from '../components/DropDown.js';
 
 function EditNews() {
     let { id } = useParams();
@@ -33,9 +34,15 @@ function EditNews() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const result = await response.json();
+            console.log(result)
             // 상태 업데이트
             setDefaultInfo(result);
+            개월수변경(result.childAge);
+            상품상태변경(getRevProductStatus(result.productQuality));
+            상위카테고리변경(result.higherCategory);
+            하위카테고리변경(result.lowerCategory);
             이미지들변경(result.productPhoto);
+            setAddress(result.region)
         } catch (error) {
             console.error('Error fetching data:', error);
         }
@@ -64,6 +71,24 @@ function EditNews() {
         }
     }
 
+    // 제품 상태에 따라 String으로 변환하는 메서드
+    function getRevProductStatus(status) {
+        switch (status) {
+            case "좋지 않음":
+                return 1;  // 예: 판매 중
+            case "사용감 있음":
+                return 2; // 예: 일시 품절
+            case "보통":
+                return 3;  // 예: 품절
+            case "좋음":
+                return 4;  // 예: 예약 판매
+            case "새상품":
+                return 5;  // 예: 단종
+            default:
+                return "알 수 없음";  // 예: 유효하지 않은 상태
+        }
+    }
+
     function handleEdit() {
         fetch(`/editPost/${id}`, {
             method: 'PUT',
@@ -74,8 +99,8 @@ function EditNews() {
                 productPhoto: 이미지들 || defaultInfo.productPhoto,
                 childAge: 개월수정보 || defaultInfo.childAge,
                 productQuality: getProductStatus(상품상태) || defaultInfo.productQuality,
-                higherCategory: 상위카테고리,
-                lowerCategory: 하위카테고리,
+                higherCategory: 상위카테고리 || defaultInfo.higherCategory,
+                lowerCategory: 하위카테고리 || defaultInfo.lowerCategory,
                 region: selectedRegion || defaultInfo.region,
                 productPrice: 가격 || defaultInfo.productPrice,
                 like: defaultInfo.like,
@@ -234,7 +259,7 @@ function EditNews() {
                 }}>
                 <fieldset className='ItemState-field'>
                     {['좋지 않음', '사용감 있음', '보통', '좋음', '새상품'].map((text, value) => {
-                        const isSelected = 상품상태 === (value + 1);
+                        const isSelected = 상품상태 == (value + 1);
                         return (
                             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                 <div style={{ display: 'flex', alignItems: 'center', height: '56px' }}>
@@ -295,11 +320,13 @@ function EditNews() {
                 </div>
                 <input
                     defaultValue={defaultInfo.productName}
-                    className="Edit-Input-Title"
+                    className="Write-Input-Title"
+                    maxLength={40}
                     onChange={(e) => {
                         상품명변경(e.target.value);
                     }}
-                    type="text" />
+                    type="text" 
+                />
             </div>
             <div className="Edit-Input-Row">
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
@@ -310,7 +337,7 @@ function EditNews() {
                         {상품상세설명.length}/200
                     </div>
                 </div>
-                <input
+                <textarea
                     defaultValue={defaultInfo.productDetailContent}
                     className="Edit-Input-Content"
                     onChange={(e) => {
@@ -323,19 +350,7 @@ function EditNews() {
                 <div className="Edit-Title-2">
                     아이 정보 입력
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', marginTop: '12px' }}>
-                    <input
-                        defaultValue={defaultInfo.childAge}
-                        className="Edit-Input"
-                        onChange={(e) => {
-                            개월수변경(e.target.value);
-                        }}
-                        type="text"
-                    />
-                    <div style={{ fontFamily: 'NotoSansKR-Medium', fontSize: '16px', marginLeft: '12px' }}>
-                        개월
-                    </div>
-                </div>
+                <DropDown 상태={개월수정보} 상태변경함수={개월수변경}/>
             </div>
             <div className="Edit-Input-Row">
                 <div className="Edit-Title-2">
@@ -352,38 +367,46 @@ function EditNews() {
                     하위카테고리={하위카테고리} 하위카테고리변경={하위카테고리변경}
                 />
             </div>
+
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">
                     거래할 지역
                 </div>
-                <div className="address-search-container">
-                    <div className="search-box">
-                        <input
-                            className="address-input"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                            placeholder="도로명 주소 입력"
-                        />
-                        <button className="search-button" onClick={handleSearch}>검색</button>
-                    </div>
-
-                    {regions.length > 0 && (
-                        <div className="region-selection">
-                            <p>지역을 선택하세요</p>
-                            <select
-                                className="region-select"
-                                value={selectedRegion}
-                                onChange={(e) => setSelectedRegion(e.target.value)}
-                            >
-                                <option value="">지역 선택</option>
-                                {regions.map((region, index) => (
-                                    <option key={index} value={region}>{region}</option>
-                                ))}
-                            </select>
-                        </div>
-                    )}
+                <div className="search-box">
+                    <input
+                        className="address-input"
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                        placeholder="도로명 주소 입력"
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                e.preventDefault();
+                                handleSearch();
+                            }
+                        }}
+                    />
+                    <button className="search-button" onClick={handleSearch}>검색</button>
                 </div>
+                <div className="search-help">
+                    거래할 지역명, 지하철역, 도로명으로 검색하세요!
+                </div>
+
+                {regions.length > 0 && (
+                    <div className="region-selection">
+                        <select
+                            className="region-select"
+                            value={selectedRegion}
+                            onChange={(e) => setSelectedRegion(e.target.value)}
+                        >
+                            <option value="">지역 선택</option>
+                            {regions.map((region, index) => (
+                                <option key={index} value={region}>{region}</option>
+                            ))}
+                        </select>
+                    </div>
+                )}
             </div>
+
             <div className="Edit-Input-Row">
                 <div className="Edit-Title-2">
                     가격
