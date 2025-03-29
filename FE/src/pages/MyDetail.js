@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import Swal from "sweetalert2";
 import CardSmall from '../components/CardSmall';
 import './style/MyDetail.css';
 
@@ -6,7 +7,7 @@ function MyDetail() {
     let [sellingPosts, setSellingPosts] = useState([]);
     let [soldPosts, setSoldPosts] = useState([]);
     let [favoritePosts, setFavoritePosts] = useState([]);
-
+    let [profileImg, setProfileImg] = useState(null);
     let [tab, setTab] = useState(0); // 기본 탭을 0으로 설정
     let tabRefs = [useRef(null), useRef(null)];
     // 초기 상태를 첫 번째 탭의 왼쪽 끝에서 시작하도록 설정
@@ -42,7 +43,6 @@ function MyDetail() {
             width: `${tabWidth}%`,
         });
     }, [tab]);
-
 
     // 본인이 판매중인 게시글 가져오기
     useEffect(() => {
@@ -91,6 +91,38 @@ function MyDetail() {
                 console.error('fetch 오류:', error);
             })
     }, []);
+
+    const handleFileChange = (event) => {
+        event.preventDefault();
+        const file = event.target.files[0]; // 첫 번째 파일 선택
+        if (file) {
+            const reader = new FileReader(); // 파일 읽을 FileReader 객체 생성
+            reader.onloadend = () => {
+                setProfileImg(reader.result); // Base64로 변환된 이미지 데이터 상태에 저장
+            };
+            reader.readAsDataURL(file); // 파일을 Base64로 변환
+        }
+    };
+
+    function handleBasicImage(){
+        Swal.fire({
+            title: "기본 프로필로 변경",
+            text: "정말 기본 프로필로 변경하시겠습니까?",
+            icon: "warning",
+            showCancelButton: true, // '취소' 버튼을 추가
+            confirmButtonText: "예", // '예' 버튼
+            cancelButtonText: "아니오", // '아니오' 버튼
+            customClass: {
+                popup: "custom-swal-popup",
+                container: "custom-swal-container",
+            },
+        }).then((result) => {
+            if (result.isConfirmed) {
+                setProfileImg(null);
+            } else {
+            }
+        });
+    }
 
     function TabContent(props) {
         let [fade, setFade] = useState('');
