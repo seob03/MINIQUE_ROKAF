@@ -104,6 +104,19 @@
     border-color: #4169E1;
 }
 
+.Write-Input-Brand {
+    border-radius: 8px;
+    border: 1px solid #B6B2AD;
+    padding: 12px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.Write-Input-Brand:focus {
+    border-color: #4169E1;
+}
+
 .Write-ButtonArea {
     display: flex;
     justify-content: center;
@@ -431,7 +444,7 @@
     background-color: #4169E1;
 }
 
-.search-help{
+.search-help {
     color: #B6B2AD;
     font-size: 10px;
     margin-top: 4px;
@@ -457,7 +470,7 @@
 }
 
 .region-select::-ms-expand {
-    display:none;
+    display: none;
 }
 
 .selected-region {

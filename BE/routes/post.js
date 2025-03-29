@@ -32,6 +32,7 @@ router.post('/add', async (요청, 응답) => {
     productName: 요청.body.productName,
     productDetailContent: 요청.body.productDetailContent,
     productPhoto: 요청.body.productPhoto,
+    brand: 요청.body.brand,
     childAge: 요청.body.childAge,
     productQuality: 요청.body.productQuality,
     higherCategory: 요청.body.higherCategory,

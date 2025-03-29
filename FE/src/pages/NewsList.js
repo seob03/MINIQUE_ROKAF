@@ -43,7 +43,7 @@ function NewsList() {
               postData.map(post => (
                 <CardSmall
                   photo={post.productPhoto || undefined}
-                  brand={'MONCLER'}
+                  brand={post.brand}
                   title={post.productName}
                   size={post.childAge}
                   price={Number(post.productPrice).toLocaleString()}

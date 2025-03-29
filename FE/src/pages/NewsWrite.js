@@ -15,6 +15,7 @@ function NewsWrite() {
     let [상품명, 상품명변경] = useState('');
     let [상품상세설명, 상품상세설명변경] = useState('');
     let [이미지들, 이미지들변경] = useState([]);
+    let [브랜드, 브랜드변경] = useState('');
     let [개월수정보, 개월수변경] = useState('');
     let [상위카테고리, 상위카테고리변경] = useState('');
     let [하위카테고리, 하위카테고리변경] = useState('');
@@ -126,6 +127,7 @@ function NewsWrite() {
                 productName: 상품명,
                 productDetailContent: 상품상세설명,
                 productPhoto: 이미지들,
+                brand: 브랜드,
                 childAge: 개월수정보,
                 productQuality: getProductStatus(상품상태),
                 higherCategory: 상위카테고리,
@@ -379,10 +381,29 @@ function NewsWrite() {
                 />
             </div>
             <div className="Write-Input-Row">
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
+                    <div className="Write-Title-2">
+                        브랜드
+                    </div>
+                    <div style={{ display: 'block', marginLeft: '20px', color: '#B6B2AD' }}>
+                        {브랜드.length}/20
+                    </div>
+                </div>
+                <input
+                    placeholder="있었던 옷의 브랜드를 입력해 주세요!"
+                    className="Write-Input-Brand"
+                    maxLength={20}
+                    onChange={(e) => {
+                        브랜드변경(e.target.value.toUpperCase());
+                    }}
+                    type="text"
+                />
+            </div>
+            <div className="Write-Input-Row">
                 <div className="Write-Title-2">
                     아이 정보 입력
                 </div>
-                <DropDown 상태={개월수정보} 상태변경함수={개월수변경}/>
+                <DropDown 상태={개월수정보} 상태변경함수={개월수변경} />
             </div>
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">

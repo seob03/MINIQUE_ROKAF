@@ -321,6 +321,14 @@ function Detail() {
           </div>
           <div className="Detail-Info">
             <div className="Detail-Info-Title">
+              브랜드
+            </div>
+            <div className="Detail-Info-Content">
+              {pageResult.brand}
+            </div>
+          </div>
+          <div className="Detail-Info">
+            <div className="Detail-Info-Title">
               상태
             </div>
             <div className="Detail-Info-Content">
@@ -388,7 +396,7 @@ function Detail() {
         </div>
       </div>
 
-      <div style={{ display: 'block', fontSize: '20px', fontFamily: 'NotoSansKR-Medium', marginTop: '180px' }}>
+      <div style={{ marginBottom: '16px', display: 'block', fontSize: '20px', fontFamily: 'NotoSansKR-Medium', marginTop: '180px' }}>
         같은 카테고리의 상품
       </div>
       <div className="Detail-Recommend">
