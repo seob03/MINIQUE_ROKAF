@@ -31,12 +31,14 @@
 
 .Category-Result {
     display: flex;
+    font-family: NotoSansKR-Medium;
     flex-wrap: wrap;
-    gap : 84px;
+    gap: 48px;
     justify-content: flex-start;
+    align-items: flex-start;
 }
 
-.No-Search-Result{
+.No-Search-Result {
     margin-top: 32px;
     font-family: NotoSansKR-Regular;
 }

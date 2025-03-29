@@ -79,30 +79,18 @@ function CategoryPage() {
             {
                 (상위카테고리 == '' && 하위카테고리 == '') ?
                     <>
-                        <div className="Recommend-Title">
-                            BEST
+                        <div className='Category-Result'>
+                            <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                                <p style={{ color: '#666', fontSize: '16px' }}>
+                                    {(카테고리게시글.length > 0) ? `BEST 카테고리 상품 ${카테고리게시글.length}개` : '추천할만한 카테고리 상품이 없습니다.'}
+                                </p>
+                                {카테고리게시글.length === 0 && (
+                                    <p style={{ color: '#999', fontSize: '14px', marginTop: '8px' }}>상품이 등록되면 이곳에 표시됩니다.</p>
+                                )}
+                            </div>
                         </div>
-                        <div className="Recommend-Gallery">
-                            {
-                                (카테고리게시글.length > 0) ? (
-                                    카테고리게시글.map(post => (
-                                        <CardSmall
-                                            photo={post.productPhoto || undefined}
-                                            brand={'MONCLER'}
-                                            title={post.productName}
-                                            size={post.childAge}
-                                            price={Number(post.productPrice).toLocaleString()}
-                                            link={'/detail/' + post._id}
-                                        />
-                                    ))
-                                ) : <div>추천할만한 카테고리 상품이 없습니다.</div>
-                            }
-                        </div>
-                    </>
-                    :
-                    <div className='Category-Result'>
-                        {
-                            (카테고리게시글.length > 0) ? (
+                        <div className='Category-Result'>
+                            {(카테고리게시글.length > 0) ? (
                                 카테고리게시글.map(post => (
                                     <CardSmall
                                         photo={post.productPhoto || undefined}
@@ -113,9 +101,36 @@ function CategoryPage() {
                                         link={'/detail/' + post._id}
                                     />
                                 ))
-                            ) : <div>해당 카테고리 상품이 없습니다.</div>
-                        }
-                    </div>
+                            ) : null}
+                        </div>
+                    </>
+                    :
+                    <>
+                        <div className='Category-Result'>
+                            <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                                <div style={{ color: '#666', fontSize: '16px' }}>
+                                    {(카테고리게시글.length > 0) ? `${상위카테고리} 상품 ${카테고리게시글.length}개` : '해당 카테고리 상품이 없습니다.'}
+                                </div>
+                                {카테고리게시글.length === 0 && (
+                                    <p style={{ color: '#999', fontSize: '14px', marginTop: '8px' }}>상품이 등록되면 이곳에 표시됩니다.</p>
+                                )}
+                            </div>
+                        </div>
+                        <div className='Category-Result'>
+                            {(카테고리게시글.length > 0) ? (
+                                카테고리게시글.map(post => (
+                                    <CardSmall
+                                        photo={post.productPhoto || undefined}
+                                        brand={'MONCLER'}
+                                        title={post.productName}
+                                        size={post.childAge}
+                                        price={Number(post.productPrice).toLocaleString()}
+                                        link={'/detail/' + post._id}
+                                    />
+                                ))
+                            ) : null}
+                        </div>
+                    </>
             }
         </>
     );
