@@ -350,7 +350,7 @@ function NewsWrite() {
                     </div>
                 </div>
                 <input
-                    placeholder=" 판매하시려는 상품의 이름을 입력해 주세요!"
+                    placeholder="판매하시려는 상품의 이름을 입력해 주세요!"
                     className="Write-Input-Title"
                     maxLength={40}
                     onChange={(e) => {
@@ -368,7 +368,7 @@ function NewsWrite() {
                     </div>
                 </div>
                 <textarea
-                    placeholder=" 사용했던 제품에 대해 자세하게 설명해 주세요!"
+                    placeholder="사용했던 제품에 대해 자세하게 설명해 주세요!"
                     className="Write-Input-Content"
                     maxLength={400}
                     onChange={(e) => {
@@ -482,7 +482,7 @@ function NewsWrite() {
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', marginTop: '12px' }}>
                     <input
-                        placeholder=" 판매할 가격을 입력해주세요!"
+                        placeholder="판매할 가격을 입력해주세요!"
                         className="Write-Input-Price"
                         onChange={(e) => {
                             가격변경(e.target.value);

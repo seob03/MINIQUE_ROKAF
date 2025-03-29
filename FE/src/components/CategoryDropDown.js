@@ -14,7 +14,7 @@ function CategoryDropDown(props) {
                 className={`CategoryDropDown-Box ${(props.isActive_1) ? '' : 'inactive'}`}
                 onClick={() => { setDrop1(!isDrop1); console.log('드롭다운 : ', isDrop1, '둘다 :', isDrop1 && props.isActive_1) }}
             >
-                <div style={{ color: props.상위카테고리 ? '#212120' : '#B6B2AD' }}>
+                <div style={{ fontWeight: props.상위카테고리 ? 'NotoSansKR-Medium' : 'NotoSansKR-Regular', color: props.상위카테고리 ? '#212120' : '#757575' }}>
                     {props.상위카테고리 || '카테고리 선택'}
                 </div>
                 {
@@ -42,7 +42,7 @@ function CategoryDropDown(props) {
                     className='CategoryDropDown-Box'
                     onClick={() => setDrop2(!isDrop2)}
                 >
-                    <div style={{ color: props.하위카테고리 ? '#212120' : '#B6B2AD' }}>
+                    <div style={{ fontWeight: props.상위카테고리 ? 'NotoSansKR-Medium' : 'NotoSansKR-Regular', color: props.하위카테고리 ? '#212120' : '#757575' }}>
                         {props.하위카테고리 || '성별 선택'}
                     </div>
                     {

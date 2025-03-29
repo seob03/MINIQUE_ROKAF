@@ -395,11 +395,11 @@ function ChatList() {
         <div className="chat-room">
           {(chatID !== '') ?
             <ChatRoom chat_id={chatID} sellerName={sellerName} productName={productName} productPrice={productPrice} productFrontPhoto={productFrontPhoto} productID={productID} />
-            : 
+            :
             <div className="start-chat-box">
-              <img src={'/img/Logo_Square.svg'} style={{width: '180px', height: '180px', opacity: '50%'}}/>
-              <div style={{marginTop: '8px', marginBottom: '8px'}}>채팅을 시작하려면 왼쪽에서 대화를 선택해주세요.</div>
-              <div>채팅 만들려면 알제?😊</div>
+              <img src={'/img/Logo_Square.svg'} style={{ width: '180px', height: '180px', opacity: '50%' }} />
+              <div style={{ marginTop: '8px', marginBottom: '8px' }}></div>
+              <div>채팅을 시작하려면 왼쪽에서 대화를 선택해주세요.</div>
             </div>
           }
         </div>
