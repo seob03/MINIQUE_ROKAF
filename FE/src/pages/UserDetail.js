@@ -13,7 +13,6 @@ function UserDetail() {
     let tabRefs = [useRef(null), useRef(null)];
     let [indicatorStyle, setIndicatorStyle] = useState({ transform: 'translateX(0px)', width: '0px' });
 
-
     // 탭이 변경될 때마다 언더바 위치와 너비를 업데이트
     useLayoutEffect(() => {
         if (tabRefs[tab].current) {
@@ -32,16 +31,16 @@ function UserDetail() {
 
     useEffect(() => {
         // 세 개의 fetch 요청을 병렬로 처리
-        Promise.all([
-            fetch('/userSellingPosts/' + user_id, { method: 'GET', headers: { 'Content-Type': 'application/json' }, }).then(response => response.json()),
-            fetch('/userInfo/' + user_id, { method: 'GET', headers: { 'Content-Type': 'application/json' }, }).then(response => response.json()),
-            fetch('/userSoldPosts/' + user_id, { method: 'GET', headers: { 'Content-Type': 'application/json' }, }).then(response => response.json()),
-        ])
+        Promise.all([fetch('/userSellingPosts/' + user_id, { method: 'GET', headers: { 'Content-Type': 'application/json' }, })
+            .then(response => response.json()),
+        fetch('/userInfo/' + user_id, { method: 'GET', headers: { 'Content-Type': 'application/json' }, })
+            .then(response => response.json()),
+        fetch('/userSoldPosts/' + user_id, { method: 'GET', headers: { 'Content-Type': 'application/json' }, })
+            .then(response => response.json())])
             .then(([sellingPostsData, userInfoData, soldPostsData]) => { // 세 개의 응답 데이터 처리
                 setSellingPosts(sellingPostsData);
                 setUserInfo(userInfoData);
                 setSoldPosts(soldPostsData);
-                console.log('서버 응답 >> sellingPostsData:', sellingPostsData, 'userInfoData:', userInfoData, 'soldPostsData:', soldPostsData);
             })
             .catch(error => {
                 console.error('fetch 오류:', error);
@@ -49,56 +48,51 @@ function UserDetail() {
     }, [user_id]);
 
     function TabContent(props) {
-        let [fade, setFade] = useState('')
+        let [fade, setFade] = useState('');
 
         useEffect(() => {
-            setTimeout(() => { setFade('TabContent-End') }, 100)
+            setTimeout(() => { setFade('TabContent-End') }, 100);
             return () => {
-                setFade('')
+                setFade('');
             }
-        }, [tab])
+        }, [tab]);
 
         return (
-
             <div className={`TabContent-Start ${fade}`}>
                 {
                     [
-                        <>
-                            {props.sellingPosts && props.sellingPosts.length > 0 ? (
-                                <div className='TabContent-Item'>
-                                    {props.sellingPosts.map(post => (
-                                        <CardSmall
-                                            photo={post.productPhoto || undefined}
-                                            brand={'Brand'}
-                                            title={post.productName}
-                                            size={post.childAge}
-                                            price={post.productPrice}
-                                            link={'/detail/' + post._id}
-                                        />
-                                    ))}
-                                </div>
-                            ) : (
-                                <div>판매중인 상품이 없습니다.</div>
-                            )}
-                        </>,
-                        <>
-                            {props.soldPosts && props.soldPosts.length > 0 ? (
-                                <div className='TabContent-Item'>
-                                    {props.soldPosts.map(post => (
-                                        <CardSmall
-                                            photo={post.productPhoto || undefined}
-                                            brand={'Brand'}
-                                            title={post.productName}
-                                            size={post.childAge}
-                                            price={post.productPrice}
-                                            link={'/detail/' + post._id}
-                                        />
-                                    ))}
-                                </div>
-                            ) : (
-                                <div>판매한 상품이 없습니다.</div>
-                            )}
-                        </>
+                        <>{props.sellingPosts && props.sellingPosts.length > 0 ? (
+                            <div className='TabContent-Item'>
+                                {props.sellingPosts.map(post => (
+                                    <CardSmall
+                                        photo={post.productPhoto || undefined}
+                                        brand={'Brand'}
+                                        title={post.productName}
+                                        size={post.childAge}
+                                        price={post.productPrice}
+                                        link={'/detail/' + post._id}
+                                    />
+                                ))}
+                            </div>
+                        ) : (
+                            <div>판매중인 상품이 없습니다.</div>
+                        )}</>,
+                        <>{props.soldPosts && props.soldPosts.length > 0 ? (
+                            <div className='TabContent-Item'>
+                                {props.soldPosts.map(post => (
+                                    <CardSmall
+                                        photo={post.productPhoto || undefined}
+                                        brand={'Brand'}
+                                        title={post.productName}
+                                        size={post.childAge}
+                                        price={post.productPrice}
+                                        link={'/detail/' + post._id}
+                                    />
+                                ))}
+                            </div>
+                        ) : (
+                            <div>판매한 상품이 없습니다.</div>
+                        )}</>
                     ][props.tab]
                 }
             </div>

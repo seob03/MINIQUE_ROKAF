@@ -6,18 +6,43 @@ function MyDetail() {
     let [sellingPosts, setSellingPosts] = useState([]);
     let [soldPosts, setSoldPosts] = useState([]);
     let [favoritePosts, setFavoritePosts] = useState([]);
-    let [tab, setTab] = useState(0); // 기본 탭을 0으로 설정
-    const [indicatorStyle, setIndicatorStyle] = useState({ transform: 'translateX(-100%)', width: '33.33%' }); // 초기에 -100%로 설정
 
-    // 탭 클릭 시 언더바 위치 업데이트
+    let [tab, setTab] = useState(0); // 기본 탭을 0으로 설정
+    let tabRefs = [useRef(null), useRef(null)];
+    // 초기 상태를 첫 번째 탭의 왼쪽 끝에서 시작하도록 설정
+    let [indicatorStyle, setIndicatorStyle] = useState({
+        transform: 'translateX(0%)', // 첫 번째 탭의 왼쪽 끝에서 시작
+        width: '0px'
+    });
+
+    // 탭이 변경될 때마다 언더바 위치와 너비를 업데이트
     useEffect(() => {
-        const tabWidth = 100 / 3; // 3개의 탭을 100%로 나누기
-        const translateXValue = tab === 0 ? '-100%' : tab === 1 ? '0%' : '100%'; // 탭에 맞는 위치
+        const tabWidth = 100 / 3;
+        let translateXValue;
+
+        // 탭에 맞는 위치를 설정
+        switch (tab) {
+            case 0:
+                translateXValue = '0%'; // 첫 번째 탭 (왼쪽)
+                break;
+            case 1:
+                translateXValue = '100%'; // 두 번째 탭 (중앙)
+                break;
+            case 2:
+                translateXValue = '200%'; // 세 번째 탭 (오른쪽)
+                break;
+            default:
+                translateXValue = '0%';
+                break;
+        }
+
+        // 언더바 위치와 너비 업데이트
         setIndicatorStyle({
-            transform: `translateX(${translateXValue})`, // 클릭된 탭에 맞춰 이동
-            width: `${tabWidth}%`, // 각 탭의 너비에 맞게 설정
+            transform: `translateX(${translateXValue})`,
+            width: `${tabWidth}%`,
         });
-    }, [tab]); // tab 상태가 변경될 때마다 실행
+    }, [tab]);
+
 
     // 본인이 판매중인 게시글 가져오기
     useEffect(() => {
@@ -171,18 +196,21 @@ function MyDetail() {
             </div>
             <div className="MyStore-Tab">
                 <div
+                    ref={tabRefs[0]}
                     className={`MyStore-Tab-Title ${tab === 0 ? 'active' : ''}`}
                     onClick={() => setTab(0)}
                 >
                     <span>판매중</span>
                 </div>
                 <div
+                    ref={tabRefs[1]}
                     className={`MyStore-Tab-Title ${tab === 1 ? 'active' : ''}`}
                     onClick={() => setTab(1)}
                 >
                     <span>판매완료</span>
                 </div>
                 <div
+                    ref={tabRefs[2]}
                     className={`MyStore-Tab-Title ${tab === 2 ? 'active' : ''}`}
                     onClick={() => setTab(2)}
                 >

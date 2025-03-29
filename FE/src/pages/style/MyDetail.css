@@ -85,7 +85,6 @@
     width: 100%;
     margin-top: 40px;
     justify-content: space-around;
-    /* 탭을 균등하게 배치 */
     position: relative;
 }
 
@@ -96,10 +95,8 @@
     padding: 8px 16px;
     position: relative;
     color: #B6B2AD;
-    /* 기본적으로 연한 회색 */
     transition: color 0.3s ease-in-out;
     width: 33.3333%;
-    /* 각 탭을 3등분 */
 }
 
 .MyStore-Tab-Title:hover {
@@ -117,7 +114,8 @@
     bottom: -2px;
     height: 4px;
     background-color: #4169E1;
-    /* 언더바 색상 */
     border-radius: 2px;
     transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+    left: 0;
+    transform-origin: left;
 }
