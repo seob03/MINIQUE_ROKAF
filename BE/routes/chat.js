@@ -36,6 +36,7 @@ router.post('/chat/request/', async (요청, 응답) => {
   let sellerName = sellerInfo.username
   let buyerInfo = 요청.user
   let buyerName = buyerInfo.username
+  let sellerProfileImg = sellerInfo.profileImg
 
   // 기존 채팅방 확인
   const existingChatRoom = await db.collection('chatRoom').findOne({
@@ -51,6 +52,7 @@ router.post('/chat/request/', async (요청, 응답) => {
   await db.collection('chatRoom').insertOne({
     member: [요청.user.id, sellerId],
     sellerName: sellerName,
+    sellerProfileImg: sellerProfileImg,
     buyerName: 요청.user.username,
     productName: productName,
     productPrice: productPrice,
@@ -97,5 +99,19 @@ router.get('/chat/exitChatRoom/:chatRoomId', async (요청, 응답) => {
   }
 });
 
+// 해당 유저의 프로필 사진 가져오기
+router.get('/getChatUserProfileImg/:username', async (요청, 응답) => {
+  const db = 요청.db;
+  cconsole.log(1123123123)
+  console.log('요청.params.username:', 요청.params.username)
+  try {
+    let userProfile = await db.collection('user').findOne({ username: new ObjectId(요청.params.username) })
+    let userProfileImg = userProfile.profileImg
+    응답.json(userProfileImg);
+  }
+  catch (error) {
+    응답.status(500).send('Database error');
+  }
+})
 
 module.exports = router;

@@ -3,18 +3,50 @@ import Swal from "sweetalert2";
 import CardSmall from '../components/CardSmall';
 import './style/MyDetail.css';
 
+
 function MyDetail() {
     let [sellingPosts, setSellingPosts] = useState([]);
     let [soldPosts, setSoldPosts] = useState([]);
     let [favoritePosts, setFavoritePosts] = useState([]);
     let [profileImg, setProfileImg] = useState(null);
-    let [tab, setTab] = useState(0); // 기본 탭을 0으로 설정
+    let [tab, setTab] = useState(0);
     let tabRefs = [useRef(null), useRef(null)];
-    // 초기 상태를 첫 번째 탭의 왼쪽 끝에서 시작하도록 설정
-    let [indicatorStyle, setIndicatorStyle] = useState({
-        transform: 'translateX(0%)', // 첫 번째 탭의 왼쪽 끝에서 시작
-        width: '0px'
-    });
+    let [indicatorStyle, setIndicatorStyle] = useState({ transform: 'translateX(0%)', width: '0px' });
+
+    // 프로필 사진 가져오기
+    useEffect(() => {
+        fetch(('/myDetail/getProfileImg'), {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data == "null")
+                    setProfileImg(null);
+                else
+                    setProfileImg(data)
+                console.log('서버 응답:', data);
+            })
+            .catch(error => {
+                console.error('fetch 오류:', error);
+            })
+    }, []);
+
+    // 변경한 프로필 사진 DB 저장 훅
+    function handleProfile() {
+        fetch('/myDetail/setProfileImg', {
+            method: 'POST', // POST로 변경
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ profileImg }), // profileImg를 body에 포함
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('서버 응답:', data);
+            })
+            .catch(error => {
+                console.error('fetch 오류:', error);
+            });
+    }
 
     // 탭이 변경될 때마다 언더바 위치와 너비를 업데이트
     useEffect(() => {
@@ -92,17 +124,25 @@ function MyDetail() {
             })
     }, []);
 
+
     const handleFileChange = (event) => {
         event.preventDefault();
-        const file = event.target.files[0]; // 첫 번째 파일 선택
+        const file = event.target.files[0];
         if (file) {
-            const reader = new FileReader(); // 파일 읽을 FileReader 객체 생성
+            const reader = new FileReader();
             reader.onloadend = () => {
-                setProfileImg(reader.result); // Base64로 변환된 이미지 데이터 상태에 저장
+                setProfileImg(reader.result); // 상태 변경
             };
-            reader.readAsDataURL(file); // 파일을 Base64로 변환
+            reader.readAsDataURL(file);
         }
     };
+
+    // profileImg 값이 변경되면 handleProfile 실행
+    useEffect(() => {
+        if (profileImg) {
+            handleProfile();
+        }
+    }, [profileImg]);
 
     function handleBasicImage() {
         Swal.fire({
@@ -118,7 +158,7 @@ function MyDetail() {
             },
         }).then((result) => {
             if (result.isConfirmed) {
-                setProfileImg(null);
+                setProfileImg('/img/Basic_Profile.svg');
             } else {
             }
         });

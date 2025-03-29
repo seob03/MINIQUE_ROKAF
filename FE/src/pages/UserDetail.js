@@ -8,10 +8,26 @@ function UserDetail() {
     let [sellingPosts, setSellingPosts] = useState([]);
     let [soldPosts, setSoldPosts] = useState([]);
     let [userInfo, setUserInfo] = useState('') // username, _id 필드 반환
-
+    let [userProfileimg, setUserProfileImg] = useState(null)
     let [tab, setTab] = useState(0);
     let tabRefs = [useRef(null), useRef(null)];
     let [indicatorStyle, setIndicatorStyle] = useState({ transform: 'translateX(0px)', width: '0px' });
+
+    // 상대방 프로필 사진 가져오기
+    useEffect(() => {
+        fetch(('/getUserProfileImg/' + user_id), {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(response => response.json())
+            .then(data => {
+                setUserProfileImg(data)
+                console.log('서버 응답:', data);
+            })
+            .catch(error => {
+                console.error('fetch 오류:', error);
+            })
+    }, []);
 
     // 탭이 변경될 때마다 언더바 위치와 너비를 업데이트
     useLayoutEffect(() => {
@@ -103,7 +119,7 @@ function UserDetail() {
         <>
             <div style={{ display: 'flex', marginTop: '36px' }}>
                 <div className='Store-Image'>
-                    <img src='/img/jilsander.png' className='Store-Image-Source' />
+                    <img src={userProfileimg} className='Store-Image-Source' />
                 </div>
                 <div className='Store-Content'>
                     <div className='Store-Content-Name'>

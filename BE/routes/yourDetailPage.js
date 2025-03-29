@@ -4,7 +4,20 @@ const { ObjectId } = require('mongodb')
 const bodyParser = require('body-parser');
 // 큰 이미지 데이터를 처리하기 위해 제한 증가
 router.use(bodyParser.json({ limit: '10mb' }));
-const path = require('path');
+
+// 해당 유저의 프로필 사진 가져오기
+router.get('/getUserProfileImg/:user_id', async (요청, 응답) => {
+    const db = 요청.db;
+    console.log(요청.params.user_id)
+    try {
+        let userProfile = await db.collection('user').findOne({ _id: new ObjectId(요청.params.user_id) })
+        let userProfileImg = userProfile.profileImg
+        응답.json(userProfileImg);
+    }
+    catch (error) {
+        응답.status(500).send('Database error');
+    }
+})
 
 // 해당 유저가 판매중인 상품 보여주기
 router.get('/userSellingPosts/:user_id', async (요청, 응답) => {

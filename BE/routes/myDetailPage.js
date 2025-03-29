@@ -1,8 +1,39 @@
-const express = require("express");
-const router = require('express').Router();
+const router = require('express').Router()
 const path = require('path');
 const { ObjectId } = require('mongodb');
 
+// 내 프로필 사진 변경하기
+router.post('/myDetail/setProfileImg', async (요청, 응답) => {
+    const db = 요청.db;  // 요청 객체에서 db 가져오기
+    if (요청.user) {
+        await db.collection('user').updateOne({ username: 요청.user.username }, { $set: { profileImg: 요청.body.profileImg } })
+        응답.json({ messages: '프로필 변경 성공' });
+    } else
+        응답.status(500).json({ messages: '프로필 변경 실패' })
+})
+
+// 기본 프로필로 변경하기
+router.post('/myDetail/setProfileImgToBasic', async (요청, 응답) => {
+    const db = 요청.db;  // 요청 객체에서 db 가져오기
+    if (요청.user) {
+        await db.collection('user').updateOne({ username: 요청.user.username }, { $set: { profileImg: null } })
+        응답.json({ messages: '프로필 변경 성공' });
+    } else
+        응답.status(500).json({ messages: '프로필 변경 실패' })
+})
+
+// 내 프로필 사진 받아오기
+router.get('/myDetail/getProfileImg', async (요청, 응답) => {
+    const db = 요청.db;  // 요청 객체에서 db 가져오기
+    if (요청.user) {
+        let myInfo = await db.collection('user').findOne({ username: 요청.user.username })
+        console.log('myInfo:', myInfo)
+        let myProfileImg = myInfo.profileImg
+        console.log('myProfileImg:', myProfileImg)
+        응답.json(myProfileImg);
+    } else
+        응답.status(500).json({ messages: '프로필 응답 실패' })
+})
 
 // 내가 판매중인 게시글 받아오기
 router.get('/myDetail/getSellingPosts', async (요청, 응답) => {

@@ -62,7 +62,6 @@ function Detail() {
         setPageResult(result);
         setPageLike(result.like);
       } catch (error) {
-        // 에러 처리
         console.error('데이터 가져오기 실패:', error)
       }
     }

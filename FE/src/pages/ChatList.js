@@ -15,7 +15,7 @@ function ChatList() {
   const [productPrice, setProductPrice] = useState('')
   const [productFrontPhoto, setProductFrontPhoto] = useState('')
   const [productID, setProductID] = useState('');
-
+  const [sellerProfileimg, setSellerProfileImg] = useState(null)
   let navigate = useNavigate();
   let location = useLocation();
 
@@ -61,6 +61,7 @@ function ChatList() {
     const chatBoxRef = useRef(null);
     const chatRoomId = props?.chat_id || "";
     const [me, setMe] = useState("");
+
 
     // 나의 정보 받아오기
     useEffect(() => {
@@ -244,7 +245,7 @@ function ChatList() {
         <div className="chatting-opponent">
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div className='chatting-opponent-img'>
-              <img src='/img/jilsander.png' className='chat-list-box-imgsource' alt="상점" />
+              <img src={sellerProfileimg} className='chat-list-box-imgsource' alt="상점" />
             </div>
             <div className='chatting-opponent-text'>{props.sellerName}</div>
           </div>
@@ -375,9 +376,10 @@ function ChatList() {
                     setProductPrice(chat.productPrice);
                     setProductFrontPhoto(chat.productFrontPhoto)
                     setProductID(chat.productID)
+                    setSellerProfileImg(chat.sellerProfileImg)
                   }}>
                   <div className='chat-list-box-img'>
-                    <img src='/img/jilsander.png' className='chat-list-box-imgsource' alt="채팅" />
+                    <img src={chat.sellerProfileImg} className='chat-list-box-imgsource' alt="채팅" />
                   </div>
                   <div className='chat-list-box-text'>
                     <div className='chat-list-box-name'>
@@ -394,7 +396,7 @@ function ChatList() {
         {/* props로 채팅방에 관련 정보 넘기기 */}
         <div className="chat-room">
           {(chatID !== '') ?
-            <ChatRoom chat_id={chatID} sellerName={sellerName} productName={productName} productPrice={productPrice} productFrontPhoto={productFrontPhoto} productID={productID} />
+            <ChatRoom chat_id={chatID} sellerName={sellerName} sellerProfileImg={sellerProfileimg} productName={productName} productPrice={productPrice} productFrontPhoto={productFrontPhoto} productID={productID} />
             :
             <div className="start-chat-box">
               <img src={'/img/Logo_Square.svg'} style={{ width: '180px', height: '180px', opacity: '50%' }} />
