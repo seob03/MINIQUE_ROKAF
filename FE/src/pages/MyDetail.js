@@ -161,9 +161,28 @@ function MyDetail() {
     return (
         <>
             <div style={{ display: 'flex', marginTop: '36px' }}>
-                <div className='Store-Image'>
-                    <img src='/img/jilsander.png' className='Store-Image-Source' />
+                <div style={{display: 'flex', flexDirection: 'column'}}>
+                    <div className='Store-Image'>
+                        {
+                            (profileImg) ? <img src={profileImg} className="Store-Image-Source"/>
+                            : <img src={'/img/Basic_Profile.svg'} className="Store-image-Source"/>
+                        }
+                        <label className='change-photo-button'>
+                            <input
+                                type="file"
+                                multiple
+                                accept="image/*"
+                                className="change-photo-input"
+                                onChange={handleFileChange}
+                            />
+                            사진 변경
+                        </label>
+                    </div>
+                    <div className="change-basic-image" onClick={handleBasicImage}>
+                        기본이미지로 변경
+                    </div>
                 </div>
+                
                 <div className='Store-Content'>
                     <div className='Store-Content-Name'>
                         내 상점
