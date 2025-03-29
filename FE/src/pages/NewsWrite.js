@@ -7,6 +7,7 @@ import { ReactComponent as AddImage } from '../components/AddImage.svg';
 import CategoryDropDown from '../components/CategoryDropDown.js';
 import './style/NewsWrite.css';
 import { showAlert } from '../components/Util.js';
+import DropDown from '../components/DropDown.js';
 
 function NewsWrite() {
     let dispatch = useDispatch();
@@ -381,45 +382,7 @@ function NewsWrite() {
                 <div className="Write-Title-2">
                     아이 정보 입력
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', marginTop: '12px' }}>
-                    <select
-                        style={{
-                            padding: "8px",
-                            fontSize: "16px",
-                            border: "1px solid #ccc",
-                            borderRadius: "4px",
-                            cursor: "pointer",
-                            position: "relative",
-                            transition: "max-height 0.3s ease-in-out",
-                            maxHeight: "200px",
-                            overflow: "hidden",
-                            zIndex: 10,
-                        }}
-                        onFocus={(e) => {
-                            e.target.size = 10;
-                            e.target.style.overflowY = "auto";
-                        }}
-                        onBlur={(e) => {
-                            e.target.size = 1;
-                            e.target.style.overflowY = "hidden";
-                        }}
-                        onChange={(e) => {
-                            e.target.size = 1;
-                            e.target.blur();
-                            개월수변경(e.target.value);
-                        }}
-                    >
-                        <option value="" disabled selected>
-                            선택하세요
-                        </option>
-                        {Array.from({ length: 120 }, (_, i) => (
-                            <option key={i + 1} value={i + 1}>
-                                {i + 1}개월
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
+                <DropDown 상태={개월수정보} 상태변경함수={개월수변경}/>
             </div>
             <div className="Write-Input-Row">
                 <div className="Write-Title-2">
