@@ -50,7 +50,16 @@ function NewsList() {
                   link={'/detail/' + post._id}
                 />
               ))
-            ) : <div>로딩중입니다...</div>
+            ) : (
+              <div style={{ textAlign: 'center', padding: '0px 0 20px 0' }}>
+                <div style={{ color: '#666', fontSize: '16px' }}>
+                  등록된 게시글이 없습니다.
+                </div>
+                <p style={{ color: '#999', fontSize: '14px', marginTop: '8px' }}>
+                  새로운 게시글을 등록해주세요.
+                </p>
+              </div>
+            )
           }
         </div>
       </div>

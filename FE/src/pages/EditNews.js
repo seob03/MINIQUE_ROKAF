@@ -327,7 +327,7 @@ function EditNews() {
                     onChange={(e) => {
                         상품명변경(e.target.value);
                     }}
-                    type="text" 
+                    type="text"
                 />
             </div>
             <div className="Edit-Input-Row">
@@ -371,7 +371,7 @@ function EditNews() {
                 <div className="Edit-Title-2">
                     아이 정보 입력
                 </div>
-                <DropDown 상태={개월수정보} 상태변경함수={개월수변경}/>
+                <DropDown 상태={개월수정보} 상태변경함수={개월수변경} />
             </div>
             <div className="Edit-Input-Row">
                 <div className="Edit-Title-2">

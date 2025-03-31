@@ -80,7 +80,7 @@ function CategoryPage() {
                 (상위카테고리 == '' && 하위카테고리 == '') ?
                     <>
                         <div className='Category-Result'>
-                            <div style={{ textAlign: 'center', padding: '20px 0' }}>
+                            <div style={{ padding: '20px 0' }}>
                                 <p style={{ color: '#666', fontSize: '16px' }}>
                                     {(카테고리게시글.length > 0) ? `BEST 카테고리 상품 ${카테고리게시글.length}개` : '추천할만한 카테고리 상품이 없습니다.'}
                                 </p>

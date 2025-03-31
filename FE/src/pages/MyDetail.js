@@ -191,7 +191,14 @@ function MyDetail() {
                             ))}
                         </div>
                     ) : (
-                        <div>판매중인 상품이 없습니다.</div>
+                        <div style={{ textAlign: 'center', padding: '60px 0 20px 0' }}>
+                            <div style={{ color: '#666', fontSize: '16px' }}>
+                                판매중인 상품이 없습니다.
+                            </div>
+                            <p style={{ color: '#999', fontSize: '14px', marginTop: '8px' }}>
+                                상품이 등록되면 이곳에 표시됩니다.
+                            </p>
+                        </div>
                     )}</div>,
                     <div>{props.soldPosts && props.soldPosts.length > 0 ? (
                         <div className='TabContent-Item'>
@@ -207,7 +214,14 @@ function MyDetail() {
                             ))}
                         </div>
                     ) : (
-                        <div>판매한 상품이 없습니다.</div>
+                        <div style={{ textAlign: 'center', padding: '60px 0 20px 0' }}>
+                            <div style={{ color: '#666', fontSize: '16px' }}>
+                                판매한 상품이 없습니다.
+                            </div>
+                            <p style={{ color: '#999', fontSize: '14px', marginTop: '8px' }}>
+                                상품이 판매되면 이곳에 표시됩니다.
+                            </p>
+                        </div>
                     )}</div>,
                     <div>{props.favoritePosts && props.favoritePosts.length > 0 ? (
                         <div className='TabContent-Item'>
@@ -223,7 +237,14 @@ function MyDetail() {
                             ))}
                         </div>
                     ) : (
-                        <div>찜한 상품이 없습니다.</div>
+                        <div style={{ textAlign: 'center', padding: '60px 0 20px 0' }}>
+                            <div style={{ color: '#666', fontSize: '16px' }}>
+                                찜한 상품이 없습니다.
+                            </div>
+                            <p style={{ color: '#999', fontSize: '14px', marginTop: '8px' }}>
+                                상품을 찜하면 이곳에 표시됩니다.
+                            </p>
+                        </div>
                     )}</div>,
                 ][props.tab]}
             </div>

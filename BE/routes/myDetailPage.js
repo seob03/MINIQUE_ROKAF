@@ -27,9 +27,7 @@ router.get('/myDetail/getProfileImg', async (요청, 응답) => {
     const db = 요청.db;  // 요청 객체에서 db 가져오기
     if (요청.user) {
         let myInfo = await db.collection('user').findOne({ username: 요청.user.username })
-        console.log('myInfo:', myInfo)
         let myProfileImg = myInfo.profileImg
-        console.log('myProfileImg:', myProfileImg)
         응답.json(myProfileImg);
     } else
         응답.status(500).json({ messages: '프로필 응답 실패' })

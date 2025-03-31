@@ -6,7 +6,7 @@ function CardSmall(props) {
     let navigate = useNavigate();
 
     return (
-        <div className="CardSmallContainer" onClick={() => { navigate(props.link); window.scrollTo({left:0, top:0})}}>
+        <div className="CardSmallContainer" onClick={() => { navigate(props.link); window.scrollTo({ left: 0, top: 0 }) }}>
             <div className="CardSmall-Image">
                 <img src={Array.isArray(props.photo) ? props.photo[0] : props.photo}
                     className="CardSmall-Image cover" />

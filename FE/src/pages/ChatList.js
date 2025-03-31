@@ -368,7 +368,6 @@ function ChatList() {
             <>
               {chats.map((chat) => (
                 <div key={chat._id} className='chat-list-box'
-                  // 채팅방 모듈로 전송할 이미지
                   onClick={() => {
                     setchatID(chat._id);
                     setSellerName(chat.sellerName);
@@ -390,7 +389,14 @@ function ChatList() {
               ))}
             </>
           ) : (
-            null
+            <div style={{ textAlign: 'center', padding: '60px 0 20px 0' }}>
+              <div style={{ color: '#666', fontSize: '16px' }}>
+                아직 시작된 채팅이 없습니다.
+              </div>
+              <p style={{ color: '#999', fontSize: '14px', marginTop: '8px' }}>
+                원하는 상품에서 채팅하기를 눌러 채팅을 시작해보세요.
+              </p>
+            </div>
           )}
         </div>
         {/* props로 채팅방에 관련 정보 넘기기 */}
@@ -401,7 +407,14 @@ function ChatList() {
             <div className="start-chat-box">
               <img src={'/img/Logo_Square.svg'} style={{ width: '180px', height: '180px', opacity: '50%' }} />
               <div style={{ marginTop: '8px', marginBottom: '8px' }}></div>
-              <div>채팅을 시작하려면 왼쪽에서 대화를 선택해주세요.</div>
+              <div style={{ textAlign: 'center', padding: '60px 0 20px 0' }}>
+                <div style={{ color: '#666', fontSize: '16px' }}>
+                  채팅을 시작하려면 왼쪽에서 대화를 선택해주세요.
+                </div>
+                <p style={{ color: '#999', fontSize: '14px', marginTop: '8px' }}>
+                  채팅방을 선택하면 대화를 시작할 수 있습니다.
+                </p>
+              </div>
             </div>
           }
         </div>
