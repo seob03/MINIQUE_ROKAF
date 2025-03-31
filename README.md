@@ -29,6 +29,11 @@ BackEnd
 
 ## Implementation
 
+## BE 주요 기능 설명
+
+## FE 주요 기능 설명
+
+
 ## 개발자
 - FrontEnd Engineer, 디자인 담당
   김호준 : 대한민국 공군 병 852기, KAIST 전기 및 전자공학부 19학번 재학
