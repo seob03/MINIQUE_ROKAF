@@ -37,7 +37,6 @@ function CategoryPage() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log('상위카테고리 불러오기');
                 카테고리게시글변경(data);
             })
             .catch(error => console.error("상위 카테고리 fetch 오류:", error));
@@ -62,7 +61,6 @@ function CategoryPage() {
         })
             .then(response => response.json())
             .then(data => {
-                console.log('하위카테고리 불러오기');
                 카테고리게시글변경(data);
             })
             .catch(error => console.error("하위 카테고리 fetch 오류:", error));

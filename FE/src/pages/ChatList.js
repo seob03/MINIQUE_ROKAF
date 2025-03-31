@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { io } from "socket.io-client";
 import './style/ChatList.css';
 import { showAlert, showConfirm } from '../components/Util.js';
-const socket = io("http://localhost:8080");
+const socket = io("http://localhost:8081"); // 서버 포트 바꾸면 여기도 바꿔야함.
 
 function ChatList() {
   // 모든 채팅 로드 시에 사용

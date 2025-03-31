@@ -8,7 +8,6 @@ router.use(bodyParser.json({ limit: '10mb' }));
 // 해당 유저의 프로필 사진 가져오기
 router.get('/getUserProfileImg/:user_id', async (요청, 응답) => {
     const db = 요청.db;
-    console.log(요청.params.user_id)
     try {
         let userProfile = await db.collection('user').findOne({ _id: new ObjectId(요청.params.user_id) })
         let userProfileImg = userProfile.profileImg
