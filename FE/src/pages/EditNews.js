@@ -35,7 +35,6 @@ function EditNews() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const result = await response.json();
-            console.log(result)
             // 상태 업데이트
             setDefaultInfo(result);
             개월수변경(result.childAge);

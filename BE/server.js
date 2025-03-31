@@ -34,7 +34,7 @@ let db;
 connectDB().then((database) => {
   db = database;  // 연결된 DB 객체 할당
   server.listen(8081, () => {
-    console.log('http://localhost:8081 에서 서버 실행중');
+    console.log('http://localhost:8081 에서 서버 실행중'); // 서버 포트 바꾸면 io에서 연결하는 숫자도 바꿔야함.
   });
 }).catch((err) => {
   console.log('서버 실행 실패', err);

@@ -55,9 +55,7 @@ router.post('/trySignUp', async (요청, 응답, next) => {
     const hashedPassword = await bcrypt.hash(요청.body.password, 10);
 
     // 사용자 정보 DB 저장
-    let result = await db.collection('user').insertOne({ username: 요청.body.username, password: hashedPassword, profileImg: "/img/Basic_Profile.svg" });
-    console.log(요청.body.username, "님의 회원가입이 성공적으로 처리되었습니다.");
-
+    await db.collection('user').insertOne({ username: 요청.body.username, password: hashedPassword, profileImg: "/img/Basic_Profile.svg" });
     // 자동 로그인 처리
     passport.authenticate('local', (error, user, info) => {
       if (error) return 응답.status(500).json(error)

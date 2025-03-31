@@ -23,7 +23,6 @@ router.get('/edit/:id', async (요청, 응답) => {
 // 페이지 DB 수정 API
 router.put('/editPost/:id', async (요청, 응답) => {
     db = 요청.db;
-    console.log(요청.body)
     await db.collection('post').updateOne({ _id: new ObjectId(요청.params.id) },
         {
             $set:

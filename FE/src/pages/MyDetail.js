@@ -289,16 +289,16 @@ function MyDetail() {
                         </div>
                     </div>
                     <div className='Store-Content-Detail'>
-                        <div style={{ marginRight: '56px', display: 'flex' }}>
+                        <div style={{ marginRight: '56px', display: 'flex', alignItems: 'center', lineHeight: '1' }}>
                             판매중
-                            <div style={{ fontFamily: 'NotoSansKR-Medium', marginLeft: '0.3rem' }}>
+                            <div style={{ fontFamily: 'NotoSansKR-Medium', marginLeft: '0.3rem', display: 'flex', alignItems: 'center' }}>
                                 {sellingPosts.length}
                             </div>
                             개
                         </div>
-                        <div style={{ marginRight: '56px', display: 'flex' }}>
+                        <div style={{ marginRight: '56px', display: 'flex', alignItems: 'center', lineHeight: '1' }}>
                             상품 판매
-                            <div style={{ fontFamily: 'NotoSansKR-Medium', marginLeft: '0.3rem' }}>
+                            <div style={{ fontFamily: 'NotoSansKR-Medium', marginLeft: '0.3rem', display: 'flex', alignItems: 'center' }}>
                                 {soldPosts.length}
                             </div>
                             회

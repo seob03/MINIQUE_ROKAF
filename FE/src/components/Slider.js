@@ -20,7 +20,6 @@ function Slider(props) {
       setCurrentSlide(0);
     } else {
       setCurrentSlide(currentSlide + 1);
-      console.log(currentSlide);
     }
   };
 
@@ -29,7 +28,6 @@ function Slider(props) {
       setCurrentSlide(TOTAL_SLIDES - 1);
     } else {
       setCurrentSlide(currentSlide - 1);
-      console.log(currentSlide);
     }
   };
 
