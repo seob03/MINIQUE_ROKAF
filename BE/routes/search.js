@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const path = require('path');
 
-// 회원가입 페이지 보여주기
+// 검색 결과 페이지 보여주기
 router.get('/search', async (요청, 응답) => {
     응답.sendFile(path.join(__dirname, '../../FE/build/index.html'))
 })
