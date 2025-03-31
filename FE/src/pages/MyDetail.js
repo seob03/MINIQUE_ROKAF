@@ -255,10 +255,10 @@ function MyDetail() {
         <>
             <div style={{ display: 'flex', marginTop: '36px' }}>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                    <div className='Store-Image'>
+                    <div className='UserStore-Image'>
                         {
                             (profileImg) ? <img src={profileImg} className="Store-Image-Source" />
-                                : <img src={'/img/Basic_Profile.svg'} className="Store-image-Source" />
+                                : <img src={'/img/Basic_Profile.svg'} className="Store-Image-Source" />
                         }
                         <label className='change-photo-button'>
                             <input

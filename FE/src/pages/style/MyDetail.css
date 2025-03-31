@@ -13,7 +13,7 @@
     object-fit: cover;
 }
 
-.Store-Image:hover::after {
+.UserStore-Image:hover::after {
     content: ""; /* 가상 요소 생성 */
     position: absolute; /* 절대 위치 지정 */
     top: 0;
@@ -25,7 +25,7 @@
     z-index: 1; /* 이미지를 덮을 수 있도록 높은 z-index 설정 */
 }
 
-.Store-Image:hover .change-photo-button {
+.UserStore-Image:hover .change-photo-button {
     display: block; /* 호버 시 버튼 표시 */
 }
 
