@@ -13,7 +13,7 @@ function CardSmall(props) {
             </div>
             <div className="Card-First">
                 <div>
-                    {props.brand}
+                    {props.brand ? props.brand : 'NO BRAND'}
                 </div>
                 <div style={{ flexGrow: 1 }}>
                 </div>

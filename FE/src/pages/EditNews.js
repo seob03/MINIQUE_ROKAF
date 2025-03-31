@@ -14,6 +14,7 @@ function EditNews() {
     let [상품명, 상품명변경] = useState('');
     let [상품상세설명, 상품상세설명변경] = useState('');
     let [이미지들, 이미지들변경] = useState([]);
+    let [브랜드, 브랜드변경] = useState('');
     let [개월수정보, 개월수변경] = useState('');
     let [상위카테고리, 상위카테고리변경] = useState('상위 카테고리');
     let [하위카테고리, 하위카테고리변경] = useState('하위 카테고리');
@@ -97,6 +98,7 @@ function EditNews() {
                 productName: 상품명 || defaultInfo.productName,
                 productDetailContent: 상품상세설명 || defaultInfo.productDetailContent,
                 productPhoto: 이미지들 || defaultInfo.productPhoto,
+                brand: 브랜드 || defaultInfo.brand,
                 childAge: 개월수정보 || defaultInfo.childAge,
                 productQuality: getProductStatus(상품상태) || defaultInfo.productQuality,
                 higherCategory: 상위카테고리 || defaultInfo.higherCategory,
@@ -342,6 +344,25 @@ function EditNews() {
                     className="Edit-Input-Content"
                     onChange={(e) => {
                         상품상세설명변경(e.target.value);
+                    }}
+                    type="text"
+                />
+            </div>
+            <div className="Edit-Input-Row">
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', marginBottom: '12px' }}>
+                    <div className="Edit-Title-2">
+                        브랜드
+                    </div>
+                    <div style={{ display: 'block', marginLeft: '20px', color: '#B6B2AD' }}>
+                        {브랜드.length}/20
+                    </div>
+                </div>
+                <input
+                    defaultValue={defaultInfo.brand}
+                    className="Edit-Input-Brand"
+                    maxLength={20}
+                    onChange={(e) => {
+                        브랜드변경(e.target.value.toUpperCase());
                     }}
                     type="text"
                 />

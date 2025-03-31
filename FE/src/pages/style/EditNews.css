@@ -56,6 +56,19 @@
     border-color: #4169E1;
 }
 
+.Edit-Input-Brand {
+    border-radius: 8px;
+    border: 1px solid #B6B2AD;
+    padding: 12px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.Edit-Input-Brand:focus {
+    border-color: #4169E1;
+}
+
 .Edit-Input {
     border-radius: 4px;
     border: 1px solid #B6B2AD;
