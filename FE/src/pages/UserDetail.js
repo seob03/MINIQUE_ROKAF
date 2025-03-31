@@ -118,7 +118,7 @@ function UserDetail() {
     return (
         <>
             <div style={{ display: 'flex', marginTop: '36px' }}>
-                <div className='UserStore-Image'>
+                <div className='Store-Image'>
                     <img src={userProfileimg} className='Store-Image-Source' />
                 </div>
                 <div className='Store-Content'>

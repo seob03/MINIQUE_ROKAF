@@ -237,7 +237,7 @@ function Detail() {
     if (!whoamI || !pageResult || !pageResult.user_id) {
       return null;
     }
-    if (whoamI.id == pageResult.user_id) {
+    if ((whoamI.id) == pageResult.user_id) {
       return (
         <>
           <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
@@ -324,7 +324,7 @@ function Detail() {
               브랜드
             </div>
             <div className="Detail-Info-Content">
-              {pageResult.brand}
+              {(pageResult.brand && pageResult.brand.length > 0) ? pageResult.brand : 'NO BRAND'}
             </div>
           </div>
           <div className="Detail-Info">
@@ -364,29 +364,34 @@ function Detail() {
               {pageResult.lowerCategory}
             </div>
           </div>
-          <Link to={'/store/' + pageResult.user_id} style={{ textDecoration: 'none', color: 'black' }}>
-            <div className="Detail-UserBox">
-              <div>
-                <div className="Detail-UserBox-Username">
-                  {pageResult.username}
-                </div>
-                <div className="Detail-UserBox-Userinfo">
-                  <div style={{ color: '#FFBE64', marginRight: '8px' }}>
-                    ★
+          {
+          (whoamI.id == pageResult.user_id) ? <div/>:
+          <div>
+            <Link to={'/store/' + pageResult.user_id} style={{ textDecoration: 'none', color: 'black' }}>
+              <div className="Detail-UserBox">
+                <div>
+                  <div className="Detail-UserBox-Username">
+                    {pageResult.username}
                   </div>
-                  <div>
-                    9.5
-                  </div>
-                  <div style={{ marginLeft: '14px', marginRight: '14px' }}>
-                    |
-                  </div>
-                  <div>
-                    판매중인 상품 {sellingPosts.length}개
+                  <div className="Detail-UserBox-Userinfo">
+                    <div style={{ color: '#FFBE64', marginRight: '8px' }}>
+                      ★
+                    </div>
+                    <div>
+                      9.5
+                    </div>
+                    <div style={{ marginLeft: '14px', marginRight: '14px' }}>
+                      |
+                    </div>
+                    <div>
+                      판매중인 상품 {sellingPosts.length}개
+                    </div>
                   </div>
                 </div>
               </div>
+            </Link>
             </div>
-          </Link>
+          }
           {(isLoggedIn) ? <LoginStateButtonArea />
             :
             <div style={{ display: "flex", justifyContent: 'space-between', alignItems: 'center' }}>
