@@ -90,6 +90,46 @@ function EditNews() {
     }
 
     function handleEdit() {
+        let productName = 상품명 || defaultInfo.productName
+        let productDetailContent = 상품상세설명 || defaultInfo.productDetailContent
+        let productPhoto = 이미지들 || defaultInfo.productPhoto
+        let brand = 브랜드 || defaultInfo.brand
+        let childAge = 개월수정보 || defaultInfo.childAge
+        let productQuality = getProductStatus(상품상태) || defaultInfo.productQuality
+        let higherCategory = 상위카테고리 || defaultInfo.higherCategory
+        let lowerCategory = 하위카테고리 || defaultInfo.lowerCategory
+        let region = selectedRegion || defaultInfo.region
+        let productPrice = 가격 || defaultInfo.productPrice
+
+        // 모든 필드 입력 여부 검사
+        if (!productName || !productDetailContent || !childAge || !brand || !productQuality || !productPrice || !higherCategory || !lowerCategory || !region) {
+            return showAlert({
+                title: "입력 오류",
+                text: "모든 필드를 작성해주세요.",
+                icon: "warning",
+            });
+        }
+
+        // 이미지가 없으면 경고
+        if (productPhoto.length === 0) {
+            return showAlert({
+                title: "입력 오류",
+                text: "이미지를 업로드해주세요.",
+                icon: "warning",
+            });
+        }
+
+
+        // 가격 필드 검사
+        const price = Number(productPrice);
+        if (!Number.isInteger(price) || price <= 0) {
+            return showAlert({
+                title: "입력 오류",
+                text: "가격은 1원 이상의 정수로 입력해주세요.",
+                icon: "warning",
+            });
+        }
+
         fetch(`/editPost/${id}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
