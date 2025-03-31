@@ -1,16 +1,38 @@
 # MINIQUE_ROKAF
+대한민국 공군 병 852기 병장 김호준, 병장 이민섭이 개발한 유아 의류 중고거래 플랫폼입니다.
 
-Second-hand baby clothes platform
+## 프로젝트 소개
+저출생으로 국내 유아·아동 인구는 감소세를 보이고 잇으나, 유아·아동복(유아동복) 시장은 꾸준히 성장하고 있습니다. 
+국내 유아동복 시장은 지난해 2조4천490억원으로 2020년(1조8천410억원)보다 33% 정도 늘었습니다.(유로모니터)
 
-Toy project in Republic of Korea AirForce made by Hojune Kim/Minseob Lee
+해당 프로젝트는 유아동복은 고급화되고 있으나, 빠르게 성장하는 유아 특성상 수명이 길지 않은 유아동 의류에 대한 문제 인식에서 시작하였습니다.
+이에 저희는 유아 의류 중고거래 플랫폼을 해결 방안으로써 제시합니다.
 
+## 개발 기간
+2024.11.24 ~ 2024.03.31
+- 주 4회, 1회당 3시간 이상씩 시간을 할애하고자 했다.
+- 군 조직 특성상 훈련, 휴가, 당직 등으로 인한 유동적 스케줄을 염두에 두고 개발했다.
 
-BackEnd Engineer : Minseob Lee
+## 기술 스택
+FrontEnd
+- Javascript
+- React.js
+- React-Redux
+- Figma
 
+BackEnd
 
-FrontEnd Engineer : Hojune Kim
+## 기능 소개
+1. 로그인/회원가입
+2. 게시물 작성
+3. 
 
-______________________________________________________________________________________
+## Implementation
 
-
-공군에서 하는 토이 팀 프로젝트 (민섭BE with 호준FE)
+## 개발자
+- FrontEnd Engineer, 디자인 담당
+  김호준 : 대한민국 공군 병 852기, KAIST 전기 및 전자공학부 19학번 재학
+  junpio0812@gmail.com
+- BackEnd Engineer
+  이민섭 : 대한민국 공군 병 852기, 세종대학교 컴퓨터공학과 22학번 재학
+  mjnseob0728@gmail.com
