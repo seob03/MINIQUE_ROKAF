@@ -13,10 +13,12 @@
 - 주 4회, 1회당 3시간 이상씩 시간을 할애하고자 했다.
 - 군 조직 특성상 훈련, 휴가, 당직 등으로 인한 유동적 스케줄을 염두에 두고 개발했다.
 
-## 개발 스택
+## 기술 스택
 FrontEnd
+- Javascript
 - React.js
 - React-Redux
+- Figma
 
 BackEnd
 
