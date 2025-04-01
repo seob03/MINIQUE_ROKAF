@@ -12,7 +12,7 @@
 - FrontEnd Engineer<br>
   김호준 : 대한민국 공군 병 852기, KAIST 전기 및 전자공학부 19학번 재학 `junpio0812@gmail.com`<br><br>
 - BackEnd Engineer<br>
-  이민섭 : 대한민국 공군 병 852기, 세종대학교 컴퓨터공학과 22학번 재학 `mjnseob0728@gmail.com`<br><br>`<br>
+  이민섭 : 대한민국 공군 병 852기, 세종대학교 컴퓨터공학과 22학번 재학 `mjnseob0728@gmail.com`<br><br><br>
 
 
 ## 개발 기간
@@ -65,7 +65,7 @@
 
 ## 실시간 읽음 처리 기능
 ![Image](https://github.com/user-attachments/assets/db1141f5-6fb2-4bbb-94bd-5ae2e607fdfa)
-<br>
+<br><br><br>
 
 ## FE 주요 기능  
 
@@ -126,7 +126,6 @@
 #### 3. 읽음 확인 시스템
 - 메시지 수신 시 자동 읽음 처리
 - 실시간 읽음 상태 동기화
-- 읽지 않은 메시지 수 표시
 
 #### 4. 채팅방 UI/UX
 - 직관적인 채팅방 목록 표시
