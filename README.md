@@ -63,7 +63,7 @@
 ![Image](https://github.com/user-attachments/assets/e2b1bc1e-d3be-446f-8645-841907f7e957)
 <br>
 
-## 실시간 읽음 처리 기능 (Alt+Tap으로 1인 2역)
+## 실시간 읽음 처리 기능 (탭 전환으로 1인 2역)
 ![Image](https://github.com/user-attachments/assets/db1141f5-6fb2-4bbb-94bd-5ae2e607fdfa)
 <br><br><br>
 
