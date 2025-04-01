@@ -21,6 +21,25 @@ FrontEnd
 - Figma
 
 BackEnd
+- Node.js
+- Express.js
+- MongoDB
+- Socket.IO
+- Passport.js
+- Express-session
+- Connect-mongo
+
+
+### 데이터베이스
+- **MongoDB**
+  - 버전: 6.0+
+  - 호스트: localhost:27017
+  - 데이터베이스: forum
+  - 주요 컬렉션:
+    - user: 사용자 정보
+    - posts: 게시물
+    - chatMessages: 채팅 메시지
+    - chatRoom: 채팅방 정보
 
 ## 기능 소개
 1. 로그인/회원가입
@@ -29,11 +48,6 @@ BackEnd
 
 ## Implementation
 
-## BE 주요 기능 설명
-
-## FE 주요 기능 설명
-
-
 ## 개발자
 - FrontEnd Engineer, 디자인 담당
   김호준 : 대한민국 공군 병 852기, KAIST 전기 및 전자공학부 19학번 재학
@@ -41,3 +55,151 @@ BackEnd
 - BackEnd Engineer
   이민섭 : 대한민국 공군 병 852기, 세종대학교 컴퓨터공학과 22학번 재학
   mjnseob0728@gmail.com
+
+## 실시간 채팅 기능
+
+### 주요 기능
+- 실시간 1:1 채팅
+- 이미지 전송 지원
+- 읽음 확인 기능
+- 채팅방 생성 및 관리
+- 실시간 메시지 동기화
+
+### 기술 스택
+- **Frontend**: React.js, Socket.IO Client
+- **Backend**: Node.js, Express, Socket.IO, MongoDB
+- **데이터베이스**: MongoDB (chatMessages, chatRoom 컬렉션)
+
+### 주요 기능 설명
+
+#### 1. 채팅방 관리
+- 상품 상세 페이지에서 "채팅하기" 버튼을 통해 새로운 채팅방 생성
+- 동일한 상품에 대한 중복 채팅방 생성 방지
+- 채팅방 목록에서 실시간으로 채팅방 상태 확인 가능
+
+#### 2. 실시간 메시지 전송
+- Socket.IO를 활용한 실시간 양방향 통신
+- 텍스트 메시지 및 이미지 전송 지원
+- 메시지 전송 시 자동 스크롤 최하단 이동
+
+#### 3. 읽음 확인 시스템
+- 메시지 수신 시 자동 읽음 처리
+- 실시간 읽음 상태 동기화
+- 읽지 않은 메시지 수 표시
+
+#### 4. 채팅방 UI/UX
+- 직관적인 채팅방 목록 표시
+- 상품 정보와 판매자 정보 통합 표시
+- 채팅방 나가기 기능
+- 반응형 디자인으로 모바일 지원
+
+### 데이터 구조
+
+#### 채팅방 (chatRoom)
+```javascript
+{
+  member: [buyerId, sellerId],
+  sellerName: String,
+  sellerProfileImg: String,
+  buyerName: String,
+  productName: String,
+  productPrice: Number,
+  productFrontPhoto: String,
+  productID: String,
+  date: Date
+}
+```
+
+#### 채팅 메시지 (chatMessages)
+```javascript
+{
+  user: String,
+  text: String,
+  room: String,
+  image: String,
+  timestamp: Date,
+  isRead: Boolean
+}
+```
+
+### 보안 및 성능
+- Socket.IO 연결 상태 모니터링
+- MongoDB 연결 관리 및 에러 처리
+- 메시지 전송 실패 시 자동 재시도
+- 채팅방 접근 권한 검증
+
+### 사용자 경험
+- 채팅방 진입 시 자동 스크롤 최상단 이동
+- 이미지 미리보기 기능
+- 실시간 타이핑 표시
+- 채팅방 나가기 전 확인 대화상자
+
+## 인증 시스템 (로그인/회원가입/로그아웃)
+
+### 주요 기능
+- 사용자 회원가입
+- 로그인/로그아웃
+- 세션 기반 인증
+- 비밀번호 암호화
+- 자동 로그인
+
+### 기술 스택
+- **Frontend**: React.js, Redux
+- **Backend**: Node.js, Express, Passport.js
+- **인증**: Passport Local Strategy, bcrypt
+- **세션 관리**: express-session, connect-mongo
+- **데이터베이스**: MongoDB (user 컬렉션)
+
+### 주요 기능 설명
+
+#### 1. 회원가입 시스템
+- ID/PW 유효성 검증
+  - ID: 4~20자 제한
+  - PW: 8~20자 제한
+- 중복 ID 검사
+- 비밀번호 암호화 (bcrypt)
+- 회원가입 성공 시 자동 로그인
+
+#### 2. 로그인 시스템
+- Passport.js 기반 인증
+- 세션 기반 로그인 유지
+- 실시간 로그인 상태 관리
+- 로그인 실패 시 에러 메시지 표시
+
+#### 3. 보안 기능
+- 비밀번호 해싱 (bcrypt)
+- 세션 쿠키 보안 설정
+  - httpOnly: true
+  - secure: false (개발 환경)
+  - sameSite: 'Lax'
+- 세션 만료 시간 설정 (1시간)
+
+#### 4. 사용자 경험
+
+- 실시간 입력값 유효성 검사
+- 직관적인 에러 메시지
+- Enter 키 지원
+- 자동 로그인 상태 유지
+
+### 데이터 구조
+
+#### 사용자 (user)
+```javascript
+{
+  username: String,      // 사용자 ID
+  password: String,      // 암호화된 비밀번호
+  profileImg: String     // 프로필 이미지 URL
+}
+```
+
+### API 엔드포인트
+- POST `/trySignUp`: 회원가입
+- POST `/tryLogin`: 로그인
+- POST `/logOut`: 로그아웃
+- GET `/checkLogin`: 로그인 상태 확인
+
+### 보안 및 성능
+- MongoDB 세션 스토어 사용
+- 비동기 비밀번호 해싱
+- 세션 데이터베이스 저장
+- 에러 처리 및 로깅
