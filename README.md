@@ -134,13 +134,13 @@
 - 비밀번호 암호화
 - 자동 로그인
 &nbsp;
-### 기술 스택
-- **Frontend**: React.js, Redux
-- **Backend**: Node.js, Express, Passport.js
-- **인증**: Passport Local Strategy, bcrypt
-- **세션 관리**: express-session, connect-mongo
-- **데이터베이스**: MongoDB (user 컬렉션)   
-### 주요 기능 설명
+### 인증 기능에서 사용한 기술 스택
+- **BackEnd**: `Node.js`, `Express`, `Passport.js`
+- **인증**: `Passport Local Strategy`, `bcrypt`
+- **세션 관리**: `express-session`, `connect-mongo`
+- **데이터베이스**: `MongoDB` (user 컬렉션)   
+
+### 인증 기능 설명
    
 #### 1. 회원가입 시스템
 - ID/PW 유효성 검증
@@ -151,23 +151,25 @@
 - 회원가입 성공 시 자동 로그인
    
 #### 2. 로그인 시스템
-- Passport.js 기반 인증
+- `Passport.js` 기반 인증
 - 세션 기반 로그인 유지
 - 실시간 로그인 상태 관리
 - 로그인 실패 시 에러 메시지 표시
    
 #### 3. 보안 기능
-- 비밀번호 해싱 (bcrypt)
+- 비밀번호 해싱 (`bcrypt`)
 - 세션 쿠키 보안 설정
-  - httpOnly: true
-  - secure: false (개발 환경)
-  - sameSite: 'Lax'
+
+  ``` javascript
+  httpOnly: true
+  secure: false      // 개발 환경
+  sameSite: 'Lax'
+  ```
 - 세션 만료 시간 설정 (1시간)
    
 #### 4. 사용자 경험
 - 실시간 입력값 유효성 검사
 - 직관적인 에러 메시지
-- Enter 키 지원
 - 자동 로그인 상태 유지
    
 ### 데이터 구조
