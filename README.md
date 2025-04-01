@@ -36,11 +36,36 @@
 - `Passport.js`<br><br>
 
 
-## 기능 소개
-1. 로그인/회원가입
-2. 게시물 작성
-3. 
-<br><br>
+# 기능 소개
+<br>
+
+## 회원가입
+![Image](https://github.com/user-attachments/assets/6527eeaa-e157-46ce-aec3-f7e7023c28f2)
+<br>
+
+## 로그인
+![Image](https://github.com/user-attachments/assets/188de43b-74fa-4797-b5c5-02e003cbb19c)
+<br>
+
+## 이미지 드래그 & 드랍
+![Image](https://github.com/user-attachments/assets/8abd2c9e-b1ca-48d5-82f2-4d0b77fce6ce)
+<br>
+
+## 찜 기능
+![Image](https://github.com/user-attachments/assets/f578afca-0a58-4470-8c63-4459d5d124d1)
+<br>
+
+## 카테고리 기능
+![Image](https://github.com/user-attachments/assets/c9b7a85d-759b-4e39-84ec-c8af2d280363)
+<br>
+
+## 실시간 채팅 기능
+![Image](https://github.com/user-attachments/assets/e2b1bc1e-d3be-446f-8645-841907f7e957)
+<br>
+
+## 실시간 읽음 처리 기능
+![Image](https://github.com/user-attachments/assets/db1141f5-6fb2-4bbb-94bd-5ae2e607fdfa)
+<br>
 
 ## FE 주요 기능  
 
