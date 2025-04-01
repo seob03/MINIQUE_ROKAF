@@ -59,7 +59,7 @@
 ![Image](https://github.com/user-attachments/assets/c9b7a85d-759b-4e39-84ec-c8af2d280363)
 <br>
 
-## 실시간 채팅 기능 및 이미지 첨부 가눙
+## 실시간 채팅 기능 및 이미지 첨부
 ![Image](https://github.com/user-attachments/assets/e2b1bc1e-d3be-446f-8645-841907f7e957)
 <br>
 
