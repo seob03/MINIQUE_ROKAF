@@ -9,7 +9,7 @@
 
 
 ## 개발자
-- FrontEnd Engineer, 디자인 담당<br>
+- FrontEnd Engineer<br>
   김호준 : 대한민국 공군 병 852기, KAIST 전기 및 전자공학부 19학번 재학 `junpio0812@gmail.com`<br><br>
 - BackEnd Engineer<br>
   이민섭 : 대한민국 공군 병 852기, 세종대학교 컴퓨터공학과 22학번 재학 `mjnseob0728@gmail.com`<br><br>`<br>
