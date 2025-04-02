@@ -365,7 +365,7 @@ function Detail() {
             </div>
           </div>
           {
-          (whoamI.id == pageResult.user_id) ? <div/>:
+          (whoamI && whoamI.id == pageResult.user_id) ? <div/>:
           <div>
             <Link to={'/store/' + pageResult.user_id} style={{ textDecoration: 'none', color: 'black' }}>
               <div className="Detail-UserBox">
