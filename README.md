@@ -70,7 +70,7 @@
 <br><br><br>
 
 ## 실시간 채팅 기능 및 이미지 첨부
-![Image](https://github.com/user-attachments/assets/e2b1bc1e-d3be-446f-8645-841907f7e957)
+![Image](https://github.com/user-attachments/assets/7344699d-51c5-4adb-ac94-5f001daf6444)
 <br><br><br>
 
 ## 실시간 읽음 처리 기능 (탭 전환으로 1인 2역)
