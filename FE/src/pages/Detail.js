@@ -365,32 +365,32 @@ function Detail() {
             </div>
           </div>
           {
-          (whoamI.id == pageResult.user_id) ? <div/>:
-          <div>
-            <Link to={'/store/' + pageResult.user_id} style={{ textDecoration: 'none', color: 'black' }}>
-              <div className="Detail-UserBox">
-                <div>
-                  <div className="Detail-UserBox-Username">
-                    {pageResult.username}
-                  </div>
-                  <div className="Detail-UserBox-Userinfo">
-                    <div style={{ color: '#FFBE64', marginRight: '8px' }}>
-                      ★
-                    </div>
+            (whoamI.id == pageResult.user_id) ? <div /> :
+              <div>
+                <Link to={'/store/' + pageResult.user_id} style={{ textDecoration: 'none', color: 'black' }}>
+                  <div className="Detail-UserBox">
                     <div>
-                      9.5
-                    </div>
-                    <div style={{ marginLeft: '14px', marginRight: '14px' }}>
-                      |
-                    </div>
-                    <div>
-                      판매중인 상품 {sellingPosts.length}개
+                      <div className="Detail-UserBox-Username">
+                        {pageResult.username}
+                      </div>
+                      <div className="Detail-UserBox-Userinfo">
+                        <div style={{ color: '#FFBE64', marginRight: '8px' }}>
+                          ★
+                        </div>
+                        <div>
+                          9.5
+                        </div>
+                        <div style={{ marginLeft: '14px', marginRight: '14px' }}>
+                          |
+                        </div>
+                        <div>
+                          판매중인 상품 {sellingPosts.length}개
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </div>
-            </Link>
-            </div>
           }
           {(isLoggedIn) ? <LoginStateButtonArea />
             :

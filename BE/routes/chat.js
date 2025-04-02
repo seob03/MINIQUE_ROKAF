@@ -37,7 +37,8 @@ router.post('/chat/request/', async (요청, 응답) => {
   let buyerInfo = 요청.user
   let buyerName = buyerInfo.username
   let sellerProfileImg = sellerInfo.profileImg
-
+  let buyerPofileImg = buyerInfo.profileImg
+  console.log('buyerInfo:', buyerInfo)
   // 기존 채팅방 확인
   const existingChatRoom = await db.collection('chatRoom').findOne({
     sellerName: sellerName,
@@ -53,6 +54,7 @@ router.post('/chat/request/', async (요청, 응답) => {
     member: [요청.user.id, sellerId],
     sellerName: sellerName,
     sellerProfileImg: sellerProfileImg,
+    buyerProfileImg: buyerPofileImg,
     buyerName: 요청.user.username,
     productName: productName,
     productPrice: productPrice,
@@ -75,7 +77,15 @@ router.get('/chat/getChatList/', async (요청, 응답) => {
     return 응답.status(400).json({ error: '로그인부터 해주세요.' });
 })
 
-// 채팅 전송하는 유저의 정보 return API
+// 현재 로그인된 유저의 이름 정보를 받아온다. (chatList (부모)컴포넌트에서 사용할 유저 정보)
+router.get('/chat/getUserName', async (요청, 응답) => {
+  if (요청.user)
+    응답.json(요청.user.username)
+  else
+    응답.json({ message: "로그인이 안되어있는 유저입니다." })
+})
+
+// 채팅 전송하는 유저의 정보 return API (chatRoom (자식)컴포넌트에서 사용할 유저 정보)
 router.get('/chat/getUserInfo', async (요청, 응답) => {
   if (요청.user)
     응답.json(요청.user)
@@ -102,8 +112,6 @@ router.get('/chat/exitChatRoom/:chatRoomId', async (요청, 응답) => {
 // 해당 유저의 프로필 사진 가져오기
 router.get('/getChatUserProfileImg/:username', async (요청, 응답) => {
   const db = 요청.db;
-  cconsole.log(1123123123)
-  console.log('요청.params.username:', 요청.params.username)
   try {
     let userProfile = await db.collection('user').findOne({ username: new ObjectId(요청.params.username) })
     let userProfileImg = userProfile.profileImg

@@ -11,11 +11,15 @@ function ChatList() {
   // chatRoom 생성 시에 사용하는 상세 상태 변수
   const [chatID, setchatID] = useState('');
   const [sellerName, setSellerName] = useState('')
+  const [buyerName, setBuyerName] = useState('')
   const [productName, setProductName] = useState('')
   const [productPrice, setProductPrice] = useState('')
   const [productFrontPhoto, setProductFrontPhoto] = useState('')
   const [productID, setProductID] = useState('');
-  const [sellerProfileimg, setSellerProfileImg] = useState(null)
+  const [sellerProfileImg, setSellerProfileImg] = useState(null)
+  const [buyerProfileImg, setBuyerProfileImg] = useState(null)
+  const [myName, setmyName] = useState(null);
+
   let navigate = useNavigate();
   let location = useLocation();
 
@@ -48,6 +52,21 @@ function ChatList() {
         if (data.length > 0) {
           setChats(data)
         }
+      })
+      .catch(error => {
+        alert(error.error || '로그인부터 해주세요.');
+      });
+  }, []);
+
+  // 현재 유저의 이름 받아오기 (현재 유저에 따라 상대 이미지 프로필 설정하기 위함)
+  useEffect(() => {
+    fetch('/chat/getUserName/', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then(response => response.json())
+      .then(data => {
+        setmyName(data)
       })
       .catch(error => {
         alert(error.error || '로그인부터 해주세요.');
@@ -245,9 +264,10 @@ function ChatList() {
         <div className="chatting-opponent">
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div className='chatting-opponent-img'>
-              <img src={sellerProfileimg} className='chat-list-box-imgsource' alt="상점" />
+              {/* <img src={(me === props.sellerName) ? props.buyerProfileImg : props.sellerProfileImg} className='chat-list-box-imgsource' alt="상점" /> */}
+              {(props.sellerName === myName) ? <img src={props.buyerProfileImg} className='chat-list-box-imgsource' alt="상점" /> : <img src={props.sellerProfileImg} className='chat-list-box-imgsource' alt="상점" />}
             </div>
-            <div className='chatting-opponent-text'>{props.sellerName}</div>
+            <div className='chatting-opponent-text'>{(myName === props.sellerName) ? props.buyerName : props.sellerName}</div>
           </div>
           <div className='chatting-out-button' onClick={() => { exitChatRoom() }}>
             <div className='exit-img' />
@@ -371,18 +391,20 @@ function ChatList() {
                   onClick={() => {
                     setchatID(chat._id);
                     setSellerName(chat.sellerName);
+                    setBuyerName(chat.buyerName);
                     setProductName(chat.productName);
                     setProductPrice(chat.productPrice);
                     setProductFrontPhoto(chat.productFrontPhoto)
                     setProductID(chat.productID)
                     setSellerProfileImg(chat.sellerProfileImg)
+                    setBuyerProfileImg(chat.buyerProfileImg)
                   }}>
                   <div className='chat-list-box-img'>
-                    <img src={chat.sellerProfileImg} className='chat-list-box-imgsource' alt="채팅" />
+                    {(chat.sellerName === myName) ? <img src={chat.buyerProfileImg} className='chat-list-box-imgsource' alt="채팅" /> : <img src={chat.sellerProfileImg} className='chat-list-box-imgsource' alt="채팅" />}
                   </div>
                   <div className='chat-list-box-text'>
                     <div className='chat-list-box-name'>
-                      {chat.sellerName}  ·  {chat.productName}
+                      {(chat.sellerName === myName) ? chat.buyerName : chat.sellerName}  ·  {chat.productName}
                     </div>
                   </div>
                 </div>
@@ -402,7 +424,7 @@ function ChatList() {
         {/* props로 채팅방에 관련 정보 넘기기 */}
         <div className="chat-room">
           {(chatID !== '') ?
-            <ChatRoom chat_id={chatID} sellerName={sellerName} sellerProfileImg={sellerProfileimg} productName={productName} productPrice={productPrice} productFrontPhoto={productFrontPhoto} productID={productID} />
+            <ChatRoom chat_id={chatID} buyerName={buyerName} sellerName={sellerName} buyerProfileImg={buyerProfileImg} sellerProfileImg={sellerProfileImg} productName={productName} productPrice={productPrice} productFrontPhoto={productFrontPhoto} productID={productID} />
             :
             <div className="start-chat-box">
               <img src={'/img/Logo_Square.svg'} style={{ width: '180px', height: '180px', opacity: '50%' }} />
