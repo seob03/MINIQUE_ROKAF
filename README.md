@@ -31,19 +31,20 @@
 6. 콘솔에 뜨는 서버 `ctrl+클릭`으로 서버 주소 클릭<br><br>
 
 ## 기술 스택
-> FrontEnd
+> FrontEnd - 김호준
 - `Javascript`
 - `React.js`
 - `React-Redux`
 - `Figma`
 
 
-> BackEnd
+> BackEnd - 이민섭
 - `Node.js`
 - `Express`
 - `MongoDB`
 - `Socket.IO`
-- `Passport`<br><br>
+- `Passport`
+- `React.js` (React Hook)<br><br>
 
 
 # 기능 소개
