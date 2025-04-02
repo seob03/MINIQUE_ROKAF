@@ -40,11 +40,11 @@
 
 > BackEnd - 이민섭
 - `Node.js`
+- `React.js (React Hook)`
 - `Express`
 - `MongoDB`
 - `Socket.IO`
-- `Passport`
-- `React.js` (React Hook)<br><br>
+- `Passport`<br><br>
 
 
 # 기능 소개
