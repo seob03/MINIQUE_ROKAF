@@ -74,7 +74,7 @@
 <br><br><br>
 
 ## 실시간 읽음 처리 기능 (탭 전환으로 1인 2역)
-![Image](https://github.com/user-attachments/assets/db1141f5-6fb2-4bbb-94bd-5ae2e607fdfa)
+![Image](https://github.com/user-attachments/assets/460ab196-2571-4888-ac2b-1c42fbf3bda0)
 <br><br><br><br>
 
 ## FE 주요 기능  
