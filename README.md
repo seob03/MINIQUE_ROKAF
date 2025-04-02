@@ -40,7 +40,7 @@
 
 > BackEnd - 이민섭
 - `Node.js`
-- `React.js (React Hook)`
+- `React.js`(React Hook In `/FE`)
 - `Express`
 - `MongoDB`
 - `Socket.IO`
