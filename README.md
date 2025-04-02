@@ -40,10 +40,10 @@
 
 > BackEnd
 - `Node.js`
-- `Express.js`
+- `Express`
 - `MongoDB`
 - `Socket.IO`
-- `Passport.js`<br><br>
+- `Passport`<br><br>
 
 
 # 기능 소개
