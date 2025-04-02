@@ -21,6 +21,14 @@
 - 군 조직 특성상 훈련, 휴가, 당직 등으로 인한 유동적 스케줄을 염두에 두고 개발했다.<br><br>
 
 
+## 실행 방법
+1. Nodejs 설치 (LTS v18.20.5)
+2. MongoDB community server 설치
+3. `/BE`와 `/FE` 콘솔에서 `npm i`
+4. `/FE` 콘솔에서 `run run build`
+5. `/BE` 콘솔에서 `node server.js` 또는 `nodemon server.js`
+6. 콘솔에 뜨는 서버 `ctrl+클릭`으로 서버 주소 클릭<br><br>
+
 ## 기술 스택
 > FrontEnd
 - `Javascript`
@@ -41,31 +49,31 @@
 
 ## 회원가입
 ![Image](https://github.com/user-attachments/assets/6527eeaa-e157-46ce-aec3-f7e7023c28f2)
-<br>
+<br><br><br>
 
 ## 로그인
 ![Image](https://github.com/user-attachments/assets/188de43b-74fa-4797-b5c5-02e003cbb19c)
-<br>
+<br><br><br>
 
 ## 이미지 드래그 & 드랍
 ![Image](https://github.com/user-attachments/assets/8abd2c9e-b1ca-48d5-82f2-4d0b77fce6ce)
-<br>
+<br><br><br>
 
 ## 찜 기능
 ![Image](https://github.com/user-attachments/assets/f578afca-0a58-4470-8c63-4459d5d124d1)
-<br>
+<br><br><br>
 
 ## 카테고리 기능
 ![Image](https://github.com/user-attachments/assets/c9b7a85d-759b-4e39-84ec-c8af2d280363)
-<br>
+<br><br><br>
 
 ## 실시간 채팅 기능 및 이미지 첨부
 ![Image](https://github.com/user-attachments/assets/e2b1bc1e-d3be-446f-8645-841907f7e957)
-<br>
+<br><br><br>
 
 ## 실시간 읽음 처리 기능 (탭 전환으로 1인 2역)
 ![Image](https://github.com/user-attachments/assets/db1141f5-6fb2-4bbb-94bd-5ae2e607fdfa)
-<br><br><br>
+<br><br><br><br>
 
 ## FE 주요 기능  
 
@@ -140,6 +148,7 @@
   member: [buyerId, sellerId],
   sellerName: String,
   sellerProfileImg: String,
+  buyerPofileImg: String,
   buyerName: String,
   productName: String,
   productPrice: Number,
@@ -238,4 +247,27 @@
 - MongoDB 세션 스토어 사용
 - 비동기 비밀번호 해싱
 - 세션 데이터베이스 저장
-- 에러 처리 및 로깅
+- 에러 처리 및 로깅 <br><br>
+
+
+## 프로젝트를 진행하면서 아쉬웠던 점
+> BE <br>
+
+#### 군 내 특성상 외부 서버와 연결하는 것이 불가능했던 것
+- MongoDB를 로컬로 돌렸던 것이 생각보다 불편했다.
+- 이미지 변환을 위해 AWS S3를 사용할 수 없어서 BASE64 기반으로 이미지를 변환했다.
+  - 변환된 이미지의 URL이 너무 길어져 더미 데이터가 많아질 수록 서버에 부담이 많이 간 걸로 예상된다. <br><br>
+
+#### 첫 프로젝트라 API 명세서나 DB 스키마를 미리 작성하지 않고 프로젝트를 진행해서 도중에 어려움이 많았다.
+- API 명세서와 DB 스키마등 프로젝트 전에 작성하고 진행하는 이유를 직접 몸으로 느낄 수 있었다.
+
+#### 
+
+
+> FE
+
+
+## 업데이트 예정
+
+
+
