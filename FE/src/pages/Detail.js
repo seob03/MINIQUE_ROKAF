@@ -365,10 +365,25 @@ function Detail() {
             </div>
           </div>
           {
+<<<<<<< HEAD
             (whoamI.id == pageResult.user_id) ? <div /> :
               <div>
                 <Link to={'/store/' + pageResult.user_id} style={{ textDecoration: 'none', color: 'black' }}>
                   <div className="Detail-UserBox">
+=======
+          (whoamI && whoamI.id == pageResult.user_id) ? <div/>:
+          <div>
+            <Link to={'/store/' + pageResult.user_id} style={{ textDecoration: 'none', color: 'black' }}>
+              <div className="Detail-UserBox">
+                <div>
+                  <div className="Detail-UserBox-Username">
+                    {pageResult.username}
+                  </div>
+                  <div className="Detail-UserBox-Userinfo">
+                    <div style={{ color: '#FFBE64', marginRight: '8px' }}>
+                      ★
+                    </div>
+>>>>>>> 651417b705b865e15c6a9e888ff24ae6321c3f38
                     <div>
                       <div className="Detail-UserBox-Username">
                         {pageResult.username}

@@ -264,7 +264,6 @@ function ChatList() {
         <div className="chatting-opponent">
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div className='chatting-opponent-img'>
-              {/* <img src={(me === props.sellerName) ? props.buyerProfileImg : props.sellerProfileImg} className='chat-list-box-imgsource' alt="상점" /> */}
               {(props.sellerName === myName) ? <img src={props.buyerProfileImg} className='chat-list-box-imgsource' alt="상점" /> : <img src={props.sellerProfileImg} className='chat-list-box-imgsource' alt="상점" />}
             </div>
             <div className='chatting-opponent-text'>{(myName === props.sellerName) ? props.buyerName : props.sellerName}</div>
