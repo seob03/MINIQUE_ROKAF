@@ -62,7 +62,7 @@
 <br><br><br>
 
 ## 찜 기능
-![Image](https://github.com/user-attachments/assets/f578afca-0a58-4470-8c63-4459d5d124d1)
+![Image](https://github.com/user-attachments/assets/7bc47a28-4b81-4196-82eb-49673cbfdbf2)
 <br><br><br>
 
 ## 카테고리 기능
